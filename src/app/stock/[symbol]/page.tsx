@@ -133,7 +133,8 @@ export default async function StockPage({
       <div className="flex items-center justify-between">
         <Link
           href="/"
-          className="inline-flex items-center text-sm text-gray-600 hover:text-gray-900 transition-colors"
+          className="inline-flex items-center text-sm transition-colors hover:text-text-primary"
+          style={{ color: '#9CA3AF' }}
         >
           <ArrowLeft className="w-4 h-4 mr-1" />
           Back to Market
@@ -142,18 +143,18 @@ export default async function StockPage({
       </div>
 
       {/* Stock Name and Price */}
-      <div className="bg-white border border-gray-200 rounded-lg p-4">
+      <div className="rounded-lg p-4" style={{ backgroundColor: '#111827', border: '1px solid #273449' }}>
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">{data.stock.name}</h1>
+            <h1 className="text-2xl font-bold" style={{ color: '#E5E7EB' }}>{data.stock.name}</h1>
             <div className="flex items-center gap-3 mt-2">
-              <span className="text-3xl font-bold text-gray-900">
+              <span className="text-3xl font-bold" style={{ color: '#E5E7EB' }}>
                 {data.stock.price.toFixed(2)}
               </span>
               <span
                 className={cn(
                   'text-lg font-semibold',
-                  data.stock.changePct >= 0 ? 'text-up-600' : 'text-down-600'
+                  data.stock.changePct >= 0 ? 'text-signal-up-strong' : 'text-signal-down-strong'
                 )}
               >
                 {data.stock.changePct >= 0 ? '+' : ''}
@@ -162,7 +163,7 @@ export default async function StockPage({
             </div>
           </div>
 
-          <div className="text-sm text-gray-500">
+          <div className="text-sm" style={{ color: '#6B7280' }}>
             <div>Sector: {data.stock.sector || 'N/A'}</div>
             {data.stock.marketCap && (
               <div>Market Cap: {(data.stock.marketCap / 1_000_000_000).toFixed(0)}B THB</div>
@@ -198,14 +199,14 @@ export default async function StockPage({
 
       {/* Next Step */}
       {data.verdict.nextStep && (
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+        <div className="rounded-lg p-4" style={{ backgroundColor: 'rgba(96, 165, 250, 0.1)', border: '1px solid #60A5FA' }}>
           <div className="flex items-start gap-3">
-            <span className="text-blue-600 text-xl">➜</span>
+            <span className="text-xl" style={{ color: '#60A5FA' }}>➜</span>
             <div>
-              <h3 className="font-semibold text-blue-900 mb-1">
+              <h3 className="font-semibold mb-1" style={{ color: '#60A5FA' }}>
                 Next Step
               </h3>
-              <p className="text-sm text-blue-800">
+              <p className="text-sm" style={{ color: '#E5E7EB' }}>
                 {data.verdict.nextStep}
               </p>
             </div>
@@ -214,7 +215,7 @@ export default async function StockPage({
       )}
 
       {/* Data Completeness Disclaimer */}
-      <div className="text-xs text-gray-500 text-center">
+      <div className="text-xs text-center" style={{ color: '#6B7280' }}>
         Analysis based on {data.verdict.dataCompleteness}% data completeness.
         Always verify with additional research before making investment decisions.
       </div>

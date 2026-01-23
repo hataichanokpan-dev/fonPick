@@ -1,6 +1,6 @@
 /**
  * Badge Component
- * Status badges with color variants
+ * Status badges with color variants - Dark Theme
  */
 
 import { cn } from '@/lib/utils'
@@ -12,13 +12,20 @@ export function Badge({
   size = 'md',
   className,
 }: BadgeProps) {
-  const colors = {
-    up: 'bg-up-100 text-up-700',
-    down: 'bg-down-100 text-down-700',
-    neutral: 'bg-neutral-100 text-neutral-700',
-    buy: 'bg-buy-light text-buy-dark',
-    watch: 'bg-watch-light text-watch-dark',
-    avoid: 'bg-avoid-light text-avoid-dark',
+  // Using inline styles for colors to match the spec exactly
+  const getColorStyles = (color: string) => {
+    const colorMap: Record<string, { bg: string; text: string }> = {
+      up: { bg: '#86EFAC', text: '#065F46' }, // up_soft
+      down: { bg: '#FECACA', text: '#991B1F' }, // down_soft
+      neutral: { bg: '#94A3B8', text: '#0F172A' }, // neutral
+      'up-strong': { bg: '#22C55E', text: '#FFFFFF' }, // up_strong
+      'down-strong': { bg: '#EF4444', text: '#FFFFFF' }, // down_strong
+      buy: { bg: '#16A34A', text: '#DCFCE7' }, // buy
+      sell: { bg: '#DC2626', text: '#FEE2E2' }, // sell
+      watch: { bg: '#94A3B8', text: '#0F172A' }, // watch
+      avoid: { bg: '#EF4444', text: '#FFFFFF' }, // avoid
+    }
+    return colorMap[color] || colorMap.neutral
   }
 
   const sizes = {
@@ -27,14 +34,16 @@ export function Badge({
     lg: 'px-4 py-1.5 text-base',
   }
 
+  const styles = getColorStyles(color)
+
   return (
     <span
       className={cn(
         'inline-flex items-center rounded-full font-medium',
-        colors[color],
         sizes[size],
         className
       )}
+      style={{ backgroundColor: styles.bg, color: styles.text }}
     >
       {children}
     </span>

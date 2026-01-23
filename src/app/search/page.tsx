@@ -73,10 +73,10 @@ export default async function SearchPage({
     <div className="max-w-4xl mx-auto space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-gray-900 mb-2">
+        <h1 className="text-2xl font-bold mb-2" style={{ color: '#E5E7EB' }}>
           Search Stocks
         </h1>
-        <p className="text-gray-600">
+        <p style={{ color: '#9CA3AF' }}>
           Find stocks by symbol or company name
         </p>
       </div>
@@ -88,24 +88,27 @@ export default async function SearchPage({
       {query && (
         <div>
           {results.length > 0 ? (
-            <div className="bg-white border border-gray-200 rounded-lg divide-y divide-gray-200">
+            <div className="rounded-lg divide-y" style={{ backgroundColor: '#111827', border: '1px solid #273449' }}>
               {results.map((stock) => (
                 <Link
                   key={stock.symbol}
                   href={`/stock/${stock.symbol}`}
-                  className="block hover:bg-gray-50 transition-colors"
+                  className="block transition-colors"
+                  style={{ borderBottom: '1px solid #273449' }}
+                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#1F2937'}
+                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                 >
                   <div className="p-4 flex items-center justify-between">
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-3">
                         <div>
-                          <div className="font-semibold text-gray-900">
+                          <div className="font-semibold" style={{ color: '#E5E7EB' }}>
                             {stock.symbol}
                           </div>
-                          <div className="text-sm text-gray-500 truncate max-w-md">
+                          <div className="text-sm truncate max-w-md" style={{ color: '#9CA3AF' }}>
                             {stock.name}
                           </div>
-                          <div className="text-xs text-gray-400 mt-1">
+                          <div className="text-xs mt-1" style={{ color: '#6B7280' }}>
                             {stock.sector}
                           </div>
                         </div>
@@ -113,13 +116,13 @@ export default async function SearchPage({
                     </div>
 
                     <div className="text-right ml-4">
-                      <div className="font-semibold text-gray-900">
+                      <div className="font-semibold" style={{ color: '#E5E7EB' }}>
                         {formatNumber(stock.price, 2)}
                       </div>
                       <div
                         className={cn(
                           'text-sm font-medium',
-                          stock.change >= 0 ? 'text-up-600' : 'text-down-600'
+                          stock.change >= 0 ? 'text-signal-up-strong' : 'text-signal-down-strong'
                         )}
                       >
                         {stock.change >= 0 ? '+' : ''}
@@ -132,7 +135,7 @@ export default async function SearchPage({
             </div>
           ) : (
             <div className="text-center py-12">
-              <div className="text-gray-400 mb-2">
+              <div className="mb-2" style={{ color: '#6B7280' }}>
                 <svg
                   className="w-12 h-12 mx-auto"
                   fill="none"
@@ -147,8 +150,8 @@ export default async function SearchPage({
                   />
                 </svg>
               </div>
-              <p className="text-gray-600 font-medium">No stocks found</p>
-              <p className="text-sm text-gray-500 mt-1">
+              <p className="font-medium" style={{ color: '#9CA3AF' }}>No stocks found</p>
+              <p className="text-sm mt-1" style={{ color: '#6B7280' }}>
                 Try a different search term
               </p>
             </div>
@@ -159,7 +162,7 @@ export default async function SearchPage({
       {/* No search state */}
       {!query && (
         <div className="text-center py-12">
-          <div className="text-gray-400 mb-4">
+          <div className="mb-4" style={{ color: '#6B7280' }}>
             <svg
               className="w-16 h-16 mx-auto"
               fill="none"
@@ -174,10 +177,10 @@ export default async function SearchPage({
               />
             </svg>
           </div>
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">
+          <h3 className="text-lg font-semibold mb-2" style={{ color: '#E5E7EB' }}>
             Search for stocks
           </h3>
-          <p className="text-gray-600 max-w-md mx-auto">
+          <p className="max-w-md mx-auto" style={{ color: '#9CA3AF' }}>
             Enter a stock symbol (e.g., PTT, KBANK) or company name to see
             detailed analysis and investment recommendations.
           </p>

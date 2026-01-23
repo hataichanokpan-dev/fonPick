@@ -14,7 +14,7 @@ interface VerdictBulletsProps {
 export function VerdictBullets({ bullets }: VerdictBulletsProps) {
   return (
     <Card>
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">
+      <h3 className="text-lg font-semibold mb-4" style={{ color: '#E5E7EB' }}>
         Investment Rationale
       </h3>
 
@@ -23,14 +23,14 @@ export function VerdictBullets({ bullets }: VerdictBulletsProps) {
         {bullets.strengths.length > 0 && (
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <Check className="w-4 h-4 text-buy-DEFAULT" />
-              <h4 className="font-medium text-gray-700">Strengths</h4>
+              <Check className="w-4 h-4" style={{ color: '#16A34A' }} />
+              <h4 className="font-medium" style={{ color: '#E5E7EB' }}>Strengths</h4>
             </div>
             <ul className="space-y-1.5 pl-6">
               {bullets.strengths.map((strength, index) => (
                 <li key={index} className="flex items-start gap-2">
-                  <span className="text-buy-DEFAULT mt-0.5">✓</span>
-                  <span className="text-sm text-gray-700">{strength}</span>
+                  <span className="mt-0.5" style={{ color: '#16A34A' }}>✓</span>
+                  <span className="text-sm" style={{ color: '#E5E7EB' }}>{strength}</span>
                 </li>
               ))}
             </ul>
@@ -41,14 +41,14 @@ export function VerdictBullets({ bullets }: VerdictBulletsProps) {
         {bullets.warnings.length > 0 && (
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <AlertTriangle className="w-4 h-4 text-watch-DEFAULT" />
-              <h4 className="font-medium text-gray-700">What to Watch</h4>
+              <AlertTriangle className="w-4 h-4" style={{ color: '#F59E0B' }} />
+              <h4 className="font-medium" style={{ color: '#E5E7EB' }}>What to Watch</h4>
             </div>
             <ul className="space-y-1.5 pl-6">
               {bullets.warnings.map((warning, index) => (
                 <li key={index} className="flex items-start gap-2">
-                  <span className="text-watch-DEFAULT mt-0.5">⚠</span>
-                  <span className="text-sm text-gray-700">{warning}</span>
+                  <span className="mt-0.5" style={{ color: '#F59E0B' }}>⚠</span>
+                  <span className="text-sm" style={{ color: '#E5E7EB' }}>{warning}</span>
                 </li>
               ))}
             </ul>
@@ -59,11 +59,11 @@ export function VerdictBullets({ bullets }: VerdictBulletsProps) {
         {bullets.marketFit && (
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <Compass className="w-4 h-4 text-blue-600" />
-              <h4 className="font-medium text-gray-700">Market Fit</h4>
+              <Compass className="w-4 h-4" style={{ color: '#60A5FA' }} />
+              <h4 className="font-medium" style={{ color: '#E5E7EB' }}>Market Fit</h4>
             </div>
             <div className="pl-6">
-              <p className="text-sm text-gray-700">{bullets.marketFit}</p>
+              <p className="text-sm" style={{ color: '#E5E7EB' }}>{bullets.marketFit}</p>
             </div>
           </div>
         )}

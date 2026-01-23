@@ -22,10 +22,11 @@ export function LoadingSkeleton({
   return (
     <div
       className={cn(
-        'animate-pulse bg-gray-200',
+        'animate-pulse',
         variants[variant],
         className
       )}
+      style={{ backgroundColor: '#1F2937' }}
       aria-hidden="true"
     />
   )
@@ -36,7 +37,7 @@ export function LoadingSkeleton({
  */
 export function CardSkeleton({ lines = 3 }: { lines?: number }) {
   return (
-    <div className="bg-white border border-gray-200 rounded-lg p-4 space-y-3">
+    <div className="rounded-lg p-4 space-y-3" style={{ backgroundColor: '#111827', border: '1px solid #273449' }}>
       <LoadingSkeleton className="h-5 w-3/4" variant="text" />
       {Array.from({ length: lines }).map((_, i) => (
         <LoadingSkeleton

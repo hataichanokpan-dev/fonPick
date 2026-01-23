@@ -1,98 +1,319 @@
 /**
- * Global styles for fonPick
+ * Global styles for fonPick - Thai Stock Market Application
+ *
+ * Design System: Dark-themed financial data visualization
+ * Color Palette: Optimized for contrast and accessibility
  */
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ==================================================================
+   CSS CUSTOM PROPERTIES (Design Tokens)
+   ================================================================== */
 @layer base {
   :root {
-    /* Base colors */
-    --color-up-50: #f0fdf4;
-    --color-up-100: #dcfce7;
-    --color-up-500: #22c55e;
-    --color-up-600: #16a34a;
-    --color-up-700: #15803d;
+    /* Base Colors - Background and Surface */
+    --base-background: #0F172A;
+    --base-surface: #111827;
+    --base-surface-alt: #1F2937;
+    --base-border: #273449;
 
-    --color-down-50: #fef2f2;
-    --color-down-100: #fee2e2;
-    --color-down-500: #ef4444;
-    --color-down-600: #dc2626;
-    --color-down-700: #b91c1c;
+    /* Text Colors */
+    --text-primary: #E5E7EB;
+    --text-secondary: #9CA3AF;
+    --text-muted: #6B7280;
+    --text-inverse: #020617;
 
-    --color-neutral-50: #f9fafb;
-    --color-neutral-100: #f3f4f6;
-    --color-neutral-500: #6b7280;
-    --color-neutral-700: #374151;
-    --color-neutral-900: #111827;
+    /* Signal Colors - Price Movement */
+    --signal-up-strong: #22C55E;
+    --signal-up-soft: #86EFAC;
+    --signal-down-soft: #FECACA;
+    --signal-down-strong: #EF4444;
+    --signal-neutral: #94A3B8;
+
+    /* Flow Colors - Buy/Sell Indicators */
+    --flow-buy: #16A34A;
+    --flow-sell: #DC2626;
+    --flow-neutral-bg: #1F2937;
+    --flow-opacity: 0.7;
+
+    /* Highlight Colors - Insights, Warnings, Info */
+    --highlight-insight: #F59E0B;
+    --highlight-warning: #FB7185;
+    --highlight-info: #60A5FA;
+
+    /* Spacing Scale */
+    --space-xs: 0.25rem;
+    --space-sm: 0.5rem;
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    --space-xl: 2rem;
+    --space-2xl: 3rem;
+
+    /* Border Radius */
+    --radius-sm: 0.375rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+    --radius-xl: 1rem;
+    --radius-2xl: 1.5rem;
+
+    /* Transitions */
+    --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-normal: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Z-Index Scale */
+    --z-dropdown: 1000;
+    --z-sticky: 1020;
+    --z-fixed: 1030;
+    --z-modal-backdrop: 1040;
+    --z-modal: 1050;
+    --z-popover: 1060;
+    --z-tooltip: 1070;
+  }
+
+  /* Dark mode is the default */
+  .dark {
+    color-scheme: dark;
+  }
+
+  * {
+    border-color: var(--base-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   body {
-    @apply bg-gray-50 text-gray-900;
+    background-color: var(--base-background);
+    color: var(--text-primary);
     font-feature-settings: 'rlig' 1, 'calt' 1;
+    font-variant-ligatures: common-ligatures;
   }
 
-  /* Smooth scrolling */
-  html {
-    scroll-behavior: smooth;
-  }
-
-  /* Better focus styles */
+  /* Improved focus styles for accessibility */
   *:focus-visible {
-    @apply outline-none ring-2 ring-blue-500 ring-offset-2;
+    outline: none;
+    ring: 2px solid var(--highlight-info);
+    ring-offset: 2px;
+    ring-offset-color: var(--base-background);
+  }
+
+  /* Thai text rendering optimization */
+  [lang='th'] {
+    line-height: 1.6;
+  }
+
+  /* Selection styling */
+  ::selection {
+    background-color: var(--highlight-insight);
+    color: var(--text-inverse);
+  }
+
+  ::-moz-selection {
+    background-color: var(--highlight-insight);
+    color: var(--text-inverse);
   }
 }
 
+/* ==================================================================
+   COMPONENT STYLES (simplified to avoid @apply issues)
+   ================================================================== */
 @layer components {
-  /* Custom scrollbar */
-  .custom-scrollbar::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+  /* Card Component */
+  .card {
+    background-color: var(--base-surface);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--base-border);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+    transition: all 200ms;
   }
 
-  .custom-scrollbar::-webkit-scrollbar-track {
-    @apply bg-gray-100;
+  .card-hover:hover {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    transform: translateY(-0.125rem);
   }
 
-  .custom-scrollbar::-webkit-scrollbar-thumb {
-    @apply bg-gray-300 rounded-full;
+  .card-interactive {
+    cursor: pointer;
   }
 
-  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    @apply bg-gray-400;
+  .card-interactive:hover {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    transform: translateY(-0.125rem);
   }
 
-  /* Shimmer loading animation */
-  .shimmer {
-    animation: shimmer 1.5s infinite;
-    background: linear-gradient(
-      to right,
-      #f3f4f6 0%,
-      #e5e7eb 20%,
-      #f3f4f6 40%,
-      #f3f4f6 100%
-    );
-    background-size: 1000px 100%;
+  /* Stock Card */
+  .stock-card {
+    padding: 1rem;
   }
 
-  @keyframes shimmer {
-    0% {
-      background-position: -1000px 0;
-    }
-    100% {
-      background-position: 1000px 0;
-    }
+  .stock-card-up {
+    border-left: 4px solid var(--signal-up-strong);
+  }
+
+  .stock-card-down {
+    border-left: 4px solid var(--signal-down-strong);
+  }
+
+  /* Price Display */
+  .price {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .price-up {
+    color: var(--signal-up-strong);
+  }
+
+  .price-down {
+    color: var(--signal-down-strong);
+  }
+
+  .price-neutral {
+    color: var(--signal-neutral);
+  }
+
+  /* Badge Component */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.375rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  /* Button Component */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    font-size: 0.875rem;
+    transition: all 200ms;
+  }
+
+  .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* Input Component */
+  .input {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    background-color: var(--base-surface);
+    border: 1px solid var(--base-border);
+    border-radius: 0.5rem;
+    color: var(--text-primary);
+    transition: all 200ms;
+  }
+
+  .input::placeholder {
+    color: var(--text-muted);
+  }
+
+  .input:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* Table Component */
+  .table-container {
+    overflow-x: auto;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--base-border);
+  }
+
+  .table {
+    width: 100%;
+    text-align: left;
+  }
+
+  .table th,
+  .table td {
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    color: var(--text-primary);
+  }
+
+  .table thead th {
+    background-color: var(--base-surface-alt);
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary);
+  }
+
+  .table tbody tr {
+    border-bottom: 1px solid var(--base-border);
+  }
+
+  .table tbody tr:hover {
+    background-color: var(--base-surface-alt);
+  }
+
+  /* Tooltip */
+  .tooltip {
+    position: absolute;
+    z-index: 1070;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    color: var(--text-inverse);
+    background-color: var(--base-surface-alt);
+    border: 1px solid var(--base-border);
+    border-radius: 0.375rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+    white-space: nowrap;
+  }
+
+  /* Divider */
+  .divider {
+    border-top: 1px solid var(--base-border);
+  }
+
+  .divider-vertical {
+    border-left: 1px solid var(--base-border);
+  }
+
+  /* Skeleton Loading */
+  .skeleton {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    background-color: var(--base-surface-alt);
+    border-radius: 0.375rem;
+  }
+
+  .skeleton-text {
+    height: 1rem;
+    width: 75%;
+  }
+
+  .skeleton-circle {
+    border-radius: 9999px;
   }
 }
 
+/* ==================================================================
+   UTILITY CLASSES
+   ================================================================== */
 @layer utilities {
-  /* Text balance for headings */
+  /* Text balance for better typography */
   .text-balance {
     text-wrap: balance;
   }
 
-  /* Safe area insets for mobile */
+  /* Safe area insets for mobile devices */
   .safe-top {
     padding-top: env(safe-area-inset-top);
   }
@@ -107,5 +328,135 @@
 
   .safe-right {
     padding-right: env(safe-area-inset-right);
+  }
+
+  /* Custom scrollbar for webkit browsers */
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: var(--base-border) var(--base-surface);
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background-color: var(--base-surface);
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: var(--base-border);
+    border-radius: 9999px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: var(--text-muted);
+  }
+
+  /* Glass morphism effect */
+  .glass {
+    background-color: rgba(17, 24, 39, 0.7);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(39, 52, 73, 0.5);
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    background-image: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
+  }
+
+  /* Truncate with ellipsis */
+  .truncate-2-lines {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .truncate-3-lines {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Hide scrollbar but keep functionality */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Aspect ratio utilities */
+  .aspect-square {
+    aspect-ratio: 1 / 1;
+  }
+
+  .aspect-video {
+    aspect-ratio: 16 / 9;
+  }
+
+  .aspect-portrait {
+    aspect-ratio: 3 / 4;
+  }
+
+  /* Print styles */
+  @media print {
+    .no-print {
+      display: none !important;
+    }
+
+    .print-only {
+      display: block !important;
+    }
+  }
+}
+
+/* ==================================================================
+   ANIMATIONS
+   ================================================================== */
+@keyframes priceUp {
+  0%, 100% {
+    background-color: transparent;
+  }
+  50% {
+    background-color: rgba(34, 197, 94, 0.2);
+  }
+}
+
+@keyframes priceDown {
+  0%, 100% {
+    background-color: transparent;
+  }
+  50% {
+    background-color: rgba(239, 68, 68, 0.2);
+  }
+}
+
+/* ==================================================================
+   ACCESSIBILITY
+   ================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --base-border: #4B5563;
+    --text-secondary: #D1D5DB;
   }
 }

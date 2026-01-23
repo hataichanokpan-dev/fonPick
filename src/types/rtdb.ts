@@ -164,15 +164,54 @@ export interface RTDBNVDRDEntry {
 }
 
 // ============================================================================
+// SET INDEX HISTORY (/settrade/setIndex/byDate/{date})
+// ============================================================================
+
+export interface RTDBSetIndexData {
+  close: number
+  open: number
+  high: number
+  low: number
+  volume: number
+  adjClose: number
+  change: number
+  changePercent: number
+}
+
+export interface RTDBSetIndexMeta {
+  capturedAt: string
+  schemaVersion: number
+  source: 'yahoo-finance'
+}
+
+export interface RTDBSetIndexEntry {
+  date: string
+  data: RTDBSetIndexData
+  meta: RTDBSetIndexMeta
+}
+
+// Simplified for app use
+export interface RTDBSetIndex {
+  date: string
+  index: number
+  change: number
+  changePercent: number
+  high: number
+  low: number
+  volume: number
+  timestamp: number
+}
+
+// ============================================================================
 // TOP RANKINGS (Derived from sector/stock data)
 // ============================================================================
 
 export interface RTDBTopStock {
   symbol: string
   name?: string
-  price: number
-  change: number
-  changePct: number
+  price?: number
+  change?: number
+  changePct?: number
   volume?: number
   value?: number
 }
@@ -182,6 +221,45 @@ export interface RTDBTopRankings {
   topLosers: RTDBTopStock[]
   topVolume: RTDBTopStock[]
   topValue: RTDBTopStock[]
+  timestamp: number
+}
+
+// ============================================================================
+// ENHANCED TOP RANKINGS (Professional-grade display data)
+// ============================================================================
+
+/**
+ * Enhanced top stock data with additional professional fields
+ * Extends RTDBTopStock with sector, market cap, volume metrics,
+ * valuation data, and cross-ranking indicators
+ */
+export interface RTDBTopStockEnhanced extends RTDBTopStock {
+  // Additional professional fields
+  sectorCode?: string // 3-4 letter code: 'FIN', 'ENER', 'TECH', 'AGRI', 'PROP'
+  marketCapGroup?: 'L' | 'M' | 'S' // Large/Mid/Small cap
+  volumeRatio?: number // vs 30-day average (e.g., 2.5x, 0.8x)
+  pe?: number // P/E ratio for valuation context
+  week52Position?: number // 0-100 position within 52-week range
+  foreignNet?: number // NVDR foreign net flow (Million THB)
+
+  // Cross-ranking indicators
+  rankings?: {
+    gainer?: number // Rank in top gainers (1-10)
+    loser?: number // Rank in top losers (1-10)
+    volume?: number // Rank in top volume (1-10)
+    value?: number // Rank in top value (1-10)
+  }
+}
+
+/**
+ * Enhanced top rankings with cross-ranking detection
+ * All stock entries include their rankings across all categories
+ */
+export interface RTDBTopRankingsEnhanced {
+  topGainers: RTDBTopStockEnhanced[]
+  topLosers: RTDBTopStockEnhanced[]
+  topVolume: RTDBTopStockEnhanced[]
+  topValue: RTDBTopStockEnhanced[]
   timestamp: number
 }
 

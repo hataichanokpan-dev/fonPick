@@ -57,12 +57,12 @@ export function DecisionHeader({ verdict, confidence, symbol }: DecisionHeaderPr
 
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="text-2xl font-bold text-gray-900">{symbol}</h1>
+              <h1 className="text-2xl font-bold" style={{ color: '#E5E7EB' }}>{symbol}</h1>
               <Badge color={config.color} size="lg" className="font-bold">
                 {config.label}
               </Badge>
             </div>
-            <p className="text-sm text-gray-600 mt-1">
+            <p className="text-sm mt-1" style={{ color: '#9CA3AF' }}>
               Confidence:{' '}
               <span className="font-semibold">{confidence} ({confidencePercent}%)</span>
             </p>
@@ -71,14 +71,14 @@ export function DecisionHeader({ verdict, confidence, symbol }: DecisionHeaderPr
 
         {/* Confidence meter */}
         <div className="flex items-center gap-3">
-          <span className="text-sm text-gray-600">Confidence Level</span>
-          <div className="w-32 h-2 bg-gray-200 rounded-full overflow-hidden">
+          <span className="text-sm" style={{ color: '#9CA3AF' }}>Confidence Level</span>
+          <div className="w-32 h-2 rounded-full overflow-hidden" style={{ backgroundColor: '#1F2937' }}>
             <div
               className={cn(
                 'h-full rounded-full transition-all duration-500',
-                verdict === 'Buy' && 'bg-buy-DEFAULT',
-                verdict === 'Watch' && 'bg-watch-DEFAULT',
-                verdict === 'Avoid' && 'bg-avoid-DEFAULT'
+                verdict === 'Buy' && 'bg-flow-buy',
+                verdict === 'Watch' && 'bg-highlight-insight',
+                verdict === 'Avoid' && 'bg-flow-sell'
               )}
               style={{ width: `${confidencePercent}%` }}
             />

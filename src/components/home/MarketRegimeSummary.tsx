@@ -1,6 +1,6 @@
 /**
  * MarketRegimeSummary Component
- * Displays market regime (Risk-On/Neutral/Risk-Off) with confidence and reasons
+ * Displays market regime (Risk-On/Neutral/Risk-Off) with confidence and reasons - Dark Theme
  */
 
 import { Card, Badge } from '@/components/shared'
@@ -9,6 +9,10 @@ import type { RegimeResult } from '@/types'
 
 interface MarketRegimeSummaryProps {
   regime: RegimeResult
+}
+
+function cn(...classes: (string | boolean | undefined)[]) {
+  return classes.filter(Boolean).join(' ')
 }
 
 export function MarketRegimeSummary({ regime }: MarketRegimeSummaryProps) {
@@ -28,11 +32,11 @@ export function MarketRegimeSummary({ regime }: MarketRegimeSummaryProps) {
   const getRegimeIcon = (regime: string) => {
     switch (regime) {
       case 'Risk-On':
-        return <ShieldCheck className="w-5 h-5 text-buy-DEFAULT" />
+        return <ShieldCheck className="w-5 h-5" style={{ color: '#16A34A' }} />
       case 'Risk-Off':
-        return <ShieldAlert className="w-5 h-5 text-avoid-DEFAULT" />
+        return <ShieldAlert className="w-5 h-5" style={{ color: '#EF4444' }} />
       case 'Neutral':
-        return <Shield className="w-5 h-5 text-watch-DEFAULT" />
+        return <Shield className="w-5 h-5" style={{ color: '#9CA3AF' }} />
     }
   }
 
@@ -49,6 +53,9 @@ export function MarketRegimeSummary({ regime }: MarketRegimeSummaryProps) {
                 ? 'bg-current'
                 : 'bg-gray-300'
             )}
+            style={{
+              backgroundColor: i < level ? '#9CA3AF' : '#374151',
+            }}
           />
         ))}
       </div>
@@ -61,14 +68,14 @@ export function MarketRegimeSummary({ regime }: MarketRegimeSummaryProps) {
         <div className="flex items-center gap-3">
           {getRegimeIcon(regime.regime)}
           <div>
-            <h3 className="text-lg font-semibold text-gray-900">
+            <h3 className="text-lg font-semibold" style={{ color: '#E5E7EB' }}>
               Market Regime
             </h3>
             <div className="flex items-center gap-2 mt-1">
               <Badge color={getRegimeColor(regime.regime)} size="lg">
                 {regime.regime}
               </Badge>
-              <span className="text-sm text-gray-600">
+              <span className="text-sm" style={{ color: '#9CA3AF' }}>
                 Confidence: {regime.confidence}
               </span>
               {getConfidenceDots(regime.confidence)}
@@ -81,42 +88,38 @@ export function MarketRegimeSummary({ regime }: MarketRegimeSummaryProps) {
       <div className="space-y-2 mb-4">
         {regime.reasons.map((reason, index) => (
           <div key={index} className="flex items-start gap-2">
-            <span className="text-gray-400 mt-0.5">•</span>
-            <p className="text-sm text-gray-700">{reason}</p>
+            <span style={{ color: '#6B7280' }} className="mt-0.5">•</span>
+            <p className="text-sm" style={{ color: '#9CA3AF' }}>{reason}</p>
           </div>
         ))}
       </div>
 
       {/* Focus and Caution */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-4 border-t border-gray-200">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-4" style={{ borderTop: '1px solid #273449' }}>
         {regime.focus && (
           <div className="flex items-start gap-2">
-            <span className="text-buy-DEFAULT mt-0.5">▸</span>
+            <span className="mt-0.5" style={{ color: '#16A34A' }}>▸</span>
             <div>
-              <span className="text-xs font-medium text-gray-500 uppercase">
+              <span className="text-xs font-medium uppercase" style={{ color: '#6B7280' }}>
                 Focus
               </span>
-              <p className="text-sm text-gray-700">{regime.focus}</p>
+              <p className="text-sm" style={{ color: '#9CA3AF' }}>{regime.focus}</p>
             </div>
           </div>
         )}
 
         {regime.caution && (
           <div className="flex items-start gap-2">
-            <span className="text-avoid-DEFAULT mt-0.5">▸</span>
+            <span className="mt-0.5" style={{ color: '#EF4444' }}>▸</span>
             <div>
-              <span className="text-xs font-medium text-gray-500 uppercase">
+              <span className="text-xs font-medium uppercase" style={{ color: '#6B7280' }}>
                 Caution
               </span>
-              <p className="text-sm text-gray-700">{regime.caution}</p>
+              <p className="text-sm" style={{ color: '#9CA3AF' }}>{regime.caution}</p>
             </div>
           </div>
         )}
       </div>
     </Card>
   )
-}
-
-function cn(...classes: (string | boolean | undefined)[]) {
-  return classes.filter(Boolean).join(' ')
 }

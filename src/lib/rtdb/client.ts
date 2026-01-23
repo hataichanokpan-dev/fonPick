@@ -54,7 +54,21 @@ export async function rtdbGet<T>(path: string): Promise<T | null> {
 
     return null
   } catch (error) {
+    // Handle permission denied errors gracefully - return null instead of throwing
+    // This allows optional data sources (like rankings) to fail silently
     if (error instanceof Error) {
+      const errorMessage = error.message || ''
+      // Check for permission denied or unauthorized errors
+      if (
+        errorMessage.includes('Permission denied') ||
+        errorMessage.includes('Unauthorized') ||
+        errorMessage.includes('401') ||
+        errorMessage.includes('403')
+      ) {
+        console.warn(`RTDB permission denied for path: ${path}`)
+        return null
+      }
+
       throw new RTDBError(
         `Failed to fetch from RTDB: ${error.message}`,
         'FETCH_ERROR',

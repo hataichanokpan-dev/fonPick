@@ -1,6 +1,6 @@
 /**
  * ErrorFallback Component
- * Error display with optional retry action
+ * Error display with optional retry action - Dark Theme
  *
  * Client Component - handles interactivity
  */
@@ -30,17 +30,23 @@ export function ErrorFallback({
   }
 
   return (
-    <div className="bg-red-50 border border-red-200 rounded-lg p-6">
+    <div className="rounded-lg p-6" style={{ backgroundColor: 'rgba(239, 68, 68, 0.1)', border: '1px solid #EF4444' }}>
       <div className="flex items-start">
-        <AlertCircle className="w-6 h-6 text-red-600 flex-shrink-0 mt-0.5" />
+        <AlertCircle className="w-6 h-6 flex-shrink-0 mt-0.5" style={{ color: '#EF4444' }} />
         <div className="ml-3 flex-1">
-          <h3 className="text-sm font-medium text-red-800">{title}</h3>
-          <p className="mt-1 text-sm text-red-700">{message}</p>
+          <h3 className="text-sm font-medium" style={{ color: '#FCA5A5' }}>{title}</h3>
+          <p className="mt-1 text-sm" style={{ color: '#FECACA' }}>{message}</p>
           <div className="mt-4">
             <button
               type="button"
               onClick={handleRetry}
-              className="inline-flex items-center px-3 py-2 text-sm font-medium text-red-700 bg-red-100 rounded-md hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+              className="inline-flex items-center px-3 py-2 text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2"
+              style={{
+                color: '#FCA5A5',
+                backgroundColor: 'rgba(239, 68, 68, 0.2)',
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(239, 68, 68, 0.3)'}
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'rgba(239, 68, 68, 0.2)'}
             >
               Try again
             </button>

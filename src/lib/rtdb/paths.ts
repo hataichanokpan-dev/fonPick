@@ -20,10 +20,15 @@
  *   │       └── {YYYY-MM-DD}/
  *   │           ├── rows: { AGRI, AGRO, AUTO, BANK, ... }
  *   │           └── meta: { capturedAt, schemaVersion, source }
- *   └── nvdr/
+ *   ├── nvdr/
+ *   │   └── byDate/
+ *   │       └── {YYYY-MM-DD}/
+ *   │           ├── data: { stocks: { symbol: { b, m, n, r, s, t } } }
+ *   │           └── meta: { capturedAt, schemaVersion, source }
+ *   └── topRankings/
  *       └── byDate/
  *           └── {YYYY-MM-DD}/
- *               ├── data: { stocks: { symbol: { b, m, n, r, s, t } } }
+ *               ├── data: { topGainers, topLosers, topVolume, topValue }
  *               └── meta: { capturedAt, schemaVersion, source }
  */
 
@@ -82,6 +87,19 @@ export const RTDB_PATHS = {
 
   // Meta paths
   META: `${SETTRADE_BASE}/meta`,
+
+  // Yahoo Finance SET Index History paths
+  SET_INDEX_BASE: `${SETTRADE_BASE}/setIndex`,
+  SET_INDEX_BY_DATE: (date: string) => `${SETTRADE_BASE}/setIndex/byDate/${date}`,
+  SET_INDEX_LATEST: `${SETTRADE_BASE}/setIndex/byDate/${getTodayDate()}`,
+  SET_INDEX_DATES: `${SETTRADE_BASE}/setIndex/_dates`,
+  SET_INDEX_META: `${SETTRADE_BASE}/setIndex/_meta`,
+
+  // Top Rankings paths (when available)
+  RANKINGS_BASE: `${SETTRADE_BASE}/topRankings`,
+  RANKINGS_BY_DATE: (date: string) => `${SETTRADE_BASE}/topRankings/byDate/${date}`,
+  RANKINGS_LATEST: `${SETTRADE_BASE}/topRankings/byDate/${getTodayDate()}`,
+  RANKINGS_PREVIOUS: `${SETTRADE_BASE}/topRankings/byDate/${getDateDaysAgo(1)}`,
 } as const
 
 /**

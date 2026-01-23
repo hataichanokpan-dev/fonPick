@@ -63,10 +63,10 @@ export function EvidenceCards({
 
   return (
     <Card>
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">
+      <h3 className="text-lg font-semibold mb-4" style={{ color: '#E5E7EB' }}>
         Key Metrics
         {sector && (
-          <span className="text-sm font-normal text-gray-500 ml-2">
+          <span className="text-sm font-normal ml-2" style={{ color: '#9CA3AF' }}>
             vs {sector} sector
           </span>
         )}
@@ -84,17 +84,18 @@ export function EvidenceCards({
           return (
             <div
               key={metric.label}
-              className="bg-gray-50 rounded-lg p-4 border border-gray-200"
+              className="rounded-lg p-4"
+              style={{ backgroundColor: '#1F2937', border: '1px solid #273449' }}
             >
-              <div className="text-sm text-gray-500 mb-1">{metric.label}</div>
-              <div className="text-2xl font-bold text-gray-900">
+              <div className="text-sm mb-1" style={{ color: '#6B7280' }}>{metric.label}</div>
+              <div className="text-2xl font-bold" style={{ color: '#E5E7EB' }}>
                 {metric.format(metric.value)}
               </div>
               {metric.average !== undefined && (
                 <div
                   className={cn(
                     'text-xs mt-1',
-                    isBetter ? 'text-up-600' : 'text-down-600'
+                    isBetter ? 'text-signal-up-strong' : 'text-signal-down-strong'
                   )}
                 >
                   Sector: {metric.format(metric.average)}
@@ -108,20 +109,23 @@ export function EvidenceCards({
 
       {/* Peer Comparison */}
       {peers && peers.length > 0 && (
-        <div className="mt-6 pt-6 border-t border-gray-200">
-          <h4 className="font-medium text-gray-700 mb-3">Peer Comparison</h4>
+        <div className="mt-6 pt-6" style={{ borderTop: '1px solid #273449' }}>
+          <h4 className="font-medium mb-3" style={{ color: '#E5E7EB' }}>Peer Comparison</h4>
           <div className="space-y-2">
             {peers.map((peer) => (
               <Link
                 key={peer.symbol}
                 href={`/stock/${peer.symbol}`}
-                className="flex items-center justify-between p-3 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors"
+                className="flex items-center justify-between p-3 rounded-lg transition-colors"
+                style={{ backgroundColor: '#1F2937' }}
+                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#273449'}
+                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#1F2937'}
               >
                 <div>
-                  <div className="font-medium text-gray-900">
+                  <div className="font-medium" style={{ color: '#E5E7EB' }}>
                     {peer.symbol}
                   </div>
-                  <div className="text-xs text-gray-500 truncate max-w-[200px]">
+                  <div className="text-xs truncate max-w-[200px]" style={{ color: '#6B7280' }}>
                     {peer.name}
                   </div>
                 </div>

@@ -93,3 +93,20 @@ export function getValueArrow(value: number): string {
   if (value < 0) return '▼'
   return '▬'
 }
+
+/**
+ * Format trading value to readable string (in Thai Baht)
+ */
+export function formatTradingValue(value: number): string {
+  if (isNaN(value)) return 'N/A'
+
+  const billions = value / 1_000_000_000
+  const millions = value / 1_000_000
+
+  if (billions >= 1) {
+    return `฿${billions.toFixed(2)}B`
+  } else if (millions >= 1) {
+    return `฿${millions.toFixed(2)}M`
+  }
+  return `฿${formatNumber(value, 0)}`
+}

@@ -1,0 +1,83 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+
+    "settrade": {
+      ".read": false,
+      ".write": false,
+
+      "marketOverview": {
+        ".read": true,
+        ".write": false,
+        ".validate": "newData.hasChildren(['set', 'totalMarketCap'])"
+      },
+
+      "investorType": {
+        ".read": true,
+        ".write": false
+      },
+
+      "industrySector": {
+        ".read": true,
+        ".write": false
+      },
+
+      "rankings": {
+        ".read": true,
+        ".write": false,
+        "byDate": {
+          "$date": {
+            ".read": true,
+            ".write": false,
+            "data": {
+              "topGainers": {
+                ".validate": "newData.isArray() || newData.isNull()"
+              },
+              "topLosers": {
+                ".validate": "newData.isArray() || newData.isNull()"
+              },
+              "topVolume": {
+                ".validate": "newData.isArray() || newData.isNull()"
+              },
+              "topValue": {
+                ".validate": "newData.isArray() || newData.isNull()"
+              }
+            },
+            "meta": {
+              "capturedAt": {
+                ".validate": "newData.isString()"
+              },
+              "schemaVersion": {
+                ".validate": "newData.isNumber()"
+              },
+              "source": {
+                ".validate": "newData.isString()"
+              }
+            }
+          }
+        }
+      },
+
+      "nvdr": {
+        ".read": true,
+        ".write": false
+      },
+
+      "stocks": {
+        ".read": true,
+        ".write": false
+      },
+
+      "setIndex": {
+        ".read": true,
+        ".write": false
+      },
+
+      "meta": {
+        ".read": true,
+        ".write": false
+      }
+    }
+  }
+}

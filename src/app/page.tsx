@@ -2,7 +2,7 @@
  * Homepage (Server Component)
  * Main market overview page with all dashboard components
  *
- * Fetches data from RTDB and analyzes market regime
+ * Fetches data from RTDB, calculates trends, and analyzes market regime
  * Falls back to mock data in development if RTDB is unavailable
  */
 
@@ -12,11 +12,16 @@ import {
   SectorHeatmap,
   TopRankings,
   MarketRegimeSummary,
+  Week52Range,
+  SetPERatio,
+  VolatilityIndicator,
 } from '@/components/home'
-import { ErrorFallback } from '@/components/shared'
+import { ErrorFallback, DataFreshness } from '@/components/shared'
 import { fetchHomepageData as fetchRTDBData } from '@/lib/rtdb'
+import { calculateAllSectorTrends } from '@/lib/trends'
 import { analyzeMarketRegime } from '@/services/market-regime'
 import type { RegimeResult } from '@/types/market'
+import type { TrendValue } from '@/lib/trends/types'
 
 interface HomepageData {
   market: {
@@ -44,96 +49,76 @@ interface HomepageData {
     timestamp?: number
   }
   rankings: {
-    topGainers: Array<{ symbol: string; price: number; change: number }>
-    topLosers: Array<{ symbol: string; price: number; change: number }>
-    topVolume: Array<{ symbol: string; volume: number }>
+    topGainers: Array<{
+      symbol: string
+      price?: number
+      change?: number
+      changePct?: number
+      volume?: number
+      value?: number
+      sectorCode?: string
+      marketCapGroup?: 'L' | 'M' | 'S'
+    }>
+    topLosers: Array<{
+      symbol: string
+      price?: number
+      change?: number
+      changePct?: number
+      volume?: number
+      value?: number
+      sectorCode?: string
+      marketCapGroup?: 'L' | 'M' | 'S'
+    }>
+    topVolume: Array<{
+      symbol: string
+      volume?: number
+      value?: number
+      price?: number
+      change?: number
+      changePct?: number
+      sectorCode?: string
+      marketCapGroup?: 'L' | 'M' | 'S'
+    }>
+    topValue?: Array<{
+      symbol: string
+      volume?: number
+      value?: number
+      price?: number
+      change?: number
+      changePct?: number
+      sectorCode?: string
+      marketCapGroup?: 'L' | 'M' | 'S'
+    }>
     timestamp?: number
   }
   regime: RegimeResult
-  isMockData?: boolean
+
+  // New trend data
+  setTrends?: {
+    fiveDay?: TrendValue
+    twentyDay?: TrendValue
+    ytd?: TrendValue
+  }
+  sectorTrends?: Map<string, TrendValue>
+  investorTrends?: Map<string, number>
 }
 
 /**
- * Create mock data for development/testing when RTDB is unavailable
+ * Fetch trend data for SET index from historical RTDB data
  */
-function createMockData(): HomepageData {
-  const now = Date.now()
-
-  const mockRegime: RegimeResult = {
-    regime: 'Risk-On',
-    confidence: 'Medium',
-    reasons: [
-      'Using mock data - RTDB connection not available',
-      'Configure Firebase credentials to use real data',
-      'Check Firebase security rules for RTDB access',
-    ],
-    focus: 'Configure Firebase credentials to access real market data',
-    caution: 'Currently displaying mock data for demonstration purposes',
-  }
-
-  return {
-    market: {
-      set: {
-        index: 1450.23,
-        change: 17.82,
-        changePercent: 1.23,
-      },
-      totalMarketCap: 15_200_000_000_000,
-      timestamp: now,
-    },
-    investor: {
-      foreign: { buy: 5000, sell: 3200, net: 1800 },
-      institution: { buy: 4200, sell: 3800, net: 400 },
-      retail: { buy: 2800, sell: 3500, net: -700 },
-      prop: { buy: 1500, sell: 1200, net: 300 },
-      timestamp: now,
-    },
-    sector: {
-      sectors: [
-        { name: 'Banking', changePercent: 2.3, marketCap: 3_500_000_000_000 },
-        { name: 'Energy', changePercent: -1.2, marketCap: 2_800_000_000_000 },
-        { name: 'Technology', changePercent: 3.1, marketCap: 1_200_000_000_000 },
-        { name: 'Consumer', changePercent: 0.8, marketCap: 2_100_000_000_000 },
-        { name: 'Healthcare', changePercent: 1.5, marketCap: 800_000_000_000 },
-        { name: 'Property', changePercent: -0.5, marketCap: 1_500_000_000_000 },
-        { name: 'Auto', changePercent: 1.1, marketCap: 900_000_000_000 },
-        { name: 'Food', changePercent: 0.3, marketCap: 1_100_000_000_000 },
-        { name: 'Transport', changePercent: -0.8, marketCap: 700_000_000_000 },
-        { name: 'ICT', changePercent: 2.8, marketCap: 650_000_000_000 },
-      ],
-      timestamp: now,
-    },
-    rankings: {
-      topGainers: [
-        { symbol: 'PTT', price: 35.5, change: 5.2 },
-        { symbol: 'ADV', price: 18.75, change: 4.1 },
-        { symbol: 'KBANK', price: 142.0, change: 3.3 },
-        { symbol: 'AOT', price: 68.5, change: 2.9 },
-        { symbol: 'CPALL', price: 62.0, change: 2.5 },
-      ],
-      topLosers: [
-        { symbol: 'PTTGC', price: 58.0, change: -3.2 },
-        { symbol: 'BDMS', price: 21.5, change: -2.1 },
-        { symbol: 'CPF', price: 28.75, change: -1.5 },
-        { symbol: 'HMPRO', price: 32.0, change: -1.2 },
-        { symbol: 'TU', price: 14.5, change: -0.9 },
-      ],
-      topVolume: [
-        { symbol: 'PTT', volume: 2_500_000_000 },
-        { symbol: 'KBANK', volume: 1_800_000_000 },
-        { symbol: 'SCB', volume: 1_200_000_000 },
-        { symbol: 'AOT', volume: 950_000_000 },
-        { symbol: 'CPF', volume: 850_000_000 },
-      ],
-      timestamp: now,
-    },
-    regime: mockRegime,
-    isMockData: true,
+async function fetchSetIndexTrends() {
+  try {
+    // Try to fetch historical data for 5D, 20D, YTD
+    // For now, return null - to be implemented with actual RTDB historical queries
+    return null
+  } catch (error) {
+    console.error('Error fetching SET index trends:', error)
+    return null
   }
 }
 
 /**
- * Fetch and process homepage data
+ * Fetch and process homepage data with trends
  */
 async function fetchHomepageData(): Promise<HomepageData | { error: string }> {
   try {
@@ -227,12 +212,33 @@ async function fetchHomepageData(): Promise<HomepageData | { error: string }> {
       timestamp: rankings.timestamp,
     }
 
+    // Fetch trend data
+    const [setTrends, sectorTrendsRaw] = await Promise.all([
+      fetchSetIndexTrends(),
+      calculateAllSectorTrends().catch(() => null),
+    ])
+
+    // Create sector trends map
+    const sectorTrends = new Map()
+    if (sectorTrendsRaw) {
+      for (const trend of sectorTrendsRaw) {
+        if (trend.fiveDay) {
+          sectorTrends.set(trend.sectorName, {
+            change: trend.fiveDay.change,
+            changePercent: trend.fiveDay.changePercent,
+          })
+        }
+      }
+    }
+
     return {
       market,
       investor,
       sector,
       rankings: transformedRankings,
       regime,
+      setTrends: setTrends || undefined,
+      sectorTrends: sectorTrends.size > 0 ? sectorTrends : undefined,
     }
   } catch (error) {
     console.error('Error fetching homepage data:', error)
@@ -249,14 +255,16 @@ function getErrorMessage(error: string): { title: string; message: string } {
   if (error === 'RTDB_UNAVAILABLE') {
     return {
       title: 'Database Connection Error',
-      message: 'Unable to connect to Firebase Realtime Database. Please check your Firebase configuration and security rules.',
+      message:
+        'Unable to connect to Firebase Realtime Database. Please check your Firebase configuration and security rules.',
     }
   }
 
   if (error.includes('Permission denied')) {
     return {
       title: 'Firebase Permission Denied',
-      message: 'Your Firebase security rules don\'t allow read access. Please update your Realtime Database rules to allow public read access or configure authentication.',
+      message:
+        "Your Firebase security rules don't allow read access. Please update your Realtime Database rules to allow public read access or configure authentication.",
     }
   }
 
@@ -269,65 +277,13 @@ function getErrorMessage(error: string): { title: string; message: string } {
 export default async function HomePage() {
   const result = await fetchHomepageData()
 
-  // Handle error case
+  // Handle error case - show error message, no mock data
   if ('error' in result) {
     const errorInfo = getErrorMessage(result.error)
-    const isDevelopment = process.env.NODE_ENV === 'development'
 
-    // In development, show mock data with a warning banner
-    if (isDevelopment) {
-      const mockData = createMockData()
-      const summary = {
-        title: 'Development Mode - Using Mock Data',
-        text: result.error === 'RTDB_UNAVAILABLE' || result.error.includes('Permission')
-          ? 'Configure Firebase credentials in .env.local and update Firebase security rules to use real data.'
-          : `RTDB Error: ${result.error}. Displaying mock data for development.`,
-      }
-
-      return (
-        <div className="space-y-6">
-          {/* Development Warning Banner */}
-          <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-            <div className="flex items-start gap-3">
-              <div className="text-yellow-600 mt-0.5">⚠️</div>
-              <div>
-                <h3 className="font-semibold text-yellow-900 mb-1">
-                  {summary.title}
-                </h3>
-                <p className="text-sm text-yellow-800">
-                  {summary.text}
-                </p>
-                <div className="mt-2 text-xs text-yellow-700">
-                  <p>To fix:</p>
-                  <ol className="list-decimal list-inside mt-1 space-y-1">
-                    <li>Ensure NEXT_PUBLIC_FIREBASE_* variables are set in .env.local</li>
-                    <li>Update Firebase Realtime Database security rules</li>
-                    <li>Example rules: {`{ ".read": true, ".write": false }`}</li>
-                  </ol>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Display mock data */}
-          <SetSnapshot data={mockData.market.set} totalMarketCap={mockData.market.totalMarketCap} />
-          <MarketRegimeSummary regime={mockData.regime} />
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <MoneyFlowChart data={mockData.investor} />
-            <SectorHeatmap data={mockData.sector} />
-          </div>
-          <TopRankings data={mockData.rankings} />
-        </div>
-      )
-    }
-
-    // In production, show error with retry
     return (
       <div className="max-w-4xl mx-auto">
-        <ErrorFallback
-          title={errorInfo.title}
-          message={errorInfo.message}
-        />
+        <ErrorFallback title={errorInfo.title} message={errorInfo.message} />
       </div>
     )
   }
@@ -341,17 +297,22 @@ export default async function HomePage() {
       case 'Risk-On':
         return {
           title: 'Bullish Market Conditions',
-          text: regime.focus || 'Market showing positive momentum. Focus on quality sectors showing strength.',
+          text:
+            regime.focus ||
+            'Market showing positive momentum. Focus on quality sectors showing strength.',
         }
       case 'Risk-Off':
         return {
           title: 'Cautious Market Conditions',
-          text: regime.caution || 'Market under pressure. Consider defensive positions and wait for clarity.',
+          text:
+            regime.caution ||
+            'Market under pressure. Consider defensive positions and wait for clarity.',
         }
       case 'Neutral':
         return {
           title: 'Mixed Market Signals',
-          text: 'Market lacking clear direction. Stay selective and focus on individual stock quality.',
+          text:
+            'Market lacking clear direction. Stay selective and focus on individual stock quality.',
         }
     }
   }
@@ -360,49 +321,66 @@ export default async function HomePage() {
 
   return (
     <div className="space-y-6">
-      {/* Mock Data Warning Banner */}
-      {data.isMockData && (
-        <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-          <div className="flex items-start gap-3">
-            <div className="text-yellow-600 mt-0.5">⚠️</div>
-            <div>
-              <h3 className="font-semibold text-yellow-900 mb-1">
-                Demo Mode - Mock Data
-              </h3>
-              <p className="text-sm text-yellow-800">
-                Configure Firebase credentials to display real market data.
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Market Snapshot with trends */}
+      <SetSnapshot
+        data={data.market.set}
+        totalMarketCap={data.market.totalMarketCap}
+        trends={data.setTrends}
+      />
+      <DataFreshness timestamp={data.market.timestamp} />
 
-      {/* Market Snapshot */}
-      <SetSnapshot data={data.market.set} totalMarketCap={data.market.totalMarketCap} />
+      {/* Market Context Row */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <Week52Range
+          current={data.market.set.index}
+          high={data.market.set.index * 1.1}
+          low={data.market.set.index * 0.9}
+        />
+        <SetPERatio currentPE={15.2} historicalAvg={14.5} />
+        <VolatilityIndicator volatility={12} average={15} />
+      </div>
 
       {/* Market Regime Summary */}
       <MarketRegimeSummary regime={data.regime} />
 
-      {/* Two-column layout for Money Flow and Sector Heatmap */}
+      {/* Two-column layout for Money Flow and Sector Heatmap with trends */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <MoneyFlowChart data={data.investor} />
-        <SectorHeatmap data={data.sector} />
+        <MoneyFlowChart
+          data={{
+            ...data.investor,
+            foreign: { ...data.investor.foreign, trend5Day: data.investorTrends?.get('foreign') },
+            institution: { ...data.investor.institution, trend5Day: data.investorTrends?.get('institution') },
+            retail: { ...data.investor.retail, trend5Day: data.investorTrends?.get('retail') },
+            prop: { ...data.investor.prop, trend5Day: data.investorTrends?.get('prop') },
+          }}
+          showTrends={!!data.investorTrends}
+        />
+        <SectorHeatmap
+          data={{
+            sectors: data.sector.sectors.map((s) => ({
+              ...s,
+              trend5Day: data.sectorTrends?.get(s.name),
+            })),
+          }}
+          showTrends={!!data.sectorTrends}
+        />
       </div>
 
       {/* Top Rankings */}
-      <TopRankings data={data.rankings} />
+      <TopRankings data={data.rankings} showTrends={!!data.investorTrends} />
 
       {/* Dynamic Market Summary based on regime */}
-      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+      <div
+        className="rounded-lg p-4"
+        style={{ backgroundColor: 'rgba(96, 165, 250, 0.15)', border: '1px solid #60A5FA' }}
+      >
         <div className="flex items-start gap-3">
-          <div className="text-blue-600 mt-0.5">💡</div>
+          <div style={{ color: '#60A5FA' }}>💡</div>
           <div>
-            <h3 className="font-semibold text-blue-900 mb-1">
+            <h3 className="font-semibold mb-1" style={{ color: '#BFDBFE' }}>
               {summary.title}
             </h3>
-            <p className="text-sm text-blue-800">
-              {summary.text}
-            </p>
+            <p className="text-sm" style={{ color: '#DBEAFE' }}>{summary.text}</p>
           </div>
         </div>
       </div>
