@@ -6,6 +6,8 @@ Located in `~/.claude/agents/`:
 
 | Agent | Purpose | When to Use |
 |-------|---------|-------------|
+| nextjs_frontend | front-end coding | coding |
+| nextjs_backend | back-end coding | coding |
 | investor | Base idea for project | Architectural decisions , idea |
 | planner | Implementation planning | Complex features, refactoring |
 | architect | System design | Architectural decisions |

@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-Content:*)",
+      "Bash(if [ -f \"c:\\\\Programing\\\\ByAI\\\\GLM\\\\fonPick\\\\package.json\" ])",
+      "Bash(then cat \"c:\\\\Programing\\\\ByAI\\\\GLM\\\\fonPick\\\\package.json\")",
+      "Bash(else echo \"File does not exist\")",
+      "Bash(fi:*)",
+      "Bash(if:*)",
+      "Bash(then touch \"C:\\\\Programing\\\\ByAI\\\\GLM\\\\fonPick\\\\tailwind.config.ts\")",
+      "Bash(then touch \"C:\\\\Programing\\\\ByAI\\\\GLM\\\\fonPick\\\\postcss.config.js\")",
+      "Bash(if [ -f \"c:\\\\Programing\\\\ByAI\\\\GLM\\\\fonPick\\\\tsconfig.json\" ])",
+      "Bash(then cat:*)",
+      "Bash(npm install:*)",
+      "Bash(npm run type-check:*)",
+      "Bash(npm run build:*)",
+      "Bash(grep:*)",
+      "Bash(npx tsc:*)"
+    ]
+  }
+}
