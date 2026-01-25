@@ -21,7 +21,9 @@
       "Bash(npm test)",
       "Bash(npm test:*)",
       "Bash(npx vitest run:*)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "mcp__web-reader__webReader",
+      "Bash(findstr:*)"
     ]
   }
 }
