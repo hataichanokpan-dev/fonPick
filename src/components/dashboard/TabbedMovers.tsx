@@ -512,7 +512,8 @@ export function TabbedMovers({ className, topCount = DEFAULT_TOP_COUNT }: Tabbed
             key={tab.key}
             onClick={() => setActiveTab(tab.key)}
             className={`
-              flex items-center gap-1.5 px-3 py-2 text-xs font-medium transition-all
+              flex items-center gap-1.5 px-1 py-2 text-xs 
+              font-medium transition-all
               border-b-2 -mb-px
               ${
                 activeTab === tab.key

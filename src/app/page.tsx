@@ -216,7 +216,14 @@ export default async function HomePage() {
           P2: Market Movers - Active Stocks and Top Rankings
         </h2>
         <CompactSectionLabel priority="P2" label="Market Movers" />
-        <TabbedMovers topCount={10} />
+        <TabbedMovers topCount={5} />
+      </section>
+      
+      <section aria-labelledby="spacer-heading">
+        <h2 id="spacer-heading" className="sr-only">
+          Spacer Section
+        </h2>
+        <div className="h-10" />
       </section>
     </div>
   )

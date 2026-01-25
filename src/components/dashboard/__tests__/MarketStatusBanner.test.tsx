@@ -237,8 +237,9 @@ describe('MarketStatusBanner', () => {
       const { container } = render(<MarketStatusBanner {...defaultProps} />)
 
       const banner = container.firstChild as HTMLElement
-      // Max height should be 48px (3rem)
-      expect(banner).toHaveClass('max-h-12')
+      // Height should be responsive: h-10 (40px) on mobile, h-12 (48px) on desktop
+      expect(banner).toHaveClass('h-10')
+      expect(banner).toHaveClass('sm:h-12')
     })
   })
 

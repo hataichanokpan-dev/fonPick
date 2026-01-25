@@ -1,17 +1,24 @@
 /**
- * MarketStatusBanner Component
+ * MarketStatusBanner Component - Redesigned
  *
  * Sticky top banner showing live market regime, SET index, and market status.
- * Provides real-time market overview at a glance.
+ * Provides real-time market overview at a glance with mobile-first design.
+ *
+ * Design Goals:
+ * - Mobile-first responsive design (40px on mobile, 48px on desktop)
+ * - Professional visual hierarchy with clear information display
+ * - Regime badge prominently displayed
+ * - Better spacing and typography
+ * - Touch-friendly sizing
  *
  * Features:
  * - Regime-based color coding (Risk-On = teal, Risk-Off = red, Neutral = gray)
+ * - Confidence level badge (High/Medium/Low)
  * - Animated entrance with framer-motion
  * - Market status indicator (open/closed with pulse animation)
- * - Data age display (e.g., "2 min ago")
+ * - Data age display (e.g., "2m ago")
  * - Sticky positioning with backdrop blur
- * - Compact layout (max 48px height)
- * - Responsive design
+ * - Responsive height (h-10 on mobile, h-12 on desktop)
  */
 
 'use client'
@@ -99,18 +106,18 @@ function formatTimestamp(timestamp: number): string {
   // Less than 1 hour
   if (diff < 60 * 60 * 1000) {
     const minutes = Math.floor(diff / (60 * 1000))
-    return `${minutes}m ago`
+    return `${minutes}m`
   }
 
   // Less than 24 hours
   if (diff < 24 * 60 * 60 * 1000) {
     const hours = Math.floor(diff / (60 * 60 * 1000))
-    return `${hours}h ago`
+    return `${hours}h`
   }
 
   // Days
   const days = Math.floor(diff / (24 * 60 * 60 * 1000))
-  return `${days}d ago`
+  return `${days}d`
 }
 
 function getConfidenceColor(confidence: 'High' | 'Medium' | 'Low'): 'buy' | 'watch' | 'sell' {
@@ -139,6 +146,31 @@ function getRegimeIcon(regime: 'Risk-On' | 'Neutral' | 'Risk-Off') {
 // SUB-COMPONENTS
 // ==================================================================
 
+interface RegimeBadgeProps {
+  regime: 'Risk-On' | 'Neutral' | 'Risk-Off'
+  confidence: 'High' | 'Medium' | 'Low'
+}
+
+function RegimeBadge({ regime, confidence }: RegimeBadgeProps) {
+  const icon = getRegimeIcon(regime)
+  const confidenceColor = getConfidenceColor(confidence)
+
+  return (
+    <div className="flex items-center gap-2">
+      {/* Regime Badge with Icon */}
+      <Badge color={confidenceColor} size="sm" className="flex items-center gap-1">
+        {icon}
+        <span className="font-semibold">{regime}</span>
+      </Badge>
+
+      {/* Confidence Badge */}
+      <Badge color={confidenceColor} size="sm" className="text-xs">
+        {confidence}
+      </Badge>
+    </div>
+  )
+}
+
 interface MarketStatusIndicatorProps {
   isOpen: boolean
 }
@@ -154,8 +186,47 @@ function MarketStatusIndicator({ isOpen }: MarketStatusIndicatorProps) {
         animate={isOpen ? { opacity: [1, 0.5, 1] } : { opacity: 1 }}
         transition={isOpen ? { duration: 2, repeat: Infinity } : {}}
       />
-      <span className="text-[10px] font-medium text-text-2">
-        {isOpen ? 'Market Open' : 'Market Closed'}
+       
+    </div>
+  )
+}
+
+interface SetIndexDisplayProps {
+  value: number
+  change: number
+  changePercent: number
+}
+
+function SetIndexDisplay({ value, change, changePercent }: SetIndexDisplayProps) {
+  const changeColor = change >= 0 ? 'text-up-primary' : 'text-down-primary'
+
+  return (
+    <div className="flex items-baseline gap-2">
+      {/* Main SET Index Value */}
+      <span className="text-md font-bold text-text sm:text-base tabular-nums">
+        SET : {formatSetIndex(value)}
+      </span>
+
+      {/* Change Values */}
+      <span className={`text-xs font-medium ${changeColor} tabular-nums`}>
+        {formatSetChange(change)} ({formatSetChangePercent(changePercent)})
+      </span>
+    </div>
+  )
+}
+
+interface DataFreshnessDisplayProps {
+  timestamp?: number
+}
+
+function DataFreshnessDisplay({ timestamp }: DataFreshnessDisplayProps) {
+  if (!timestamp) return null
+
+  return (
+    <div className="flex items-center gap-1.5">
+      <Activity className="w-3 h-3 text-text-3" />
+      <span className="text-[10px] text-text-3 xs:text-xs tabular-nums">
+        {formatTimestamp(timestamp)}
       </span>
     </div>
   )
@@ -176,8 +247,6 @@ export function MarketStatusBanner({
 }: MarketStatusBannerProps) {
   const colors = useMemo(() => COLORS[regime], [regime])
 
-  const changeColor = setChange >= 0 ? 'up' : 'down'
-
   return (
     <motion.div
       role="banner"
@@ -185,54 +254,34 @@ export function MarketStatusBanner({
       initial={{ y: -50, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.4, ease: 'easeOut' }}
-      className="sticky top-0 z-50 w-full backdrop-blur-md border-b max-h-12"
+      className="sticky py-2 top-0 z-50 w-full backdrop-blur-md border-b 
+      h-14 sm:h-16 rounded-md mb-2"
       style={{
         backgroundColor: colors.bg,
         borderColor: colors.border,
       }}
     >
-      <div className="px-4 py-2">
-        <div className="flex items-center justify-between gap-4">
-          {/* Left: Regime Badge */}
-          <div className="flex items-center gap-2.5">
-            <div
-              className="flex items-center gap-1.5 px-2.5 py-1 rounded-full"
-              style={{ backgroundColor: `${colors.text}15` }}
-            >
-              <div style={{ color: colors.text }}>{getRegimeIcon(regime)}</div>
-              <span
-                className="text-xs font-bold"
-                style={{ color: colors.text }}
-              >
-                {regime}
-              </span>
-              <Badge size="sm" color={getConfidenceColor(confidence)}>
-                {confidence}
-              </Badge>
-            </div>
+      <div className="h-full px-3 py-1.5 sm:px-4 sm:py-2">
+        <div className="flex items-center justify-between gap-2 sm:gap-4 h-full">
+
+          {/* Left: Regime Badge with Confidence */}
+          <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+            <SetIndexDisplay
+              value={setIndex}
+              change={setChange}
+              changePercent={setChangePercent}
+            />
           </div>
 
           {/* Center: SET Index */}
-          <div className="flex items-center gap-3">
-            <div className="flex items-baseline gap-2">
-              <span className="text-sm font-bold text-text">
-                {formatSetIndex(setIndex)}
-              </span>
-              <span className="text-xs" style={{ color: changeColor === 'up' ? '#4ade80' : '#ff6b6b' }}>
-                {formatSetChange(setChange)} ({formatSetChangePercent(setChangePercent)})
-              </span>
-            </div>
+          <div className="flex items-center justify-center flex-1 min-w-0">
+            
           </div>
 
-          {/* Right: Market Status & Data Age */}
-          <div className="flex items-center gap-3">
+          {/* Right: Market Status & Data Freshness */}
+          <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
             <MarketStatusIndicator isOpen={isMarketOpen} />
-            {lastUpdate && (
-              <span className="text-[10px] text-text-muted">
-                {formatTimestamp(lastUpdate)}
-              </span>
-            )}
-            <Activity className="w-3.5 h-3.5 text-text-muted" />
+            <DataFreshnessDisplay timestamp={lastUpdate} />
           </div>
         </div>
       </div>

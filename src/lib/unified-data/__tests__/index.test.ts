@@ -183,7 +183,8 @@ describe('fetchUnifiedMarketData', () => {
     vi.mocked(fetchInvestorType).mockResolvedValue(mockInvestorType)
     vi.mocked(fetchIndustrySector).mockResolvedValue(mockIndustrySector)
     vi.mocked(fetchTopRankingsEnhanced).mockResolvedValue(mockRankings)
-    vi.mocked(analyzeMarketRegime).mockResolvedValue(mockRegimeAnalysis)
+    // analyzeMarketRegime is synchronous, use mockReturnValue not mockResolvedValue
+    vi.mocked(analyzeMarketRegime).mockReturnValue(mockRegimeAnalysis)
 
     const result = await fetchUnifiedMarketData()
 
@@ -232,7 +233,8 @@ describe('fetchUnifiedMarketData', () => {
 
   it('should handle partial data gracefully when some sources fail', async () => {
     vi.mocked(fetchMarketOverview).mockResolvedValue(mockMarketOverview)
-    vi.mocked(fetchInvestorType).mockResolvedValue(null) // Failed
+    // Use rejected promise to simulate fetch failure (not just null result)
+    vi.mocked(fetchInvestorType).mockRejectedValue(new Error('RTDB error'))
     vi.mocked(fetchIndustrySector).mockResolvedValue(mockIndustrySector)
     vi.mocked(fetchTopRankingsEnhanced).mockResolvedValue(mockRankings)
     vi.mocked(aggregateMarketIntelligence).mockResolvedValue(mockMarketIntelligence)
@@ -251,10 +253,11 @@ describe('fetchUnifiedMarketData', () => {
   // =========================================================================
 
   it('should return empty data when all sources fail', async () => {
-    vi.mocked(fetchMarketOverview).mockResolvedValue(null)
-    vi.mocked(fetchInvestorType).mockResolvedValue(null)
-    vi.mocked(fetchIndustrySector).mockResolvedValue(null)
-    vi.mocked(fetchTopRankingsEnhanced).mockResolvedValue(null)
+    // Use rejected promises to simulate all fetch failures
+    vi.mocked(fetchMarketOverview).mockRejectedValue(new Error('RTDB error'))
+    vi.mocked(fetchInvestorType).mockRejectedValue(new Error('RTDB error'))
+    vi.mocked(fetchIndustrySector).mockRejectedValue(new Error('RTDB error'))
+    vi.mocked(fetchTopRankingsEnhanced).mockRejectedValue(new Error('RTDB error'))
 
     const result = await fetchUnifiedMarketData()
 
@@ -408,7 +411,7 @@ describe('fetchUnifiedMarketData', () => {
   // =========================================================================
 
   it('should return null regime analysis when market overview is null', async () => {
-    vi.mocked(fetchMarketOverview).mockResolvedValue(null)
+    vi.mocked(fetchMarketOverview).mockRejectedValue(new Error('RTDB error'))
     vi.mocked(fetchInvestorType).mockResolvedValue(mockInvestorType)
     vi.mocked(fetchIndustrySector).mockResolvedValue(mockIndustrySector)
     vi.mocked(fetchTopRankingsEnhanced).mockResolvedValue(mockRankings)
@@ -426,7 +429,8 @@ describe('fetchUnifiedMarketData', () => {
 
   it('should handle partial regime analysis data gracefully', async () => {
     vi.mocked(fetchMarketOverview).mockResolvedValue(mockMarketOverview)
-    vi.mocked(fetchInvestorType).mockResolvedValue(null) // Missing
+    // Use rejected promise to simulate missing data source
+    vi.mocked(fetchInvestorType).mockRejectedValue(new Error('RTDB error'))
     vi.mocked(fetchIndustrySector).mockResolvedValue(mockIndustrySector)
     vi.mocked(fetchTopRankingsEnhanced).mockResolvedValue(mockRankings)
     vi.mocked(aggregateMarketIntelligence).mockResolvedValue(mockMarketIntelligence)

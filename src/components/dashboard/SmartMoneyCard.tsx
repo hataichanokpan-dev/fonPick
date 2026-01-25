@@ -17,10 +17,10 @@
  * Design: Compact 12px padding, large prominent numbers
  */
 
-'use client'
+"use client";
 
-import { Card } from '@/components/shared'
-import { Badge } from '@/components/shared/Badge'
+import { Card } from "@/components/shared";
+import { Badge } from "@/components/shared/Badge";
 import {
   TrendingUp,
   TrendingDown,
@@ -29,11 +29,11 @@ import {
   Users,
   Briefcase,
   Gauge,
-} from 'lucide-react'
-import { formatTradingValue } from '@/lib/utils'
-import { useQuery } from '@tanstack/react-query'
-import { motion } from 'framer-motion'
-import type { SmartMoneyAnalysis } from '@/types/smart-money'
+} from "lucide-react";
+import { formatTradingValue } from "@/lib/utils";
+import { useQuery } from "@tanstack/react-query";
+import { motion } from "framer-motion";
+import type { SmartMoneyAnalysis } from "@/types/smart-money";
 
 // ==================================================================
 // TYPES
@@ -44,45 +44,46 @@ import type { SmartMoneyAnalysis } from '@/types/smart-money'
 
 export interface SmartMoneyCardProps {
   /** Additional CSS classes */
-  className?: string
+  className?: string;
 }
 
 // ==================================================================
 // CONSTANTS
 // ==================================================================
 
-const REFRESH_INTERVAL = 2 * 60 * 1000 // 2 minutes
+const REFRESH_INTERVAL = 2 * 60 * 1000; // 2 minutes
 
 const COLORS = {
-  up: '#2ED8A7',
-  down: '#F45B69',
-  warn: '#F7C948',
-  neutral: '#AEB7B3',
-}
+  up: "#2ED8A7",
+  down: "#F45B69",
+  warn: "#F7C948",
+  neutral: "#AEB7B3",
+};
 
 // ==================================================================
 // HELPER COMPONENTS
 // ==================================================================
 
 interface ScoreGaugeProps {
-  score: number
-  size?: number
+  score: number;
+  size?: number;
 }
 
 function ScoreGauge({ score, size = 56 }: ScoreGaugeProps) {
   // Calculate gauge arc based on score (0-100)
-  const percentage = Math.max(0, Math.min(100, score))
+  const percentage = Math.max(0, Math.min(100, score));
 
   // Determine color based on score
   const getGaugeColor = (): { bg: string; fill: string } => {
-    if (score >= 60) return { bg: 'rgba(46, 216, 167, 0.2)', fill: COLORS.up }
-    if (score >= 40) return { bg: 'rgba(174, 183, 179, 0.2)', fill: COLORS.neutral }
-    return { bg: 'rgba(244, 91, 105, 0.2)', fill: COLORS.down }
-  }
+    if (score >= 60) return { bg: "rgba(46, 216, 167, 0.2)", fill: COLORS.up };
+    if (score >= 40)
+      return { bg: "rgba(174, 183, 179, 0.2)", fill: COLORS.neutral };
+    return { bg: "rgba(244, 91, 105, 0.2)", fill: COLORS.down };
+  };
 
-  const colors = getGaugeColor()
-  const circumference = 2 * Math.PI * ((size - 8) / 2)
-  const dashOffset = circumference - (percentage / 100) * circumference
+  const colors = getGaugeColor();
+  const circumference = 2 * Math.PI * ((size - 8) / 2);
+  const dashOffset = circumference - (percentage / 100) * circumference;
 
   return (
     <div
@@ -110,7 +111,7 @@ function ScoreGauge({ score, size = 56 }: ScoreGaugeProps) {
           strokeLinecap="round"
           initial={{ strokeDashoffset: circumference }}
           animate={{ strokeDashoffset: dashOffset }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
           style={{
             strokeDasharray: circumference,
           }}
@@ -123,60 +124,56 @@ function ScoreGauge({ score, size = 56 }: ScoreGaugeProps) {
         </span>
       </div>
     </div>
-  )
+  );
 }
 
 interface InvestorRowProps {
-  label: string
-  icon: React.ReactNode
+  label: string;
+  icon: React.ReactNode;
   data: {
-    todayNet?: number
-    trend?: string
-    strength?: string
-  }
-  opacity?: number
+    todayNet?: number;
+    trend?: string;
+    strength?: string;
+  };
+  opacity?: number;
 }
 
-function InvestorRow({
-  label,
-  icon,
-  data,
-  opacity = 1,
-}: InvestorRowProps) {
+function InvestorRow({ label, icon, data, opacity = 1 }: InvestorRowProps) {
   // Handle missing data gracefully
-  const todayNet = data.todayNet ?? 0
-  const strength = data.strength ?? 'Neutral'
+  const todayNet = data.todayNet ?? 0;
+  const strength = data.strength ?? "Neutral";
 
-  const isPositive = todayNet > 0
+  const isPositive = todayNet > 0;
   const flowColor = isPositive
     ? COLORS.up
     : todayNet < 0
       ? COLORS.down
-      : COLORS.neutral
+      : COLORS.neutral;
   const bgColor = isPositive
     ? `rgba(46, 216, 167, ${0.08 * opacity})`
     : todayNet < 0
       ? `rgba(244, 91, 105, ${0.08 * opacity})`
-      : `rgba(174, 183, 179, ${0.08 * opacity})`
+      : `rgba(174, 183, 179, ${0.08 * opacity})`;
 
-  const getStrengthColor = (): 'buy' | 'sell' | 'neutral' | 'watch' => {
+  const getStrengthColor = (): "buy" | "sell" | "neutral" | "watch" => {
     switch (strength) {
-      case 'Strong Buy':
-      case 'Buy':
-        return 'buy'
-      case 'Strong Sell':
-      case 'Sell':
-        return 'sell'
+      case "Strong Buy":
+      case "Buy":
+        return "buy";
+      case "Strong Sell":
+      case "Sell":
+        return "sell";
       default:
-        return 'neutral'
+        return "neutral";
     }
-  }
+  };
 
   const getTrendIcon = () => {
-    if (data.trend?.includes('Buy')) return <TrendingUp className="w-3 h-3" />
-    if (data.trend?.includes('Sell')) return <TrendingDown className="w-3 h-3" />
-    return null
-  }
+    if (data.trend?.includes("Buy")) return <TrendingUp className="w-3 h-3" />;
+    if (data.trend?.includes("Sell"))
+      return <TrendingDown className="w-3 h-3" />;
+    return null;
+  };
 
   return (
     <div
@@ -189,7 +186,10 @@ function InvestorRow({
       </div>
 
       {/* Label */}
-      <span className="text-xs font-medium text-text-muted w-16" style={{ opacity }}>
+      <span
+        className="text-xs font-medium text-text-muted w-16"
+        style={{ opacity }}
+      >
         {label}
       </span>
 
@@ -198,7 +198,7 @@ function InvestorRow({
         className="flex-1 text-sm font-bold tabular-nums"
         style={{ color: flowColor, opacity }}
       >
-        {isPositive && '+'}
+        {isPositive && "+"}
         {formatTradingValue(Math.abs(todayNet))}
       </span>
 
@@ -210,7 +210,7 @@ function InvestorRow({
         {strength}
       </Badge>
     </div>
-  )
+  );
 }
 
 // Separator between smart money and context investors
@@ -223,7 +223,7 @@ function InvestorSeparator() {
       </span>
       <div className="flex-1 h-px bg-border" />
     </div>
-  )
+  );
 }
 
 // Loading Skeleton
@@ -238,7 +238,7 @@ function SmartMoneySkeleton() {
         <div className="h-14 bg-surface-2 rounded" />
       </div>
     </Card>
-  )
+  );
 }
 
 // ==================================================================
@@ -248,23 +248,23 @@ function SmartMoneySkeleton() {
 export function SmartMoneyCard({ className }: SmartMoneyCardProps) {
   // Fetch data from market intelligence API
   const { data, isLoading, error } = useQuery<{
-    success: boolean
-    data?: { smartMoney: SmartMoneyAnalysis | null }
+    success: boolean;
+    data?: { smartMoney: SmartMoneyAnalysis | null };
   }>({
-    queryKey: ['market-intelligence', 'smart-money'],
+    queryKey: ["market-intelligence", "smart-money"],
     queryFn: async () => {
-      const res = await fetch('/api/market-intelligence?includeP0=true')
-      if (!res.ok) throw new Error('Failed to fetch smart money data')
-      return res.json()
+      const res = await fetch("/api/market-intelligence?includeP0=true");
+      if (!res.ok) throw new Error("Failed to fetch smart money data");
+      return res.json();
     },
     refetchInterval: REFRESH_INTERVAL,
-  })
+  });
 
   // Extract smart money data
-  const smartMoneyData = data?.data?.smartMoney
+  const smartMoneyData = data?.data?.smartMoney;
 
   if (isLoading) {
-    return <SmartMoneySkeleton />
+    return <SmartMoneySkeleton />;
   }
 
   if (error || !data?.success || !smartMoneyData) {
@@ -280,36 +280,36 @@ export function SmartMoneyCard({ className }: SmartMoneyCardProps) {
           Unable to load smart money data
         </p>
       </Card>
-    )
+    );
   }
 
   // Get combined signal badge color
-  const getSignalColor = (): 'buy' | 'sell' | 'neutral' | 'watch' => {
+  const getSignalColor = (): "buy" | "sell" | "neutral" | "watch" => {
     switch (smartMoneyData.combinedSignal) {
-      case 'Strong Buy':
-      case 'Buy':
-        return 'buy'
-      case 'Strong Sell':
-      case 'Sell':
-        return 'sell'
+      case "Strong Buy":
+      case "Buy":
+        return "buy";
+      case "Strong Sell":
+      case "Sell":
+        return "sell";
       default:
-        return 'neutral'
+        return "neutral";
     }
-  }
+  };
 
   // Get risk signal badge color
-  const getRiskColor = (): 'buy' | 'sell' | 'neutral' | 'watch' => {
+  const getRiskColor = (): "buy" | "sell" | "neutral" | "watch" => {
     switch (smartMoneyData.riskSignal) {
-      case 'Risk-On':
-      case 'Risk-On Mild':
-        return 'buy'
-      case 'Risk-Off':
-      case 'Risk-Off Mild':
-        return 'sell'
+      case "Risk-On":
+      case "Risk-On Mild":
+        return "buy";
+      case "Risk-Off":
+      case "Risk-Off Mild":
+        return "sell";
       default:
-        return 'neutral'
+        return "neutral";
     }
-  }
+  };
 
   return (
     <Card padding="sm" className={className}>
@@ -328,16 +328,19 @@ export function SmartMoneyCard({ className }: SmartMoneyCardProps) {
           </Badge>
         </div>
       </div>
-
-      {/* Main Content */}
-      <div className="flex gap-3">
+      <div className="flex items-center justify-center mb-2 mt-1">
         {/* Score Gauge */}
-        <div className="flex-shrink-0 flex flex-col items-center gap-1">
+        <div className="item-center flex flex-col items-center text-center">
           <ScoreGauge score={smartMoneyData.score} size={56} />
           <span className="text-[9px] uppercase tracking-wide text-text-muted">
             Score
           </span>
         </div>
+      </div>
+
+      {/* Main Content */}
+      <div className="flex gap-3">
+       
 
         {/* Investor Flows - Access from investors property */}
         <div className="flex-1 space-y-2">
@@ -381,7 +384,7 @@ export function SmartMoneyCard({ className }: SmartMoneyCardProps) {
             Primary Driver
           </span>
           <span className="text-xs font-medium text-text capitalize">
-            {smartMoneyData.primaryDriver || 'None'}
+            {smartMoneyData.primaryDriver || "None"}
           </span>
         </div>
 
@@ -399,20 +402,21 @@ export function SmartMoneyCard({ className }: SmartMoneyCardProps) {
             <motion.div
               initial={{ width: 0 }}
               animate={{ width: `${smartMoneyData.confidence}%` }}
-              transition={{ duration: 0.6, ease: 'easeOut' }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
               className="h-full bg-info rounded-full"
             />
           </div>
         </div>
 
-        {smartMoneyData.observations && smartMoneyData.observations.length > 0 && (
-          <p className="mt-2 text-xs text-text-muted leading-relaxed">
-            {smartMoneyData.observations[0]}
-          </p>
-        )}
+        {smartMoneyData.observations &&
+          smartMoneyData.observations.length > 0 && (
+            <p className="mt-2 text-xs text-text-muted leading-relaxed">
+              {smartMoneyData.observations[0]}
+            </p>
+          )}
       </div>
     </Card>
-  )
+  );
 }
 
-export default SmartMoneyCard
+export default SmartMoneyCard;

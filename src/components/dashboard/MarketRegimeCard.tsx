@@ -15,10 +15,10 @@
  * Design: Compact 12px padding, large prominent numbers
  */
 
-'use client'
+"use client";
 
-import { Card } from '@/components/shared'
-import { Badge } from '@/components/shared/Badge'
+import { Card } from "@/components/shared";
+import { Badge } from "@/components/shared/Badge";
 import {
   TrendingUp,
   TrendingDown,
@@ -26,106 +26,113 @@ import {
   Shield,
   AlertTriangle,
   Activity,
-} from 'lucide-react'
-import { useQuery } from '@tanstack/react-query'
-import { motion } from 'framer-motion'
+} from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { motion } from "framer-motion";
 
 // ==================================================================
 // TYPES
 // ==================================================================
 
 export interface MarketRegimeData {
-  regime: 'Risk-On' | 'Neutral' | 'Risk-Off'
-  confidence: 'High' | 'Medium' | 'Low'
-  reasons: string[]
-  focus: string
-  caution: string
+  regime: "Risk-On" | "Neutral" | "Risk-Off";
+  confidence: "High" | "Medium" | "Low";
+  reasons: string[];
+  focus: string;
+  caution: string;
 }
 
 export interface MarketRegimeCardProps {
   /** Additional CSS classes */
-  className?: string
+  className?: string;
   /** Phase 2: Display variant - default or prominent (larger, more attention-grabbing) */
-  variant?: 'default' | 'prominent'
+  variant?: "default" | "prominent";
 }
 
 // ==================================================================
 // CONSTANTS
 // ==================================================================
 
-const REFRESH_INTERVAL = 2 * 60 * 1000 // 2 minutes
+const REFRESH_INTERVAL = 2 * 60 * 1000; // 2 minutes
 
 const COLORS = {
-  up: '#2ED8A7',
-  down: '#F45B69',
-  warn: '#F7C948',
-  neutral: '#AEB7B3',
-}
+  up: "#2ED8A7",
+  down: "#F45B69",
+  warn: "#F7C948",
+  neutral: "#AEB7B3",
+};
 
 // ==================================================================
 // HELPER COMPONENTS
 // ==================================================================
 
 interface RegimeIndicatorProps {
-  regime: 'Risk-On' | 'Neutral' | 'Risk-Off'
-  confidence: 'High' | 'Medium' | 'Low'
+  regime: "Risk-On" | "Neutral" | "Risk-Off";
+  confidence: "High" | "Medium" | "Low";
   /** Phase 2: Display variant */
-  variant?: 'default' | 'prominent'
+  variant?: "default" | "prominent";
 }
 
-function RegimeIndicator({ regime, confidence, variant = 'default' }: RegimeIndicatorProps) {
-  const isProminent = variant === 'prominent'
+function RegimeIndicator({
+  regime,
+  confidence,
+  variant = "default",
+}: RegimeIndicatorProps) {
+  const isProminent = variant === "prominent";
 
   const getRegimeConfig = () => {
     switch (regime) {
-      case 'Risk-On':
+      case "Risk-On":
         return {
           color: COLORS.up,
-          bgColor: 'rgba(46, 216, 167, 0.15)',
-          bgGradient: 'linear-gradient(135deg, rgba(46, 216, 167, 0.2) 0%, rgba(46, 216, 167, 0.05) 100%)',
+          bgColor: "rgba(46, 216, 167, 0.15)",
+          bgGradient:
+            "linear-gradient(135deg, rgba(46, 216, 167, 0.2) 0%, rgba(46, 216, 167, 0.05) 100%)",
           icon: <TrendingUp className="w-5 h-5" />,
-          label: 'Risk-On',
-          description: 'Bullish environment',
-        }
-      case 'Risk-Off':
+          label: "Risk-On",
+          description: "Bullish environment",
+        };
+      case "Risk-Off":
         return {
           color: COLORS.down,
-          bgColor: 'rgba(244, 91, 105, 0.15)',
-          bgGradient: 'linear-gradient(135deg, rgba(244, 91, 105, 0.2) 0%, rgba(244, 91, 105, 0.05) 100%)',
+          bgColor: "rgba(244, 91, 105, 0.15)",
+          bgGradient:
+            "linear-gradient(135deg, rgba(244, 91, 105, 0.2) 0%, rgba(244, 91, 105, 0.05) 100%)",
           icon: <TrendingDown className="w-5 h-5" />,
-          label: 'Risk-Off',
-          description: 'Bearish environment',
-        }
+          label: "Risk-Off",
+          description: "Bearish environment",
+        };
       default:
         return {
           color: COLORS.neutral,
-          bgColor: 'rgba(174, 183, 179, 0.15)',
-          bgGradient: 'linear-gradient(135deg, rgba(174, 183, 179, 0.2) 0%, rgba(174, 183, 179, 0.05) 100%)',
+          bgColor: "rgba(174, 183, 179, 0.15)",
+          bgGradient:
+            "linear-gradient(135deg, rgba(174, 183, 179, 0.2) 0%, rgba(174, 183, 179, 0.05) 100%)",
           icon: <Minus className="w-5 h-5" />,
-          label: 'Neutral',
-          description: 'Mixed signals',
-        }
+          label: "Neutral",
+          description: "Mixed signals",
+        };
     }
-  }
+  };
 
   const getConfidenceConfig = () => {
     switch (confidence) {
-      case 'High':
-        return { width: '100%', color: COLORS.up }
-      case 'Medium':
-        return { width: '66%', color: COLORS.warn }
+      case "High":
+        return { width: "100%", color: COLORS.up };
+      case "Medium":
+        return { width: "66%", color: COLORS.warn };
       default:
-        return { width: '33%', color: COLORS.down }
+        return { width: "33%", color: COLORS.down };
     }
-  }
+  };
 
-  const regimeConfig = getRegimeConfig()
-  const confidenceConfig = getConfidenceConfig()
+  const regimeConfig = getRegimeConfig();
+  const confidenceConfig = getConfidenceConfig();
 
   // Phase 2: Icon size based on variant
-  const iconSize = isProminent ? 'w-20 h-20' : 'w-14 h-14'
-  const iconInnerSize = isProminent ? 'w-8 h-8' : 'w-5 h-5'
-  const labelSize = isProminent ? 'text-2xl' : 'text-lg'
+  const iconSize = isProminent ? "w-12 h-12" : "w-14 h-14";
+  const iconInnerSize = isProminent ? "w-6 h-6" : "w-7 h-7";
+  const labelSize = isProminent ? "text-2xl" : "text-lg";
 
   return (
     <div className="flex items-center gap-4">
@@ -138,7 +145,7 @@ function RegimeIndicator({ regime, confidence, variant = 'default' }: RegimeIndi
         style={{
           backgroundColor: regimeConfig.bgColor,
           // Phase 2: Add animated gradient for prominent variant
-          ...(isProminent && regime !== 'Neutral'
+          ...(isProminent && regime !== "Neutral"
             ? {
                 background: regimeConfig.bgGradient,
               }
@@ -165,49 +172,48 @@ function RegimeIndicator({ regime, confidence, variant = 'default' }: RegimeIndi
             {regimeConfig.label}
           </span>
           <Badge
-            size={isProminent ? 'md' : 'sm'}
+            size={isProminent ? "md" : "sm"}
             color={
-              confidence === 'High'
-                ? 'buy'
-                : confidence === 'Medium'
-                  ? 'watch'
-                  : 'sell'
+              confidence === "High"
+                ? "buy"
+                : confidence === "Medium"
+                  ? "watch"
+                  : "sell"
             }
           >
             {confidence}
           </Badge>
         </div>
         <span
-          className={`text-text-muted ${isProminent ? 'text-sm' : 'text-xs'}`}
+          className={`text-text-muted ${isProminent ? "text-sm" : "text-xs"}`}
         >
           {regimeConfig.description}
+          {/* Confidence Bar */}
+          <div className="flex flex-col  gap-1">
+            <span className="text-[9px] uppercase tracking-wide text-text-muted">
+              Confidence
+            </span>
+            <div
+              className={`h-1.5 bg-surface-2 rounded-full overflow-hidden ${isProminent ? "w-20" : "w-16"}`}
+            >
+              <motion.div
+                initial={{ width: 0 }}
+                animate={{ width: confidenceConfig.width }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+                className="h-full rounded-full"
+                style={{ backgroundColor: confidenceConfig.color }}
+              />
+            </div>
+          </div>
         </span>
-      </div>
-
-      {/* Confidence Bar */}
-      <div className="flex flex-col items-end gap-1">
-        <span className="text-[9px] uppercase tracking-wide text-text-muted">
-          Confidence
-        </span>
-        <div
-          className={`h-1.5 bg-surface-2 rounded-full overflow-hidden ${isProminent ? 'w-20' : 'w-16'}`}
-        >
-          <motion.div
-            initial={{ width: 0 }}
-            animate={{ width: confidenceConfig.width }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
-            className="h-full rounded-full"
-            style={{ backgroundColor: confidenceConfig.color }}
-          />
-        </div>
       </div>
     </div>
-  )
+  );
 }
 
 interface ReasonItemProps {
-  reason: string
-  index: number
+  reason: string;
+  index: number;
 }
 
 function ReasonItem({ reason, index }: ReasonItemProps) {
@@ -224,18 +230,20 @@ function ReasonItem({ reason, index }: ReasonItemProps) {
       />
       <span className="leading-relaxed">{reason}</span>
     </motion.div>
-  )
+  );
 }
 
 // Loading Skeleton
 interface MarketRegimeSkeletonProps {
   /** Display variant for skeleton */
-  variant?: 'default' | 'prominent'
+  variant?: "default" | "prominent";
 }
 
-function MarketRegimeSkeleton({ variant = 'default' }: MarketRegimeSkeletonProps) {
-  const isProminent = variant === 'prominent'
-  const iconSize = isProminent ? 'w-20 h-20' : 'w-14 h-14'
+function MarketRegimeSkeleton({
+  variant = "default",
+}: MarketRegimeSkeletonProps) {
+  const isProminent = variant === "prominent";
+  const iconSize = isProminent ? "w-20 h-20" : "w-14 h-14";
 
   return (
     <Card padding="sm">
@@ -257,7 +265,7 @@ function MarketRegimeSkeleton({ variant = 'default' }: MarketRegimeSkeletonProps
         </div>
       </div>
     </Card>
-  )
+  );
 }
 
 // ==================================================================
@@ -266,27 +274,27 @@ function MarketRegimeSkeleton({ variant = 'default' }: MarketRegimeSkeletonProps
 
 export function MarketRegimeCard({
   className,
-  variant = 'default',
+  variant = "default",
 }: MarketRegimeCardProps) {
   // Fetch data from market intelligence API
   const { data, isLoading, error } = useQuery<{
-    success: boolean
-    data?: { regime: MarketRegimeData | null }
+    success: boolean;
+    data?: { regime: MarketRegimeData | null };
   }>({
-    queryKey: ['market-intelligence', 'regime'],
+    queryKey: ["market-intelligence", "regime"],
     queryFn: async () => {
-      const res = await fetch('/api/market-intelligence?includeP0=true')
-      if (!res.ok) throw new Error('Failed to fetch market regime data')
-      return res.json()
+      const res = await fetch("/api/market-intelligence?includeP0=true");
+      if (!res.ok) throw new Error("Failed to fetch market regime data");
+      return res.json();
     },
     refetchInterval: REFRESH_INTERVAL,
-  })
+  });
 
   // Extract regime data
-  const regimeData = data?.data?.regime
+  const regimeData = data?.data?.regime;
 
   if (isLoading) {
-    return <MarketRegimeSkeleton variant={variant} />
+    return <MarketRegimeSkeleton variant={variant} />;
   }
 
   if (error || !data?.success || !regimeData) {
@@ -295,7 +303,7 @@ export function MarketRegimeCard({
         padding="sm"
         className={className}
         // Phase 2: Support lg:col-span-2 for prominent variant
-        {...(variant === 'prominent' && { 'data-lg-col-span': '2' })}
+        {...(variant === "prominent" && { "data-lg-col-span": "2" })}
       >
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
@@ -310,7 +318,7 @@ export function MarketRegimeCard({
           </span>
         </div>
       </Card>
-    )
+    );
   }
 
   return (
@@ -318,7 +326,7 @@ export function MarketRegimeCard({
       padding="sm"
       className={className}
       // Phase 2: Support lg:col-span-2 for prominent variant
-      {...(variant === 'prominent' && { 'data-lg-col-span': '2' })}
+      {...(variant === "prominent" && { "data-lg-col-span": "2" })}
     >
       {/* Header */}
       <div className="flex items-center justify-between mb-3">
@@ -373,7 +381,7 @@ export function MarketRegimeCard({
         </div>
       )}
     </Card>
-  )
+  );
 }
 
-export default MarketRegimeCard
+export default MarketRegimeCard;

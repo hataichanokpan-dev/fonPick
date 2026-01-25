@@ -115,7 +115,7 @@ function SectorRow({ sector, showRank = true, variant }: SectorRowProps) {
         className="text-sm font-bold tabular-nums"
         style={{ color: valueColor }}
       >
-        {sector.vsMarket >= 0 ? '+' : ''}
+         
         {formatPercent(sector.vsMarket)}
       </span>
 

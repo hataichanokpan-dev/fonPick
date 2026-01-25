@@ -28,7 +28,8 @@
       "Bash(pnpm tsc:*)",
       "Bash(dir:*)",
       "Bash(npm run test:coverage:*)",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "Bash(npm run lint:*)"
     ]
   }
 }
