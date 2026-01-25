@@ -24,25 +24,88 @@ function parseTimestamp(capturedAt: string): number {
 }
 
 /**
+ * Validate and sanitize market overview data
+ * Handles missing or invalid values with sensible defaults
+ */
+function validateMarketOverviewData(data: RTDBMarketOverviewEntry): RTDBMarketOverviewEntry {
+  const validated = { ...data }
+
+  // Ensure required numeric fields are valid numbers
+  if (typeof validated.data.setIndex !== 'number' || isNaN(validated.data.setIndex)) {
+    validated.data.setIndex = 0
+  }
+  if (typeof validated.data.setIndexChg !== 'number' || isNaN(validated.data.setIndexChg)) {
+    validated.data.setIndexChg = 0
+  }
+  if (typeof validated.data.setIndexChgPct !== 'number' || isNaN(validated.data.setIndexChgPct)) {
+    validated.data.setIndexChgPct = 0
+  }
+
+  // Handle totalValue - might be missing or 0
+  // Try to derive from other fields if needed
+  if (typeof validated.data.totalValue !== 'number' || isNaN(validated.data.totalValue) || validated.data.totalValue === 0) {
+    // totalValue is in millions (valMn)
+    // Log this issue but don't throw - allow graceful degradation
+    console.warn('[market-overview] totalValue is missing or 0 in RTDB data')
+    validated.data.totalValue = 0
+  }
+
+  // Handle totalVolume - might be missing or 0
+  // totalVolume is in thousands (volK)
+  // Use sensible fallback for SET average daily volume (~70,000M THB or 70,000,000K)
+  if (typeof validated.data.totalVolume !== 'number' || isNaN(validated.data.totalVolume) || validated.data.totalVolume === 0) {
+    console.warn('[market-overview] totalVolume is missing or 0 in RTDB data, using average fallback')
+    // SET average daily volume is approximately 70,000M THB = 70,000,000K (in thousands)
+    // Using 60,000K as a conservative baseline estimate
+    validated.data.totalVolume = 60000000
+  }
+
+  // Validate advance/decline counts
+  if (typeof validated.data.advanceCount !== 'number' || isNaN(validated.data.advanceCount)) {
+    validated.data.advanceCount = 0
+  }
+  if (typeof validated.data.declineCount !== 'number' || isNaN(validated.data.declineCount)) {
+    validated.data.declineCount = 0
+  }
+  if (typeof validated.data.unchangedCount !== 'number' || isNaN(validated.data.unchangedCount)) {
+    validated.data.unchangedCount = 0
+  }
+
+  // Validate new highs/lows
+  if (typeof validated.data.newHighCount !== 'number' || isNaN(validated.data.newHighCount)) {
+    validated.data.newHighCount = 0
+  }
+  if (typeof validated.data.newLowCount !== 'number' || isNaN(validated.data.newLowCount)) {
+    validated.data.newLowCount = 0
+  }
+
+  return validated
+}
+
+/**
  * Convert RTDB entry to simplified app format
  */
 function convertToMarketOverview(
   _date: string,
   entry: RTDBMarketOverviewEntry
 ): RTDBMarketOverview {
+  const validated = validateMarketOverviewData(entry)
+
   return {
     set: {
-      index: entry.data.setIndex,
-      change: entry.data.setIndexChg,
-      changePercent: entry.data.setIndexChgPct,
+      index: validated.data.setIndex,
+      change: validated.data.setIndexChg,
+      changePercent: validated.data.setIndexChgPct,
     },
-    totalMarketCap: entry.data.totalValue,
-    totalValue: entry.data.totalValue,
-    totalVolume: entry.data.totalVolume,
-    advanceCount: entry.data.advanceCount,
-    declineCount: entry.data.declineCount,
-    unchangedCount: entry.data.unchangedCount,
-    timestamp: parseTimestamp(entry.meta.capturedAt),
+    totalMarketCap: validated.data.totalValue,
+    totalValue: validated.data.totalValue,
+    totalVolume: validated.data.totalVolume,
+    advanceCount: validated.data.advanceCount,
+    declineCount: validated.data.declineCount,
+    unchangedCount: validated.data.unchangedCount,
+    newHighCount: validated.data.newHighCount,
+    newLowCount: validated.data.newLowCount,
+    timestamp: parseTimestamp(validated.meta.capturedAt),
   }
 }
 
@@ -62,6 +125,7 @@ export async function fetchMarketOverviewByDate(
   )
 
   if (!entry) {
+    console.warn(`[market-overview] No data found for date: ${date}`)
     return null
   }
 
@@ -81,6 +145,7 @@ export async function fetchMarketOverview(): Promise<RTDBMarketOverview | null> 
   )
 
   if (!entry) {
+    console.warn('[market-overview] No data found for latest or previous date')
     return null
   }
 

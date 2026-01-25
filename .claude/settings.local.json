@@ -17,7 +17,11 @@
       "Bash(grep:*)",
       "Bash(npx tsc:*)",
       "Bash(powershell:*)",
-      "Bash(pnpm run build:*)"
+      "Bash(pnpm run build:*)",
+      "Bash(npm test)",
+      "Bash(npm test:*)",
+      "Bash(npx vitest run:*)",
+      "Bash(curl:*)"
     ]
   }
 }

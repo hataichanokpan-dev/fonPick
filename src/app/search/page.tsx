@@ -1,13 +1,13 @@
 /**
  * Search Page (Server Component)
  * Stock search with autocomplete functionality
+ * Theme: Green-tinted dark with teal up / soft red down
  *
- * NOTE: Stock list data not yet available in RTDB.
- * Using mock data for demonstration until stock endpoint is implemented.
+ * Phase 5: Enhanced with smooth transitions
  */
 
 import { SearchClient } from './SearchClient'
-import { formatNumber, formatPercent } from '@/lib/utils'
+import { formatNumber, formatPercent, cn } from '@/lib/utils'
 import Link from 'next/link'
 import { searchStocksByPrefix } from '@/lib/rtdb'
 
@@ -26,7 +26,7 @@ const MOCK_STOCKS = [
   { symbol: 'BBL', name: 'Bangkok Bank Public Company Limited', price: 152.0, change: 2.1, sector: 'Banking' },
   { symbol: 'DELTA', name: 'Delta Electronics Public Company Limited', price: 48.5, change: 3.8, sector: 'Technology' },
   { symbol: 'TRUE', name: 'True Corporation Public Company Limited', price: 5.2, change: -0.5, sector: 'Technology' },
-  { symbol: 'INTUCH', name: 'Intouch Holdings Public Company Limited', price: 58.5, change: 1.5, sector: 'Technology' },
+  { symbol: 'INTOUCH', name: 'Intouch Holdings Public Company Limited', price: 58.5, change: 1.5, sector: 'Technology' },
   { symbol: 'LH', name: 'Land and Houses Public Company Limited', price: 12.8, change: -1.2, sector: 'Property' },
 ]
 
@@ -70,13 +70,13 @@ export default async function SearchPage({
   const results = query ? await searchStocks(query) : []
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6">
-      {/* Header */}
+    <div className="space-y-4">
+      {/* Header - Compact */}
       <div>
-        <h1 className="text-2xl font-bold mb-2" style={{ color: '#E5E7EB' }}>
+        <h1 className="text-xl font-bold mb-1 text-text">
           Search Stocks
         </h1>
-        <p style={{ color: '#9CA3AF' }}>
+        <p className="text-sm text-text-2">
           Find stocks by symbol or company name
         </p>
       </div>
@@ -84,45 +84,42 @@ export default async function SearchPage({
       {/* Search Bar */}
       <SearchClient defaultValue={query} />
 
-      {/* Search Results */}
+      {/* Search Results - Compact */}
       {query && (
         <div>
           {results.length > 0 ? (
-            <div className="rounded-lg divide-y" style={{ backgroundColor: '#111827', border: '1px solid #273449' }}>
+            <div className="rounded-lg divide-y border border-border bg-surface">
               {results.map((stock) => (
                 <Link
                   key={stock.symbol}
                   href={`/stock/${stock.symbol}`}
-                  className="block transition-colors"
-                  style={{ borderBottom: '1px solid #273449' }}
-                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#1F2937'}
-                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+                  className="block transition-all duration-200 hover:bg-surface-1"
                 >
-                  <div className="p-4 flex items-center justify-between">
+                  <div className="p-3 flex items-center justify-between">
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-3">
                         <div>
-                          <div className="font-semibold" style={{ color: '#E5E7EB' }}>
+                          <div className="font-semibold text-sm text-text">
                             {stock.symbol}
                           </div>
-                          <div className="text-sm truncate max-w-md" style={{ color: '#9CA3AF' }}>
+                          <div className="text-xs truncate max-w-md text-text-2">
                             {stock.name}
                           </div>
-                          <div className="text-xs mt-1" style={{ color: '#6B7280' }}>
+                          <div className="text-[10px] mt-1 text-text-3 uppercase tracking-wide">
                             {stock.sector}
                           </div>
                         </div>
                       </div>
                     </div>
 
-                    <div className="text-right ml-4">
-                      <div className="font-semibold" style={{ color: '#E5E7EB' }}>
+                    <div className="text-right ml-3">
+                      <div className="font-semibold text-sm text-text">
                         {formatNumber(stock.price, 2)}
                       </div>
                       <div
                         className={cn(
-                          'text-sm font-medium',
-                          stock.change >= 0 ? 'text-signal-up-strong' : 'text-signal-down-strong'
+                          'text-xs font-medium transition-colors duration-200',
+                          stock.change >= 0 ? 'text-up' : 'text-down'
                         )}
                       >
                         {stock.change >= 0 ? '+' : ''}
@@ -135,9 +132,9 @@ export default async function SearchPage({
             </div>
           ) : (
             <div className="text-center py-12">
-              <div className="mb-2" style={{ color: '#6B7280' }}>
+              <div className="mb-2 text-text-3">
                 <svg
-                  className="w-12 h-12 mx-auto"
+                  className="w-10 h-10 mx-auto"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -150,8 +147,8 @@ export default async function SearchPage({
                   />
                 </svg>
               </div>
-              <p className="font-medium" style={{ color: '#9CA3AF' }}>No stocks found</p>
-              <p className="text-sm mt-1" style={{ color: '#6B7280' }}>
+              <p className="text-sm font-medium text-text-2">No stocks found</p>
+              <p className="text-xs mt-1 text-text-3">
                 Try a different search term
               </p>
             </div>
@@ -159,12 +156,12 @@ export default async function SearchPage({
         </div>
       )}
 
-      {/* No search state */}
+      {/* No search state - Compact */}
       {!query && (
         <div className="text-center py-12">
-          <div className="mb-4" style={{ color: '#6B7280' }}>
+          <div className="mb-4 text-text-3">
             <svg
-              className="w-16 h-16 mx-auto"
+              className="w-14 h-14 mx-auto"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -177,10 +174,10 @@ export default async function SearchPage({
               />
             </svg>
           </div>
-          <h3 className="text-lg font-semibold mb-2" style={{ color: '#E5E7EB' }}>
+          <h3 className="text-base font-semibold mb-2 text-text">
             Search for stocks
           </h3>
-          <p className="max-w-md mx-auto" style={{ color: '#9CA3AF' }}>
+          <p className="max-w-md mx-auto text-sm text-text-2">
             Enter a stock symbol (e.g., PTT, KBANK) or company name to see
             detailed analysis and investment recommendations.
           </p>
@@ -188,8 +185,4 @@ export default async function SearchPage({
       )}
     </div>
   )
-}
-
-function cn(...classes: (string | boolean | undefined)[]) {
-  return classes.filter(Boolean).join(' ')
 }

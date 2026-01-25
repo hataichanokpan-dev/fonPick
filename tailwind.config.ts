@@ -5,84 +5,211 @@ export default {
   darkMode: 'class',
   theme: {
     extend: {
+      // =========================
+      // SCREENS / BREAKPOINTS (Phase 1)
+      // =========================
+      screens: {
+        'xs': '375px',  // Small mobile
+        'sm': '640px',  // Standard mobile
+        'md': '768px',  // Tablet
+        'lg': '1024px', // Desktop
+        'xl': '1280px', // Wide desktop
+        '2xl': '1536px', // Extra wide desktop
+      },
+
       colors: {
-        // Base colors - Background and surface colors
-        base: {
-          background: '#0F172A',
-          surface: '#111827',
-          surface_alt: '#1F2937',
-          border: '#273449',
-        },
+        // =========================
+        // Background Hierarchy (from design_rules.md)
+        // =========================
+        'bg-primary': '#0a0e17',  // Deep near-black - main background
+        'bg-surface': '#111827',  // Card background
+        'bg-surface-2': '#1f2937', // Elevated surface, hover states
+        'bg-surface-3': '#374151', // Active states
 
-        // Text colors
+        // =========================
+        // Border System (from design_rules.md)
+        // =========================
+        'border-subtle': '#1f2937',  // Subtle borders
+        'border-default': '#374151', // Component borders
+        'border-strong': '#4b5563',  // Focus states
+
+        // =========================
+        // Typography Colors (from design_rules.md)
+        // =========================
+        'text-primary': '#ffffff',   // Main content, hero numbers
+        'text-secondary': '#a0a0a0', // Supporting text
+        'text-tertiary': '#6b7280',  // Labels, metadata
+        'text-disabled': '#4b5563',  // Disabled states
+
+        // =========================
+        // Signal Colors - Market Data (from design_rules.md)
+        // =========================
+        'up-primary': '#4ade80',     // Green - gains, positive
+        'up-soft': 'rgba(74, 222, 128, 0.15)', // Background tint
+        'up-mobile': '#4CAF50',      // Mobile green 500
+        'down-primary': '#ff6b6b',   // Red - losses, negative
+        'down-soft': 'rgba(255, 107, 107, 0.15)', // Background tint
+        'down-mobile': '#F44336',    // Mobile red 500
+        'neutral': '#9ca3af',        // Flat, no change
+
+        // =========================
+        // Accent Colors (from design_rules.md)
+        // =========================
+        'accent-blue': '#3b82f6',    // Charts, links, primary actions
+        'accent-blue-dark': '#1e40af', // Chart fill
+        'insight': '#f59e0b',        // Gold - AI insights
+        'warning': '#f97316',        // Orange - warnings
+
+        // =========================
+        // Legacy aliases (for backward compatibility)
+        // =========================
+        bg: {
+          DEFAULT: '#0a0e17',
+          1: '#111827',
+          2: '#1f2937',
+        },
+        surface: {
+          DEFAULT: '#111827',
+          1: '#1f2937',
+          2: '#374151',
+          3: '#4b5563',
+          hover: '#1f2937',
+        },
+        border: {
+          DEFAULT: '#1f2937',
+          subtle: '#1f2937',
+          1: '#374151',
+          2: '#4b5563',
+        },
         text: {
-          primary: '#E5E7EB',
-          secondary: '#9CA3AF',
-          muted: '#6B7280',
-          inverse: '#020617',
+          DEFAULT: '#ffffff',
+          1: '#a0a0a0',
+          2: '#6b7280',
+          3: '#4b5563',
+          muted: '#6b7280',
+          disabled: '#4b5563',
+          inverse: '#0a0e17',
         },
-
-        // Signal colors - Price movement indicators
-        signal: {
-          up_strong: '#22C55E',
-          up_soft: '#86EFAC',
-          down_soft: '#FECACA',
-          down_strong: '#EF4444',
-          neutral: '#94A3B8',
-        },
-
-        // Flow colors - Buy/Sell indicators with opacity support
-        flow: {
-          buy: '#16A34A',
-          sell: '#DC2626',
-          neutral_bg: '#1F2937',
-        },
-
-        // Highlight colors - Insights, warnings, info
-        highlight: {
-          insight: '#F59E0B',
-          warning: '#FB7185',
-          info: '#60A5FA',
-        },
-
-        // Semantic color aliases for better developer experience
         up: {
-          bg: 'rgba(34, 197, 94, 0.1)',
-          strong: '#22C55E',
-          soft: '#86EFAC',
-          DEFAULT: '#22C55E',
+          DEFAULT: '#4ade80',
+          primary: '#4ade80',
+          soft: 'rgba(74, 222, 128, 0.15)',
+          text: '#4ade80',
+          bg: 'rgba(74, 222, 128, 0.15)',
         },
         down: {
-          bg: 'rgba(239, 68, 68, 0.1)',
-          strong: '#EF4444',
-          soft: '#FECACA',
-          DEFAULT: '#EF4444',
+          DEFAULT: '#ff6b6b',
+          primary: '#ff6b6b',
+          soft: 'rgba(255, 107, 107, 0.15)',
+          text: '#ff6b6b',
+          bg: 'rgba(255, 107, 107, 0.15)',
+        },
+        flat: {
+          DEFAULT: '#9ca3af',
+          soft: '#9ca3af',
+        },
+
+        // =========================
+        // Chart-specific tokens
+        // =========================
+        chart: {
+          bg: '#111827',
+          grid: '#1f2937',
+          axis: '#6b7280',
+          line: '#ffffff',
+          volume: '#4b5563',
+          crosshair: '#1f2937',
+          tooltipBg: '#1f2937',
+          tooltipBorder: '#374151',
+        },
+
+        // =========================
+        // Status / Info colors
+        // =========================
+        info: {
+          DEFAULT: '#3b82f6',
+          soft: '#93C5FD',
+          deep: '#1e40af',
+        },
+        warn: {
+          DEFAULT: '#f97316',
+          soft: '#FDE68A',
+          deep: '#d97706',
+        },
+        risk: {
+          DEFAULT: '#ff6b6b',
+          soft: '#FDA4AF',
+          deep: '#E11D48',
+        },
+
+        // =========================
+        // Overlay / Shadows
+        // =========================
+        overlay: {
+          10: 'rgba(0,0,0,0.10)',
+          20: 'rgba(0,0,0,0.20)',
+          40: 'rgba(0,0,0,0.40)',
+          60: 'rgba(0,0,0,0.60)',
+        },
+
+        // =========================
+        // Additional legacy tokens for compatibility
+        // =========================
+        base: {
+          background: '#0a0e17',
+          surface: '#111827',
+          surface_alt: '#1f2937',
+          border: '#1f2937',
+        },
+        signal: {
+          up_strong: '#4ade80',
+          up_soft: 'rgba(74, 222, 128, 0.15)',
+          down_soft: 'rgba(255, 107, 107, 0.15)',
+          down_strong: '#ff6b6b',
+          neutral: '#9ca3af',
+        },
+        flow: {
+          buy: '#4ade80',
+          sell: '#ff6b6b',
+          neutral_bg: '#1f2937',
+        },
+        highlight: {
+          insight: '#f59e0b',
+          warning: '#f97316',
+          info: '#3b82f6',
         },
         buy: {
-          bg: 'rgba(22, 163, 74, 0.1)',
-          DEFAULT: '#16A34A',
+          bg: 'rgba(74, 222, 128, 0.15)',
+          DEFAULT: '#4ade80',
         },
         sell: {
-          bg: 'rgba(220, 38, 38, 0.1)',
-          DEFAULT: '#DC2626',
+          bg: 'rgba(255, 107, 107, 0.15)',
+          DEFAULT: '#ff6b6b',
         },
       },
 
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-        mono: ['JetBrains Mono', 'monospace'],
-        display: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        mono: ['JetBrains Mono', 'SF Mono', 'Consolas', 'monospace'],
+        tabular: ['ui-monospace', 'SFMono-Regular', 'Monaco', 'Consolas', 'monospace'],
+        display: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
       },
 
       fontSize: {
-        // Thai-optimized font sizes
-        'xxs': ['0.625rem', { lineHeight: '0.75rem' }],
-        'xs': ['0.75rem', { lineHeight: '1rem' }],
-        'sm': ['0.875rem', { lineHeight: '1.25rem' }],
-        'base': ['1rem', { lineHeight: '1.5rem' }],
-        'lg': ['1.125rem', { lineHeight: '1.75rem' }],
-        'xl': ['1.25rem', { lineHeight: '1.75rem' }],
-        '2xl': ['1.5rem', { lineHeight: '2rem' }],
+        // Number display sizes (from design_rules.md)
+        'number-hero': ['2rem', { lineHeight: '1.1', fontWeight: '700', letterSpacing: '-0.02em' }], // 32px
+        'number-primary': ['1.5rem', { lineHeight: '1.2', fontWeight: '600' }], // 24px
+        'number-secondary': ['1rem', { lineHeight: '1.25', fontWeight: '600' }], // 16px
+        'number-tertiary': ['0.875rem', { lineHeight: '1.25', fontWeight: '500' }], // 14px
+
+        // Standard font sizes (from design_rules.md)
+        'xxs': ['0.6875rem', { lineHeight: '1.4' }], // 11px - Captions
+        'xs': ['0.75rem', { lineHeight: '1.5', fontWeight: '500', letterSpacing: '0.05em' }], // 12px - Labels
+        'sm': ['0.875rem', { lineHeight: '1.6' }], // 14px - Body
+        'base': ['1rem', { lineHeight: '1.6' }], // 16px - Body
+        'lg': ['1.125rem', { lineHeight: '1.4', fontWeight: '600' }], // 18px - Card titles
+        'xl': ['1.5rem', { lineHeight: '1.3', fontWeight: '700', letterSpacing: '-0.01em' }], // 24px - Section titles
+        '2xl': ['2rem', { lineHeight: '1.1', fontWeight: '700', letterSpacing: '-0.02em' }], // 32px - Hero numbers
         '3xl': ['1.875rem', { lineHeight: '2.25rem' }],
         '4xl': ['2.25rem', { lineHeight: '2.5rem' }],
         '5xl': ['3rem', { lineHeight: '1' }],
@@ -90,18 +217,61 @@ export default {
       },
 
       spacing: {
+        // Spacing scale from design_rules.md (4px base)
+        'space-1': '0.25rem',  // 4px - Micro spacing
+        'space-2': '0.5rem',   // 8px - Small gaps
+        'space-3': '0.75rem',  // 12px - Standard gap
+        'space-4': '1rem',     // 16px - Medium spacing
+        'space-5': '1.25rem',  // 20px - Large internal spacing
+        'space-6': '1.5rem',   // 24px - Section spacing
+        'space-8': '2rem',     // 32px - Component spacing
+        'space-10': '2.5rem',  // 40px - Large sections
+        'space-12': '3rem',    // 48px - Page margins
+
+        // Component spacing from design_rules.md
+        'card-padding': '1rem',      // 16px
+        'card-gap-desktop': '1.5rem', // 24px
+        'card-gap-mobile': '1rem',    // 16px
+        'row-height-desktop': '3rem', // 48px
+        'row-height-mobile': '3.5rem', // 56px
+        'button-height-desktop': '2.5rem', // 40px
+        'button-height-mobile': '2.75rem', // 44px
+
+        // =========================
+        // SAFE AREA SPACING (Phase 1)
+        // =========================
+        'safe-top': 'env(safe-area-inset-top)',
+        'safe-bottom': 'env(safe-area-inset-bottom)',
+        'safe-left': 'env(safe-area-inset-left)',
+        'safe-right': 'env(safe-area-inset-right)',
+
+        // Legacy spacing
         '18': '4.5rem',
         '88': '22rem',
         '128': '32rem',
-        // Stock-specific spacing
         'stock-card': '16rem',
         'chart-height': '20rem',
         'sidebar': '18rem',
       },
 
+      // =========================
+      // MAX WIDTH (Phase 1)
+      // =========================
+      maxWidth: {
+        'mobile': '428px',
+        'tablet': '768px',
+        'desktop': '1280px',
+        'desktop-wide': '1536px',
+      },
+
       borderRadius: {
+        // From design_rules.md
+        'sm': '0.25rem',  // 4px
+        'md': '0.5rem',   // 8px
+        'lg': '0.75rem',  // 12px
+        'xl': '1rem',     // 16px
+        'xl2': '0.875rem', // 14px
         '4xl': '2rem',
-        // Card-specific radii
         'card': '0.75rem',
         'card-lg': '1rem',
         'input': '0.5rem',
@@ -109,11 +279,17 @@ export default {
       },
 
       boxShadow: {
+        hairline: '0 0 0 1px #1f2937',
+        soft: '0 8px 24px rgba(0,0,0,0.35)',
         'stock-card': '0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2)',
         'stock-card-hover': '0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2)',
-        'glow-up': '0 0 12px rgba(34, 197, 94, 0.4)',
-        'glow-down': '0 0 12px rgba(239, 68, 68, 0.4)',
+        'glow-up': '0 0 12px rgba(74, 222, 128, 0.4)',
+        'glow-down': '0 0 12px rgba(255, 107, 107, 0.4)',
         'glow-insight': '0 0 12px rgba(245, 158, 11, 0.4)',
+      },
+
+      backgroundImage: {
+        'logo-gradient': 'linear-gradient(to bottom right, #4ade80, #22c55e)',
       },
 
       animation: {
@@ -145,11 +321,11 @@ export default {
         },
         priceUp: {
           '0%, 100%': { backgroundColor: 'transparent' },
-          '50%': { backgroundColor: 'rgba(34, 197, 94, 0.2)' },
+          '50%': { backgroundColor: 'rgba(74, 222, 128, 0.2)' },
         },
         priceDown: {
           '0%, 100%': { backgroundColor: 'transparent' },
-          '50%': { backgroundColor: 'rgba(239, 68, 68, 0.2)' },
+          '50%': { backgroundColor: 'rgba(255, 107, 107, 0.2)' },
         },
       },
 

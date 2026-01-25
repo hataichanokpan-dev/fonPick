@@ -44,6 +44,8 @@ export interface RTDBMarketOverview {
   advanceCount: number
   declineCount: number
   unchangedCount: number
+  newHighCount: number
+  newLowCount: number
   timestamp: number
 }
 

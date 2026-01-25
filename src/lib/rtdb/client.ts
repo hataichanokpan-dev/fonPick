@@ -97,15 +97,16 @@ export async function fetchWithFallback<T>(
   try {
     const data = await rtdbGet<T>(primaryPath)
 
-    // Check if data has content
-    if (data && typeof data === 'object' && Object.keys(data).length > 0) {
+    // Check if data exists - accept any non-null data from RTDB
+    // This allows objects, arrays, and primitives to be returned
+    if (data != null) {
       return data
     }
 
     // Try fallback if available
     if (fallbackPath) {
       const fallback = await rtdbGet<T>(fallbackPath)
-      if (fallback && typeof fallback === 'object' && Object.keys(fallback).length > 0) {
+      if (fallback != null) {
         return fallback
       }
     }
@@ -119,7 +120,7 @@ export async function fetchWithFallback<T>(
     if (fallbackPath) {
       try {
         const fallback = await rtdbGet<T>(fallbackPath)
-        if (fallback && typeof fallback === 'object' && Object.keys(fallback).length > 0) {
+        if (fallback != null) {
           return fallback
         }
       } catch {

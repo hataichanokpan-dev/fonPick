@@ -91,7 +91,7 @@ export function SectorHeatmap({
               }}
               title={
                 showTrends && sector.trend5Day
-                  ? `5D: ${formatPercent(sector.trend5Day.changePercent, 1)}`
+                  ? `5D: ${formatPercent(sector.trend5Day.changePercent, 2)}`
                   : undefined
               }
             >
@@ -109,7 +109,7 @@ export function SectorHeatmap({
                 )}
               </div>
               <div className="text-sm font-bold">
-                {formatPercent(sector.changePercent, 1)}
+                {formatPercent(sector.changePercent, 2)}
               </div>
             </div>
           )

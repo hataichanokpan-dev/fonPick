@@ -16,7 +16,7 @@ const firebaseConfigSchema = {
 
 /**
  * Validate Firebase configuration
- * Throws an error if required environment variables are missing
+ * Logs warning if environment variables are missing (non-blocking)
  */
 function validateFirebaseConfig(config: typeof firebaseConfigSchema): void {
   const requiredVars: Array<keyof typeof firebaseConfigSchema> = [
@@ -28,13 +28,13 @@ function validateFirebaseConfig(config: typeof firebaseConfigSchema): void {
   const missingVars = requiredVars.filter((key) => !config[key])
 
   if (missingVars.length > 0) {
-    throw new Error(
-      `Missing required Firebase environment variables: ${missingVars.join(', ')}`
+    console.warn(
+      `[Firebase] Warning: Missing environment variables: ${missingVars.join(', ')}. RTDB features will be disabled.`
     )
   }
 }
 
-// Validate on import
+// Validate on import (non-blocking - only warns)
 validateFirebaseConfig(firebaseConfigSchema)
 
 /**

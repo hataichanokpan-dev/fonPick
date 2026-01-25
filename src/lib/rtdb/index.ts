@@ -17,6 +17,23 @@ export {
   RTDBError,
 } from './client'
 
+// Historical data queries (Phase 2: Cross-Analysis)
+export {
+  getHistoricalMarketOverview,
+  getHistoricalIndustrySector,
+  getHistoricalInvestorType,
+  getHistoricalTopRankings,
+  getHistoricalSetIndex,
+  getCompleteHistoricalData,
+  getLookbackData,
+  get60DayLookback,
+  get30DayLookback,
+  get7DayLookback,
+  checkDataAvailability,
+  findLatestAvailableDate,
+  getDataCoverageReport,
+} from './historical'
+
 // Internal imports for use within this file
 import {
   fetchMarketOverview,
@@ -67,6 +84,7 @@ export {
 // Top Rankings fetchers
 export {
   fetchTopRankings,
+  fetchTopRankingsByDate,
   fetchTopGainers,
   fetchTopLosers,
   fetchTopVolume,

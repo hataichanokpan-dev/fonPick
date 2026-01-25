@@ -1,6 +1,7 @@
 /**
  * Badge Component
- * Status badges with color variants - Dark Theme
+ * Status badges with color variants
+ * Based on: docs/design_rules.md
  */
 
 import { cn } from '@/lib/utils'
@@ -12,26 +13,29 @@ export function Badge({
   size = 'md',
   className,
 }: BadgeProps) {
-  // Using inline styles for colors to match the spec exactly
+  // Color variants from design_rules.md
   const getColorStyles = (color: string) => {
     const colorMap: Record<string, { bg: string; text: string }> = {
-      up: { bg: '#86EFAC', text: '#065F46' }, // up_soft
-      down: { bg: '#FECACA', text: '#991B1F' }, // down_soft
-      neutral: { bg: '#94A3B8', text: '#0F172A' }, // neutral
-      'up-strong': { bg: '#22C55E', text: '#FFFFFF' }, // up_strong
-      'down-strong': { bg: '#EF4444', text: '#FFFFFF' }, // down_strong
-      buy: { bg: '#16A34A', text: '#DCFCE7' }, // buy
-      sell: { bg: '#DC2626', text: '#FEE2E2' }, // sell
-      watch: { bg: '#94A3B8', text: '#0F172A' }, // watch
-      avoid: { bg: '#EF4444', text: '#FFFFFF' }, // avoid
+      up: { bg: 'rgba(74, 222, 128, 0.15)', text: '#4ade80' }, // up-soft / up-primary
+      down: { bg: 'rgba(255, 107, 107, 0.15)', text: '#ff6b6b' }, // down-soft / down-primary
+      neutral: { bg: '#1f2937', text: '#a0a0a0' }, // surface-2 / text-secondary
+      'up-strong': { bg: '#4ade80', text: '#0a0e17' }, // up-primary / bg-primary
+      'down-strong': { bg: '#ff6b6b', text: '#ffffff' }, // down-primary / text-primary
+      buy: { bg: 'rgba(74, 222, 128, 0.15)', text: '#4ade80' }, // up-soft / up-primary
+      sell: { bg: 'rgba(255, 107, 107, 0.25)', text: '#ff6b6b' }, // down-soft / down-primary (increased opacity for mobile contrast)
+      watch: { bg: 'rgba(245, 158, 11, 0.2)', text: '#f59e0b' }, // insight/20
+      avoid: { bg: 'rgba(255, 107, 107, 0.2)', text: '#ff6b6b' }, // down-primary/20
+      insight: { bg: 'rgba(245, 158, 11, 0.2)', text: '#f59e0b' }, // insight/20
+      warning: { bg: 'rgba(249, 115, 22, 0.2)', text: '#f97316' }, // warning/20
     }
     return colorMap[color] || colorMap.neutral
   }
 
+  // Size variants from design_rules.md
   const sizes = {
-    sm: 'px-2 py-0.5 text-xs',
-    md: 'px-3 py-1 text-sm',
-    lg: 'px-4 py-1.5 text-base',
+    sm: 'px-2 py-1 text-xs',      // 8px 4px, 12px
+    md: 'px-3 py-1.5 text-sm',    // 12px 6px, 14px
+    lg: 'px-4 py-2 text-base',    // 16px 8px, 16px
   }
 
   const styles = getColorStyles(color)
@@ -39,7 +43,7 @@ export function Badge({
   return (
     <span
       className={cn(
-        'inline-flex items-center rounded-full font-medium',
+        'inline-flex items-center rounded-full font-medium transition-all duration-150',
         sizes[size],
         className
       )}

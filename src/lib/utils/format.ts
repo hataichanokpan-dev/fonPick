@@ -14,12 +14,25 @@ export function formatNumber(value: number, decimals: number = 2): string {
 }
 
 /**
+ * Format decimal value with fixed precision to avoid floating point errors
+ * Example: 3.5999999999999996 -> "3.60"
+ * @param value - The number to format
+ * @param maxDecimals - Maximum decimal places (default: 2)
+ * @returns Formatted string without trailing zeros
+ */
+export function formatDecimal(value: number, maxDecimals: number = 2): string {
+  if (isNaN(value)) return 'N/A'
+  // Use toFixed to handle floating point precision, then parse to remove trailing zeros
+  return parseFloat(value.toFixed(maxDecimals)).toString()
+}
+
+/**
  * Format percentage with sign
  */
 export function formatPercent(value: number, decimals: number = 2): string {
   if (isNaN(value)) return 'N/A'
   const sign = value >= 0 ? '+' : ''
-  return `${sign}${value.toFixed(decimals)}%`
+  return `${sign}${formatDecimal(value, decimals)}%`
 }
 
 /**
@@ -33,11 +46,11 @@ export function formatMarketCap(value: number): string {
   const millions = value / 1_000_000
 
   if (trillions >= 1) {
-    return `${trillions.toFixed(2)}T`
+    return `${formatDecimal(trillions, 2)}T`
   } else if (billions >= 1) {
-    return `${billions.toFixed(2)}B`
+    return `${formatDecimal(billions, 2)}B`
   } else if (millions >= 1) {
-    return `${millions.toFixed(2)}M`
+    return `${formatDecimal(millions, 2)}M`
   }
   return formatNumber(value, 0)
 }
@@ -52,9 +65,9 @@ export function formatVolume(value: number): string {
   const thousands = value / 1_000
 
   if (millions >= 1) {
-    return `${millions.toFixed(2)}M`
+    return `${formatDecimal(millions, 2)}M`
   } else if (thousands >= 1) {
-    return `${thousands.toFixed(2)}K`
+    return `${formatDecimal(thousands, 2)}K`
   }
   return formatNumber(value, 0)
 }
@@ -104,9 +117,9 @@ export function formatTradingValue(value: number): string {
   const millions = value / 1_000_000
 
   if (billions >= 1) {
-    return `฿${billions.toFixed(2)}B`
+    return `฿${formatDecimal(billions, 2)}B`
   } else if (millions >= 1) {
-    return `฿${millions.toFixed(2)}M`
+    return `฿${formatDecimal(millions, 2)}M`
   }
   return `฿${formatNumber(value, 0)}`
 }

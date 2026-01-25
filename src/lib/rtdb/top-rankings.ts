@@ -26,7 +26,7 @@ import type {
   RTDBTopRankingsEnhanced,
 } from '@/types/rtdb'
 import { RTDB_PATHS } from './paths'
-import { rtdbGet } from './client'
+import { rtdbGet, fetchWithFallback } from './client'
 
 /**
  * Raw RTDB Rankings Response Structure
@@ -75,36 +75,6 @@ function toRTDBTopStock(raw: RawStockData): RTDBTopStock {
 }
 
 /**
- * Fetch top rankings data from RTDB
- * @returns Top rankings with all categories derived from available data
- */
-export async function fetchTopRankings(): Promise<RTDBTopRankings | null> {
-  // Try to fetch from today's rankings
-  const rawData = await rtdbGet<RTDBRankingsResponseRaw>(RTDB_PATHS.RANKINGS_LATEST)
-
-  // Try fallback to yesterday's data if today's is unavailable
-  if (!rawData || !rawData.data) {
-    const yesterdayData = await rtdbGet<RTDBRankingsResponseRaw>(RTDB_PATHS.RANKINGS_PREVIOUS)
-    if (yesterdayData && yesterdayData.data) {
-      return transformRankingsData(yesterdayData)
-    }
-  }
-
-  if (!rawData || !rawData.data) {
-    // Return empty structure rather than null to allow rendering
-    return {
-      topGainers: [],
-      topLosers: [],
-      topVolume: [],
-      topValue: [],
-      timestamp: Date.now(),
-    }
-  }
-
-  return transformRankingsData(rawData)
-}
-
-/**
  * Transform raw RTDB data to standard rankings format
  * Derives topGainers and topLosers from topByValue data
  */
@@ -144,6 +114,58 @@ function transformRankingsData(
       ? new Date(rawData.meta.capturedAt).getTime()
       : Date.now(),
   }
+}
+
+/**
+ * Fetch top rankings by date
+ * @param date Date string in YYYY-MM-DD format
+ * @returns Top rankings or null if unavailable
+ */
+export async function fetchTopRankingsByDate(
+  date: string
+): Promise<RTDBTopRankings | null> {
+  const path = RTDB_PATHS.RANKINGS_BY_DATE(date)
+
+  const rawData = await fetchWithFallback<RTDBRankingsResponseRaw>(
+    path,
+    RTDB_PATHS.RANKINGS_PREVIOUS
+  )
+
+  if (!rawData || !rawData.data) {
+    return null
+  }
+
+  return transformRankingsData(rawData)
+}
+
+/**
+ * Fetch top rankings data from RTDB
+ * @returns Top rankings with all categories derived from available data
+ */
+export async function fetchTopRankings(): Promise<RTDBTopRankings | null> {
+  // Try to fetch from today's rankings
+  const rawData = await rtdbGet<RTDBRankingsResponseRaw>(RTDB_PATHS.RANKINGS_LATEST)
+
+  // Try fallback to yesterday's data if today's is unavailable
+  if (!rawData || !rawData.data) {
+    const yesterdayData = await rtdbGet<RTDBRankingsResponseRaw>(RTDB_PATHS.RANKINGS_PREVIOUS)
+    if (yesterdayData && yesterdayData.data) {
+      return transformRankingsData(yesterdayData)
+    }
+  }
+
+  if (!rawData || !rawData.data) {
+    // Return empty structure rather than null to allow rendering
+    return {
+      topGainers: [],
+      topLosers: [],
+      topVolume: [],
+      topValue: [],
+      timestamp: Date.now(),
+    }
+  }
+
+  return transformRankingsData(rawData)
 }
 
 /**

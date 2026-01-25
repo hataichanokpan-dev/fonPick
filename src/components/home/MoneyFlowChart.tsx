@@ -4,7 +4,7 @@
  */
 
 import { Card } from '@/components/shared'
-import { formatNumber, getValueArrow } from '@/lib/utils'
+import { formatNumber, getValueArrow, formatDecimal } from '@/lib/utils'
 
 interface MoneyFlowChartProps {
   data: {
@@ -88,17 +88,17 @@ export function MoneyFlowChart({
                   {/* 5-day trend indicator */}
                   {showTrends && trend5Day !== undefined && (
                     <span
-                      className="text-xs font-medium"
+                      className="text-xs font-medium tabular-nums"
                       style={{
                         color: trend5Day > 0 ? '#86EFAC' : trend5Day < 0 ? '#FECACA' : '#9CA3AF',
                       }}
                     >
-                      {getValueArrow(trend5Day)}5D {Math.abs(trend5Day) > 0 && `${Math.abs(trend5Day).toFixed(0)}M`}
+                      {getValueArrow(trend5Day)}5D {Math.abs(trend5Day) > 0 && `${formatDecimal(Math.abs(trend5Day), 0)}M`}
                     </span>
                   )}
                   {/* Today's net */}
                   <span
-                    className="font-semibold"
+                    className="font-semibold tabular-nums"
                     style={{ color: getNetColorStyle(net) }}
                   >
                     {net >= 0 ? '+' : ''}
@@ -130,7 +130,7 @@ export function MoneyFlowChart({
                 <div className="absolute left-1/2 top-0 bottom-0 w-px" style={{ backgroundColor: '#374151' }} />
               </div>
 
-              <div className="flex justify-between text-xs" style={{ color: '#6B7280' }}>
+              <div className="flex justify-between text-xs tabular-nums" style={{ color: '#6B7280' }}>
                 <span>B: {formatNumber(buy, 0)}M</span>
                 <span>S: {formatNumber(sell, 0)}M</span>
               </div>

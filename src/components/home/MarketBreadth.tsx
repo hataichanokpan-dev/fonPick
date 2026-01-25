@@ -4,7 +4,7 @@
  */
 
 import { Card } from '@/components/shared'
-import { formatNumber } from '@/lib/utils'
+import { formatNumber, formatDecimal } from '@/lib/utils'
 
 interface MarketBreadthProps {
   advances: number
@@ -58,7 +58,7 @@ export function MarketBreadth({
         {/* A/D ratio */}
         <div className="flex items-baseline justify-between">
           <span className="text-xs" style={{ color: '#9CA3AF' }}>A/D Ratio</span>
-          <span className="text-sm font-semibold" style={{ color: '#E5E7EB' }}>{ratio.toFixed(2)}</span>
+          <span className="text-sm font-semibold tabular-nums" style={{ color: '#E5E7EB' }}>{formatDecimal(ratio, 2)}</span>
         </div>
 
         {/* Gauge */}
@@ -74,7 +74,7 @@ export function MarketBreadth({
 
         {/* Status */}
         <div className="flex items-center justify-between">
-          <div className="flex gap-3 text-xs" style={{ color: '#9CA3AF' }}>
+          <div className="flex gap-3 text-xs tabular-nums" style={{ color: '#9CA3AF' }}>
             <span>Adv: {formatNumber(advances, 0)}</span>
             <span>Dec: {formatNumber(declines, 0)}</span>
           </div>

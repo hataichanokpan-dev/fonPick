@@ -1,10 +1,16 @@
 /**
  * EvidenceCards Component
  * Displays key metrics (P/E, P/BV, Dividend) and peer comparison
+ * Theme: Green-tinted dark with teal up / soft red down
+ *
+ * Phase 5: Enhanced with smooth transitions and hover effects
  */
+
+'use client'
 
 import { Card, Badge } from '@/components/shared'
 import Link from 'next/link'
+import { cn } from '@/lib/utils'
 
 interface EvidenceCardsProps {
   metrics: {
@@ -62,17 +68,17 @@ export function EvidenceCards({
   ]
 
   return (
-    <Card>
-      <h3 className="text-lg font-semibold mb-4" style={{ color: '#E5E7EB' }}>
+    <Card variant="compact">
+      <h3 className="text-base font-semibold mb-3 text-text">
         Key Metrics
         {sector && (
-          <span className="text-sm font-normal ml-2" style={{ color: '#9CA3AF' }}>
+          <span className="text-xs font-normal ml-2 text-text-2">
             vs {sector} sector
           </span>
         )}
       </h3>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
         {metricsData.map((metric) => {
           if (metric.value === undefined) return null
 
@@ -84,18 +90,17 @@ export function EvidenceCards({
           return (
             <div
               key={metric.label}
-              className="rounded-lg p-4"
-              style={{ backgroundColor: '#1F2937', border: '1px solid #273449' }}
+              className="rounded-lg p-3 bg-surface-2 border border-border transition-all duration-200 hover:shadow-soft"
             >
-              <div className="text-sm mb-1" style={{ color: '#6B7280' }}>{metric.label}</div>
-              <div className="text-2xl font-bold" style={{ color: '#E5E7EB' }}>
+              <div className="text-xs mb-1 text-text-2">{metric.label}</div>
+              <div className="text-xl font-bold text-text">
                 {metric.format(metric.value)}
               </div>
               {metric.average !== undefined && (
                 <div
                   className={cn(
-                    'text-xs mt-1',
-                    isBetter ? 'text-signal-up-strong' : 'text-signal-down-strong'
+                    'text-[10px] mt-1 transition-colors duration-200',
+                    isBetter ? 'text-up' : 'text-down'
                   )}
                 >
                   Sector: {metric.format(metric.average)}
@@ -107,25 +112,22 @@ export function EvidenceCards({
         })}
       </div>
 
-      {/* Peer Comparison */}
+      {/* Peer Comparison - Compact */}
       {peers && peers.length > 0 && (
-        <div className="mt-6 pt-6" style={{ borderTop: '1px solid #273449' }}>
-          <h4 className="font-medium mb-3" style={{ color: '#E5E7EB' }}>Peer Comparison</h4>
+        <div className="mt-4 pt-3 border-t border-border">
+          <h4 className="text-sm font-medium mb-2 text-text">Peer Comparison</h4>
           <div className="space-y-2">
             {peers.map((peer) => (
               <Link
                 key={peer.symbol}
                 href={`/stock/${peer.symbol}`}
-                className="flex items-center justify-between p-3 rounded-lg transition-colors"
-                style={{ backgroundColor: '#1F2937' }}
-                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#273449'}
-                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#1F2937'}
+                className="flex items-center justify-between p-2 rounded-lg transition-all duration-200 bg-surface-2 hover:bg-surface-1 hover:shadow-sm"
               >
                 <div>
-                  <div className="font-medium" style={{ color: '#E5E7EB' }}>
+                  <div className="text-sm font-medium text-text">
                     {peer.symbol}
                   </div>
-                  <div className="text-xs truncate max-w-[200px]" style={{ color: '#6B7280' }}>
+                  <div className="text-[10px] truncate max-w-[150px] text-text-2">
                     {peer.name}
                   </div>
                 </div>
@@ -148,8 +150,4 @@ export function EvidenceCards({
       )}
     </Card>
   )
-}
-
-function cn(...classes: (string | boolean | undefined)[]) {
-  return classes.filter(Boolean).join(' ')
 }

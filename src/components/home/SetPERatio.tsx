@@ -4,6 +4,7 @@
  */
 
 import { Card } from '@/components/shared'
+import { formatDecimal } from '@/lib/utils'
 
 interface SetPERatioProps {
   currentPE: number
@@ -60,8 +61,8 @@ export function SetPERatio({
 
         {/* Current P/E */}
         <div className="flex items-baseline justify-between">
-          <span className="text-2xl font-semibold" style={{ color: '#E5E7EB' }}>
-            {currentPE.toFixed(1)}x
+          <span className="text-2xl font-semibold tabular-nums" style={{ color: '#E5E7EB' }}>
+            {formatDecimal(currentPE, 1)}x
           </span>
           <span className="text-xs font-semibold px-2 py-0.5 rounded-full" style={{ backgroundColor: `${color}20`, color }}>
             {level}
@@ -72,10 +73,10 @@ export function SetPERatio({
         {historicalAvg && (
           <>
             <div className="flex items-baseline justify-between text-xs" style={{ color: '#9CA3AF' }}>
-              <span>Avg: {historicalAvg.toFixed(1)}x</span>
-              <span>
+              <span className="tabular-nums">Avg: {formatDecimal(historicalAvg, 1)}x</span>
+              <span className="tabular-nums">
                 {currentPE > historicalAvg ? '+' : ''}
-                {Math.abs((currentPE - historicalAvg) / historicalAvg * 100).toFixed(1)}%
+                {formatDecimal(Math.abs((currentPE - historicalAvg) / historicalAvg * 100), 1)}%
               </span>
             </div>
 

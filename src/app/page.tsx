@@ -16,7 +16,8 @@ import {
   SetPERatio,
   VolatilityIndicator,
 } from '@/components/home'
-import { ErrorFallback, DataFreshness } from '@/components/shared'
+import { ErrorFallback, DataFreshness, Card } from '@/components/shared'
+import { ResponsiveGrid } from '@/components/layout'
 import { fetchHomepageData as fetchRTDBData } from '@/lib/rtdb'
 import { calculateAllSectorTrends } from '@/lib/trends'
 import { analyzeMarketRegime } from '@/services/market-regime'
@@ -120,7 +121,9 @@ async function fetchSetIndexTrends() {
 /**
  * Fetch and process homepage data with trends
  */
-async function fetchHomepageData(): Promise<HomepageData | { error: string }> {
+type HomepageDataResult = HomepageData | { error: string }
+
+async function fetchHomepageData(): Promise<HomepageDataResult> {
   try {
     // Fetch data from RTDB
     const rtdbData = await fetchRTDBData()
@@ -137,20 +140,18 @@ async function fetchHomepageData(): Promise<HomepageData | { error: string }> {
       }
     }
 
-    // If partial data, we can still work with it
-    // But for now, require all three for regime analysis
-    if (!hasMarket || !hasInvestor || !hasSector) {
-      return {
-        error: 'RTDB_PARTIAL',
-      }
-    }
 
     // Analyze market regime
-    const regime = analyzeMarketRegime({
-      overview: rtdbData.market,
-      investor: rtdbData.investor,
-      sector: rtdbData.sector,
+    let regime: RegimeResult | undefined = undefined
+    if (hasMarket && hasInvestor && hasSector) {
+      const regimeResult = analyzeMarketRegime({
+      overview: rtdbData.market!,
+      investor: rtdbData.investor!,
+      sector: rtdbData.sector!,
     })
+
+      regime = regimeResult ?? undefined
+    }
 
     if (!regime) {
       return {
@@ -249,6 +250,13 @@ async function fetchHomepageData(): Promise<HomepageData | { error: string }> {
 }
 
 /**
+ * Type guard to check if result is an error
+ */
+function isHomepagedataError(result: HomepageDataResult): result is { error: string } {
+  return 'error' in result
+}
+
+/**
  * Get error message based on error type
  */
 function getErrorMessage(error: string): { title: string; message: string } {
@@ -278,7 +286,7 @@ export default async function HomePage() {
   const result = await fetchHomepageData()
 
   // Handle error case - show error message, no mock data
-  if ('error' in result) {
+  if (isHomepagedataError(result)) {
     const errorInfo = getErrorMessage(result.error)
 
     return (
@@ -329,8 +337,8 @@ export default async function HomePage() {
       />
       <DataFreshness timestamp={data.market.timestamp} />
 
-      {/* Market Context Row */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      {/* Market Context Row - 4 column grid */}
+      <ResponsiveGrid preset="quad" gap="compact">
         <Week52Range
           current={data.market.set.index}
           high={data.market.set.index * 1.1}
@@ -338,13 +346,13 @@ export default async function HomePage() {
         />
         <SetPERatio currentPE={15.2} historicalAvg={14.5} />
         <VolatilityIndicator volatility={12} average={15} />
-      </div>
+      </ResponsiveGrid>
 
       {/* Market Regime Summary */}
       <MarketRegimeSummary regime={data.regime} />
 
       {/* Two-column layout for Money Flow and Sector Heatmap with trends */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <ResponsiveGrid preset="default" gap="standard">
         <MoneyFlowChart
           data={{
             ...data.investor,
@@ -364,26 +372,29 @@ export default async function HomePage() {
           }}
           showTrends={!!data.sectorTrends}
         />
-      </div>
+      </ResponsiveGrid>
 
       {/* Top Rankings */}
       <TopRankings data={data.rankings} showTrends={!!data.investorTrends} />
 
       {/* Dynamic Market Summary based on regime */}
-      <div
-        className="rounded-lg p-4"
-        style={{ backgroundColor: 'rgba(96, 165, 250, 0.15)', border: '1px solid #60A5FA' }}
+      <Card
+        variant="default"
+        padding="md"
+        className="border-accent-blue/30 bg-accent-blue/10"
       >
         <div className="flex items-start gap-3">
-          <div style={{ color: '#60A5FA' }}>💡</div>
+          <svg className="w-5 h-5 text-accent-blue flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+            <path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM5 10a1 1 0 01-1 1H3a1 1 0 110-2h1a1 1 0 011 1zM8 14a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM12 14a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z" />
+          </svg>
           <div>
-            <h3 className="font-semibold mb-1" style={{ color: '#BFDBFE' }}>
+            <h3 className="font-semibold mb-1 text-accent-blue text-sm">
               {summary.title}
             </h3>
-            <p className="text-sm" style={{ color: '#DBEAFE' }}>{summary.text}</p>
+            <p className="text-xs text-accent-blue/80">{summary.text}</p>
           </div>
         </div>
-      </div>
+      </Card>
     </div>
   )
 }
