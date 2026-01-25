@@ -40,6 +40,7 @@ export type FonPickGap = 'none' | 'compact' | 'standard' | 'spacious'
 
 /**
  * Preset layout configurations
+ * Phase 2: Added 'asymmetric' preset
  */
 export type LayoutPreset =
   | 'default'      // 2-column desktop, 1-column mobile
@@ -47,6 +48,7 @@ export type LayoutPreset =
   | 'quad'         // 4-column desktop
   | 'bento'        // Bento-style grid
   | 'modules'      // Module grid layout
+  | 'asymmetric'   // Phase 2: 3-column asymmetric (40% | 35% | 25%)
 
 /**
  * ResponsiveGrid component props type
@@ -57,6 +59,12 @@ export type ResponsiveGridProps = Omit<GridProps, 'gap'> & {
   /** Pre-configured layout preset */
   preset?: LayoutPreset
 }
+
+/**
+ * Grid item column span sizes for asymmetric layout
+ * Phase 2: Added support for custom column spans
+ */
+export type AsymmetricSpan = 'narrow' | 'medium' | 'wide' | 'full'
 
 // ==================================================================
 // PROP MAPPINGS
@@ -74,6 +82,7 @@ const gapSizeClasses: Record<FonPickGap, string> = {
 
 /**
  * Preset layout configurations
+ * Phase 2: Added asymmetric preset
  */
 const layoutPresets: Record<LayoutPreset, Pick<GridProps, 'desktopColumns' | 'tabletColumns' | 'mobileColumns'>> = {
   default: {
@@ -98,6 +107,12 @@ const layoutPresets: Record<LayoutPreset, Pick<GridProps, 'desktopColumns' | 'ta
   },
   modules: {
     desktopColumns: 3,
+    tabletColumns: 2,
+    mobileColumns: 1,
+  },
+  // Phase 2: Asymmetric preset with 12-column grid for custom spans
+  asymmetric: {
+    desktopColumns: 12,
     tabletColumns: 2,
     mobileColumns: 1,
   },
@@ -132,6 +147,21 @@ const layoutPresets: Record<LayoutPreset, Pick<GridProps, 'desktopColumns' | 'ta
  * ```tsx
  * <ResponsiveGrid preset="triple">
  *   {children}
+ * </ResponsiveGrid>
+ * ```
+ *
+ * @example Phase 2: Asymmetric layout
+ * ```tsx
+ * <ResponsiveGrid preset="asymmetric">
+ *   <ResponsiveGrid.AsymmetricWide>
+ *     <Card>Wide content (40%)</Card>
+ *   </ResponsiveGrid.AsymmetricWide>
+ *   <ResponsiveGrid.AsymmetricMedium>
+ *     <Card>Medium content (35%)</Card>
+ *   </ResponsiveGrid.AsymmetricMedium>
+ *   <ResponsiveGrid.AsymmetricNarrow>
+ *     <Card>Narrow content (25%)</Card>
+ *   </ResponsiveGrid.AsymmetricNarrow>
  * </ResponsiveGrid>
  * ```
  *
@@ -171,6 +201,8 @@ export function ResponsiveGrid({
       className={cn(
         // Override default Grid gap with fonPick spacing
         gapSizeClasses[gap],
+        // Phase 2: Add custom class for asymmetric layout
+        preset === 'asymmetric' && 'grid-rows-auto',
         // Custom classes
         className
       )}
@@ -261,6 +293,76 @@ ResponsiveGrid.Half = function ResponsiveGridHalf({
 }
 
 // ==================================================================
+// PHASE 2: ASYMMETRIC LAYOUT HELPERS
+// ==================================================================
+
+/**
+ * ResponsiveGrid.AsymmetricWide - Grid item that spans 5 columns (42%) in asymmetric layout
+ * Use with preset="asymmetric" for the wide column
+ */
+ResponsiveGrid.AsymmetricWide = function ResponsiveGridAsymmetricWide({
+  children,
+  className,
+  ...props
+}: Omit<GridItemProps, 'span' | 'spanTablet' | 'spanDesktop'>) {
+  return (
+    <GridItem
+      span={1}
+      spanTablet={1}
+      spanDesktop={5}
+      className={className}
+      {...props}
+    >
+      {children}
+    </GridItem>
+  )
+}
+
+/**
+ * ResponsiveGrid.AsymmetricMedium - Grid item that spans 4 columns (33%) in asymmetric layout
+ * Use with preset="asymmetric" for the medium column
+ */
+ResponsiveGrid.AsymmetricMedium = function ResponsiveGridAsymmetricMedium({
+  children,
+  className,
+  ...props
+}: Omit<GridItemProps, 'span' | 'spanTablet' | 'spanDesktop'>) {
+  return (
+    <GridItem
+      span={1}
+      spanTablet={1}
+      spanDesktop={4}
+      className={className}
+      {...props}
+    >
+      {children}
+    </GridItem>
+  )
+}
+
+/**
+ * ResponsiveGrid.AsymmetricNarrow - Grid item that spans 3 columns (25%) in asymmetric layout
+ * Use with preset="asymmetric" for the narrow column
+ */
+ResponsiveGrid.AsymmetricNarrow = function ResponsiveGridAsymmetricNarrow({
+  children,
+  className,
+  ...props
+}: Omit<GridItemProps, 'span' | 'spanTablet' | 'spanDesktop'>) {
+  return (
+    <GridItem
+      span={1}
+      spanTablet={1}
+      spanDesktop={3}
+      className={className}
+      {...props}
+    >
+      {children}
+    </GridItem>
+  )
+}
+
+// ==================================================================
 // LAYOUT PRESET HELPERS
 // ==================================================================
 
@@ -291,3 +393,16 @@ ResponsiveGrid.Bento = function ResponsiveGridBento(props: ResponsiveGridProps) 
 ResponsiveGrid.Modules = function ResponsiveGridModules(props: ResponsiveGridProps) {
   return <ResponsiveGrid preset="modules" gap="compact" {...props} />
 }
+
+/**
+ * Phase 2: ResponsiveGrid.Asymmetric - Asymmetric 3-column layout preset
+ * Layout: 40% | 35% | 25% (using 12-column grid: 5 | 4 | 3)
+ */
+ResponsiveGrid.Asymmetric = function ResponsiveGridAsymmetric(props: ResponsiveGridProps) {
+  return <ResponsiveGrid preset="asymmetric" {...props} />
+}
+
+// Export asymmetric components as named exports for proper re-export
+export const AsymmetricWide = ResponsiveGrid.AsymmetricWide
+export const AsymmetricMedium = ResponsiveGrid.AsymmetricMedium
+export const AsymmetricNarrow = ResponsiveGrid.AsymmetricNarrow

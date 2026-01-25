@@ -6,6 +6,7 @@
  * - Confidence level indicator
  * - Focus/Caution guidance
  * - Reasons for regime classification
+ * - Phase 2: Prominent variant with larger display
  *
  * Answers Q1: "Is this market Risk-On or Risk-Off?"
  * Data source: /api/market-intelligence
@@ -44,6 +45,8 @@ export interface MarketRegimeData {
 export interface MarketRegimeCardProps {
   /** Additional CSS classes */
   className?: string
+  /** Phase 2: Display variant - default or prominent (larger, more attention-grabbing) */
+  variant?: 'default' | 'prominent'
 }
 
 // ==================================================================
@@ -66,15 +69,20 @@ const COLORS = {
 interface RegimeIndicatorProps {
   regime: 'Risk-On' | 'Neutral' | 'Risk-Off'
   confidence: 'High' | 'Medium' | 'Low'
+  /** Phase 2: Display variant */
+  variant?: 'default' | 'prominent'
 }
 
-function RegimeIndicator({ regime, confidence }: RegimeIndicatorProps) {
+function RegimeIndicator({ regime, confidence, variant = 'default' }: RegimeIndicatorProps) {
+  const isProminent = variant === 'prominent'
+
   const getRegimeConfig = () => {
     switch (regime) {
       case 'Risk-On':
         return {
           color: COLORS.up,
           bgColor: 'rgba(46, 216, 167, 0.15)',
+          bgGradient: 'linear-gradient(135deg, rgba(46, 216, 167, 0.2) 0%, rgba(46, 216, 167, 0.05) 100%)',
           icon: <TrendingUp className="w-5 h-5" />,
           label: 'Risk-On',
           description: 'Bullish environment',
@@ -83,6 +91,7 @@ function RegimeIndicator({ regime, confidence }: RegimeIndicatorProps) {
         return {
           color: COLORS.down,
           bgColor: 'rgba(244, 91, 105, 0.15)',
+          bgGradient: 'linear-gradient(135deg, rgba(244, 91, 105, 0.2) 0%, rgba(244, 91, 105, 0.05) 100%)',
           icon: <TrendingDown className="w-5 h-5" />,
           label: 'Risk-Off',
           description: 'Bearish environment',
@@ -91,6 +100,7 @@ function RegimeIndicator({ regime, confidence }: RegimeIndicatorProps) {
         return {
           color: COLORS.neutral,
           bgColor: 'rgba(174, 183, 179, 0.15)',
+          bgGradient: 'linear-gradient(135deg, rgba(174, 183, 179, 0.2) 0%, rgba(174, 183, 179, 0.05) 100%)',
           icon: <Minus className="w-5 h-5" />,
           label: 'Neutral',
           description: 'Mixed signals',
@@ -112,6 +122,11 @@ function RegimeIndicator({ regime, confidence }: RegimeIndicatorProps) {
   const regimeConfig = getRegimeConfig()
   const confidenceConfig = getConfidenceConfig()
 
+  // Phase 2: Icon size based on variant
+  const iconSize = isProminent ? 'w-20 h-20' : 'w-14 h-14'
+  const iconInnerSize = isProminent ? 'w-8 h-8' : 'w-5 h-5'
+  const labelSize = isProminent ? 'text-2xl' : 'text-lg'
+
   return (
     <div className="flex items-center gap-4">
       {/* Icon with background */}
@@ -119,23 +134,38 @@ function RegimeIndicator({ regime, confidence }: RegimeIndicatorProps) {
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.3 }}
-        className="w-14 h-14 rounded-full flex items-center justify-center"
-        style={{ backgroundColor: regimeConfig.bgColor }}
+        className={`${iconSize} rounded-full flex items-center justify-center`}
+        style={{
+          backgroundColor: regimeConfig.bgColor,
+          // Phase 2: Add animated gradient for prominent variant
+          ...(isProminent && regime !== 'Neutral'
+            ? {
+                background: regimeConfig.bgGradient,
+              }
+            : {}),
+        }}
       >
-        <div style={{ color: regimeConfig.color }}>{regimeConfig.icon}</div>
+        <div
+          style={{
+            color: regimeConfig.color,
+          }}
+          className={iconInnerSize}
+        >
+          {regimeConfig.icon}
+        </div>
       </motion.div>
 
       {/* Regime Label */}
       <div className="flex-1">
         <div className="flex items-center gap-2 mb-1">
           <span
-            className="text-lg font-bold"
+            className={`font-bold ${labelSize}`}
             style={{ color: regimeConfig.color }}
           >
             {regimeConfig.label}
           </span>
           <Badge
-            size="sm"
+            size={isProminent ? 'md' : 'sm'}
             color={
               confidence === 'High'
                 ? 'buy'
@@ -147,7 +177,9 @@ function RegimeIndicator({ regime, confidence }: RegimeIndicatorProps) {
             {confidence}
           </Badge>
         </div>
-        <span className="text-xs text-text-muted">
+        <span
+          className={`text-text-muted ${isProminent ? 'text-sm' : 'text-xs'}`}
+        >
           {regimeConfig.description}
         </span>
       </div>
@@ -157,7 +189,9 @@ function RegimeIndicator({ regime, confidence }: RegimeIndicatorProps) {
         <span className="text-[9px] uppercase tracking-wide text-text-muted">
           Confidence
         </span>
-        <div className="w-16 h-1.5 bg-surface-2 rounded-full overflow-hidden">
+        <div
+          className={`h-1.5 bg-surface-2 rounded-full overflow-hidden ${isProminent ? 'w-20' : 'w-16'}`}
+        >
           <motion.div
             initial={{ width: 0 }}
             animate={{ width: confidenceConfig.width }}
@@ -194,7 +228,15 @@ function ReasonItem({ reason, index }: ReasonItemProps) {
 }
 
 // Loading Skeleton
-function MarketRegimeSkeleton() {
+interface MarketRegimeSkeletonProps {
+  /** Display variant for skeleton */
+  variant?: 'default' | 'prominent'
+}
+
+function MarketRegimeSkeleton({ variant = 'default' }: MarketRegimeSkeletonProps) {
+  const isProminent = variant === 'prominent'
+  const iconSize = isProminent ? 'w-20 h-20' : 'w-14 h-14'
+
   return (
     <Card padding="sm">
       <div className="flex items-center justify-between mb-3">
@@ -202,7 +244,7 @@ function MarketRegimeSkeleton() {
       </div>
       <div className="animate-pulse space-y-3">
         <div className="flex items-center gap-4">
-          <div className="w-14 h-14 rounded-full bg-surface-2" />
+          <div className={`${iconSize} rounded-full bg-surface-2`} />
           <div className="flex-1 space-y-2">
             <div className="h-5 bg-surface-2 rounded w-24" />
             <div className="h-3 bg-surface-2 rounded w-32" />
@@ -222,7 +264,10 @@ function MarketRegimeSkeleton() {
 // MAIN COMPONENT
 // ==================================================================
 
-export function MarketRegimeCard({ className }: MarketRegimeCardProps) {
+export function MarketRegimeCard({
+  className,
+  variant = 'default',
+}: MarketRegimeCardProps) {
   // Fetch data from market intelligence API
   const { data, isLoading, error } = useQuery<{
     success: boolean
@@ -241,12 +286,17 @@ export function MarketRegimeCard({ className }: MarketRegimeCardProps) {
   const regimeData = data?.data?.regime
 
   if (isLoading) {
-    return <MarketRegimeSkeleton />
+    return <MarketRegimeSkeleton variant={variant} />
   }
 
   if (error || !data?.success || !regimeData) {
     return (
-      <Card padding="sm" className={className}>
+      <Card
+        padding="sm"
+        className={className}
+        // Phase 2: Support lg:col-span-2 for prominent variant
+        {...(variant === 'prominent' && { 'data-lg-col-span': '2' })}
+      >
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
             <Activity className="w-4 h-4 text-text-muted" />
@@ -264,7 +314,12 @@ export function MarketRegimeCard({ className }: MarketRegimeCardProps) {
   }
 
   return (
-    <Card padding="sm" className={className}>
+    <Card
+      padding="sm"
+      className={className}
+      // Phase 2: Support lg:col-span-2 for prominent variant
+      {...(variant === 'prominent' && { 'data-lg-col-span': '2' })}
+    >
       {/* Header */}
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
@@ -278,6 +333,7 @@ export function MarketRegimeCard({ className }: MarketRegimeCardProps) {
         <RegimeIndicator
           regime={regimeData.regime}
           confidence={regimeData.confidence}
+          variant={variant}
         />
       </div>
 

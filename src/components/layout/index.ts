@@ -27,6 +27,9 @@ export {
   ResponsiveGrid,
   Grid,
   GridItem,
+  AsymmetricWide,
+  AsymmetricMedium,
+  AsymmetricNarrow,
 } from './ResponsiveGrid'
 export type {
   ResponsiveGridProps,

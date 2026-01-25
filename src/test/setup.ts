@@ -3,7 +3,14 @@
  * Global test configuration and utilities
  */
 
-import { vi, expect } from 'vitest'
+import { vi, expect, afterEach } from 'vitest'
+import '@testing-library/jest-dom'
+import { cleanup } from '@testing-library/react'
+
+// Cleanup after each test
+afterEach(() => {
+  cleanup()
+})
 
 // Mock console.time/console.timeEnd for performance testing
 global.console.time = vi.fn((label: string) => label)

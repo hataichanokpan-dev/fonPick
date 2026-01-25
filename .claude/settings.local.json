@@ -25,7 +25,10 @@
       "mcp__web-reader__webReader",
       "Bash(findstr:*)",
       "Bash(pnpm test:*)",
-      "Bash(pnpm tsc:*)"
+      "Bash(pnpm tsc:*)",
+      "Bash(dir:*)",
+      "Bash(npm run test:coverage:*)",
+      "Bash(node:*)"
     ]
   }
 }

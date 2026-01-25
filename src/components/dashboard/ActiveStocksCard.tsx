@@ -7,6 +7,7 @@
  * - Top 10 by value with badges
  * - Cross-ranked stocks badges
  * - Market interpretation
+ * - Phase 2: Accumulation pattern tags
  *
  * Answers Q4-Q6: Active stock analysis
  * Data source: /api/market-intelligence
@@ -29,6 +30,7 @@ import {
 import { formatTradingValue, formatPercent } from '@/lib/utils'
 import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
+import type { AccumulationPattern } from '@/types/market-intelligence'
 
 // ==================================================================
 // TYPES
@@ -50,6 +52,10 @@ export interface StockConcentration {
     gainer?: number
     loser?: number
   }
+  /** Phase 2: Accumulation pattern analysis */
+  accumulationPattern?: AccumulationPattern
+  /** Phase 2: Number of days in this pattern */
+  accumulationDays?: number
 }
 
 export interface CrossRankedStock {
@@ -104,6 +110,44 @@ const COLORS = {
 }
 
 const DEFAULT_TOP_COUNT = 10
+
+// ==================================================================
+// UTILITY FUNCTIONS
+// ==================================================================
+
+/**
+ * Get badge color based on accumulation pattern
+ */
+function getAccumulationBadgeColor(pattern?: AccumulationPattern): 'buy' | 'sell' | 'neutral' | 'watch' {
+  if (!pattern || pattern === 'Neutral') return 'neutral'
+
+  if (pattern === 'Strong Accumulation' || pattern === 'Accumulation') {
+    return pattern === 'Strong Accumulation' ? 'buy' : 'buy'
+  }
+
+  // Distribution patterns
+  if (pattern === 'Strong Distribution' || pattern === 'Distribution') {
+    return 'sell'
+  }
+
+  return 'neutral'
+}
+
+/**
+ * Format accumulation pattern text
+ */
+function formatAccumulationTag(pattern?: AccumulationPattern, days?: number): string | null {
+  if (!pattern) return null
+
+  // Shorten pattern names for badge display
+  const patternShort = pattern
+    .replace('Strong Accumulation', 'Str Acc')
+    .replace('Strong Distribution', 'Str Dist')
+    .replace('Accumulation', 'Acc')
+    .replace('Distribution', 'Dist')
+
+  return days ? `${days}d ${patternShort}` : patternShort
+}
 
 // ==================================================================
 // HELPER COMPONENTS
@@ -236,6 +280,9 @@ function StockRow({ stock, rank }: StockRowProps) {
     )
   }
 
+  // Phase 2: Accumulation tag badge
+  const accumulationTag = formatAccumulationTag(stock.accumulationPattern, stock.accumulationDays)
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}
@@ -258,6 +305,12 @@ function StockRow({ stock, rank }: StockRowProps) {
             >
               {stock.marketCapGroup}
             </span>
+          )}
+          {/* Phase 2: Accumulation tag badge */}
+          {accumulationTag && (
+            <Badge size="sm" color={getAccumulationBadgeColor(stock.accumulationPattern)}>
+              {accumulationTag}
+            </Badge>
           )}
         </div>
         {stock.name && (

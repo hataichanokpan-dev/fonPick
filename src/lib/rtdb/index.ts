@@ -84,6 +84,7 @@ export {
 // Top Rankings fetchers
 export {
   fetchTopRankings,
+  fetchTopRankingsEnhanced,
   fetchTopRankingsByDate,
   fetchTopGainers,
   fetchTopLosers,

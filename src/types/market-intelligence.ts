@@ -72,6 +72,34 @@ export interface StockConcentration {
     gainer?: number
     loser?: number
   }
+  /** Phase 2: Accumulation pattern analysis */
+  accumulationPattern?: AccumulationPattern
+  /** Phase 2: Number of days in this pattern */
+  accumulationDays?: number
+}
+
+/**
+ * Accumulation pattern types
+ */
+export type AccumulationPattern =
+  | 'Strong Accumulation'
+  | 'Accumulation'
+  | 'Neutral'
+  | 'Distribution'
+  | 'Strong Distribution'
+
+/**
+ * Accumulation pattern analysis details
+ */
+export interface AccumulationAnalysis {
+  pattern: AccumulationPattern
+  daysInPattern: number
+  confidence: 'High' | 'Medium' | 'Low'
+  signals: {
+    volumeTrend: 'Increasing' | 'Stable' | 'Decreasing'
+    priceAction: 'Strong' | 'Moderate' | 'Weak'
+    smartMoneyFlow: 'Inflow' | 'Neutral' | 'Outflow'
+  }
 }
 
 /**
