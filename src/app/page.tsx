@@ -134,20 +134,13 @@ export default async function HomePage() {
   }
 
   // Extract data for easier access
-  const { marketOverview, regimeAnalysis, marketIntelligence } = result
+  const { marketOverview, marketIntelligence } = result
 
   // Get market status for banner
   const marketStatus = marketOverview ? getMarketStatus(marketOverview) : { isOpen: false }
 
-  // Build regime data for banner
-  const bannerRegime = regimeAnalysis ?? {
-    regime: 'Neutral' as const,
-    confidence: 'Low' as const,
-    reasons: [],
-    focus: 'Insufficient data for analysis',
-    caution: 'Market data not available',
-  }
-
+ 
+ 
   // Extract isOpen from marketStatus, defaulting to false if it's an error string
   const isMarketOpen = typeof marketStatus === 'object' && 'isOpen' in marketStatus
     ? marketStatus.isOpen
@@ -158,9 +151,7 @@ export default async function HomePage() {
       {/* 1. Sticky Status Banner with Data Freshness */}
       <div className="sticky top-0 z-10">
         {marketOverview && (
-          <MarketStatusBanner
-            regime={bannerRegime.regime}
-            confidence={bannerRegime.confidence}
+          <MarketStatusBanner          
             setIndex={marketOverview.set.index}
             setChange={marketOverview.set.change}
             setChangePercent={marketOverview.set.changePercent}

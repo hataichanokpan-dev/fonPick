@@ -21,32 +21,27 @@
  * - Responsive height (h-10 on mobile, h-12 on desktop)
  */
 
-'use client'
+"use client";
 
-import { Badge } from '@/components/shared/Badge'
-import { motion } from 'framer-motion'
-import { Activity, TrendingUp, TrendingDown, Minus } from 'lucide-react'
-import { useMemo } from 'react'
+import { motion } from "framer-motion";
+import { Activity } from "lucide-react";
+import { useMemo } from "react";
 
 // ==================================================================
 // TYPES
 // ==================================================================
 
 export interface MarketStatusBannerProps {
-  /** Current market regime */
-  regime: 'Risk-On' | 'Neutral' | 'Risk-Off'
-  /** Confidence level of regime detection */
-  confidence: 'High' | 'Medium' | 'Low'
   /** SET index value */
-  setIndex: number
+  setIndex: number;
   /** SET index change */
-  setChange: number
+  setChange: number;
   /** SET index percentage change */
-  setChangePercent: number
+  setChangePercent: number;
   /** Whether market is currently open */
-  isMarketOpen?: boolean
+  isMarketOpen?: boolean;
   /** Last update timestamp */
-  lastUpdate?: number
+  lastUpdate?: number;
 }
 
 // ==================================================================
@@ -54,125 +49,68 @@ export interface MarketStatusBannerProps {
 // ==================================================================
 
 const COLORS = {
-  'Risk-On': {
-    bg: 'rgba(46, 216, 167, 0.08)',
-    border: 'rgba(46, 216, 167, 0.3)',
-    text: '#2ED8A7',
-  },
-  'Risk-Off': {
-    bg: 'rgba(244, 91, 105, 0.08)',
-    border: 'rgba(244, 91, 105, 0.3)',
-    text: '#F45B69',
-  },
   Neutral: {
-    bg: 'rgba(174, 183, 179, 0.08)',
-    border: 'rgba(174, 183, 179, 0.3)',
-    text: '#AEB7B3',
+    bg: "rgba(174, 183, 179, 0.08)",
+    border: "rgba(174, 183, 179, 0.3)",
+    text: "#AEB7B3",
   },
-} as const
+} as const;
 
 // ==================================================================
 // UTILITY FUNCTIONS
 // ==================================================================
 
 function formatSetIndex(value: number): string {
-  return value.toLocaleString('en-US', {
+  return value.toLocaleString("en-US", {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
-  })
+  });
 }
 
 function formatSetChange(value: number): string {
-  const sign = value >= 0 ? '+' : ''
-  return `${sign}${value.toFixed(2)}`
+  const sign = value >= 0 ? "+" : "";
+  return `${sign}${value.toFixed(2)}`;
 }
 
 function formatSetChangePercent(value: number): string {
-  const sign = value >= 0 ? '+' : ''
-  return `${sign}${value.toFixed(2)}%`
+  const sign = value >= 0 ? "+" : "";
+  return `${sign}${value.toFixed(2)}%`;
 }
 
 function formatTimestamp(timestamp: number): string {
-  if (!timestamp || isNaN(timestamp)) return 'N/A'
+  if (!timestamp || isNaN(timestamp)) return "N/A";
 
-  const now = Date.now()
-  const diff = now - timestamp
+  const now = Date.now();
+  const diff = now - timestamp;
 
   // Less than 1 minute
   if (diff < 60 * 1000) {
-    return 'Just now'
+    return "Just now";
   }
 
   // Less than 1 hour
   if (diff < 60 * 60 * 1000) {
-    const minutes = Math.floor(diff / (60 * 1000))
-    return `${minutes}m`
+    const minutes = Math.floor(diff / (60 * 1000));
+    return `${minutes}m`;
   }
 
   // Less than 24 hours
   if (diff < 24 * 60 * 60 * 1000) {
-    const hours = Math.floor(diff / (60 * 60 * 1000))
-    return `${hours}h`
+    const hours = Math.floor(diff / (60 * 60 * 1000));
+    return `${hours}h`;
   }
 
   // Days
-  const days = Math.floor(diff / (24 * 60 * 60 * 1000))
-  return `${days}d`
-}
-
-function getConfidenceColor(confidence: 'High' | 'Medium' | 'Low'): 'buy' | 'watch' | 'sell' {
-  switch (confidence) {
-    case 'High':
-      return 'buy'
-    case 'Medium':
-      return 'watch'
-    case 'Low':
-      return 'sell'
-  }
-}
-
-function getRegimeIcon(regime: 'Risk-On' | 'Neutral' | 'Risk-Off') {
-  switch (regime) {
-    case 'Risk-On':
-      return <TrendingUp className="w-3.5 h-3.5" />
-    case 'Risk-Off':
-      return <TrendingDown className="w-3.5 h-3.5" />
-    case 'Neutral':
-      return <Minus className="w-3.5 h-3.5" />
-  }
+  const days = Math.floor(diff / (24 * 60 * 60 * 1000));
+  return `${days}d`;
 }
 
 // ==================================================================
 // SUB-COMPONENTS
 // ==================================================================
 
-interface RegimeBadgeProps {
-  regime: 'Risk-On' | 'Neutral' | 'Risk-Off'
-  confidence: 'High' | 'Medium' | 'Low'
-}
-
-function RegimeBadge({ regime, confidence }: RegimeBadgeProps) {
-  const icon = getRegimeIcon(regime)
-  const confidenceColor = getConfidenceColor(confidence)
-
-  return (
-    <div className="flex items-center gap-2">
-      {/* Regime Badge with Icon */}
-      <Badge color={confidenceColor} size="sm" className="flex items-center gap-1">
-        {icon}
-        <span className="font-semibold">{regime}</span>
-      </Badge>
-
-      {/* Confidence Badge */}
-      <Badge color={confidenceColor} size="sm" className="text-xs">
-        {confidence}
-      </Badge>
-    </div>
-  )
-}
-
 interface MarketStatusIndicatorProps {
-  isOpen: boolean
+  isOpen: boolean;
 }
 
 function MarketStatusIndicator({ isOpen }: MarketStatusIndicatorProps) {
@@ -181,24 +119,27 @@ function MarketStatusIndicator({ isOpen }: MarketStatusIndicatorProps) {
       <motion.div
         className="w-2 h-2 rounded-full"
         style={{
-          backgroundColor: isOpen ? '#2ED8A7' : '#AEB7B3',
+          backgroundColor: isOpen ? "#2ED8A7" : "#AEB7B3",
         }}
         animate={isOpen ? { opacity: [1, 0.5, 1] } : { opacity: 1 }}
         transition={isOpen ? { duration: 2, repeat: Infinity } : {}}
       />
-       
     </div>
-  )
+  );
 }
 
 interface SetIndexDisplayProps {
-  value: number
-  change: number
-  changePercent: number
+  value: number;
+  change: number;
+  changePercent: number;
 }
 
-function SetIndexDisplay({ value, change, changePercent }: SetIndexDisplayProps) {
-  const changeColor = change >= 0 ? 'text-up-primary' : 'text-down-primary'
+function SetIndexDisplay({
+  value,
+  change,
+  changePercent,
+}: SetIndexDisplayProps) {
+  const changeColor = change >= 0 ? "text-up-primary" : "text-down-primary";
 
   return (
     <div className="flex items-baseline gap-2">
@@ -212,15 +153,15 @@ function SetIndexDisplay({ value, change, changePercent }: SetIndexDisplayProps)
         {formatSetChange(change)} ({formatSetChangePercent(changePercent)})
       </span>
     </div>
-  )
+  );
 }
 
 interface DataFreshnessDisplayProps {
-  timestamp?: number
+  timestamp?: number;
 }
 
 function DataFreshnessDisplay({ timestamp }: DataFreshnessDisplayProps) {
-  if (!timestamp) return null
+  if (!timestamp) return null;
 
   return (
     <div className="flex items-center gap-1.5">
@@ -229,7 +170,7 @@ function DataFreshnessDisplay({ timestamp }: DataFreshnessDisplayProps) {
         {formatTimestamp(timestamp)}
       </span>
     </div>
-  )
+  );
 }
 
 // ==================================================================
@@ -237,23 +178,21 @@ function DataFreshnessDisplay({ timestamp }: DataFreshnessDisplayProps) {
 // ==================================================================
 
 export function MarketStatusBanner({
-  regime,
-  confidence,
   setIndex,
   setChange,
   setChangePercent,
   isMarketOpen = true,
   lastUpdate,
 }: MarketStatusBannerProps) {
-  const colors = useMemo(() => COLORS[regime], [regime])
+  const colors = useMemo(() => COLORS["Neutral"], []);
 
   return (
     <motion.div
       role="banner"
-      aria-label={`Market status: ${regime}, SET Index: ${formatSetIndex(setIndex)}`}
+      aria-label={`SET Index: ${formatSetIndex(setIndex)}`}
       initial={{ y: -50, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.4, ease: 'easeOut' }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
       className="sticky py-2 top-0 z-50 w-full backdrop-blur-md border-b h-14 sm:h-16 rounded-md mb-4"
       style={{
         backgroundColor: colors.bg,
@@ -262,7 +201,6 @@ export function MarketStatusBanner({
     >
       <div className="h-full px-3 py-1.5 sm:px-4 sm:py-2">
         <div className="flex items-center justify-between gap-2 sm:gap-4 h-full">
-
           {/* Left: Regime Badge with Confidence */}
           <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
             <SetIndexDisplay
@@ -273,9 +211,7 @@ export function MarketStatusBanner({
           </div>
 
           {/* Center: SET Index */}
-          <div className="flex items-center justify-center flex-1 min-w-0">
-            
-          </div>
+          <div className="flex items-center justify-center flex-1 min-w-0"></div>
 
           {/* Right: Market Status & Data Freshness */}
           <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
@@ -285,7 +221,7 @@ export function MarketStatusBanner({
         </div>
       </div>
     </motion.div>
-  )
+  );
 }
 
-export default MarketStatusBanner
+export default MarketStatusBanner;
