@@ -11,7 +11,7 @@
  *   └── meta: { capturedAt, schemaVersion, source }
  */
 
-import { fetchWithFallback } from './client'
+import { fetchWithFallback, fetchLatestAvailable } from './client'
 import { RTDB_PATHS } from './paths'
 import type {
   RTDBInvestorType,
@@ -80,19 +80,20 @@ export async function fetchInvestorTypeByDate(
 
 /**
  * Fetch latest investor type data
+ * Uses automatic weekend/holiday fallback to find latest trading day with data
  * @returns Investor type data or null if unavailable
  */
 export async function fetchInvestorType(): Promise<RTDBInvestorType | null> {
-  const entry = await fetchWithFallback<RTDBInvestorTypeEntry>(
-    RTDB_PATHS.INVESTOR_TYPE_LATEST,
-    RTDB_PATHS.INVESTOR_TYPE_PREVIOUS
+  const result = await fetchLatestAvailable<RTDBInvestorTypeEntry>(
+    (date) => RTDB_PATHS.INVESTOR_TYPE_BY_DATE(date),
+    7 // Look back up to 7 days
   )
 
-  if (!entry) {
+  if (!result) {
     return null
   }
 
-  return convertToInvestorType(entry)
+  return convertToInvestorType(result.data)
 }
 
 /**

@@ -8,6 +8,7 @@
 import { getDatabase, ref, get, DatabaseReference, DataSnapshot } from 'firebase/database'
 import { initializeApp } from 'firebase/app'
 import { firebaseConfig } from '../firebase/config'
+import { findLatestDateWithData } from './latest-finder'
 
 /**
  * Initialize Firebase app singleton
@@ -84,10 +85,36 @@ export async function rtdbGet<T>(path: string): Promise<T | null> {
 }
 
 /**
+ * Check if data has meaningful content
+ * Returns true if data is not null AND not empty (object/array)
+ * @param data Data to check
+ * @returns true if data has content, false otherwise
+ */
+function hasDataContent<T>(data: T | null): boolean {
+  // null or undefined is no content
+  if (data == null) {
+    return false
+  }
+
+  // Empty object is no content
+  if (typeof data === 'object' && !Array.isArray(data) && Object.keys(data).length === 0) {
+    return false
+  }
+
+  // Empty array is no content
+  if (Array.isArray(data) && data.length === 0) {
+    return false
+  }
+
+  // All other values (including 0, false, '') are considered valid content
+  return true
+}
+
+/**
  * Fetch with fallback strategy
- * Tries primary path, then falls back to secondary path if primary fails
+ * Tries primary path, then falls back to secondary path if primary fails or returns empty data
  * @param primaryPath Primary RTDB path
- * @param fallbackPath Fallback RTDB path
+ * @param fallbackPath Fallback RTDB path (typically previous day's data)
  * @returns Data from primary or fallback, or null if both fail
  */
 export async function fetchWithFallback<T>(
@@ -97,30 +124,29 @@ export async function fetchWithFallback<T>(
   try {
     const data = await rtdbGet<T>(primaryPath)
 
-    // Check if data exists - accept any non-null data from RTDB
-    // This allows objects, arrays, and primitives to be returned
-    if (data != null) {
+    // Check if data has meaningful content (not null, not empty object/array)
+    if (hasDataContent<T>(data)) {
       return data
     }
 
-    // Try fallback if available
+    // Primary has no content or is empty - try fallback
     if (fallbackPath) {
       const fallback = await rtdbGet<T>(fallbackPath)
-      if (fallback != null) {
+      if (hasDataContent<T>(fallback)) {
         return fallback
       }
     }
 
     return null
   } catch (error) {
-    // Log error but don't throw - return null instead
+    // Log error but don't throw - try fallback
     console.error(`RTDB fetch error for ${primaryPath}:`, error)
 
     // Try fallback as last resort
     if (fallbackPath) {
       try {
         const fallback = await rtdbGet<T>(fallbackPath)
-        if (fallback != null) {
+        if (hasDataContent<T>(fallback)) {
           return fallback
         }
       } catch {
@@ -179,4 +205,43 @@ export function getDataAge(timestamp: number): string {
   } else {
     return `${days}d ago`
   }
+}
+
+/**
+ * Fetch latest available data by date
+ * Automatically finds the latest date with data (up to maxDaysBack) and fetches from it
+ * This is useful for weekend/holiday fallback when today has no trading data
+ *
+ * @param pathBuilder Function that builds RTDB path for a given date (YYYY-MM-DD format)
+ * @param maxDaysBack Maximum days to look back for data (default: 7)
+ * @returns Object with date and data, or null if no data found
+ *
+ * @example
+ * const result = await fetchLatestAvailable(
+ *   (date) => `/settrade/marketOverview/byDate/${date}`
+ * )
+ * if (result) {
+ *   console.log(`Data from ${result.date}:`, result.data)
+ * }
+ */
+export async function fetchLatestAvailable<T>(
+  pathBuilder: (date: string) => string,
+  maxDaysBack: number = 7
+): Promise<{ date: string; data: T } | null> {
+  // Find the latest date with data
+  const latestDate = await findLatestDateWithData(maxDaysBack)
+
+  if (!latestDate) {
+    return null
+  }
+
+  // Fetch data from the latest date
+  const path = pathBuilder(latestDate)
+  const data = await rtdbGet<T>(path)
+
+  if (!data || !hasDataContent<T>(data)) {
+    return null
+  }
+
+  return { date: latestDate, data }
 }

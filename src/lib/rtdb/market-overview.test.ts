@@ -23,12 +23,13 @@ import {
 } from './market-overview'
 import type { RTDBMarketOverviewEntry } from '@/types/rtdb'
 
-// Mock the fetchWithFallback function
+// Mock the fetchWithFallback and fetchLatestAvailable functions
 vi.mock('./client', () => ({
   fetchWithFallback: vi.fn(),
+  fetchLatestAvailable: vi.fn(),
 }))
 
-import { fetchWithFallback } from './client'
+import { fetchWithFallback, fetchLatestAvailable } from './client'
 
 describe('Market Overview', () => {
   // ==========================================================================
@@ -61,7 +62,10 @@ describe('Market Overview', () => {
         },
       }
 
-      vi.mocked(fetchWithFallback).mockResolvedValue(mockData)
+      vi.mocked(fetchLatestAvailable).mockResolvedValue({
+        date: '2026-01-23',
+        data: mockData,
+      })
 
       const result = await fetchMarketOverview()
 
@@ -91,7 +95,10 @@ describe('Market Overview', () => {
         },
       }
 
-      vi.mocked(fetchWithFallback).mockResolvedValue(mockData)
+      vi.mocked(fetchLatestAvailable).mockResolvedValue({
+        date: '2026-01-23',
+        data: mockData,
+      })
 
       const result = await fetchMarketOverview()
 
@@ -121,7 +128,10 @@ describe('Market Overview', () => {
         },
       }
 
-      vi.mocked(fetchWithFallback).mockResolvedValue(mockData)
+      vi.mocked(fetchLatestAvailable).mockResolvedValue({
+        date: '2026-01-23',
+        data: mockData,
+      })
 
       const result = await fetchMarketOverview()
 
@@ -157,7 +167,10 @@ describe('Market Overview', () => {
         },
       }
 
-      vi.mocked(fetchWithFallback).mockResolvedValue(mockData)
+      vi.mocked(fetchLatestAvailable).mockResolvedValue({
+        date: '2026-01-23',
+        data: mockData,
+      })
 
       const result = await fetchMarketOverview()
 
@@ -172,7 +185,7 @@ describe('Market Overview', () => {
     })
 
     it('should handle null when data is unavailable', async () => {
-      vi.mocked(fetchWithFallback).mockResolvedValue(null)
+      vi.mocked(fetchLatestAvailable).mockResolvedValue(null)
 
       const result = await fetchMarketOverview()
 
@@ -210,6 +223,7 @@ describe('Market Overview', () => {
         },
       }
 
+      // fetchMarketOverviewByDate uses fetchWithFallback, not fetchLatestAvailable
       vi.mocked(fetchWithFallback).mockResolvedValue(mockData)
 
       const result = await fetchMarketOverviewByDate('2024-01-15')
@@ -251,7 +265,10 @@ describe('Market Overview', () => {
         },
       }
 
-      vi.mocked(fetchWithFallback).mockResolvedValue(mockData)
+      vi.mocked(fetchLatestAvailable).mockResolvedValue({
+        date: '2026-01-23',
+        data: mockData,
+      })
 
       const result = await fetchSetIndex()
 
@@ -263,7 +280,7 @@ describe('Market Overview', () => {
     })
 
     it('should return null when data unavailable', async () => {
-      vi.mocked(fetchWithFallback).mockResolvedValue(null)
+      vi.mocked(fetchLatestAvailable).mockResolvedValue(null)
 
       const result = await fetchSetIndex()
 
@@ -301,7 +318,10 @@ describe('Market Overview', () => {
         },
       }
 
-      vi.mocked(fetchWithFallback).mockResolvedValue(mockData)
+      vi.mocked(fetchLatestAvailable).mockResolvedValue({
+        date: '2026-01-23',
+        data: mockData,
+      })
 
       const result = await fetchTotalMarketValue()
 
@@ -309,7 +329,7 @@ describe('Market Overview', () => {
     })
 
     it('should return null when data unavailable', async () => {
-      vi.mocked(fetchWithFallback).mockResolvedValue(null)
+      vi.mocked(fetchLatestAvailable).mockResolvedValue(null)
 
       const result = await fetchTotalMarketValue()
 
@@ -347,7 +367,10 @@ describe('Market Overview', () => {
         },
       }
 
-      vi.mocked(fetchWithFallback).mockResolvedValue(mockData)
+      vi.mocked(fetchLatestAvailable).mockResolvedValue({
+        date: '2026-01-23',
+        data: mockData,
+      })
 
       const result = await fetchTotalVolume()
 
@@ -355,7 +378,7 @@ describe('Market Overview', () => {
     })
 
     it('should return null when data unavailable', async () => {
-      vi.mocked(fetchWithFallback).mockResolvedValue(null)
+      vi.mocked(fetchLatestAvailable).mockResolvedValue(null)
 
       const result = await fetchTotalVolume()
 
@@ -393,7 +416,10 @@ describe('Market Overview', () => {
         },
       }
 
-      vi.mocked(fetchWithFallback).mockResolvedValue(mockData)
+      vi.mocked(fetchLatestAvailable).mockResolvedValue({
+        date: '2026-01-23',
+        data: mockData,
+      })
 
       const result = await fetchAdvanceDecline()
 
@@ -405,7 +431,7 @@ describe('Market Overview', () => {
     })
 
     it('should return null when data unavailable', async () => {
-      vi.mocked(fetchWithFallback).mockResolvedValue(null)
+      vi.mocked(fetchLatestAvailable).mockResolvedValue(null)
 
       const result = await fetchAdvanceDecline()
 

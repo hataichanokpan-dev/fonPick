@@ -10,7 +10,7 @@
  *   └── meta: { capturedAt, schemaVersion, source }
  */
 
-import { fetchWithFallback } from './client'
+import { fetchWithFallback, fetchLatestAvailable } from './client'
 import { RTDB_PATHS } from './paths'
 import type {
   RTDBIndustrySector,
@@ -79,19 +79,20 @@ export async function fetchIndustrySectorByDate(
 
 /**
  * Fetch latest industry sector data
+ * Uses automatic weekend/holiday fallback to find latest trading day with data
  * @returns Industry sector data or null if unavailable
  */
 export async function fetchIndustrySector(): Promise<RTDBIndustrySector | null> {
-  const entry = await fetchWithFallback<RTDBIndustrySectorEntry>(
-    RTDB_PATHS.INDUSTRY_SECTOR_LATEST,
-    RTDB_PATHS.INDUSTRY_SECTOR_PREVIOUS
+  const result = await fetchLatestAvailable<RTDBIndustrySectorEntry>(
+    (date) => RTDB_PATHS.INDUSTRY_SECTOR_BY_DATE(date),
+    7 // Look back up to 7 days
   )
 
-  if (!entry) {
+  if (!result) {
     return null
   }
 
-  return convertToIndustrySector(entry)
+  return convertToIndustrySector(result.data)
 }
 
 /**

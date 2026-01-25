@@ -9,7 +9,7 @@
  *   └── meta: { capturedAt, schemaVersion, source }
  */
 
-import { fetchWithFallback } from './client'
+import { fetchWithFallback, fetchLatestAvailable } from './client'
 import { RTDB_PATHS, getTodayDate } from './paths'
 import type {
   RTDBMarketOverview,
@@ -134,22 +134,23 @@ export async function fetchMarketOverviewByDate(
 
 /**
  * Fetch latest market overview data
+ * Uses automatic weekend/holiday fallback to find latest trading day with data
  * @returns Market overview data or null if unavailable
  */
 export async function fetchMarketOverview(): Promise<RTDBMarketOverview | null> {
-  const today = getTodayDate()
-
-  const entry = await fetchWithFallback<RTDBMarketOverviewEntry>(
-    RTDB_PATHS.MARKET_OVERVIEW_LATEST,
-    RTDB_PATHS.MARKET_OVERVIEW_PREVIOUS
+  // Try to fetch from today's data first, then automatically fall back to earlier days
+  const result = await fetchLatestAvailable<RTDBMarketOverviewEntry>(
+    (date) => RTDB_PATHS.MARKET_OVERVIEW_BY_DATE(date),
+    7 // Look back up to 7 days
   )
 
-  if (!entry) {
+  if (!result) {
     console.warn('[market-overview] No data found for latest or previous date')
     return null
   }
 
-  return convertToMarketOverview(today, entry)
+  const { date, data: entry } = result
+  return convertToMarketOverview(date, entry)
 }
 
 /**

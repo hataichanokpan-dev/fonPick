@@ -26,7 +26,7 @@ import type {
   RTDBTopRankingsEnhanced,
 } from '@/types/rtdb'
 import { RTDB_PATHS } from './paths'
-import { rtdbGet, fetchWithFallback } from './client'
+import { rtdbGet, fetchWithFallback, fetchLatestAvailable } from './client'
 
 /**
  * Raw RTDB Rankings Response Structure
@@ -140,21 +140,17 @@ export async function fetchTopRankingsByDate(
 
 /**
  * Fetch top rankings data from RTDB
+ * Uses automatic weekend/holiday fallback to find latest trading day with data
  * @returns Top rankings with all categories derived from available data
  */
 export async function fetchTopRankings(): Promise<RTDBTopRankings | null> {
-  // Try to fetch from today's rankings
-  const rawData = await rtdbGet<RTDBRankingsResponseRaw>(RTDB_PATHS.RANKINGS_LATEST)
+  // Try to fetch from today's data first, then automatically fall back to earlier days
+  const result = await fetchLatestAvailable<RTDBRankingsResponseRaw>(
+    (date) => RTDB_PATHS.RANKINGS_BY_DATE(date),
+    7 // Look back up to 7 days
+  )
 
-  // Try fallback to yesterday's data if today's is unavailable
-  if (!rawData || !rawData.data) {
-    const yesterdayData = await rtdbGet<RTDBRankingsResponseRaw>(RTDB_PATHS.RANKINGS_PREVIOUS)
-    if (yesterdayData && yesterdayData.data) {
-      return transformRankingsData(yesterdayData)
-    }
-  }
-
-  if (!rawData || !rawData.data) {
+  if (!result || !result.data) {
     // Return empty structure rather than null to allow rendering
     return {
       topGainers: [],
@@ -165,7 +161,7 @@ export async function fetchTopRankings(): Promise<RTDBTopRankings | null> {
     }
   }
 
-  return transformRankingsData(rawData)
+  return transformRankingsData(result.data)
 }
 
 /**

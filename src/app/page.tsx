@@ -2,8 +2,13 @@
  * Homepage (Server Component)
  * Main market overview page with all dashboard components
  *
- * Fetches data from RTDB, calculates trends, and analyzes market regime
- * Falls back to mock data in development if RTDB is unavailable
+ * Data fetching strategy:
+ * 1. Tries to fetch latest data from RTDB (/settrade/marketOverview/byDate/{today})
+ * 2. If today's data is empty/null, automatically falls back to previous day
+ * 3. If no data found in lookback period, shows "No market data available" message
+ *
+ * The fallback mechanism is implemented in src/lib/rtdb/client.ts (fetchWithFallback)
+ * and is used by all data fetchers (fetchMarketOverview, fetchInvestorType, etc.)
  */
 
 import {
@@ -262,9 +267,17 @@ function isHomepagedataError(result: HomepageDataResult): result is { error: str
 function getErrorMessage(error: string): { title: string; message: string } {
   if (error === 'RTDB_UNAVAILABLE') {
     return {
-      title: 'Database Connection Error',
+      title: 'No market data available',
       message:
-        'Unable to connect to Firebase Realtime Database. Please check your Firebase configuration and security rules.',
+        'Market data is not currently available. The system may be updating or the market might be closed. Please check back later.',
+    }
+  }
+
+  if (error === 'NO_DATA_IN_LOOKBACK_PERIOD') {
+    return {
+      title: 'No market data available',
+      message:
+        'No market data found for the past 7 days. The data source may be temporarily unavailable or the market has been closed for an extended period.',
     }
   }
 
