@@ -10,7 +10,7 @@
  */
 
 import { fetchWithFallback, fetchLatestAvailable } from './client'
-import { RTDB_PATHS, getTodayDate } from './paths'
+import { RTDB_PATHS } from './paths'
 import type {
   RTDBMarketOverview,
   RTDBMarketOverviewEntry,

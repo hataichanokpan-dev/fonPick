@@ -26,7 +26,7 @@ import type {
   RTDBTopRankingsEnhanced,
 } from '@/types/rtdb'
 import { RTDB_PATHS } from './paths'
-import { rtdbGet, fetchWithFallback, fetchLatestAvailable } from './client'
+import { fetchWithFallback, fetchLatestAvailable } from './client'
 
 /**
  * Raw RTDB Rankings Response Structure
