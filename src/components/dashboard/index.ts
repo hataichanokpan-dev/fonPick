@@ -7,6 +7,7 @@
  *
  * P1 Components:
  * - SectorStrengthCard: Displays sector leaders and laggards
+ * - SectorRotationCard: Displays sector rotation analysis
  *
  * P2 Components:
  * - ActiveStocksCard: Displays active stocks concentration analysis
@@ -15,10 +16,15 @@
 export { MarketRegimeCard } from './MarketRegimeCard'
 export { SmartMoneyCard } from './SmartMoneyCard'
 export { SectorStrengthCard } from './SectorStrengthCard'
+export { SectorRotationCard } from './SectorRotationCard'
 export { ActiveStocksCard } from './ActiveStocksCard'
 
 // Re-export types
 export type { MarketRegimeData } from './MarketRegimeCard'
+export type {
+  SectorData,
+  SectorRotationData,
+} from './SectorRotationCard'
 export type {
   ActiveStocksCardData,
   StockConcentration,

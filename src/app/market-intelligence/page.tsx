@@ -13,6 +13,7 @@ import {
   MarketRegimeCard,
   SmartMoneyCard,
   SectorStrengthCard,
+  SectorRotationCard,
   ActiveStocksCard,
 } from '@/components/dashboard'
 
@@ -97,6 +98,7 @@ export default function MarketIntelligencePage() {
         <PrioritySectionLabel priority="P1" label="Sector Analysis" />
         <ResponsiveGrid preset="default" gap="compact">
           <SectorStrengthCard />
+          <SectorRotationCard />
         </ResponsiveGrid>
       </section>
 

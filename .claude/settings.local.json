@@ -23,7 +23,9 @@
       "Bash(npx vitest run:*)",
       "Bash(curl:*)",
       "mcp__web-reader__webReader",
-      "Bash(findstr:*)"
+      "Bash(findstr:*)",
+      "Bash(pnpm test:*)",
+      "Bash(pnpm tsc:*)"
     ]
   }
 }

@@ -11,6 +11,7 @@ export * from './sector-rotation'
 export * from './smart-money'
 export * from './insights'
 export * from './correlation'
+export * from './market-intelligence'
 
 /**
  * Common UI Props
