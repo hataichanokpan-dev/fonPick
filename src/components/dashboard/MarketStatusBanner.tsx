@@ -254,8 +254,7 @@ export function MarketStatusBanner({
       initial={{ y: -50, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.4, ease: 'easeOut' }}
-      className="sticky py-2 top-0 z-50 w-full backdrop-blur-md border-b 
-      h-14 sm:h-16 rounded-md mb-2"
+      className="sticky py-2 top-0 z-50 w-full backdrop-blur-md border-b h-14 sm:h-16 rounded-md mb-4"
       style={{
         backgroundColor: colors.bg,
         borderColor: colors.border,

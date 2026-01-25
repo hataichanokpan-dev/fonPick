@@ -7,7 +7,7 @@
  * 3. REFACTOR - Improve while keeping tests green
  */
 
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
+import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { rtdbGet, fetchWithFallback, isDataFresh, formatTimestamp, getDataAge, RTDBError } from './client'
 
 // Mock Firebase modules
@@ -17,7 +17,7 @@ vi.mock('firebase/app', () => ({
 
 vi.mock('firebase/database', () => ({
   getDatabase: vi.fn(() => ({ name: 'mock-db' })),
-  ref: vi.fn((db, path) => ({ path })),
+  ref: vi.fn((_db, path) => ({ path })),
   get: vi.fn(),
 }))
 

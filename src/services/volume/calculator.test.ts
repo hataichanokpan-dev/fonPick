@@ -272,19 +272,10 @@ describe('Volume Calculator', () => {
       // concentration = 10000 / 47500 * 100 = 21.05% -> still Healthy
 
       // Let's create explicitly 25-40%: We need more volume in top 5
-      const rankings: ConcentrationInput[] = [
-        // Top 5 with high volume
-        { volume: 5000 },
-        { volume: 4500 },
-        { volume: 4000 },
-        { volume: 3500 },
-        { volume: 3000 }, // Top 5 = 20000
-        // Next 25 with lower volume
-        ...Array.from({ length: 25 }, () => ({ volume: 1000 })),
-      ]
-      // top5Volume = 20000
-      // totalVolume = 20000 + 25000 = 45000
-      // concentration = 20000 / 45000 * 100 = 44.44% -> Risky
+      // First attempt:
+      // Top 5 with high volume = 20000
+      // Next 25 with lower volume = 25000
+      // totalVolume = 45000, concentration = 44.44% -> Risky
 
       // Need exactly 25-40%. Let's try:
       const rankings2: ConcentrationInput[] = [

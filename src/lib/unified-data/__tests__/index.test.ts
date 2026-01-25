@@ -93,19 +93,83 @@ describe('fetchUnifiedMarketData', () => {
   const mockMarketIntelligence = {
     regime: mockRegimeAnalysis,
     smartMoney: {
-      signal: 'Strong Buy',
-      confidence: 'High',
-      trend: 'bullish',
-      netFlow: 1955,
-      summary: 'Strong foreign and institutional buying',
+      investors: {
+        foreign: {
+          investor: 'foreign' as const,
+          todayNet: 3356,
+          strength: 'Buy' as const,
+          trend: 'Stable Buy' as const,
+          confidence: 75,
+          trend5Day: 10000,
+          avg5Day: 2000,
+          vsAverage: 1356,
+        },
+        institution: {
+          investor: 'institution' as const,
+          todayNet: -1401,
+          strength: 'Sell' as const,
+          trend: 'Stable Sell' as const,
+          confidence: 60,
+          trend5Day: -5000,
+          avg5Day: -1000,
+          vsAverage: -401,
+        },
+        retail: {
+          investor: 'retail' as const,
+          todayNet: -3142,
+          strength: 'Sell' as const,
+          trend: 'Stable Sell' as const,
+          confidence: 65,
+          trend5Day: -8000,
+          avg5Day: -1600,
+          vsAverage: -1542,
+        },
+        prop: {
+          investor: 'prop' as const,
+          todayNet: 1188,
+          strength: 'Buy' as const,
+          trend: 'Stable Buy' as const,
+          confidence: 55,
+          trend5Day: 4000,
+          avg5Day: 800,
+          vsAverage: 388,
+        },
+      },
+      combinedSignal: 'Buy' as const,
+      riskSignal: 'Risk-On Mild' as const,
+      score: 55,
+      confidence: 65,
+      observations: ['Strong foreign buying', 'Institution selling'],
+      riskOnConfirmed: true,
+      riskOffConfirmed: false,
+      timestamp: Date.now(),
     },
     sectorRotation: {
-      currentPhase: 'Growth',
-      leadership: 'cyclical',
-      defensiveLeadership: null,
-      topSectors: ['ENERG', 'BANK'],
-      bottomSectors: ['PROP', 'FOOD'],
-      summary: 'Rotation into cyclical sectors',
+      pattern: 'Risk-On Rotation' as const,
+      leadership: {
+        leaders: [{ sector: 'ENERG', strength: 85, trend: 'Accelerating Buy' as const }],
+        laggards: [{ sector: 'PROP', strength: 20, trend: 'Stable Sell' as const }],
+        leadershipScore: 65,
+        breadth: 60,
+      },
+      regimeContext: {
+        regime: 'Risk-On' as const,
+        confidence: 'High' as const,
+        reasons: ['Strong market gains', 'Foreign buying'],
+        focus: 'Growth stocks favored',
+        caution: 'Monitor for reversal',
+        scores: { riskOn: 75, riskOff: 25 },
+      },
+      entrySignals: [
+        { sector: 'ENERG', signal: 'Strong Entry' as const, strength: 85, volumeAboveAvg: true, priceAction: 'Strong' as const },
+      ],
+      exitSignals: [
+        { sector: 'PROP', signal: 'Strong Exit' as const, strength: 20, volumeAboveAvg: false, priceAction: 'Weak' as const },
+      ],
+      observations: ['Rotation into cyclical sectors', 'Energy leading'],
+      focusSectors: ['ENERG', 'BANK'],
+      avoidSectors: ['PROP', 'FOOD'],
+      timestamp: Date.now(),
     },
     activeStocks: {
       topByValue: [],
@@ -160,7 +224,7 @@ describe('fetchUnifiedMarketData', () => {
     vi.mocked(fetchInvestorType).mockResolvedValue(mockInvestorType)
     vi.mocked(fetchIndustrySector).mockResolvedValue(mockIndustrySector)
     vi.mocked(fetchTopRankingsEnhanced).mockResolvedValue(mockRankings)
-    vi.mocked(aggregateMarketIntelligence).mockResolvedValue(mockMarketIntelligence)
+    vi.mocked(aggregateMarketIntelligence).mockResolvedValue(mockMarketIntelligence as any)
 
     const result = await fetchUnifiedMarketData()
 
@@ -205,7 +269,7 @@ describe('fetchUnifiedMarketData', () => {
     vi.mocked(fetchInvestorType).mockResolvedValue(mockInvestorType)
     vi.mocked(fetchIndustrySector).mockResolvedValue(mockIndustrySector)
     vi.mocked(fetchTopRankingsEnhanced).mockResolvedValue(mockRankings)
-    vi.mocked(aggregateMarketIntelligence).mockResolvedValue(mockMarketIntelligence)
+    vi.mocked(aggregateMarketIntelligence).mockResolvedValue(mockMarketIntelligence as any)
 
     const options: Partial<DashboardOptions> = {
       includeP0: true,
@@ -237,7 +301,7 @@ describe('fetchUnifiedMarketData', () => {
     vi.mocked(fetchInvestorType).mockRejectedValue(new Error('RTDB error'))
     vi.mocked(fetchIndustrySector).mockResolvedValue(mockIndustrySector)
     vi.mocked(fetchTopRankingsEnhanced).mockResolvedValue(mockRankings)
-    vi.mocked(aggregateMarketIntelligence).mockResolvedValue(mockMarketIntelligence)
+    vi.mocked(aggregateMarketIntelligence).mockResolvedValue(mockMarketIntelligence as any)
 
     const result = await fetchUnifiedMarketData()
 
@@ -300,7 +364,7 @@ describe('fetchUnifiedMarketData', () => {
     vi.mocked(fetchInvestorType).mockResolvedValue(mockInvestorType)
     vi.mocked(fetchIndustrySector).mockResolvedValue(mockIndustrySector)
     vi.mocked(fetchTopRankingsEnhanced).mockResolvedValue(mockRankings)
-    vi.mocked(aggregateMarketIntelligence).mockResolvedValue(mockMarketIntelligence)
+    vi.mocked(aggregateMarketIntelligence).mockResolvedValue(mockMarketIntelligence as any)
 
     const options: Partial<DashboardOptions> = {
       includeP0: true,
@@ -326,7 +390,7 @@ describe('fetchUnifiedMarketData', () => {
     vi.mocked(fetchInvestorType).mockResolvedValue(mockInvestorType)
     vi.mocked(fetchIndustrySector).mockResolvedValue(mockIndustrySector)
     vi.mocked(fetchTopRankingsEnhanced).mockResolvedValue(mockRankings)
-    vi.mocked(aggregateMarketIntelligence).mockResolvedValue(mockMarketIntelligence)
+    vi.mocked(aggregateMarketIntelligence).mockResolvedValue(mockMarketIntelligence as any)
 
     await fetchUnifiedMarketData()
 
@@ -359,7 +423,7 @@ describe('fetchUnifiedMarketData', () => {
       })
     )
     vi.mocked(fetchTopRankingsEnhanced).mockResolvedValue(mockRankings)
-    vi.mocked(aggregateMarketIntelligence).mockResolvedValue(mockMarketIntelligence)
+    vi.mocked(aggregateMarketIntelligence).mockResolvedValue(mockMarketIntelligence as any)
 
     await fetchUnifiedMarketData()
 
@@ -379,7 +443,7 @@ describe('fetchUnifiedMarketData', () => {
     vi.mocked(fetchInvestorType).mockResolvedValue(mockInvestorType)
     vi.mocked(fetchIndustrySector).mockResolvedValue(mockIndustrySector)
     vi.mocked(fetchTopRankingsEnhanced).mockResolvedValue(mockRankings)
-    vi.mocked(aggregateMarketIntelligence).mockResolvedValue(mockMarketIntelligence)
+    vi.mocked(aggregateMarketIntelligence).mockResolvedValue(mockMarketIntelligence as any)
 
     await fetchUnifiedMarketData()
 
@@ -415,7 +479,7 @@ describe('fetchUnifiedMarketData', () => {
     vi.mocked(fetchInvestorType).mockResolvedValue(mockInvestorType)
     vi.mocked(fetchIndustrySector).mockResolvedValue(mockIndustrySector)
     vi.mocked(fetchTopRankingsEnhanced).mockResolvedValue(mockRankings)
-    vi.mocked(aggregateMarketIntelligence).mockResolvedValue(mockMarketIntelligence)
+    vi.mocked(aggregateMarketIntelligence).mockResolvedValue(mockMarketIntelligence as any)
 
     const result = await fetchUnifiedMarketData()
 
@@ -433,7 +497,7 @@ describe('fetchUnifiedMarketData', () => {
     vi.mocked(fetchInvestorType).mockRejectedValue(new Error('RTDB error'))
     vi.mocked(fetchIndustrySector).mockResolvedValue(mockIndustrySector)
     vi.mocked(fetchTopRankingsEnhanced).mockResolvedValue(mockRankings)
-    vi.mocked(aggregateMarketIntelligence).mockResolvedValue(mockMarketIntelligence)
+    vi.mocked(aggregateMarketIntelligence).mockResolvedValue(mockMarketIntelligence as any)
 
     const result = await fetchUnifiedMarketData()
 
@@ -460,7 +524,7 @@ describe('fetchUnifiedMarketData', () => {
     vi.mocked(fetchInvestorType).mockResolvedValue(mockInvestorType)
     vi.mocked(fetchIndustrySector).mockResolvedValue(mockIndustrySector)
     vi.mocked(fetchTopRankingsEnhanced).mockResolvedValue(emptyRankings)
-    vi.mocked(aggregateMarketIntelligence).mockResolvedValue(mockMarketIntelligence)
+    vi.mocked(aggregateMarketIntelligence).mockResolvedValue(mockMarketIntelligence as any)
 
     const result = await fetchUnifiedMarketData()
 
@@ -479,7 +543,7 @@ describe('fetchUnifiedMarketData', () => {
     vi.mocked(fetchInvestorType).mockResolvedValue(mockInvestorType)
     vi.mocked(fetchIndustrySector).mockResolvedValue(mockIndustrySector)
     vi.mocked(fetchTopRankingsEnhanced).mockResolvedValue(mockRankings)
-    vi.mocked(aggregateMarketIntelligence).mockResolvedValue(mockMarketIntelligence)
+    vi.mocked(aggregateMarketIntelligence).mockResolvedValue(mockMarketIntelligence as any)
 
     await fetchUnifiedMarketData()
 

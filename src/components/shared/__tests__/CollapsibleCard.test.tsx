@@ -153,7 +153,7 @@ describe('CollapsibleCard', () => {
       // Mock window.innerWidth to mobile size
       global.innerWidth = 375
 
-      const { container } = render(<CollapsibleCard {...defaultProps} />)
+      render(<CollapsibleCard {...defaultProps} />)
 
       const chevron = screen.queryByTestId('chevron-icon')
       // Chevron should be present (but hidden on desktop via md:hidden)
@@ -479,7 +479,7 @@ describe('CollapsibleCard', () => {
 
   describe('Integration with Other Components', () => {
     it('should work with Card components as children', () => {
-      const { container } = render(
+      render(
         <CollapsibleCard {...defaultProps}>
           <div className="bg-white p-4">Nested Card</div>
         </CollapsibleCard>

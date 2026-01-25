@@ -12,6 +12,7 @@ import type {
   RTDBSector,
   RTDBTopRankings,
   RTDBTopStock,
+  RTDBMarketOverview,
 } from '@/types/rtdb'
 
 // ============================================================================
@@ -132,10 +133,12 @@ const INTENSITY_MULTIPLIERS: Record<'Low' | 'Medium' | 'High', number> = {
  * @returns Complete market data
  */
 export function generateMarketData(options: GeneratorOptions): {
+  marketOverview: RTDBMarketOverview
   investorType: RTDBInvestorType
   industrySector: RTDBIndustrySector
   topRankings?: RTDBTopRankings
   historical: {
+    marketOverview: RTDBMarketOverview[]
     investorType: RTDBInvestorType[]
     industrySector: RTDBIndustrySector[]
   }
@@ -151,6 +154,7 @@ export function generateMarketData(options: GeneratorOptions): {
   const multiplier = INTENSITY_MULTIPLIERS[intensity]
 
   // Generate current data
+  const marketOverview = generateMarketOverview(scenario, multiplier, timestamp)
   const investorType = generateInvestorType(scenario, multiplier, timestamp)
   const industrySector = generateIndustrySector(scenario, multiplier, timestamp)
   const topRankings = includeRankings ? generateTopRankings(scenario, multiplier, industrySector, timestamp) : undefined
@@ -159,10 +163,92 @@ export function generateMarketData(options: GeneratorOptions): {
   const historical = generateHistoricalData(scenario, multiplier, timestamp, historicalDays)
 
   return {
+    marketOverview,
     investorType,
     industrySector,
     topRankings,
     historical,
+  }
+}
+
+// ============================================================================
+// MARKET OVERVIEW GENERATION
+// ============================================================================
+
+/**
+ * Generate market overview data based on scenario
+ */
+function generateMarketOverview(
+  scenario: MarketScenario,
+  multiplier: number,
+  timestamp: number
+): RTDBMarketOverview {
+  const baseIndex = 1300
+  const baseChange = getBaseIndexChange(scenario, multiplier)
+
+  // Calculate advance/decline based on scenario
+  const totalStocks = 850
+  let advanceRatio = 0.5
+  switch (scenario) {
+    case 'Bullish':
+    case 'Risk-On':
+      advanceRatio = 0.6 + Math.random() * 0.2
+      break
+    case 'Bearish':
+    case 'Risk-Off':
+      advanceRatio = 0.2 + Math.random() * 0.2
+      break
+    case 'SectorRotation':
+    case 'Mixed':
+      advanceRatio = 0.45 + Math.random() * 0.15
+      break
+    case 'Flat':
+      advanceRatio = 0.48 + Math.random() * 0.04
+      break
+  }
+
+  const advanceCount = Math.round(totalStocks * advanceRatio)
+  const declineCount = Math.round(totalStocks * (1 - advanceRatio) * 0.9)
+  const unchangedCount = totalStocks - advanceCount - declineCount
+
+  return {
+    set: {
+      index: baseIndex + baseChange,
+      change: baseChange,
+      changePercent: (baseChange / baseIndex) * 100,
+    },
+    totalMarketCap: 50000000 + Math.random() * 5000000,
+    totalValue: 40000 + Math.random() * 20000,
+    totalVolume: 8000000 + Math.random() * 4000000,
+    advanceCount,
+    declineCount,
+    unchangedCount,
+    newHighCount: scenario === 'Bullish' || scenario === 'Risk-On' ? Math.round(10 + Math.random() * 30) : Math.round(2 + Math.random() * 8),
+    newLowCount: scenario === 'Bearish' || scenario === 'Risk-Off' ? Math.round(10 + Math.random() * 30) : Math.round(2 + Math.random() * 8),
+    timestamp,
+  }
+}
+
+/**
+ * Get base index change based on scenario
+ */
+function getBaseIndexChange(scenario: MarketScenario, multiplier: number): number {
+  switch (scenario) {
+    case 'Bullish':
+      return 10 + Math.random() * 20 * multiplier
+    case 'Bearish':
+      return -(10 + Math.random() * 20 * multiplier)
+    case 'Risk-On':
+      return 5 + Math.random() * 15 * multiplier
+    case 'Risk-Off':
+      return -(5 + Math.random() * 15 * multiplier)
+    case 'SectorRotation':
+    case 'Mixed':
+      return (Math.random() - 0.5) * 10 * multiplier
+    case 'Flat':
+      return (Math.random() - 0.5) * 2
+    default:
+      return 0
   }
 }
 
@@ -520,9 +606,11 @@ function generateHistoricalData(
   currentTimestamp: number,
   days: number
 ): {
+  marketOverview: RTDBMarketOverview[]
   investorType: RTDBInvestorType[]
   industrySector: RTDBIndustrySector[]
 } {
+  const marketOverview: RTDBMarketOverview[] = []
   const investorType: RTDBInvestorType[] = []
   const industrySector: RTDBIndustrySector[] = []
 
@@ -532,11 +620,12 @@ function generateHistoricalData(
     // Add some randomness to historical scenario
     const historicalScenario = i === 1 ? scenario : getRandomVariation(scenario)
 
+    marketOverview.push(generateMarketOverview(historicalScenario, multiplier * 0.9, timestamp))
     investorType.push(generateInvestorType(historicalScenario, multiplier * 0.9, timestamp))
     industrySector.push(generateIndustrySector(historicalScenario, multiplier * 0.9, timestamp))
   }
 
-  return { investorType, industrySector }
+  return { marketOverview, investorType, industrySector }
 }
 
 /**

@@ -41,8 +41,8 @@ describe('Integration Tests: Insights Generation Pipeline', () => {
 
       // Run all analyses
       breadth = analyzeMarketBreadth({
-        current: marketData.investorType,
-        historical: marketData.historical.investorType,
+        current: marketData.marketOverview,
+        historical: marketData.historical.marketOverview,
       })
 
       sectorRotation = analyzeSectorRotation({
@@ -68,7 +68,7 @@ describe('Integration Tests: Insights Generation Pipeline', () => {
         breadth,
         sectorRotation,
         smartMoney,
-        rankingsMap: correlation,
+        rankingsMap: correlation as any,
       }
 
       insights = generateActionableInsights(inputs)
@@ -149,8 +149,8 @@ describe('Integration Tests: Insights Generation Pipeline', () => {
       })
 
       breadth = analyzeMarketBreadth({
-        current: marketData.investorType,
-        historical: marketData.historical.investorType,
+        current: marketData.marketOverview,
+        historical: marketData.historical.marketOverview,
       })
 
       smartMoney = analyzeSmartMoney({
@@ -279,8 +279,8 @@ describe('Integration Tests: Q&A Engine', () => {
     it('should answer volatility question with bullish data', () => {
       const marketData = generateMarketData({ scenario: 'Bullish' })
       const breadth = analyzeMarketBreadth({
-        current: marketData.investorType,
-        historical: marketData.historical.investorType,
+        current: marketData.marketOverview,
+        historical: marketData.historical.marketOverview,
       })
 
       const inputs: InsightInputs = { breadth }
@@ -383,7 +383,7 @@ describe('Integration Tests: Q&A Engine', () => {
           })
         : undefined
 
-      const inputs: InsightInputs = { sectorRotation, rankingsMap: correlation }
+      const inputs: InsightInputs = { sectorRotation, rankingsMap: correlation as any }
       const answers = answerInvestmentQuestions(inputs)
 
       expect(answers.q5_rankingsImpact).toBeDefined()
@@ -409,7 +409,7 @@ describe('Integration Tests: Q&A Engine', () => {
           })
         : undefined
 
-      const inputs: InsightInputs = { sectorRotation, rankingsMap: correlation }
+      const inputs: InsightInputs = { sectorRotation, rankingsMap: correlation as any }
       const answers = answerInvestmentQuestions(inputs)
 
       expect(answers.q6_rankingsVsSector).toBeDefined()
@@ -424,7 +424,7 @@ describe('Integration Tests: Error Handling', () => {
     const marketData = generateMarketData({ scenario: 'Mixed' })
 
     const breadth = analyzeMarketBreadth({
-      current: marketData.investorType,
+      current: marketData.marketOverview,
       historical: undefined, // No historical data
     })
 
@@ -451,8 +451,8 @@ describe('Integration Tests: Error Handling', () => {
     const marketData = generateMarketData({ scenario: 'Flat' })
 
     const breadth = analyzeMarketBreadth({
-      current: marketData.investorType,
-      historical: marketData.historical.investorType,
+      current: marketData.marketOverview,
+      historical: marketData.historical.marketOverview,
     })
 
     const smartMoney = analyzeSmartMoney({
@@ -469,7 +469,7 @@ describe('Integration Tests: Error Handling', () => {
     const marketData = generateMarketData({ scenario: 'Mixed' })
 
     const breadth = analyzeMarketBreadth({
-      current: marketData.investorType,
+      current: marketData.marketOverview,
     })
 
     const smartMoney = analyzeSmartMoney({
@@ -488,7 +488,7 @@ describe('Integration Tests: Error Handling', () => {
 describe('Integration Tests: Data Consistency', () => {
   it('should maintain timestamp consistency', () => {
     const timestamp = Date.now()
-    const marketData = generateMarketData({ timestamp })
+    const marketData = generateMarketData({ timestamp, scenario: 'Bullish' })
 
     expect(marketData.investorType.timestamp).toBe(timestamp)
     expect(marketData.industrySector.timestamp).toBe(timestamp)
@@ -554,8 +554,8 @@ describe('Integration Tests: Complete Analysis Flow', () => {
 
     // Step 1: Analyze breadth
     const breadth = analyzeMarketBreadth({
-      current: marketData.investorType,
-      historical: marketData.historical.investorType,
+      current: marketData.marketOverview,
+      historical: marketData.historical.marketOverview,
     })
 
     // Step 2: Analyze sector rotation
@@ -573,14 +573,13 @@ describe('Integration Tests: Complete Analysis Flow', () => {
 
     // Step 4: Analyze correlations (if rankings available)
     let correlation
-    let rankingsImpact
     if (marketData.topRankings) {
       correlation = analyzeRankingsSectorCorrelation({
         rankings: marketData.topRankings,
         sectors: marketData.industrySector,
       })
 
-      rankingsImpact = analyzeRankingsImpact({
+      analyzeRankingsImpact({
         rankings: marketData.topRankings,
         sectors: marketData.industrySector,
       })
@@ -591,7 +590,7 @@ describe('Integration Tests: Complete Analysis Flow', () => {
       breadth,
       sectorRotation,
       smartMoney,
-      rankingsMap: correlation,
+      rankingsMap: correlation as any,
     }
 
     const insights = generateActionableInsights(inputs)
@@ -624,7 +623,7 @@ describe('Integration Tests: Complete Analysis Flow', () => {
       })
 
       const breadth = analyzeMarketBreadth({
-        current: marketData.investorType,
+        current: marketData.marketOverview,
       })
 
       const smartMoney = analyzeSmartMoney({

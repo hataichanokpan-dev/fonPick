@@ -446,7 +446,7 @@ describe('CompactMetricStrip', () => {
     })
 
     it('should work with mixed data types', () => {
-      const { container } = render(
+      render(
         <CompactMetricStrip
           metrics={[
             { label: 'Volume', value: '1.5M' },

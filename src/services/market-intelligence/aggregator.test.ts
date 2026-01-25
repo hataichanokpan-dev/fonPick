@@ -260,7 +260,7 @@ describe('aggregateMarketIntelligence', () => {
 
     expect(result.activeStocks).not.toBeNull()
 
-    const { activeStocks } = result
+    const activeStocks = result.activeStocks!
     expect(activeStocks.topByValue).toBeDefined()
     expect(activeStocks.topByValue.length).toBeGreaterThan(0)
     expect(activeStocks.metrics).toBeDefined()
@@ -277,7 +277,7 @@ describe('aggregateMarketIntelligence', () => {
 
     expect(result.activeStocks).not.toBeNull()
 
-    const { activeStocks } = result
+    const activeStocks = result.activeStocks!
     // BDMS appears in both topValue and topGainers
     const bdmsCross = activeStocks.crossRanked?.find(s => s.symbol === 'BDMS')
     expect(bdmsCross).toBeDefined()
@@ -313,9 +313,9 @@ describe('aggregateMarketIntelligence', () => {
 
     const result = await aggregateMarketIntelligence(emptyInput)
 
-    expect(result.activeStocks).not.toBeNull()
-    expect(result.activeStocks.topByValue).toHaveLength(0)
-    expect(result.activeStocks.metrics.top5StockConcentration).toBe(0)
+    const activeStocks = result.activeStocks!
+    expect(activeStocks.topByValue).toHaveLength(0)
+    expect(activeStocks.metrics.top5StockConcentration).toBe(0)
   })
 
   // ========================================================================

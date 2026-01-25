@@ -13,7 +13,7 @@
  * 7. Edge Cases and Error Handling
  */
 
-import { describe, it, expect, beforeEach } from 'vitest'
+import { describe, it, expect } from 'vitest'
 import {
   diagnoseStockDecline,
   checkVolumeSignals,
@@ -33,8 +33,6 @@ import type {
   SmartMoneyAnalysis,
   ValuationData,
   DiagnosticFlag,
-  DiagnosticCategory,
-  DiagnosticSeverity,
 } from '@/types/diagnostic'
 import type { RTDBTopRankings } from '@/types/rtdb'
 
