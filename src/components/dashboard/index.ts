@@ -12,6 +12,7 @@
  *
  * P2 Components:
  * - ActiveStocksCard: Displays active stocks concentration analysis
+ * - TabbedMovers: Unified component for Active Stocks + Top Rankings with tab switching
  */
 
 export { MarketStatusBanner } from './MarketStatusBanner'
@@ -22,6 +23,7 @@ export { SectorStrengthCard } from './SectorStrengthCard'
 export { SectorRotationCard } from './SectorRotationCard'
 export { ActiveStocksCard } from './ActiveStocksCard'
 export { AccumulationPatternsCard } from './AccumulationPatternsCard'
+export { TabbedMovers } from './TabbedMovers'
 
 // Re-export types
 export type { MarketRegimeData } from './MarketRegimeCard'
@@ -40,3 +42,4 @@ export type {
   AccumulationPattern,
   AccumulationPatternType,
 } from './AccumulationPatternsCard'
+export type { TabbedMoversProps, TabType } from './TabbedMovers'

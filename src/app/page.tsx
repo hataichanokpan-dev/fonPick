@@ -14,16 +14,7 @@
  * 3. Handles data fetching errors gracefully
  */
 
-import {
-  SetSnapshot,
-  MoneyFlowChart,
-  SectorHeatmap,
-  TopRankings,
-  Week52Range,
-  SetPERatio,
-  VolatilityIndicator,
-} from '@/components/home'
-import { ErrorFallback, DataFreshness } from '@/components/shared'
+import { ErrorFallback, DataFreshness, CompactSectionLabel, CompactMetricStrip } from '@/components/shared'
 import { ResponsiveGrid, AsymmetricWide, AsymmetricMedium, AsymmetricNarrow } from '@/components/layout'
 import {
   MarketStatusBanner,
@@ -31,8 +22,7 @@ import {
   SmartMoneyCard,
   DailyFocusList,
   SectorStrengthCard,
-  AccumulationPatternsCard,
-  ActiveStocksCard,
+  TabbedMovers,
 } from '@/components/dashboard'
 import { fetchUnifiedMarketData } from '@/lib/unified-data'
 import type { UnifiedMarketData } from '@/lib/unified-data'
@@ -126,37 +116,6 @@ function getErrorMessage(error: string): { title: string; message: string } {
 }
 
 // ============================================================================
-// PRIORITY SECTION LABELS
-// ============================================================================
-
-/**
- * Priority Section Label Component
- * Displays priority badge (P0/P1/P2) with section title
- */
-function PrioritySectionLabel({
-  priority,
-  label,
-}: {
-  priority: 'P0' | 'P1' | 'P2'
-  label: string
-}) {
-  const colors = {
-    P0: 'text-up-primary bg-up-soft/20 border-up-primary/30',
-    P1: 'text-accent-blue bg-accent-blue/20 border-accent-blue/30',
-    P2: 'text-warn bg-warn/20 border-warn/30',
-  }
-
-  return (
-    <div
-      className={`flex items-center gap-2 mb-3 px-2 py-1 rounded border text-xs font-semibold uppercase tracking-wider ${colors[priority]}`}
-    >
-      <span>{priority}</span>
-      <span className="text-text-secondary">{label}</span>
-    </div>
-  )
-}
-
-// ============================================================================
 // MAIN PAGE COMPONENT
 // ============================================================================
 
@@ -175,7 +134,7 @@ export default async function HomePage() {
   }
 
   // Extract data for easier access
-  const { marketOverview, investorType, industrySector, rankings, regimeAnalysis, marketIntelligence } = result
+  const { marketOverview, regimeAnalysis, marketIntelligence } = result
 
   // Get market status for banner
   const marketStatus = marketOverview ? getMarketStatus(marketOverview) : { isOpen: false }
@@ -195,50 +154,40 @@ export default async function HomePage() {
     : false
 
   return (
-    <div className="space-y-6">
-      {/* 1. Sticky Status Banner */}
-      {marketOverview && (
-        <MarketStatusBanner
-          regime={bannerRegime.regime}
-          confidence={bannerRegime.confidence}
-          setIndex={marketOverview.set.index}
-          setChange={marketOverview.set.change}
-          setChangePercent={marketOverview.set.changePercent}
-          isMarketOpen={isMarketOpen}
-          lastUpdate={marketOverview.timestamp}
-        />
-      )}
-
-      {/* 2. Market Snapshot */}
-      {marketOverview && (
-        <>
-          <SetSnapshot
-            data={marketOverview.set}
-            totalMarketCap={marketOverview.totalMarketCap}
+    <div className="space-y-3">
+      {/* 1. Sticky Status Banner with Data Freshness */}
+      <div className="sticky top-0 z-10">
+        {marketOverview && (
+          <MarketStatusBanner
+            regime={bannerRegime.regime}
+            confidence={bannerRegime.confidence}
+            setIndex={marketOverview.set.index}
+            setChange={marketOverview.set.change}
+            setChangePercent={marketOverview.set.changePercent}
+            isMarketOpen={isMarketOpen}
+            lastUpdate={marketOverview.timestamp}
           />
+        )}
+        {marketOverview && (
           <DataFreshness timestamp={marketOverview.timestamp} />
-        </>
-      )}
+        )}
+      </div>
 
-      {/* Market Context Row - 4 column grid */}
-      {marketOverview && (
-        <ResponsiveGrid preset="quad" gap="compact">
-          <Week52Range
-            current={marketOverview.set.index}
-            high={marketOverview.set.index * 1.1}
-            low={marketOverview.set.index * 0.9}
-          />
-          <SetPERatio currentPE={15.2} historicalAvg={14.5} />
-          <VolatilityIndicator volatility={12} average={15} />
-        </ResponsiveGrid>
-      )}
+      {/* 2. Compact Metrics Strip */}
+      <CompactMetricStrip
+        metrics={[
+          { label: '52W Range', value: `${((marketOverview?.set.index || 0) * 1.1 / 1000).toFixed(1)}K` },
+          { label: 'Total Cap', value: marketOverview?.totalMarketCap ? `${(marketOverview.totalMarketCap / 1000).toFixed(1)}B` : 'N/A' },
+        ]}
+        className="my-3"
+      />
 
       {/* 3. P0: Market Regime + Smart Money + Daily Focus (asymmetric grid) */}
       <section aria-labelledby="p0-heading">
         <h2 id="p0-heading" className="sr-only">
           P0: Market Overview - Market Regime and Smart Money Analysis
         </h2>
-        <PrioritySectionLabel priority="P0" label="Market Overview" />
+        <CompactSectionLabel priority="P0" label="Market Overview" />
         <ResponsiveGrid preset="asymmetric" gap="compact">
           <AsymmetricWide>
             <MarketRegimeCard variant="prominent" />
@@ -252,66 +201,23 @@ export default async function HomePage() {
         </ResponsiveGrid>
       </section>
 
-      {/* 4. P1: Sectors + Accumulation */}
+      {/* 4. P1: Sectors (SectorStrengthCard only) */}
       <section aria-labelledby="p1-heading">
         <h2 id="p1-heading" className="sr-only">
-          P1: Sector Analysis - Sector Strength and Accumulation Patterns
+          P1: Sector Analysis - Sector Strength
         </h2>
-        <PrioritySectionLabel priority="P1" label="Sector Analysis" />
-        <ResponsiveGrid preset="default" gap="compact">
-          <SectorStrengthCard />
-          <AccumulationPatternsCard patterns={[]} />
-        </ResponsiveGrid>
+        <CompactSectionLabel priority="P1" label="Sector Analysis" />
+        <SectorStrengthCard />
       </section>
 
-      {/* 5. Money Flow + Heatmap (existing components) */}
-      {investorType && industrySector && (
-        <ResponsiveGrid preset="default" gap="compact">
-          <MoneyFlowChart data={investorType} showTrends={false} />
-          <SectorHeatmap
-            data={{
-              sectors: industrySector.sectors.map((s) => ({
-                ...s,
-                trend5Day: undefined,
-              })),
-            }}
-            showTrends={false}
-          />
-        </ResponsiveGrid>
-      )}
-
-      {/* 6. P2: Active Stocks */}
+      {/* 5. P2: Market Movers (TabbedMovers) */}
       <section aria-labelledby="p2-heading">
         <h2 id="p2-heading" className="sr-only">
-          P2: Active Stocks - Concentration Analysis
+          P2: Market Movers - Active Stocks and Top Rankings
         </h2>
-        <PrioritySectionLabel priority="P2" label="Active Stocks Concentration" />
-        <ActiveStocksCard />
+        <CompactSectionLabel priority="P2" label="Market Movers" />
+        <TabbedMovers topCount={10} />
       </section>
-
-      {/* 7. Top Rankings (existing component) */}
-      {rankings && (
-        <TopRankings
-          data={{
-            topGainers: rankings.topGainers.map((s) => ({
-              symbol: s.symbol,
-              price: s.price,
-              change: s.changePct || s.change || 0,
-            })),
-            topLosers: rankings.topLosers.map((s) => ({
-              symbol: s.symbol,
-              price: s.price,
-              change: s.changePct || s.change || 0,
-            })),
-            topVolume: rankings.topVolume.map((s) => ({
-              symbol: s.symbol,
-              volume: s.volume || 0,
-            })),
-            timestamp: rankings.timestamp,
-          }}
-          showTrends={false}
-        />
-      )}
     </div>
   )
 }
