@@ -23,6 +23,8 @@ import {
 } from '@/components/home'
 import { ErrorFallback, DataFreshness, Card } from '@/components/shared'
 import { ResponsiveGrid } from '@/components/layout'
+import { MarketRegimeCard, SmartMoneyCard } from '@/components/dashboard'
+import Link from 'next/link'
 import { fetchHomepageData as fetchRTDBData } from '@/lib/rtdb'
 import { calculateAllSectorTrends } from '@/lib/trends'
 import { analyzeMarketRegime } from '@/services/market-regime'
@@ -408,6 +410,31 @@ export default async function HomePage() {
           </div>
         </div>
       </Card>
+
+      {/* Market Intelligence Preview (P0) */}
+      <section className="mt-8 pt-8 border-t border-border-subtle">
+        <div className="flex items-center justify-between mb-4">
+          <div>
+            <h2 className="text-lg font-bold text-text-primary">
+              Market Intelligence
+            </h2>
+            <p className="text-sm text-text-secondary">
+              Real-time regime detection and smart money analysis
+            </p>
+          </div>
+          <Link
+            href="/market-intelligence"
+            className="text-xs font-medium text-accent-blue hover:underline"
+          >
+            View Full Dashboard →
+          </Link>
+        </div>
+
+        <ResponsiveGrid preset="default" gap="compact">
+          <MarketRegimeCard />
+          <SmartMoneyCard />
+        </ResponsiveGrid>
+      </section>
     </div>
   )
 }

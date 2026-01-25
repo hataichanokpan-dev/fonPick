@@ -20,14 +20,6 @@ export { ActiveStocksCard } from './ActiveStocksCard'
 // Re-export types
 export type { MarketRegimeData } from './MarketRegimeCard'
 export type {
-  SmartMoneyCardData,
-  InvestorFlowData,
-} from './SmartMoneyCard'
-export type {
-  SectorStrengthCardData,
-  SectorData,
-} from './SectorStrengthCard'
-export type {
   ActiveStocksCardData,
   StockConcentration,
   CrossRankedStock,

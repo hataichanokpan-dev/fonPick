@@ -33,56 +33,14 @@ import {
 import { formatTradingValue } from '@/lib/utils'
 import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
+import type { SmartMoneyAnalysis } from '@/types/smart-money'
 
 // ==================================================================
 // TYPES
 // ==================================================================
 
-export interface InvestorFlowData {
-  /** Today's net flow (millions THB) */
-  todayNet: number
-  /** Flow trend */
-  trend:
-    | 'Accelerating Buy'
-    | 'Stable Buy'
-    | 'Decreasing Buy'
-    | 'Neutral'
-    | 'Decreasing Sell'
-    | 'Stable Sell'
-    | 'Accelerating Sell'
-  /** 5-day cumulative flow */
-  trend5Day: number
-  /** Signal strength */
-  strength: 'Strong Buy' | 'Buy' | 'Neutral' | 'Sell' | 'Strong Sell'
-}
-
-export interface SmartMoneyCardData {
-  /** Foreign investor data */
-  foreign: InvestorFlowData
-  /** Institution data */
-  institution: InvestorFlowData
-  /** Retail investor data (optional) */
-  retail?: InvestorFlowData
-  /** Prop trading data (optional) */
-  prop?: InvestorFlowData
-  /** Combined signal */
-  combinedSignal: 'Strong Buy' | 'Buy' | 'Neutral' | 'Sell' | 'Strong Sell'
-  /** Risk signal */
-  riskSignal:
-    | 'Risk-On'
-    | 'Risk-On Mild'
-    | 'Neutral'
-    | 'Risk-Off Mild'
-    | 'Risk-Off'
-  /** Smart money score (0-100) */
-  score: number
-  /** Confidence (0-100) */
-  confidence: number
-  /** Primary driver */
-  primaryDriver?: 'foreign' | 'institution' | 'retail' | 'prop' | 'both' | 'none'
-  /** Key observations */
-  observations: string[]
-}
+// Use the actual SmartMoneyAnalysis type from the API
+// which has investors nested structure
 
 export interface SmartMoneyCardProps {
   /** Additional CSS classes */
@@ -171,7 +129,11 @@ function ScoreGauge({ score, size = 56 }: ScoreGaugeProps) {
 interface InvestorRowProps {
   label: string
   icon: React.ReactNode
-  data: InvestorFlowData
+  data: {
+    todayNet?: number
+    trend?: string
+    strength?: string
+  }
   opacity?: number
 }
 
@@ -181,20 +143,24 @@ function InvestorRow({
   data,
   opacity = 1,
 }: InvestorRowProps) {
-  const isPositive = data.todayNet > 0
+  // Handle missing data gracefully
+  const todayNet = data.todayNet ?? 0
+  const strength = data.strength ?? 'Neutral'
+
+  const isPositive = todayNet > 0
   const flowColor = isPositive
     ? COLORS.up
-    : data.todayNet < 0
+    : todayNet < 0
       ? COLORS.down
       : COLORS.neutral
   const bgColor = isPositive
     ? `rgba(46, 216, 167, ${0.08 * opacity})`
-    : data.todayNet < 0
+    : todayNet < 0
       ? `rgba(244, 91, 105, ${0.08 * opacity})`
       : `rgba(174, 183, 179, ${0.08 * opacity})`
 
   const getStrengthColor = (): 'buy' | 'sell' | 'neutral' | 'watch' => {
-    switch (data.strength) {
+    switch (strength) {
       case 'Strong Buy':
       case 'Buy':
         return 'buy'
@@ -207,8 +173,8 @@ function InvestorRow({
   }
 
   const getTrendIcon = () => {
-    if (data.trend.includes('Buy')) return <TrendingUp className="w-3 h-3" />
-    if (data.trend.includes('Sell')) return <TrendingDown className="w-3 h-3" />
+    if (data.trend?.includes('Buy')) return <TrendingUp className="w-3 h-3" />
+    if (data.trend?.includes('Sell')) return <TrendingDown className="w-3 h-3" />
     return null
   }
 
@@ -233,7 +199,7 @@ function InvestorRow({
         style={{ color: flowColor, opacity }}
       >
         {isPositive && '+'}
-        {formatTradingValue(Math.abs(data.todayNet))}
+        {formatTradingValue(Math.abs(todayNet))}
       </span>
 
       {/* Trend Icon */}
@@ -241,7 +207,7 @@ function InvestorRow({
 
       {/* Signal Badge */}
       <Badge size="sm" color={getStrengthColor()}>
-        {data.strength}
+        {strength}
       </Badge>
     </div>
   )
@@ -283,7 +249,7 @@ export function SmartMoneyCard({ className }: SmartMoneyCardProps) {
   // Fetch data from market intelligence API
   const { data, isLoading, error } = useQuery<{
     success: boolean
-    data?: { smartMoney: SmartMoneyCardData | null }
+    data?: { smartMoney: SmartMoneyAnalysis | null }
   }>({
     queryKey: ['market-intelligence', 'smart-money'],
     queryFn: async () => {
@@ -373,19 +339,19 @@ export function SmartMoneyCard({ className }: SmartMoneyCardProps) {
           </span>
         </div>
 
-        {/* Investor Flows */}
+        {/* Investor Flows - Access from investors property */}
         <div className="flex-1 space-y-2">
           {/* Primary (Smart Money) - 100% opacity */}
           <InvestorRow
             label="Foreign"
             icon={<Globe className="w-4 h-4" />}
-            data={smartMoneyData.foreign}
+            data={smartMoneyData.investors.foreign}
             opacity={1}
           />
           <InvestorRow
             label="Institution"
             icon={<Building2 className="w-4 h-4" />}
-            data={smartMoneyData.institution}
+            data={smartMoneyData.investors.institution}
             opacity={1}
           />
 
@@ -393,22 +359,18 @@ export function SmartMoneyCard({ className }: SmartMoneyCardProps) {
           <InvestorSeparator />
 
           {/* Secondary (Context) - 60% opacity */}
-          {smartMoneyData.retail && (
-            <InvestorRow
-              label="Retail"
-              icon={<Users className="w-4 h-4" />}
-              data={smartMoneyData.retail}
-              opacity={0.6}
-            />
-          )}
-          {smartMoneyData.prop && (
-            <InvestorRow
-              label="Prop"
-              icon={<Briefcase className="w-4 h-4" />}
-              data={smartMoneyData.prop}
-              opacity={0.6}
-            />
-          )}
+          <InvestorRow
+            label="Retail"
+            icon={<Users className="w-4 h-4" />}
+            data={smartMoneyData.investors.retail}
+            opacity={0.6}
+          />
+          <InvestorRow
+            label="Prop"
+            icon={<Briefcase className="w-4 h-4" />}
+            data={smartMoneyData.investors.prop}
+            opacity={0.6}
+          />
         </div>
       </div>
 

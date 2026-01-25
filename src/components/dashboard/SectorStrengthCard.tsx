@@ -27,50 +27,11 @@ import {
 import { formatPercent } from '@/lib/utils'
 import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
+import type { SectorRotationAnalysis, SectorPerformance } from '@/types/sector-rotation'
 
 // ==================================================================
 // TYPES
 // ==================================================================
-
-export interface SectorData {
-  /** Sector code */
-  sector: string
-  /** Sector name */
-  name: string
-  /** Change percent */
-  change: number
-  /** Rotation signal */
-  signal: 'Entry' | 'Accumulate' | 'Hold' | 'Distribute' | 'Exit'
-  /** Performance rank */
-  rank: number
-  /** Trading value (millions) */
-  value?: number
-}
-
-export interface SectorStrengthCardData {
-  /** Overall rotation pattern */
-  pattern:
-    | 'Risk-On Rotation'
-    | 'Risk-Off Rotation'
-    | 'Broad-Based Advance'
-    | 'Broad-Based Decline'
-    | 'Mixed/No Clear Pattern'
-    | 'Sector-Specific'
-  /** Top performing sectors (leaders) */
-  leaders: SectorData[]
-  /** Bottom performing sectors (laggards) */
-  laggards: SectorData[]
-  /** Market driver sector */
-  marketDriver?: SectorData
-  /** Concentration score (0-100) */
-  concentration: number
-  /** Key observations */
-  observations: string[]
-  /** Focus sectors */
-  focusSectors: string[]
-  /** Sectors to avoid */
-  avoidSectors: string[]
-}
 
 export interface SectorStrengthCardProps {
   /** Additional CSS classes */
@@ -101,7 +62,7 @@ const DEFAULT_TOP_COUNT = 5
 // ==================================================================
 
 interface SectorRowProps {
-  sector: SectorData
+  sector: SectorPerformance
   showRank?: boolean
   variant: 'leader' | 'laggard'
 }
@@ -126,6 +87,9 @@ function SectorRow({ sector, showRank = true, variant }: SectorRowProps) {
     }
   }
 
+  // Get sector name from RTDBSector
+  const sectorName = sector.sector.name || sector.sector.id
+
   return (
     <motion.div
       initial={{ opacity: 0, x: isLeader ? -10 : 10 }}
@@ -143,15 +107,16 @@ function SectorRow({ sector, showRank = true, variant }: SectorRowProps) {
 
       {/* Sector Name */}
       <span className="text-sm font-medium text-text flex-1 min-w-0">
-        {sector.name}
+        {sectorName}
       </span>
 
-      {/* Change Percent */}
+      {/* Change Percent (vsMarket) */}
       <span
         className="text-sm font-bold tabular-nums"
         style={{ color: valueColor }}
       >
-        {formatPercent(sector.change)}
+        {sector.vsMarket >= 0 ? '+' : ''}
+        {formatPercent(sector.vsMarket)}
       </span>
 
       {/* Signal Badge */}
@@ -190,7 +155,7 @@ export function SectorStrengthCard({
   // Fetch data from market intelligence API
   const { data, isLoading, error } = useQuery<{
     success: boolean
-    data?: { sectorRotation: SectorStrengthCardData | null }
+    data?: { sectorRotation: SectorRotationAnalysis | null }
   }>({
     queryKey: ['market-intelligence', 'sector-rotation'],
     queryFn: async () => {
@@ -240,10 +205,15 @@ export function SectorStrengthCard({
 
   // Determine concentration bar color
   const getConcentrationColor = () => {
-    if (sectorData.concentration > 60) return COLORS.down
-    if (sectorData.concentration > 30) return COLORS.warn
+    if (sectorData.leadership.concentration > 60) return COLORS.down
+    if (sectorData.leadership.concentration > 30) return COLORS.warn
     return COLORS.up
   }
+
+  // Get leaders and laggards from the leadership object
+  const leaders = sectorData.leadership?.leaders || []
+  const laggards = sectorData.leadership?.laggards || []
+  const concentration = sectorData.leadership?.concentration || 0
 
   return (
     <Card padding="sm" className={className}>
@@ -259,22 +229,28 @@ export function SectorStrengthCard({
       </div>
 
       {/* Leaders Section */}
-      <div className="mb-3">
-        <div className="flex items-center gap-1 mb-2">
-          <TrendingUp className="w-3 h-3 text-up" />
-          <span className="text-[10px] uppercase tracking-wide text-text-muted">
-            Top {topCount} Leaders
-          </span>
+      {leaders.length > 0 && (
+        <div className="mb-3">
+          <div className="flex items-center gap-1 mb-2">
+            <TrendingUp className="w-3 h-3 text-up" />
+            <span className="text-[10px] uppercase tracking-wide text-text-muted">
+              Top {topCount} Leaders
+            </span>
+          </div>
+          <div className="space-y-1">
+            {leaders.slice(0, topCount).map((sector) => (
+              <SectorRow
+                key={sector.sector.id}
+                sector={sector}
+                variant="leader"
+              />
+            ))}
+          </div>
         </div>
-        <div className="space-y-1">
-          {sectorData.leaders.slice(0, topCount).map((sector) => (
-            <SectorRow key={sector.sector} sector={sector} variant="leader" />
-          ))}
-        </div>
-      </div>
+      )}
 
       {/* Laggards Section */}
-      {showLaggards && sectorData.laggards.length > 0 && (
+      {showLaggards && laggards.length > 0 && (
         <div className="mb-3">
           <div className="flex items-center gap-1 mb-2">
             <TrendingDown className="w-3 h-3 text-down" />
@@ -283,8 +259,12 @@ export function SectorStrengthCard({
             </span>
           </div>
           <div className="space-y-1">
-            {sectorData.laggards.slice(0, topCount).map((sector) => (
-              <SectorRow key={sector.sector} sector={sector} variant="laggard" />
+            {laggards.slice(0, topCount).map((sector) => (
+              <SectorRow
+                key={sector.sector.id}
+                sector={sector}
+                variant="laggard"
+              />
             ))}
           </div>
         </div>
@@ -297,13 +277,13 @@ export function SectorStrengthCard({
             Concentration
           </span>
           <span className="text-xs font-medium text-text">
-            {formatPercent(sectorData.concentration)}
+            {formatPercent(concentration)}
           </span>
         </div>
         <div className="h-1.5 bg-surface-2 rounded-full overflow-hidden">
           <motion.div
             initial={{ width: 0 }}
-            animate={{ width: `${Math.min(100, sectorData.concentration)}%` }}
+            animate={{ width: `${Math.min(100, concentration)}%` }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
             className="h-full rounded-full"
             style={{ backgroundColor: getConcentrationColor() }}
