@@ -11,6 +11,8 @@
  * - Gainers/Losers tabs: Top gainers/losers with change %
  * - Volume tab: Top volume leaders
  * - Uses existing data from /api/market-intelligence?includeP2=true
+ * - Optional: SwipeableCard for mobile swipe gestures
+ * - Optional: GlassCard for glassmorphism effect
  *
  * Data source:
  * - Active stocks: data.activeStocks from market intelligence API
@@ -26,6 +28,8 @@
 
 import { Card } from '@/components/shared'
 import { Badge } from '@/components/shared/Badge'
+import { SwipeableCard } from '@/components/shared/modern/SwipeableCard'
+import { GlassCard } from '@/components/shared/modern/GlassCard'
 import {
   TrendingUp,
   TrendingDown,
@@ -56,6 +60,14 @@ export interface TabbedMoversProps {
   className?: string
   /** Number of stocks to show per tab */
   topCount?: number
+  /** Use modern GlassCard instead of regular Card */
+  useModernCard?: boolean
+  /** Enable swipeable cards for stock items (mobile) */
+  enableSwipeableCards?: boolean
+  /** Callback when stock is swiped right (buy action) */
+  onSwipeRight?: (symbol: string) => void
+  /** Callback when stock is swiped left (sell/delete action) */
+  onSwipeLeft?: (symbol: string) => void
 }
 
 interface GainerLoserStock {
@@ -255,9 +267,12 @@ function ConcentrationBar({ metrics }: ConcentrationBarProps) {
 interface ActiveStockRowProps {
   stock: StockConcentration
   rank: number
+  enableSwipeable?: boolean
+  onSwipeRight?: (symbol: string) => void
+  onSwipeLeft?: (symbol: string) => void
 }
 
-function ActiveStockRow({ stock, rank }: ActiveStockRowProps) {
+function ActiveStockRow({ stock, rank, enableSwipeable, onSwipeRight, onSwipeLeft }: ActiveStockRowProps) {
   const isPositive = stock.changePercent >= 0
   const valueColor = isPositive ? COLORS.up : COLORS.down
 
@@ -294,13 +309,8 @@ function ActiveStockRow({ stock, rank }: ActiveStockRowProps) {
 
   const accumulationTag = formatAccumulationTag(stock.accumulationPattern, stock.accumulationDays)
 
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
-      className="flex items-center gap-2 p-2 rounded hover:bg-surface-2 transition-colors"
-    >
+  const stockContent = (
+    <div className="flex items-center gap-2 p-2 rounded hover:bg-surface-2 transition-colors">
       <span className="text-xs font-semibold w-6 text-text-muted">{rank}</span>
 
       <div className="flex-1 min-w-0">
@@ -331,6 +341,32 @@ function ActiveStockRow({ stock, rank }: ActiveStockRowProps) {
       {rankingBadges.length > 0 && (
         <div className="flex flex-wrap gap-1 justify-end">{rankingBadges}</div>
       )}
+    </div>
+  )
+
+  // Wrap with SwipeableCard if enabled
+  if (enableSwipeable) {
+    return (
+      <SwipeableCard
+        key={stock.symbol}
+        onSwipeRight={() => onSwipeRight?.(stock.symbol)}
+        onSwipeLeft={() => onSwipeLeft?.(stock.symbol)}
+        leftAction={{ label: 'Remove' }}
+        rightAction={{ label: 'Add to Watchlist' }}
+        className="mb-1"
+      >
+        {stockContent}
+      </SwipeableCard>
+    )
+  }
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+    >
+      {stockContent}
     </motion.div>
   )
 }
@@ -339,19 +375,17 @@ interface GainerLoserRowProps {
   stock: GainerLoserStock
   rank: number
   type: 'gainer' | 'loser'
+  enableSwipeable?: boolean
+  onSwipeRight?: (symbol: string) => void
+  onSwipeLeft?: (symbol: string) => void
 }
 
-function GainerLoserRow({ stock, rank, type }: GainerLoserRowProps) {
+function GainerLoserRow({ stock, rank, type, enableSwipeable, onSwipeRight, onSwipeLeft }: GainerLoserRowProps) {
   const isGainer = type === 'gainer'
   const valueColor = isGainer ? COLORS.up : COLORS.down
 
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
-      className="flex items-center gap-2 p-2 rounded hover:bg-surface-2 transition-colors"
-    >
+  const stockContent = (
+    <div className="flex items-center gap-2 p-2 rounded hover:bg-surface-2 transition-colors">
       <span className="text-xs font-semibold w-6 text-text-muted">{rank}</span>
 
       <div className="flex-1 min-w-0">
@@ -369,6 +403,31 @@ function GainerLoserRow({ stock, rank, type }: GainerLoserRowProps) {
         {isGainer && '+'}
         {formatPercent(stock.changePct)}
       </div>
+    </div>
+  )
+
+  if (enableSwipeable) {
+    return (
+      <SwipeableCard
+        key={stock.symbol}
+        onSwipeRight={() => onSwipeRight?.(stock.symbol)}
+        onSwipeLeft={() => onSwipeLeft?.(stock.symbol)}
+        leftAction={{ label: 'Remove' }}
+        rightAction={{ label: 'Add to Watchlist' }}
+        className="mb-1"
+      >
+        {stockContent}
+      </SwipeableCard>
+    )
+  }
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+    >
+      {stockContent}
     </motion.div>
   )
 }
@@ -376,16 +435,14 @@ function GainerLoserRow({ stock, rank, type }: GainerLoserRowProps) {
 interface VolumeRowProps {
   stock: VolumeStock
   rank: number
+  enableSwipeable?: boolean
+  onSwipeRight?: (symbol: string) => void
+  onSwipeLeft?: (symbol: string) => void
 }
 
-function VolumeRow({ stock, rank }: VolumeRowProps) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
-      className="flex items-center gap-2 p-2 rounded hover:bg-surface-2 transition-colors"
-    >
+function VolumeRow({ stock, rank, enableSwipeable, onSwipeRight, onSwipeLeft }: VolumeRowProps) {
+  const stockContent = (
+    <div className="flex items-center gap-2 p-2 rounded hover:bg-surface-2 transition-colors">
       <span className="text-xs font-semibold w-6 text-text-muted">{rank}</span>
 
       <div className="flex-1 min-w-0">
@@ -399,6 +456,31 @@ function VolumeRow({ stock, rank }: VolumeRowProps) {
           <div className="text-xs tabular-nums text-text-muted">{formatTradingValue(stock.value)}</div>
         )}
       </div>
+    </div>
+  )
+
+  if (enableSwipeable) {
+    return (
+      <SwipeableCard
+        key={stock.symbol}
+        onSwipeRight={() => onSwipeRight?.(stock.symbol)}
+        onSwipeLeft={() => onSwipeLeft?.(stock.symbol)}
+        leftAction={{ label: 'Remove' }}
+        rightAction={{ label: 'Add to Watchlist' }}
+        className="mb-1"
+      >
+        {stockContent}
+      </SwipeableCard>
+    )
+  }
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+    >
+      {stockContent}
     </motion.div>
   )
 }
@@ -447,7 +529,14 @@ function TabbedMoversSkeleton() {
 // MAIN COMPONENT
 // ==================================================================
 
-export function TabbedMovers({ className, topCount = DEFAULT_TOP_COUNT }: TabbedMoversProps) {
+export function TabbedMovers({
+  className,
+  topCount = DEFAULT_TOP_COUNT,
+  useModernCard = false,
+  enableSwipeableCards = false,
+  onSwipeRight,
+  onSwipeLeft,
+}: TabbedMoversProps) {
   const [activeTab, setActiveTab] = useState<TabType>('active')
 
   // Fetch data from market intelligence API
@@ -474,8 +563,14 @@ export function TabbedMovers({ className, topCount = DEFAULT_TOP_COUNT }: Tabbed
 
   // Handle error state
   if (error || !data?.success || !activeStocksData) {
+    const CardComponent = useModernCard ? GlassCard : Card
+
     return (
-      <Card padding="sm" className={className}>
+      <CardComponent
+        padding="sm"
+        className={className}
+        variant={useModernCard ? 'elevated' : undefined}
+      >
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
             <Activity className="w-4 h-4 text-text-muted" />
@@ -483,7 +578,7 @@ export function TabbedMovers({ className, topCount = DEFAULT_TOP_COUNT }: Tabbed
           </div>
         </div>
         <p className="text-text-muted text-xs">Unable to load market data</p>
-      </Card>
+      </CardComponent>
     )
   }
 
@@ -495,8 +590,14 @@ export function TabbedMovers({ className, topCount = DEFAULT_TOP_COUNT }: Tabbed
   const losers = extractLosers(activeStocksData.topByValue, effectiveCount)
   const volumeLeaders = extractVolumeLeaders(activeStocksData.topByVolume, effectiveCount)
 
+  const CardComponent = useModernCard ? GlassCard : Card
+
   return (
-    <Card padding="sm" className={className}>
+    <CardComponent
+      padding="sm"
+      className={className}
+      variant={useModernCard ? 'elevated' : undefined}
+    >
       {/* Header with Tabs */}
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
@@ -512,7 +613,7 @@ export function TabbedMovers({ className, topCount = DEFAULT_TOP_COUNT }: Tabbed
             key={tab.key}
             onClick={() => setActiveTab(tab.key)}
             className={`
-              flex items-center gap-1.5 px-1 py-2 text-xs 
+              flex items-center gap-1.5 px-1 py-2 text-xs
               font-medium transition-all
               border-b-2 -mb-px
               ${
@@ -570,7 +671,14 @@ export function TabbedMovers({ className, topCount = DEFAULT_TOP_COUNT }: Tabbed
               </div>
               <div className="space-y-1">
                 {activeStocksData.topByValue.slice(0, effectiveCount).map((stock, index) => (
-                  <ActiveStockRow key={stock.symbol} stock={stock} rank={index + 1} />
+                  <ActiveStockRow
+                    key={stock.symbol}
+                    stock={stock}
+                    rank={index + 1}
+                    enableSwipeable={enableSwipeableCards}
+                    onSwipeRight={onSwipeRight}
+                    onSwipeLeft={onSwipeLeft}
+                  />
                 ))}
               </div>
             </div>
@@ -605,7 +713,17 @@ export function TabbedMovers({ className, topCount = DEFAULT_TOP_COUNT }: Tabbed
             </div>
             <div className="space-y-1">
               {gainers.length > 0 ? (
-                gainers.map((stock, index) => <GainerLoserRow key={stock.symbol} stock={stock} rank={index + 1} type="gainer" />)
+                gainers.map((stock, index) => (
+                  <GainerLoserRow
+                    key={stock.symbol}
+                    stock={stock}
+                    rank={index + 1}
+                    type="gainer"
+                    enableSwipeable={enableSwipeableCards}
+                    onSwipeRight={onSwipeRight}
+                    onSwipeLeft={onSwipeLeft}
+                  />
+                ))
               ) : (
                 <p className="text-xs text-text-muted">No gainers available</p>
               )}
@@ -629,7 +747,17 @@ export function TabbedMovers({ className, topCount = DEFAULT_TOP_COUNT }: Tabbed
             </div>
             <div className="space-y-1">
               {losers.length > 0 ? (
-                losers.map((stock, index) => <GainerLoserRow key={stock.symbol} stock={stock} rank={index + 1} type="loser" />)
+                losers.map((stock, index) => (
+                  <GainerLoserRow
+                    key={stock.symbol}
+                    stock={stock}
+                    rank={index + 1}
+                    type="loser"
+                    enableSwipeable={enableSwipeableCards}
+                    onSwipeRight={onSwipeRight}
+                    onSwipeLeft={onSwipeLeft}
+                  />
+                ))
               ) : (
                 <p className="text-xs text-text-muted">No losers available</p>
               )}
@@ -653,13 +781,20 @@ export function TabbedMovers({ className, topCount = DEFAULT_TOP_COUNT }: Tabbed
             </div>
             <div className="space-y-1">
               {volumeLeaders.map((stock, index) => (
-                <VolumeRow key={stock.symbol} stock={stock} rank={index + 1} />
+                <VolumeRow
+                  key={stock.symbol}
+                  stock={stock}
+                  rank={index + 1}
+                  enableSwipeable={enableSwipeableCards}
+                  onSwipeRight={onSwipeRight}
+                  onSwipeLeft={onSwipeLeft}
+                />
               ))}
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </Card>
+    </CardComponent>
   )
 }
 

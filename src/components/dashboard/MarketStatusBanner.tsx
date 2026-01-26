@@ -19,13 +19,15 @@
  * - Data age display (e.g., "2m ago")
  * - Sticky positioning with backdrop blur
  * - Responsive height (h-10 on mobile, h-12 on desktop)
+ * - Animated price display with flash effect
  */
 
 "use client";
 
 import { motion } from "framer-motion";
-import { Activity } from "lucide-react";
+import { Activity, Globe } from "lucide-react";
 import { useMemo } from "react";
+import { AnimatedPrice } from "@/components/shared/modern/AnimatedPrice";
 
 // ==================================================================
 // TYPES
@@ -42,6 +44,12 @@ export interface MarketStatusBannerProps {
   isMarketOpen?: boolean;
   /** Last update timestamp */
   lastUpdate?: number;
+  /** Market regime (for regime pill) */
+  regime?: "Risk-On" | "Neutral" | "Risk-Off";
+  /** Foreign net flow in millions (for Thai SET priority signal) */
+  foreignFlow?: number;
+  /** Concentration % of top 5 stocks (Thai SET context) */
+  concentration?: number;
 }
 
 // ==================================================================
@@ -56,25 +64,38 @@ const COLORS = {
   },
 } as const;
 
+const REGIME_COLORS = {
+  "Risk-On": {
+    bg: "rgba(46, 216, 167, 0.15)",
+    border: "rgba(46, 216, 167, 0.4)",
+    text: "#2ED8A7",
+  },
+  Neutral: {
+    bg: "rgba(174, 183, 179, 0.12)",
+    border: "rgba(174, 183, 179, 0.3)",
+    text: "#AEB7B3",
+  },
+  "Risk-Off": {
+    bg: "rgba(244, 91, 105, 0.15)",
+    border: "rgba(244, 91, 105, 0.4)",
+    text: "#F45B69",
+  },
+} as const;
+
 // ==================================================================
 // UTILITY FUNCTIONS
 // ==================================================================
 
-function formatSetIndex(value: number): string {
-  return value.toLocaleString("en-US", {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  });
-}
-
-function formatSetChange(value: number): string {
-  const sign = value >= 0 ? "+" : "";
-  return `${sign}${value.toFixed(2)}`;
-}
-
-function formatSetChangePercent(value: number): string {
-  const sign = value >= 0 ? "+" : "";
-  return `${sign}${value.toFixed(2)}%`;
+/**
+ * Format trading value (in millions) to Thai market format
+ */
+function formatForeignFlow(flowInMillions: number): string {
+  if (flowInMillions === 0) return "0";
+  const absValue = Math.abs(flowInMillions);
+  if (absValue >= 1000) {
+    return `${(flowInMillions / 1000).toFixed(1)}B`;
+  }
+  return `${flowInMillions.toFixed(0)}M`;
 }
 
 function formatTimestamp(timestamp: number): string {
@@ -109,6 +130,77 @@ function formatTimestamp(timestamp: number): string {
 // SUB-COMPONENTS
 // ==================================================================
 
+interface RegimePillProps {
+  regime?: "Risk-On" | "Neutral" | "Risk-Off";
+}
+
+function RegimePill({ regime }: RegimePillProps) {
+  if (!regime) return null;
+
+  const colors = REGIME_COLORS[regime];
+
+  return (
+    <motion.div
+      initial={{ scale: 0.9, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      transition={{ duration: 0.3 }}
+      className="px-2 py-0.5 rounded-md border text-xs font-semibold"
+      style={{
+        backgroundColor: colors.bg,
+        borderColor: colors.border,
+        color: colors.text,
+      }}
+    >
+      {regime}
+    </motion.div>
+  );
+}
+
+interface ForeignFlowDisplayProps {
+  flow?: number;
+}
+
+function ForeignFlowDisplay({ flow }: ForeignFlowDisplayProps) {
+  if (flow === undefined) return null;
+
+  const isPositive = flow > 0;
+  const flowColor = isPositive
+    ? "#2ED8A7"
+    : flow < 0
+      ? "#F45B69"
+      : "#AEB7B3";
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.4, delay: 0.1 }}
+      className="flex items-center gap-1.5 px-2 py-0.5 rounded-md border"
+      style={{
+        backgroundColor: isPositive
+          ? "rgba(46, 216, 167, 0.1)"
+          : flow < 0
+            ? "rgba(244, 91, 105, 0.1)"
+            : "rgba(174, 183, 179, 0.08)",
+        borderColor: isPositive
+          ? "rgba(46, 216, 167, 0.3)"
+          : flow < 0
+            ? "rgba(244, 91, 105, 0.3)"
+            : "rgba(174, 183, 179, 0.25)",
+      }}
+    >
+      <Globe className="w-3 h-3" style={{ color: flowColor }} />
+      <span
+        className="text-xs font-bold tabular-nums"
+        style={{ color: flowColor }}
+      >
+        {isPositive && "+"}
+        {formatForeignFlow(flow)}
+      </span>
+    </motion.div>
+  );
+}
+
 interface MarketStatusIndicatorProps {
   isOpen: boolean;
 }
@@ -139,19 +231,37 @@ function SetIndexDisplay({
   change,
   changePercent,
 }: SetIndexDisplayProps) {
-  const changeColor = change >= 0 ? "text-up-primary" : "text-down-primary";
-
   return (
     <div className="flex items-baseline gap-2">
-      {/* Main SET Index Value */}
-      <span className="text-md font-bold text-text sm:text-base tabular-nums">
-        SET : {formatSetIndex(value)}
+      {/* Main SET Index Label */}
+      <span className="text-md font-bold text-text sm:text-base">
+        SET :
       </span>
 
-      {/* Change Values */}
-      <span className={`text-xs font-medium ${changeColor} tabular-nums`}>
-        {formatSetChange(change)} ({formatSetChangePercent(changePercent)})
-      </span>
+      {/* Main SET Index Value with AnimatedPrice */}
+      <AnimatedPrice
+        value={value}
+        previousValue={value - change}
+        prefix=""
+        suffix=""
+        size="md"
+        showChange={false}
+        showIcon={false}
+        decimals={2}
+        className="text-md font-bold text-text sm:text-base"
+      />
+
+      {/* Change percent with AnimatedPrice */}
+      <AnimatedPrice
+        value={changePercent}
+        previousValue={0}
+        prefix="("
+        suffix=")"
+        size="sm"
+        showChange={true}
+        showIcon={true}
+        decimals={2}
+      />
     </div>
   );
 }
@@ -183,13 +293,16 @@ export function MarketStatusBanner({
   setChangePercent,
   isMarketOpen = true,
   lastUpdate,
+  regime,
+  foreignFlow,
+  concentration,
 }: MarketStatusBannerProps) {
   const colors = useMemo(() => COLORS["Neutral"], []);
 
   return (
     <motion.div
       role="banner"
-      aria-label={`SET Index: ${formatSetIndex(setIndex)}`}
+      aria-label={`SET Index: ${setIndex.toFixed(2)}`}
       initial={{ y: -50, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
@@ -201,7 +314,7 @@ export function MarketStatusBanner({
     >
       <div className="h-full px-3 py-1.5 sm:px-4 sm:py-2">
         <div className="flex items-center justify-between gap-2 sm:gap-4 h-full">
-          {/* Left: Regime Badge with Confidence */}
+          {/* Left: SET Index Display */}
           <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
             <SetIndexDisplay
               value={setIndex}
@@ -210,8 +323,16 @@ export function MarketStatusBanner({
             />
           </div>
 
-          {/* Center: SET Index */}
-          <div className="flex items-center justify-center flex-1 min-w-0"></div>
+          {/* Center: Regime Pill + Foreign Flow (Thai SET Priority) */}
+          <div className="flex items-center justify-center gap-2 sm:gap-3 flex-1 min-w-0">
+            <RegimePill regime={regime} />
+            <ForeignFlowDisplay flow={foreignFlow} />
+            {concentration !== undefined && (
+              <div className="hidden sm:flex items-center gap-1.5 text-[10px] text-text-muted tabular-nums">
+                <span>Top 5: {concentration.toFixed(0)}%</span>
+              </div>
+            )}
+          </div>
 
           {/* Right: Market Status & Data Freshness */}
           <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">

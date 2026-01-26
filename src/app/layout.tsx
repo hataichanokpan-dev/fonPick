@@ -8,7 +8,7 @@
  */
 
 import type { Metadata, Viewport } from 'next'
-import { Inter } from 'next/font/google'
+import { Inter, Plus_Jakarta_Sans } from 'next/font/google'
 import './globals.css'
 import { ErrorBoundary } from '@/components/shared'
 import { Providers } from './providers'
@@ -18,6 +18,13 @@ const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-inter',
+})
+
+const plusJakartaSans = Plus_Jakarta_Sans({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-plus-jakarta-sans',
+  weight: ['600', '700', '800'],
 })
 
 export const metadata: Metadata = {
@@ -39,7 +46,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="th" className={inter.variable}>
+    <html lang="th" className={`${inter.variable} ${plusJakartaSans.variable}`}>
       <body className="min-h-screen antialiased bg-bg-primary text-text-primary">
         <Providers>
           <ErrorBoundary>

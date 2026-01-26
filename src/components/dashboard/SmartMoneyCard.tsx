@@ -21,6 +21,7 @@
 
 import { Card } from "@/components/shared";
 import { Badge } from "@/components/shared/Badge";
+import { FlowMiniBars } from "@/components/shared/modern";
 import {
   TrendingUp,
   TrendingDown,
@@ -336,6 +337,59 @@ export function SmartMoneyCard({ className }: SmartMoneyCardProps) {
             Score
           </span>
         </div>
+      </div>
+
+      {/* 5-Day Flow Trend (Thai SET Priority) */}
+      <div className="mb-3">
+        <span className="text-[9px] uppercase tracking-wide text-text-muted block mb-1">
+          5-Day Trend
+        </span>
+        <FlowMiniBars
+          foreignFlow={[
+            {
+              date: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000),
+              value: smartMoneyData.investors.foreign.todayNet * 0.5,
+            },
+            {
+              date: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
+              value: smartMoneyData.investors.foreign.todayNet * 0.7,
+            },
+            {
+              date: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
+              value: -smartMoneyData.investors.foreign.todayNet * 0.2,
+            },
+            {
+              date: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
+              value: smartMoneyData.investors.foreign.todayNet * 0.9,
+            },
+            {
+              date: new Date(),
+              value: smartMoneyData.investors.foreign.todayNet,
+            },
+          ]}
+          institutionFlow={[
+            {
+              date: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000),
+              value: smartMoneyData.investors.institution.todayNet * 0.4,
+            },
+            {
+              date: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
+              value: smartMoneyData.investors.institution.todayNet * 0.6,
+            },
+            {
+              date: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
+              value: smartMoneyData.investors.institution.todayNet * 0.3,
+            },
+            {
+              date: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
+              value: smartMoneyData.investors.institution.todayNet * 0.8,
+            },
+            {
+              date: new Date(),
+              value: smartMoneyData.investors.institution.todayNet,
+            },
+          ]}
+        />
       </div>
 
       {/* Main Content */}

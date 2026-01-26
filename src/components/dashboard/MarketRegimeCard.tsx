@@ -19,6 +19,8 @@
 
 import { Card } from "@/components/shared";
 import { Badge } from "@/components/shared/Badge";
+import { GlassCard } from "@/components/shared/modern/GlassCard";
+import { AccessibleSignal, RegimeTrendSparkline } from "@/components/shared/modern";
 import {
   TrendingUp,
   TrendingDown,
@@ -47,6 +49,10 @@ export interface MarketRegimeCardProps {
   className?: string;
   /** Phase 2: Display variant - default or prominent (larger, more attention-grabbing) */
   variant?: "default" | "prominent";
+  /** Use modern GlassCard instead of regular Card */
+  useModernCard?: boolean;
+  /** Use modern AccessibleSignal for regime indicator */
+  useAccessibleSignal?: boolean;
 }
 
 // ==================================================================
@@ -71,12 +77,15 @@ interface RegimeIndicatorProps {
   confidence: "High" | "Medium" | "Low";
   /** Phase 2: Display variant */
   variant?: "default" | "prominent";
+  /** Use AccessibleSignal for color-blind friendly display */
+  useAccessibleSignal?: boolean;
 }
 
 function RegimeIndicator({
   regime,
   confidence,
   variant = "default",
+  useAccessibleSignal = false,
 }: RegimeIndicatorProps) {
   const isProminent = variant === "prominent";
 
@@ -91,6 +100,7 @@ function RegimeIndicator({
           icon: <TrendingUp className="w-5 h-5" />,
           label: "Risk-On",
           description: "Bullish environment",
+          signalType: "up" as const,
         };
       case "Risk-Off":
         return {
@@ -101,6 +111,7 @@ function RegimeIndicator({
           icon: <TrendingDown className="w-5 h-5" />,
           label: "Risk-Off",
           description: "Bearish environment",
+          signalType: "down" as const,
         };
       default:
         return {
@@ -111,6 +122,7 @@ function RegimeIndicator({
           icon: <Minus className="w-5 h-5" />,
           label: "Neutral",
           description: "Mixed signals",
+          signalType: "neutral" as const,
         };
     }
   };
@@ -171,18 +183,29 @@ function RegimeIndicator({
           >
             {regimeConfig.label}
           </span>
-          <Badge
-            size={isProminent ? "md" : "sm"}
-            color={
-              confidence === "High"
-                ? "buy"
-                : confidence === "Medium"
-                  ? "watch"
-                  : "sell"
-            }
-          >
-            {confidence}
-          </Badge>
+
+          {/* Use AccessibleSignal for color-blind friendly display */}
+          {useAccessibleSignal ? (
+            <AccessibleSignal
+              type={regimeConfig.signalType}
+              label={confidence}
+              size={isProminent ? "md" : "sm"}
+              animated
+            />
+          ) : (
+            <Badge
+              size={isProminent ? "md" : "sm"}
+              color={
+                confidence === "High"
+                  ? "buy"
+                  : confidence === "Medium"
+                    ? "watch"
+                    : "sell"
+              }
+            >
+              {confidence}
+            </Badge>
+          )}
         </div>
         <span
           className={`text-text-muted ${isProminent ? "text-sm" : "text-xs"}`}
@@ -275,6 +298,8 @@ function MarketRegimeSkeleton({
 export function MarketRegimeCard({
   className,
   variant = "default",
+  useModernCard = false,
+  useAccessibleSignal = false,
 }: MarketRegimeCardProps) {
   // Fetch data from market intelligence API
   const { data, isLoading, error } = useQuery<{
@@ -298,10 +323,13 @@ export function MarketRegimeCard({
   }
 
   if (error || !data?.success || !regimeData) {
+    const CardComponent = useModernCard ? GlassCard : Card;
+
     return (
-      <Card
+      <CardComponent
         padding="sm"
         className={className}
+        variant={useModernCard ? "elevated" : undefined}
         // Phase 2: Support lg:col-span-2 for prominent variant
         {...(variant === "prominent" && { "data-lg-col-span": "2" })}
       >
@@ -317,14 +345,17 @@ export function MarketRegimeCard({
             Unable to load regime data
           </span>
         </div>
-      </Card>
+      </CardComponent>
     );
   }
 
+  const CardComponent = useModernCard ? GlassCard : Card;
+
   return (
-    <Card
+    <CardComponent
       padding="sm"
       className={className}
+      variant={useModernCard ? "elevated" : undefined}
       // Phase 2: Support lg:col-span-2 for prominent variant
       {...(variant === "prominent" && { "data-lg-col-span": "2" })}
     >
@@ -337,11 +368,20 @@ export function MarketRegimeCard({
       </div>
 
       {/* Regime Indicator */}
-      <div className="mb-4">
+      <div className="mb-3">
         <RegimeIndicator
           regime={regimeData.regime}
           confidence={regimeData.confidence}
           variant={variant}
+          useAccessibleSignal={useAccessibleSignal}
+        />
+      </div>
+
+      {/* Regime Trend Sparkline */}
+      <div className="mb-4">
+        <RegimeTrendSparkline
+          currentRegime={regimeData.regime}
+          showAnnotation={true}
         />
       </div>
 
@@ -380,7 +420,7 @@ export function MarketRegimeCard({
           </div>
         </div>
       )}
-    </Card>
+    </CardComponent>
   );
 }
 

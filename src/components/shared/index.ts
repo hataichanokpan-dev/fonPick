@@ -34,3 +34,14 @@ export {
 } from './ErrorBoundary'
 export { CollapsibleCard } from './CollapsibleCard'
 export type { CollapsibleCardProps, CollapsibleCardPadding } from './CollapsibleCard'
+
+// Modern components
+export { AccessibleSignal } from './modern/AccessibleSignal'
+export { SwipeableCard } from './modern/SwipeableCard'
+export { AnimatedPrice } from './modern/AnimatedPrice'
+export { GlassCard } from './modern/GlassCard'
+export { GradientButton } from './modern/GradientButton'
+export { ShimmerSkeleton } from './modern/ShimmerSkeleton'
+export { PullToRefresh } from './modern/PullToRefresh'
+
+export type { AccessibleSignalProps, SwipeableCardProps, AnimatedPriceProps } from '@/types'

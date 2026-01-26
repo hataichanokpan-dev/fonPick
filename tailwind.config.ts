@@ -61,6 +61,13 @@ export default {
         'warning': '#f97316',        // Orange - warnings
 
         // =========================
+        // NEW: Additional accent colors for modern UI
+        // =========================
+        'accent-purple': '#8b5cf6',   // For insights and gradients
+        'accent-teal': '#14b8a6',     // For growth indicators
+        'accent-orange': '#f97316',   // Already exists as 'warning', but add as accent for clarity
+
+        // =========================
         // Legacy aliases (for backward compatibility)
         // =========================
         bg: {
@@ -192,7 +199,8 @@ export default {
         sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
         mono: ['JetBrains Mono', 'SF Mono', 'Consolas', 'monospace'],
         tabular: ['ui-monospace', 'SFMono-Regular', 'Monaco', 'Consolas', 'monospace'],
-        display: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        // Display font for headings - Plus Jakarta Sans
+        display: ['"Plus Jakarta Sans"', 'Inter', 'system-ui', 'sans-serif'],
       },
 
       fontSize: {
@@ -279,6 +287,7 @@ export default {
       },
 
       boxShadow: {
+        // Existing shadows
         hairline: '0 0 0 1px #1f2937',
         soft: '0 8px 24px rgba(0,0,0,0.35)',
         'stock-card': '0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2)',
@@ -286,13 +295,34 @@ export default {
         'glow-up': '0 0 12px rgba(74, 222, 128, 0.4)',
         'glow-down': '0 0 12px rgba(255, 107, 107, 0.4)',
         'glow-insight': '0 0 12px rgba(245, 158, 11, 0.4)',
+
+        // =========================
+        // NEW: Glassmorphism and floating shadows
+        // =========================
+        'glass': '0 8px 32px rgba(0, 0, 0, 0.3)',
+        'glass-hover': '0 12px 48px rgba(0, 0, 0, 0.4)',
+        'floating': '0 20px 40px rgba(0, 0, 0, 0.4)',
+        'floating-hover': '0 24px 48px rgba(0, 0, 0, 0.5)',
+        'inner-glow': 'inset 0 1px 0 rgba(255, 255, 255, 0.1)',
       },
 
       backgroundImage: {
+        // Existing gradients
         'logo-gradient': 'linear-gradient(to bottom right, #4ade80, #22c55e)',
+
+        // =========================
+        // NEW: Gradient definitions for modern components
+        // =========================
+        'gradient-primary': 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)',
+        'gradient-primary-soft': 'linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(139, 92, 246, 0.15) 100%)',
+        'gradient-success': 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+        'gradient-danger': 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
+        'gradient-insight': 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+        'gradient-shimmer': 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.1) 50%, transparent 100%)',
       },
 
       animation: {
+        // Existing animations
         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'shimmer': 'shimmer 1.5s infinite',
         'fade-in': 'fadeIn 0.2s ease-in-out',
@@ -300,9 +330,16 @@ export default {
         'slide-down': 'slideDown 0.3s ease-out',
         'price-up': 'priceUp 0.3s ease-out',
         'price-down': 'priceDown 0.3s ease-out',
+
+        // =========================
+        // NEW: Additional animation utilities
+        // =========================
+        'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
+        'bounce-subtle': 'bounceSubtle 2s ease-in-out infinite',
       },
 
       keyframes: {
+        // Existing keyframes
         shimmer: {
           '0%': { backgroundPosition: '-1000px 0' },
           '100%': { backgroundPosition: '1000px 0' },
@@ -327,10 +364,32 @@ export default {
           '0%, 100%': { backgroundColor: 'transparent' },
           '50%': { backgroundColor: 'rgba(255, 107, 107, 0.2)' },
         },
+
+        // =========================
+        // NEW: Additional animations
+        // =========================
+        'pulse-glow': {
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '0.5' },
+        },
+        'bounce-subtle': {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-5%)' },
+        },
       },
 
       backdropBlur: {
+        // Existing
         'card': '12px',
+
+        // =========================
+        // NEW: More blur options for glassmorphism
+        // =========================
+        'xs': '4px',
+        'sm': '8px',
+        'md': '12px',
+        'lg': '16px',
+        'xl': '24px',
       },
 
       transitionProperty: {

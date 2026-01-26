@@ -15,7 +15,7 @@
  */
 
 import { ErrorFallback, DataFreshness, CompactSectionLabel, CompactMetricStrip } from '@/components/shared'
-import { ResponsiveGrid, AsymmetricWide, AsymmetricMedium, AsymmetricNarrow } from '@/components/layout'
+import { ResponsiveGrid, AsymmetricWide, AsymmetricMedium } from '@/components/layout'
 import {
   MarketStatusBanner,
   MarketRegimeCard,
@@ -134,10 +134,27 @@ export default async function HomePage() {
   }
 
   // Extract data for easier access
-  const { marketOverview, marketIntelligence } = result
+  const { marketOverview, marketIntelligence, rankings } = result
 
   // Get market status for banner
   const marketStatus = marketOverview ? getMarketStatus(marketOverview) : { isOpen: false }
+
+  // Extract regime for banner (Thai SET priority #2)
+  const regime = marketIntelligence?.regime?.regime
+
+  // Extract foreign flow for banner (Thai SET priority #1)
+  const foreignFlow = marketIntelligence?.smartMoney?.investors?.foreign?.todayNet
+
+  // Calculate concentration % using value as proxy (Thai SET priority #4 - market concentration)
+  // Note: Using trading value instead of market cap since that's what's available in rankings
+  let concentration = undefined
+  if (marketOverview?.totalValue && rankings?.topValue && rankings.topValue.length > 0) {
+    const top5Value = rankings.topValue.slice(0, 5).reduce((sum, stock) => sum + (stock.value || 0), 0)
+    const totalValue = marketOverview.totalValue
+    if (totalValue > 0) {
+      concentration = (top5Value / totalValue) * 100
+    }
+  }
 
  
  
@@ -151,12 +168,15 @@ export default async function HomePage() {
       {/* 1. Sticky Status Banner with Data Freshness */}
       <div className="sticky top-0 z-10">
         {marketOverview && (
-          <MarketStatusBanner          
+          <MarketStatusBanner
             setIndex={marketOverview.set.index}
             setChange={marketOverview.set.change}
             setChangePercent={marketOverview.set.changePercent}
             isMarketOpen={isMarketOpen}
             lastUpdate={marketOverview.timestamp}
+            regime={regime}
+            foreignFlow={foreignFlow}
+            concentration={concentration}
           />
         )}
         {marketOverview && (
@@ -181,15 +201,20 @@ export default async function HomePage() {
         <CompactSectionLabel priority="P0" label="Market Overview" />
         <ResponsiveGrid preset="asymmetric" gap="compact">
           <AsymmetricWide>
-            <MarketRegimeCard variant="prominent" />
+            <MarketRegimeCard variant="prominent" useModernCard={true} useAccessibleSignal={true} />
           </AsymmetricWide>
           <AsymmetricMedium>
             <SmartMoneyCard />
           </AsymmetricMedium>
-          <AsymmetricNarrow>
-            <DailyFocusList crossRankedStocks={marketIntelligence?.activeStocks?.crossRanked || []} />
-          </AsymmetricNarrow>
         </ResponsiveGrid>
+        {/* Daily Focus - Full width with horizontal scroll */}
+        <div className="mt-3">
+          <DailyFocusList
+            crossRankedStocks={marketIntelligence?.activeStocks?.crossRanked || []}
+            horizontalScroll={true}
+            showDetails={true}
+          />
+        </div>
       </section>
 
       {/* 4. P1: Sectors (SectorStrengthCard only) */}
@@ -207,7 +232,7 @@ export default async function HomePage() {
           P2: Market Movers - Active Stocks and Top Rankings
         </h2>
         <CompactSectionLabel priority="P2" label="Market Movers" />
-        <TabbedMovers topCount={5} />
+        <TabbedMovers topCount={5} useModernCard={true} enableSwipeableCards={true} />
       </section>
       
       <section aria-labelledby="spacer-heading">
