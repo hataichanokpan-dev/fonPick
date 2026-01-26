@@ -22,6 +22,7 @@ import { usePathname } from 'next/navigation'
 const navLinks = [
   { href: '/', label: 'Market' },
   { href: '/search', label: 'Search' },
+  { href: '/guide', label: 'คู่มือ' },
 ] as const
 
 /**
