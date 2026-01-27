@@ -32,10 +32,6 @@ export interface DailyFocusListProps {
   crossRankedStocks: CrossRankedStock[]
   /** Number of top stocks to display (default: all) */
   topCount?: number
-  /** Show detailed view with sector badges and change % */
-  showDetails?: boolean
-  /** Enable horizontal scrolling */
-  horizontalScroll?: boolean
 }
 
 // ==================================================================
@@ -132,53 +128,11 @@ function getDisplayCount(topCount?: number): number {
 interface StockBadgeProps {
   stock: CrossRankedStock
   index: number
-  showDetails?: boolean // Phase 2: Show sector and change %
 }
 
-function StockBadge({ stock, index, showDetails = false }: StockBadgeProps) {
+function StockBadge({ stock, index }: StockBadgeProps) {
   const color = getStrengthColor(stock.strengthScore)
 
-  if (showDetails) {
-    // Detailed badge with sector and change %
-    return (
-      <motion.div
-        variants={ANIMATION_VARIANTS.item}
-        initial="hidden"
-        animate="visible"
-        custom={index}
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
-        className="flex-shrink-0"
-      >
-        <div className="flex flex-col gap-1 p-2 rounded-lg bg-surface-2 border border-border min-w-[100px]">
-          {/* Symbol and rankings */}
-          <div className="flex items-center justify-between gap-2">
-            <span className="text-sm font-bold text-text">
-              {stock.symbol}
-            </span>
-            <Badge size="sm" color={color} className="flex items-center gap-0.5">
-              <Award className="w-2.5 h-2.5" />
-              {stock.rankingCount}
-            </Badge>
-          </div>
-
-          {/* Strength score indicator */}
-          <div className="text-[9px] text-text-muted">
-            Strength: {stock.strengthScore.toFixed(1)}
-          </div>
-
-          {/* Rankings detail */}
-          {stock.name && (
-            <div className="text-[10px] text-text-muted truncate">
-              {stock.name}
-            </div>
-          )}
-        </div>
-      </motion.div>
-    )
-  }
-
-  // Simple badge (original)
   return (
     <motion.div
       variants={ANIMATION_VARIANTS.item}
@@ -187,11 +141,12 @@ function StockBadge({ stock, index, showDetails = false }: StockBadgeProps) {
       custom={index}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
+      className="transition-transform duration-150"
     >
-      <Badge size="sm" color={color} className="flex items-center gap-1">
+      <Badge size="sm" color={color} className="flex items-center gap-1.5 px-2.5 py-1">
         <Award className="w-3 h-3" />
         {stock.symbol}
-        <span className="text-[9px]">({stock.rankingCount})</span>
+        <span className="text-[9px] font-medium tabular-nums">({stock.rankingCount})</span>
       </Badge>
     </motion.div>
   )
@@ -203,7 +158,7 @@ interface EmptyStateProps {
 
 function EmptyState({ stockCount }: EmptyStateProps) {
   return (
-    <div className="flex items-center justify-center py-6">
+    <div className="flex items-center justify-center py-8">
       <p className="text-sm text-text-muted">
         {stockCount === 0
           ? 'No focus stocks available'
@@ -220,8 +175,6 @@ function EmptyState({ stockCount }: EmptyStateProps) {
 export function DailyFocusList({
   crossRankedStocks,
   topCount,
-  showDetails = false,
-  horizontalScroll = false,
 }: DailyFocusListProps) {
   // Validate and filter stocks
   const validStocks = getValidStocks(crossRankedStocks)
@@ -279,11 +232,6 @@ export function DailyFocusList({
             <Badge size="sm" color="neutral">
               {validStocks.length}
             </Badge>
-            {horizontalScroll && validStocks.length > 5 && (
-              <span className="text-[9px] text-text-muted">
-                → scroll for more
-              </span>
-            )}
           </div>
         </div>
       </CardHeader>
@@ -293,19 +241,13 @@ export function DailyFocusList({
         variants={ANIMATION_VARIANTS.container}
         initial="hidden"
         animate="visible"
-        className={
-          horizontalScroll
-            ? "flex gap-2 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-surface-2 scrollbar-track-transparent"
-            : "flex flex-wrap gap-1.5"
-        }
-        style={horizontalScroll ? { scrollbarWidth: "thin" } : {}}
+        className="flex flex-wrap gap-2"
       >
         {displayStocks.map((stock, index) => (
           <StockBadge
             key={stock.symbol}
             stock={stock}
             index={index}
-            showDetails={showDetails}
           />
         ))}
       </motion.div>

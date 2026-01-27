@@ -13,6 +13,9 @@
  * P2 Components:
  * - ActiveStocksCard: Displays active stocks concentration analysis
  * - TabbedMovers: Unified component for Active Stocks + Top Rankings with tab switching
+ *
+ * Data Insight Components:
+ * - DataInsightCard: Displays synthesized market insights for resolving conflicting signals
  */
 
 export { MarketStatusBanner } from './MarketStatusBanner'
@@ -24,6 +27,7 @@ export { SectorRotationCard } from './SectorRotationCard'
 export { ActiveStocksCard } from './ActiveStocksCard'
 export { AccumulationPatternsCard } from './AccumulationPatternsCard'
 export { TabbedMovers } from './TabbedMovers'
+export { DataInsightCard } from './DataInsightCard'
 
 // Re-export types
 export type { MarketRegimeData } from './MarketRegimeCard'
@@ -43,3 +47,4 @@ export type {
   AccumulationPatternType,
 } from './AccumulationPatternsCard'
 export type { TabbedMoversProps, TabType } from './TabbedMovers'
+export type { DataInsightCardProps } from './DataInsightCard'

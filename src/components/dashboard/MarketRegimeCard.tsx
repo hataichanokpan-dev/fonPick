@@ -20,7 +20,7 @@
 import { Card } from "@/components/shared";
 import { Badge } from "@/components/shared/Badge";
 import { GlassCard } from "@/components/shared/modern/GlassCard";
-import { AccessibleSignal, RegimeTrendSparkline } from "@/components/shared/modern";
+import { AccessibleSignal } from "@/components/shared/modern";
 import {
   TrendingUp,
   TrendingDown,
@@ -211,24 +211,25 @@ function RegimeIndicator({
           className={`text-text-muted ${isProminent ? "text-sm" : "text-xs"}`}
         >
           {regimeConfig.description}
-          {/* Confidence Bar */}
-          <div className="flex flex-col  gap-1">
-            <span className="text-[9px] uppercase tracking-wide text-text-muted">
-              Confidence
-            </span>
-            <div
-              className={`h-1.5 bg-surface-2 rounded-full overflow-hidden ${isProminent ? "w-20" : "w-16"}`}
-            >
-              <motion.div
-                initial={{ width: 0 }}
-                animate={{ width: confidenceConfig.width }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
-                className="h-full rounded-full"
-                style={{ backgroundColor: confidenceConfig.color }}
-              />
-            </div>
-          </div>
         </span>
+
+        {/* Confidence Bar - Fixed: Moved outside of description span */}
+        <div className="flex flex-col gap-1 mt-2">
+          <span className="text-[9px] uppercase tracking-wide text-text-muted font-medium">
+            Confidence
+          </span>
+          <div
+            className={`h-1.5 bg-surface-2 rounded-full overflow-hidden ${isProminent ? "w-20" : "w-16"}`}
+          >
+            <motion.div
+              initial={{ width: 0 }}
+              animate={{ width: confidenceConfig.width }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="h-full rounded-full"
+              style={{ backgroundColor: confidenceConfig.color }}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -368,7 +369,7 @@ export function MarketRegimeCard({
       </div>
 
       {/* Regime Indicator */}
-      <div className="mb-3">
+      <div className="mb-4">
         <RegimeIndicator
           regime={regimeData.regime}
           confidence={regimeData.confidence}
@@ -377,19 +378,11 @@ export function MarketRegimeCard({
         />
       </div>
 
-      {/* Regime Trend Sparkline */}
-      <div className="mb-4">
-        <RegimeTrendSparkline
-          currentRegime={regimeData.regime}
-          showAnnotation={true}
-        />
-      </div>
-
       {/* Focus Section */}
       <div className="mb-3 p-3 rounded-lg bg-surface-2 border-l-2 border-up">
-        <div className="flex items-center gap-2 mb-1">
-          <Shield className="w-3 h-3" style={{ color: COLORS.up }} />
-          <span className="text-[10px] uppercase tracking-wide text-text-muted">
+        <div className="flex items-center gap-2 mb-1.5">
+          <Shield className="w-3.5 h-3.5" style={{ color: COLORS.up }} />
+          <span className="text-[10px] uppercase tracking-wide text-text-muted font-semibold">
             Focus
           </span>
         </div>
@@ -398,9 +391,9 @@ export function MarketRegimeCard({
 
       {/* Caution Section */}
       <div className="mb-4 p-3 rounded-lg bg-surface-2 border-l-2 border-down">
-        <div className="flex items-center gap-2 mb-1">
-          <AlertTriangle className="w-3 h-3" style={{ color: COLORS.down }} />
-          <span className="text-[10px] uppercase tracking-wide text-text-muted">
+        <div className="flex items-center gap-2 mb-1.5">
+          <AlertTriangle className="w-3.5 h-3.5" style={{ color: COLORS.down }} />
+          <span className="text-[10px] uppercase tracking-wide text-text-muted font-semibold">
             Caution
           </span>
         </div>

@@ -21,7 +21,6 @@
 
 import { Card } from "@/components/shared";
 import { Badge } from "@/components/shared/Badge";
-import { FlowMiniBars } from "@/components/shared/modern";
 import {
   TrendingUp,
   TrendingDown,
@@ -58,7 +57,7 @@ const COLORS = {
   up: "#2ED8A7",
   down: "#F45B69",
   warn: "#F7C948",
-  neutral: "#AEB7B3",
+  neutral: "#94A3B8",
 };
 
 // ==================================================================
@@ -76,10 +75,10 @@ function ScoreGauge({ score, size = 56 }: ScoreGaugeProps) {
 
   // Determine color based on score
   const getGaugeColor = (): { bg: string; fill: string } => {
-    if (score >= 60) return { bg: "rgba(46, 216, 167, 0.2)", fill: COLORS.up };
+    if (score >= 60) return { bg: "rgba(46, 216, 167, 0.25)", fill: COLORS.up };
     if (score >= 40)
-      return { bg: "rgba(174, 183, 179, 0.2)", fill: COLORS.neutral };
-    return { bg: "rgba(244, 91, 105, 0.2)", fill: COLORS.down };
+      return { bg: "rgba(148, 163, 184, 0.2)", fill: COLORS.neutral };
+    return { bg: "rgba(244, 91, 105, 0.25)", fill: COLORS.down };
   };
 
   const colors = getGaugeColor();
@@ -112,7 +111,7 @@ function ScoreGauge({ score, size = 56 }: ScoreGaugeProps) {
           strokeLinecap="round"
           initial={{ strokeDashoffset: circumference }}
           animate={{ strokeDashoffset: dashOffset }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
+          transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
           style={{
             strokeDasharray: circumference,
           }}
@@ -120,7 +119,7 @@ function ScoreGauge({ score, size = 56 }: ScoreGaugeProps) {
       </svg>
       {/* Center text */}
       <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <span className="text-sm font-bold" style={{ color: colors.fill }}>
+        <span className="text-base font-bold tabular-nums" style={{ color: colors.fill }}>
           {score.toFixed(1)}
         </span>
       </div>
@@ -151,10 +150,10 @@ function InvestorRow({ label, icon, data, opacity = 1 }: InvestorRowProps) {
       ? COLORS.down
       : COLORS.neutral;
   const bgColor = isPositive
-    ? `rgba(46, 216, 167, ${0.08 * opacity})`
+    ? `rgba(46, 216, 167, ${0.1 * opacity})`
     : todayNet < 0
-      ? `rgba(244, 91, 105, ${0.08 * opacity})`
-      : `rgba(174, 183, 179, ${0.08 * opacity})`;
+      ? `rgba(244, 91, 105, ${0.1 * opacity})`
+      : `rgba(148, 163, 184, ${0.08 * opacity})`;
 
   const getStrengthColor = (): "buy" | "sell" | "neutral" | "watch" => {
     switch (strength) {
@@ -178,7 +177,7 @@ function InvestorRow({ label, icon, data, opacity = 1 }: InvestorRowProps) {
 
   return (
     <div
-      className="flex items-center gap-2 p-2 rounded"
+      className="flex items-center gap-2.5 p-2.5 rounded-md transition-all duration-200"
       style={{ backgroundColor: bgColor, opacity }}
     >
       {/* Icon */}
@@ -188,7 +187,7 @@ function InvestorRow({ label, icon, data, opacity = 1 }: InvestorRowProps) {
 
       {/* Label */}
       <span
-        className="text-xs font-medium text-text-muted w-16"
+        className="text-xs font-semibold text-text-secondary w-16"
         style={{ opacity }}
       >
         {label}
@@ -217,12 +216,12 @@ function InvestorRow({ label, icon, data, opacity = 1 }: InvestorRowProps) {
 // Separator between smart money and context investors
 function InvestorSeparator() {
   return (
-    <div className="flex items-center gap-2 my-1">
-      <div className="flex-1 h-px bg-border" />
-      <span className="text-[9px] uppercase tracking-wider text-text-muted">
+    <div className="flex items-center gap-2 my-2">
+      <div className="flex-1 h-px bg-border-subtle" />
+      <span className="text-[9px] uppercase tracking-wider text-text-muted font-semibold">
         Context
       </span>
-      <div className="flex-1 h-px bg-border" />
+      <div className="flex-1 h-px bg-border-subtle" />
     </div>
   );
 }
@@ -337,59 +336,6 @@ export function SmartMoneyCard({ className }: SmartMoneyCardProps) {
             Score
           </span>
         </div>
-      </div>
-
-      {/* 5-Day Flow Trend (Thai SET Priority) */}
-      <div className="mb-3">
-        <span className="text-[9px] uppercase tracking-wide text-text-muted block mb-1">
-          5-Day Trend
-        </span>
-        <FlowMiniBars
-          foreignFlow={[
-            {
-              date: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000),
-              value: smartMoneyData.investors.foreign.todayNet * 0.5,
-            },
-            {
-              date: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
-              value: smartMoneyData.investors.foreign.todayNet * 0.7,
-            },
-            {
-              date: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
-              value: -smartMoneyData.investors.foreign.todayNet * 0.2,
-            },
-            {
-              date: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
-              value: smartMoneyData.investors.foreign.todayNet * 0.9,
-            },
-            {
-              date: new Date(),
-              value: smartMoneyData.investors.foreign.todayNet,
-            },
-          ]}
-          institutionFlow={[
-            {
-              date: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000),
-              value: smartMoneyData.investors.institution.todayNet * 0.4,
-            },
-            {
-              date: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
-              value: smartMoneyData.investors.institution.todayNet * 0.6,
-            },
-            {
-              date: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
-              value: smartMoneyData.investors.institution.todayNet * 0.3,
-            },
-            {
-              date: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
-              value: smartMoneyData.investors.institution.todayNet * 0.8,
-            },
-            {
-              date: new Date(),
-              value: smartMoneyData.investors.institution.todayNet,
-            },
-          ]}
-        />
       </div>
 
       {/* Main Content */}

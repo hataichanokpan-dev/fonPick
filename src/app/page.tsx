@@ -14,8 +14,16 @@
  * 3. Handles data fetching errors gracefully
  */
 
-import { ErrorFallback, DataFreshness, CompactSectionLabel, CompactMetricStrip } from '@/components/shared'
-import { ResponsiveGrid, AsymmetricWide, AsymmetricMedium } from '@/components/layout'
+import {
+  ErrorFallback,
+  DataFreshness,
+  SectionHeader,
+} from "@/components/shared";
+import {
+  ResponsiveGrid,
+  AsymmetricWide,
+  AsymmetricMedium,
+} from "@/components/layout";
 import {
   MarketStatusBanner,
   MarketRegimeCard,
@@ -23,16 +31,17 @@ import {
   DailyFocusList,
   SectorStrengthCard,
   TabbedMovers,
-} from '@/components/dashboard'
-import { fetchUnifiedMarketData } from '@/lib/unified-data'
-import type { UnifiedMarketData } from '@/lib/unified-data'
-import { getMarketStatus } from '@/lib/rtdb'
+  DataInsightCard,
+} from "@/components/dashboard";
+import { fetchUnifiedMarketData } from "@/lib/unified-data";
+import type { UnifiedMarketData } from "@/lib/unified-data";
+import { getMarketStatus } from "@/lib/rtdb";
 
 // ============================================================================
 // TYPES
 // ============================================================================
 
-type HomepageDataResult = UnifiedMarketData | { error: string }
+type HomepageDataResult = UnifiedMarketData | { error: string };
 
 // ============================================================================
 // DATA FETCHING
@@ -51,68 +60,70 @@ async function fetchHomepageData(): Promise<HomepageDataResult> {
       topSectorsCount: 5,
       bottomSectorsCount: 5,
       topStocksCount: 10,
-    })
+    });
 
     // Check if we have at least some data
-    const hasMarket = !!data.marketOverview
-    const hasInvestor = !!data.investorType
-    const hasSector = !!data.industrySector
+    const hasMarket = !!data.marketOverview;
+    const hasInvestor = !!data.investorType;
+    const hasSector = !!data.industrySector;
 
     // If no data at all, return error info
     if (!hasMarket && !hasInvestor && !hasSector) {
       return {
-        error: 'RTDB_UNAVAILABLE',
-      }
+        error: "RTDB_UNAVAILABLE",
+      };
     }
 
-    return data
+    return data;
   } catch (error) {
-    console.error('Error fetching homepage data:', error)
+    console.error("Error fetching homepage data:", error);
     return {
-      error: error instanceof Error ? error.message : 'Unknown error',
-    }
+      error: error instanceof Error ? error.message : "Unknown error",
+    };
   }
 }
 
 /**
  * Type guard to check if result is an error
  */
-function isHomepageDataError(result: HomepageDataResult): result is { error: string } {
-  return 'error' in result
+function isHomepageDataError(
+  result: HomepageDataResult,
+): result is { error: string } {
+  return "error" in result;
 }
 
 /**
  * Get error message based on error type
  */
 function getErrorMessage(error: string): { title: string; message: string } {
-  if (error === 'RTDB_UNAVAILABLE') {
+  if (error === "RTDB_UNAVAILABLE") {
     return {
-      title: 'No market data available',
+      title: "No market data available",
       message:
-        'Market data is not currently available. The system may be updating or the market might be closed. Please check back later.',
-    }
+        "Market data is not currently available. The system may be updating or the market might be closed. Please check back later.",
+    };
   }
 
-  if (error === 'NO_DATA_IN_LOOKBACK_PERIOD') {
+  if (error === "NO_DATA_IN_LOOKBACK_PERIOD") {
     return {
-      title: 'No market data available',
+      title: "No market data available",
       message:
-        'No market data found for the past 7 days. The data source may be temporarily unavailable or the market has been closed for an extended period.',
-    }
+        "No market data found for the past 7 days. The data source may be temporarily unavailable or the market has been closed for an extended period.",
+    };
   }
 
-  if (error.includes('Permission denied')) {
+  if (error.includes("Permission denied")) {
     return {
-      title: 'Firebase Permission Denied',
+      title: "Firebase Permission Denied",
       message:
         "Your Firebase security rules don't allow read access. Please update your Realtime Database rules to allow public read access or configure authentication.",
-    }
+    };
   }
 
   return {
-    title: 'Unable to load market data',
+    title: "Unable to load market data",
     message: `Error: ${error}. Please check your connection and try again.`,
-  }
+  };
 }
 
 // ============================================================================
@@ -120,51 +131,35 @@ function getErrorMessage(error: string): { title: string; message: string } {
 // ============================================================================
 
 export default async function HomePage() {
-  const result = await fetchHomepageData()
+  const result = await fetchHomepageData();
 
   // Handle error case - show error message
   if (isHomepageDataError(result)) {
-    const errorInfo = getErrorMessage(result.error)
+    const errorInfo = getErrorMessage(result.error);
 
     return (
       <div className="max-w-4xl mx-auto">
         <ErrorFallback title={errorInfo.title} message={errorInfo.message} />
       </div>
-    )
+    );
   }
 
   // Extract data for easier access
-  const { marketOverview, marketIntelligence, rankings } = result
+  const { marketOverview, marketIntelligence } = result;
 
   // Get market status for banner
-  const marketStatus = marketOverview ? getMarketStatus(marketOverview) : { isOpen: false }
+  const marketStatus = marketOverview
+    ? getMarketStatus(marketOverview)
+    : { isOpen: false };
 
-  // Extract regime for banner (Thai SET priority #2)
-  const regime = marketIntelligence?.regime?.regime
-
-  // Extract foreign flow for banner (Thai SET priority #1)
-  const foreignFlow = marketIntelligence?.smartMoney?.investors?.foreign?.todayNet
-
-  // Calculate concentration % using value as proxy (Thai SET priority #4 - market concentration)
-  // Note: Using trading value instead of market cap since that's what's available in rankings
-  let concentration = undefined
-  if (marketOverview?.totalValue && rankings?.topValue && rankings.topValue.length > 0) {
-    const top5Value = rankings.topValue.slice(0, 5).reduce((sum, stock) => sum + (stock.value || 0), 0)
-    const totalValue = marketOverview.totalValue
-    if (totalValue > 0) {
-      concentration = (top5Value / totalValue) * 100
-    }
-  }
-
- 
- 
   // Extract isOpen from marketStatus, defaulting to false if it's an error string
-  const isMarketOpen = typeof marketStatus === 'object' && 'isOpen' in marketStatus
-    ? marketStatus.isOpen
-    : false
+  const isMarketOpen =
+    typeof marketStatus === "object" && "isOpen" in marketStatus
+      ? marketStatus.isOpen
+      : false;
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-4 md:space-y-6">
       {/* 1. Sticky Status Banner with Data Freshness */}
       <div className="sticky top-0 z-10">
         {marketOverview && (
@@ -174,9 +169,6 @@ export default async function HomePage() {
             setChangePercent={marketOverview.set.changePercent}
             isMarketOpen={isMarketOpen}
             lastUpdate={marketOverview.timestamp}
-            regime={regime}
-            foreignFlow={foreignFlow}
-            concentration={concentration}
           />
         )}
         {marketOverview && (
@@ -184,63 +176,73 @@ export default async function HomePage() {
         )}
       </div>
 
-      {/* 2. Compact Metrics Strip */}
-      <CompactMetricStrip
-        metrics={[
-          { label: '52W Range', value: `${((marketOverview?.set.index || 0) * 1.1 / 1000).toFixed(1)}K` },
-          { label: 'Total Cap', value: marketOverview?.totalMarketCap ? `${(marketOverview.totalMarketCap / 1000).toFixed(1)}B` : 'N/A' },
-        ]}
-        className="my-3"
-      />
+      {/* 2. Compact Metrics Strip - REMOVED for cleaner design */}
 
       {/* 3. P0: Market Regime + Smart Money + Daily Focus (asymmetric grid) */}
-      <section aria-labelledby="p0-heading">
-        <h2 id="p0-heading" className="sr-only">
-          P0: Market Overview - Market Regime and Smart Money Analysis
-        </h2>
-        <CompactSectionLabel priority="P0" label="Market Overview" />
-        <ResponsiveGrid preset="asymmetric" gap="compact">
+      <section aria-labelledby="p0-heading" className="mb-6">
+        <SectionHeader
+          priority="P0"
+          title="Market Overview"
+          subtitle="Market Regime and Smart Money Analysis"
+        />
+        <ResponsiveGrid preset="asymmetric" gap="compact" className="mt-5">
           <AsymmetricWide>
-            <MarketRegimeCard variant="prominent" useModernCard={true} useAccessibleSignal={true} />
+            <MarketRegimeCard
+              variant="prominent"
+              useModernCard={true}
+              useAccessibleSignal={true}
+            />
           </AsymmetricWide>
           <AsymmetricMedium>
             <SmartMoneyCard />
           </AsymmetricMedium>
         </ResponsiveGrid>
         {/* Daily Focus - Full width with horizontal scroll */}
-        <div className="mt-3">
+        <div className="mt-4">
           <DailyFocusList
-            crossRankedStocks={marketIntelligence?.activeStocks?.crossRanked || []}
-            horizontalScroll={true}
-            showDetails={true}
+            crossRankedStocks={
+              marketIntelligence?.activeStocks?.crossRanked || []
+            }
           />
         </div>
       </section>
 
-      {/* 4. P1: Sectors (SectorStrengthCard only) */}
-      <section aria-labelledby="p1-heading">
-        <h2 id="p1-heading" className="sr-only">
-          P1: Sector Analysis - Sector Strength
-        </h2>
-        <CompactSectionLabel priority="P1" label="Sector Analysis" />
-        <SectorStrengthCard />
+      {/* 4. Data Insight Card - Shows on conflict or high conviction */}
+      <div className="my-4">
+        <DataInsightCard />
+      </div>
+
+      {/* 5. P1: Sectors (SectorStrengthCard only) */}
+      <section aria-labelledby="p1-heading" className="mb-6">
+        <SectionHeader
+          priority="P1"
+          title="Sector Analysis"
+          subtitle="Sector Strength and Performance"
+        />
+        <SectorStrengthCard className="mt-5" />
       </section>
 
-      {/* 5. P2: Market Movers (TabbedMovers) */}
-      <section aria-labelledby="p2-heading">
-        <h2 id="p2-heading" className="sr-only">
-          P2: Market Movers - Active Stocks and Top Rankings
-        </h2>
-        <CompactSectionLabel priority="P2" label="Market Movers" />
-        <TabbedMovers topCount={5} useModernCard={true} enableSwipeableCards={true} />
+      {/* 6. P2: Market Movers (TabbedMovers) */}
+      <section aria-labelledby="p2-heading" className="mb-6">
+        <SectionHeader
+          priority="P2"
+          title="Market Movers"
+          subtitle="Active Stocks and Top Rankings"
+        />
+        <TabbedMovers
+          topCount={5}
+          useModernCard={true}
+          enableSwipeableCards={true}
+          className="mt-5"
+        />
       </section>
-      
+
       <section aria-labelledby="spacer-heading">
         <h2 id="spacer-heading" className="sr-only">
           Spacer Section
         </h2>
-        <div className="h-10" />
+        <div className="h-4" />
       </section>
     </div>
-  )
+  );
 }

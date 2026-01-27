@@ -21,6 +21,8 @@ export { SearchBar } from './SearchBar'
 export { DataFreshness } from './DataFreshness'
 export { CompactSectionLabel } from './CompactSectionLabel'
 export type { Priority, CompactSectionLabelProps } from './CompactSectionLabel'
+export { SectionHeader } from './SectionHeader'
+export type { Priority as SectionHeaderPriority, SectionHeaderProps } from './SectionHeader'
 export {
   CompactCard,
   CompactMetric,
