@@ -259,11 +259,11 @@ function calculateVerdict(
   const foreignScore = getForeignScore(input.smartMoney.investors.foreign.todayNet)
   const sectorScore = getSectorScore(input)
 
-  // Apply weights
-  const weightedRegime = regimeScore * weights.regime
-  const weightedSmartMoney = smartMoneyScore * weights.smartMoney
-  const weightedForeign = foreignScore * weights.foreign
-  const weightedSector = sectorScore * weights.sector
+  // Apply weights (with NaN safety - use 0 as default for invalid scores)
+  const weightedRegime = (regimeScore || 0) * weights.regime
+  const weightedSmartMoney = (smartMoneyScore || 0) * weights.smartMoney
+  const weightedForeign = (foreignScore || 0) * weights.foreign
+  const weightedSector = (sectorScore || 0) * weights.sector
 
   const totalScore = weightedRegime + weightedSmartMoney + weightedForeign + weightedSector
   const maxScore =
@@ -272,7 +272,7 @@ function calculateVerdict(
     weights.foreign * 100 +
     weights.sector * 100
 
-  const normalizedScore = (totalScore / maxScore) * 100
+  const normalizedScore = maxScore > 0 ? (totalScore / maxScore) * 100 : 50
 
   // Add reasoning
   reasoning.push(`Regime score: ${regimeScore}/100 (weight: ${weights.regime})`)
@@ -329,10 +329,10 @@ function getRegimeScore(regime: DataInsightInput['regime']): number {
     'Neutral': 50,
     'Risk-Off': 25,
   }
-  const baseScore = baseScores[regime.type]
+  const baseScore = baseScores[regime.type] || 50
 
-  // Adjust by confidence
-  const confidenceMultiplier = regime.confidence / 100
+  // Adjust by confidence (with NaN safety)
+  const confidenceMultiplier = (regime.confidence || 50) / 100
 
   return baseScore * confidenceMultiplier
 }

@@ -93,6 +93,22 @@ function formatError(error: unknown): string {
 }
 
 /**
+ * Convert regime confidence string to numeric value
+ */
+function convertRegimeConfidence(confidence: string | number): number {
+  if (typeof confidence === 'number') return confidence
+
+  // Map string confidence levels to numeric percentages
+  const confidenceMap: Record<string, number> = {
+    'High': 85,
+    'Medium': 60,
+    'Low': 30,
+  }
+
+  return confidenceMap[confidence] ?? 50 // Default to 50 if unknown
+}
+
+/**
  * Transform market intelligence data to data insight input
  */
 function transformToDataInsightInput(marketData: {
@@ -127,10 +143,7 @@ function transformToDataInsightInput(marketData: {
   return {
     regime: {
       type: marketData.regime.regime as 'Risk-On' | 'Neutral' | 'Risk-Off',
-      confidence:
-        typeof marketData.regime.confidence === 'number'
-          ? marketData.regime.confidence
-          : parseInt(marketData.regime.confidence.toString(), 10),
+      confidence: convertRegimeConfidence(marketData.regime.confidence),
       focus: marketData.regime.focus,
       caution: marketData.regime.caution,
     },
