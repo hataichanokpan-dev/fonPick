@@ -46,6 +46,7 @@ export type {
 export { Header } from './Header'
 export { MobileBottomNav } from './MobileBottomNav'
 export { Footer } from './Footer'
+export { ServiceWorkerRegister } from './ServiceWorkerRegister'
 
 // ==================================================================
 // CONVENIENCE EXPORTS

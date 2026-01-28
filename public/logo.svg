@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <!-- Primary gradient: Green to Blue (growth + trust) -->
+    <linearGradient id="primaryGradient" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#4ade80;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:1" />
+    </linearGradient>
+
+    <!-- Secondary gradient for accent -->
+    <linearGradient id="accentGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#4ade80;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#4ade80;stop-opacity:0" />
+    </linearGradient>
+
+    <!-- Glow effect -->
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background circle (subtle) -->
+  <circle cx="256" cy="256" r="240" fill="url(#accentGradient)" opacity="0.1"/>
+
+  <!-- Main chart line - upward trend with "pick" point -->
+  <path
+    d="M 80 360
+       L 140 340
+       L 200 300
+       L 260 320
+       L 320 220
+       L 380 180
+       L 432 140"
+    stroke="url(#primaryGradient)"
+    stroke-width="12"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    fill="none"
+    filter="url(#glow)"
+  />
+
+  <!-- Fill area under chart -->
+  <path
+    d="M 80 360
+       L 140 340
+       L 200 300
+       L 260 320
+       L 320 220
+       L 380 180
+       L 432 140
+       L 432 380
+       L 80 380
+       Z"
+    fill="url(#accentGradient)"
+    opacity="0.2"
+  />
+
+  <!-- "Pick" indicator - target/crosshair at the peak -->
+  <g transform="translate(432, 140)">
+    <!-- Pulsing circle -->
+    <circle r="24" fill="#4ade80" opacity="0.2">
+      <animate
+        attributeName="r"
+        values="24;32;24"
+        dur="2s"
+        repeatCount="indefinite"/>
+      <animate
+        attributeName="opacity"
+        values="0.2;0;0.2"
+        dur="2s"
+        repeatCount="indefinite"/>
+    </circle>
+    <!-- Center dot -->
+    <circle r="12" fill="#4ade80"/>
+    <!-- White highlight -->
+    <circle r="5" fill="#ffffff"/>
+  </g>
+
+  <!-- "f" lettermark - stylized -->
+  <path
+    d="M 72 180
+       L 72 332
+       Q 72 352 92 352
+       L 144 352
+       Q 164 352 164 332
+       L 164 320"
+    stroke="url(#primaryGradient)"
+    stroke-width="12"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    fill="none"
+    opacity="0.3"
+  />
+</svg>

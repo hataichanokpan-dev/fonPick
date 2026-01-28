@@ -57,8 +57,8 @@ export function Header() {
               className="flex items-center gap-2 transition-opacity hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-up-primary rounded"
               aria-label="fonPick home"
             >
-              <div className="w-7 h-7 rounded-lg flex items-center justify-center bg-logo-gradient">
-                <span className="font-bold text-base text-bg-primary">f</span>
+              <div className="w-7 h-7 rounded-lg overflow-hidden bg-surface flex items-center justify-center">
+                <img src="/logo.svg" alt="fonPick logo" className="w-full h-full object-contain" />
               </div>
               <span className="text-lg font-bold text-text-primary">
                 fonPick

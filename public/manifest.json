@@ -1,0 +1,36 @@
+{
+  "name": "fonPick - Fast Stock Decisions",
+  "short_name": "fonPick",
+  "description": "Make faster stock selection decisions with AI-powered analysis for the Thai stock market",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0e17",
+  "theme_color": "#0a0e17",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["finance", "investments", "business"],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Search Stock",
+      "short_name": "Search",
+      "description": "Search for Thai stocks",
+      "url": "/search",
+      "icons": [{ "src": "/icon-192.svg", "sizes": "192x192" }]
+    }
+  ]
+}

@@ -12,7 +12,7 @@ import { Inter, Plus_Jakarta_Sans } from 'next/font/google'
 import './globals.css'
 import { ErrorBoundary } from '@/components/shared'
 import { Providers } from './providers'
-import { Header, MobileBottomNav, Footer } from '@/components/layout'
+import { Header, MobileBottomNav, Footer, ServiceWorkerRegister } from '@/components/layout'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -32,12 +32,27 @@ export const metadata: Metadata = {
   description: 'Make faster stock selection decisions with AI-powered analysis for the Thai stock market',
   keywords: ['stocks', 'SET', 'Thai stock market', 'investment', 'analysis'],
   authors: [{ name: 'fonPick' }],
+  manifest: '/manifest.json',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'black-translucent',
+    title: 'fonPick',
+  },
+  icons: {
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/icon-192.svg', sizes: '192x192', type: 'image/svg+xml' },
+    ],
+    apple: [{ url: '/icon-192.svg', sizes: '192x192', type: 'image/svg+xml' }],
+  },
 }
 
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#0a0e17', // bg-primary from design_rules.md
+  maximumScale: 1,
+  userScalable: false,
+  themeColor: '#0a0e17',
 }
 
 export default function RootLayout({
@@ -50,6 +65,7 @@ export default function RootLayout({
       <body className="min-h-screen antialiased bg-bg-primary text-text-primary">
         <Providers>
           <ErrorBoundary>
+            <ServiceWorkerRegister />
             <div className="flex flex-col min-h-screen">
               {/* Header - Compact 48px height */}
               <Header />
