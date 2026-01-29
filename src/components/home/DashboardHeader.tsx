@@ -123,6 +123,7 @@ function TimeDisplay({ timestamp }: TimeDisplayProps) {
     hour: '2-digit',
     minute: '2-digit',
     hour12: false,
+    timeZone: 'Asia/Bangkok',
   })
 
   return (
@@ -209,9 +210,11 @@ function DashboardHeader({
     if (marketStatus !== 'closed') return marketStatus
 
     const now = new Date()
-    const hours = now.getHours()
-    const minutes = now.getMinutes()
-    const timeMins = hours * 60 + minutes
+    // Get hours and minutes in Thai timezone (UTC+7)
+    const hours = now.getUTCHours() + 7 // Add 7 hours for Thai timezone
+    const adjustedHours = hours >= 24 ? hours - 24 : hours // Handle overflow
+    const minutes = now.getUTCMinutes()
+    const timeMins = adjustedHours * 60 + minutes
 
     // Thai market hours: 10:00-12:30, 14:30-16:30
     // Morning session: 10:00 (600) - 12:30 (750)

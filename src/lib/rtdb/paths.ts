@@ -32,25 +32,30 @@
  *               └── meta: { capturedAt, schemaVersion, source }
  */
 
+import { getThaiDate, getThaiDateDaysAgo } from '@/lib/utils/date'
+
 /**
  * Base path for all settrade data
  */
 export const SETTRADE_BASE = '/settrade'
 
 /**
- * Date helper - get today's date in YYYY-MM-DD format
+ * Date helper - get today's date in YYYY-MM-DD format (Thai timezone UTC+7)
+ *
+ * @returns Today's date in Thai timezone
  */
 export function getTodayDate(): string {
-  return new Date().toISOString().split('T')[0]
+  return getThaiDate()
 }
 
 /**
- * Date helper - get date string for N days ago
+ * Date helper - get date string for N days ago (Thai timezone UTC+7)
+ *
+ * @param days - Number of days to go back
+ * @returns Date string in Thai timezone
  */
 export function getDateDaysAgo(days: number): string {
-  const date = new Date()
-  date.setDate(date.getDate() - days)
-  return date.toISOString().split('T')[0]
+  return getThaiDateDaysAgo(days)
 }
 
 /**

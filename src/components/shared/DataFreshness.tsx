@@ -1,9 +1,16 @@
 /**
  * DataFreshness Component
  * Shows "Data as of [date]" for daily-updated data - Dark Theme
+ *
+ * Uses Thai timezone (UTC+7) to ensure consistent date display
+ * across server and client, preventing hydration errors.
  */
 
+'use client'
+
 import { Clock } from 'lucide-react'
+import { useMemo } from 'react'
+import { formatThaiDate } from '@/lib/utils/date'
 
 interface DataFreshnessProps {
   timestamp?: number
@@ -16,21 +23,14 @@ export function DataFreshness({
   date,
   className = '',
 }: DataFreshnessProps) {
-  let displayDate = 'Unknown'
-
-  if (timestamp) {
-    displayDate = new Date(timestamp).toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-    })
-  } else if (date) {
-    displayDate = new Date(date).toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-    })
-  }
+  const displayDate = useMemo(() => {
+    if (timestamp) {
+      return formatThaiDate(new Date(timestamp))
+    } else if (date) {
+      return formatThaiDate(date)
+    }
+    return 'Unknown'
+  }, [timestamp, date])
 
   return (
     <div
