@@ -72,6 +72,12 @@ export function useStockData(symbol: string) {
       }
     },
     staleTime: STALE_TIME,
+    // Prevent refetch on window focus to avoid unwanted re-fetches
+    refetchOnWindowFocus: false,
+    // Prevent refetch on component remount
+    refetchOnMount: false,
+    // Prevent automatic refetch on reconnect
+    refetchOnReconnect: false,
     retry: (failureCount, error) => {
       // Don't retry on validation errors or not found
       if (error instanceof Error) {

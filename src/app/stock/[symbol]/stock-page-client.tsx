@@ -35,6 +35,7 @@ import {
   StockDataFreshness,
 } from '@/components/stock'
 import { useAnalytics } from '@/hooks/useAnalytics'
+import { useCallback } from 'react'
 
 export interface StockPageClientProps {
   symbol: string
@@ -93,7 +94,11 @@ export function StockPageClient({ symbol, children }: StockPageClientProps) {
     }
 
     // Handle refresh by calling refetch and ignoring the result
-    const handleRefresh = () => refetch().then(() => undefined)
+    // Using useCallback with empty deps since refetch is stable from React Query
+    const handleRefresh = useCallback(() => {
+      refetch().then(() => undefined)
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     return (
       <div className="space-y-6">

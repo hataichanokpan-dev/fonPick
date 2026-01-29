@@ -17,7 +17,7 @@
 
 'use client'
 
-import { useState, useEffect, useMemo, useCallback } from 'react'
+import { useState, useEffect, useMemo, useCallback, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { Clock, RefreshCw, AlertCircle } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -50,6 +50,14 @@ export function StockDataFreshness({
   const [currentTime, setCurrentTime] = useState(Date.now())
   const [isRefreshingInternal, setIsRefreshingInternal] = useState(false)
 
+  // Use a ref to store the latest onRefresh function without triggering re-renders
+  const onRefreshRef = useRef(onRefresh)
+
+  // Update the ref whenever onRefresh changes
+  useEffect(() => {
+    onRefreshRef.current = onRefresh
+  }, [onRefresh])
+
   // Update current time every minute
   useEffect(() => {
     const interval = setInterval(() => {
@@ -59,22 +67,22 @@ export function StockDataFreshness({
     return () => clearInterval(interval)
   }, [])
 
-  // Auto-refresh logic
+  // Auto-refresh logic - uses ref to avoid dependency on unstable onRefresh function
   useEffect(() => {
-    if (!autoRefreshInterval || autoRefreshInterval <= 0 || !onRefresh) {
+    if (!autoRefreshInterval || autoRefreshInterval <= 0 || !onRefreshRef.current) {
       return
     }
 
     const interval = setInterval(async () => {
       try {
-        await onRefresh()
+        await onRefreshRef.current?.()
       } catch (error) {
         console.error('Auto-refresh failed:', error)
       }
     }, autoRefreshInterval)
 
     return () => clearInterval(interval)
-  }, [autoRefreshInterval, onRefresh])
+  }, [autoRefreshInterval])  // Only depend on autoRefreshInterval, not onRefresh
 
   // Calculate time difference
   const timeDiff = useMemo(() => {
