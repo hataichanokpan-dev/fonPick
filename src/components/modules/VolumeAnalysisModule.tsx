@@ -30,7 +30,7 @@ import {
   AlertTriangle,
   RefreshCw,
 } from "lucide-react";
-import { formatTradingValue, formatPercent, formatDecimal } from "@/lib/utils";
+import { formatTradingValue, formatPercentage, formatDecimal } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { useState } from "react";
@@ -264,7 +264,7 @@ function VolumeLeaderRow({ rank, leader }: VolumeLeaderRowProps) {
         className="text-sm font-bold tabular-nums"
         style={{ color: changeColor }}
       >
-        {formatPercent(leader.priceChange, 1)}
+        {formatPercentage(leader.priceChange, 1)}
       </span>
     </motion.div>
   );

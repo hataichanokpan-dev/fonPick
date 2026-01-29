@@ -45,7 +45,7 @@ export interface TechnicalAnalysisProps {
 /**
  * Format percentage with sign
  */
-function formatPercent(value: number): string {
+function formatPercentage(value: number): string {
   const sign = value > 0 ? '+' : ''
   return `${sign}${value.toFixed(2)}%`
 }
@@ -555,7 +555,7 @@ function PerformanceCard({ label, thaiLabel, value, testId }: PerformanceCardPro
           getPerformanceColor(value)
         )}
       >
-        {formatPercent(value)}
+        {formatPercentage(value)}
       </div>
       <div className="text-xs text-text-2 mt-1">{label}</div>
     </div>

@@ -24,7 +24,7 @@ import {
   TrendingDown,
   Layers,
 } from 'lucide-react'
-import { formatPercent } from '@/lib/utils'
+import { formatPercentage } from '@/lib/utils'
 import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
 import type { SectorRotationAnalysis, SectorPerformance } from '@/types/sector-rotation'
@@ -116,7 +116,7 @@ function SectorRow({ sector, showRank = true, variant }: SectorRowProps) {
         style={{ color: valueColor }}
       >
          
-        {formatPercent(sector.vsMarket)}
+        {formatPercentage(sector.vsMarket)}
       </span>
 
       {/* Signal Badge */}
@@ -277,7 +277,7 @@ export function SectorStrengthCard({
             Concentration
           </span>
           <span className="text-xs font-medium text-text">
-            {formatPercent(concentration)}
+            {formatPercentage(concentration)}
           </span>
         </div>
         <div className="h-1.5 bg-surface-2 rounded-full overflow-hidden">

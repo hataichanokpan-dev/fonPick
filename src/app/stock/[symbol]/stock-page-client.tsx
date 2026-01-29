@@ -92,12 +92,15 @@ export function StockPageClient({ symbol, children }: StockPageClientProps) {
       })
     }
 
+    // Handle refresh by calling refetch and ignoring the result
+    const handleRefresh = () => refetch().then(() => undefined)
+
     return (
       <div className="space-y-6">
         {/* Stock Hero Section with Share and Watchlist */}
         <div className="flex items-start justify-between gap-4">
           <div className="flex-1">
-            <StockHero data={overview} />
+            <StockHero data={overview.data} />
           </div>
           <div className="flex items-center gap-2">
             <WatchlistButton
@@ -118,7 +121,7 @@ export function StockPageClient({ symbol, children }: StockPageClientProps) {
         {/* Data Freshness Indicator */}
         <StockDataFreshness
           lastUpdate={overview.data.lastUpdate}
-          onRefresh={refetch}
+          onRefresh={handleRefresh}
           autoRefreshInterval={5 * 60 * 1000} // 5 minutes
         />
 

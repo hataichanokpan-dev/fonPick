@@ -141,7 +141,7 @@ function getSignalColor(signal: string): string {
  * ```
  */
 export function CatalystSection({
-  data,
+  data: _data,
   events = [],
   technicalSignals,
   className,

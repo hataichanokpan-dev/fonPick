@@ -155,22 +155,22 @@ export function ShareSheet({
         `${symbol}: ${currentPrice.toFixed(2)} (${changePercent >= 0 ? '+' : ''}${changePercent.toFixed(2)}%)`
       )
 
-      let shareUrl = ''
+      let platformShareUrl = ""
 
       switch (platform) {
         case 'facebook':
-          shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`
+          platformShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`
           break
         case 'twitter':
-          shareUrl = `https://twitter.com/intent/tweet?text=${encodedText}&url=${encodedUrl}`
+          platformShareUrl = `https://twitter.com/intent/tweet?text=${encodedText}&url=${encodedUrl}`
           break
         case 'line':
-          shareUrl = `https://line.me/R/msg/text/?${encodedText}${encodedUrl}`
+          platformShareUrl = `https://line.me/R/msg/text/?${encodedText}${encodedUrl}`
           break
       }
 
       trackShare(platform)
-      window.open(shareUrl, '_blank', 'noopener,noreferrer')
+      window.open(platformShareUrl, '_blank', 'noopener,noreferrer')
       setIsOpen(false)
     },
     [symbol, currentPrice, changePercent, shareUrl, trackShare]

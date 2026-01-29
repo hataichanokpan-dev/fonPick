@@ -27,7 +27,7 @@ import {
   Activity,
   AlertCircle,
 } from 'lucide-react'
-import { formatTradingValue, formatPercent } from '@/lib/utils'
+import { formatTradingValue, formatPercentage } from '@/lib/utils'
 import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
 import type { AccumulationPattern } from '@/types/market-intelligence'
@@ -330,7 +330,7 @@ function StockRow({ stock, rank }: StockRowProps) {
           style={{ color: valueColor }}
         >
           {isPositive && '+'}
-          {formatPercent(stock.changePercent)}
+          {formatPercentage(stock.changePercent)}
         </div>
       </div>
 

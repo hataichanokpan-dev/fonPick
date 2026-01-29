@@ -24,7 +24,7 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronDown, TrendingUp, TrendingDown } from 'lucide-react'
+import { ChevronDown } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import type { StockStatisticsData } from '@/types/stock-api'
 
@@ -62,7 +62,7 @@ function formatLargeNumber(num: number): string {
 /**
  * Format percentage value
  */
-function formatPercent(value: number): string {
+function formatPercentage(value: number): string {
   return `${value.toFixed(2)}%`
 }
 
@@ -245,7 +245,7 @@ export function FundamentalAnalysis({
                     label="ROE"
                     thaiLabel="อัตราผลตอบแทนต่อผู้ถือหุ้น"
                     value={financial.roe}
-                    format={formatPercent}
+                    format={formatPercentage}
                     testId="financial-roe"
                     color={getMetricColor('roe', financial.roe)}
                   />
@@ -255,7 +255,7 @@ export function FundamentalAnalysis({
                     label="ROA"
                     thaiLabel="อัตราผลตอบแทนต่อสินทรัพย์"
                     value={financial.roa}
-                    format={formatPercent}
+                    format={formatPercentage}
                     testId="financial-roa"
                     color={getMetricColor('roa', financial.roa)}
                   />
@@ -411,7 +411,7 @@ export function FundamentalAnalysis({
                     label="Dividend Yield"
                     thaiLabel="อัตราผลตอบแทนเงินปันผล"
                     value={valuation.dividendYield}
-                    format={formatPercent}
+                    format={formatPercentage}
                     testId="valuation-dividend-yield"
                     color={getMetricColor('dividendYield', valuation.dividendYield)}
                   />
@@ -421,7 +421,7 @@ export function FundamentalAnalysis({
                     label="Payout Ratio"
                     thaiLabel="อัตราส่วนจ่ายปันผล"
                     value={valuation.payoutRatio}
-                    format={formatPercent}
+                    format={formatPercentage}
                     testId="valuation-payout-ratio"
                   />
 

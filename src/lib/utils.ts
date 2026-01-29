@@ -23,8 +23,11 @@ export function cn(...inputs: ClassValue[]) {
 /**
  * Format number with thousands separator
  */
-export function formatNumber(num: number): string {
-  return new Intl.NumberFormat('en-US').format(num)
+export function formatNumber(num: number, decimals = 2): string {
+  return new Intl.NumberFormat('en-US', {
+    minimumFractionDigits: decimals,
+    maximumFractionDigits: decimals,
+  }).format(num)
 }
 
 /**
@@ -44,3 +47,19 @@ export function formatPercentage(value: number, decimals = 2): string {
   const formatted = value.toFixed(decimals)
   return value > 0 ? `+${formatted}%` : `${formatted}%`
 }
+
+// Re-export formatting utilities from utils/format.ts for convenience
+// This allows imports from '@/lib/utils' to access all formatting functions
+export {
+  formatNumber as formatNumberWithDecimals,
+  formatDecimal,
+  formatTradingValue,
+  formatMarketCap,
+  formatVolume,
+  formatTimestamp,
+  getValueColor,
+  getValueArrow,
+} from './utils/format'
+
+// Alias formatPercent from format.ts as formatPercentage to avoid duplication
+export { formatPercent as formatPercentageFromFormat } from './utils/format'

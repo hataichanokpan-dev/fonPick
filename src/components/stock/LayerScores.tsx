@@ -99,7 +99,7 @@ export function LayerScores({ layerScore }: LayerScoresProps) {
   const displayLayers = isThreeLayer
     ? LAYERS.map((layer, index) =>
         index === 3
-          ? { ...layer, id: 'timing', englishLabel: 'Timing', getValue: (s) => s.timing }
+          ? { ...layer, id: 'timing', englishLabel: 'Timing', getValue: (s: LayerScore) => s.timing }
           : layer
       )
     : LAYERS

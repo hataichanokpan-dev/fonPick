@@ -18,7 +18,7 @@
 import { Card } from '@/components/shared'
 import { Badge } from '@/components/shared/Badge'
 import { TrendingUp, TrendingDown, ArrowRightLeft, AlertCircle } from 'lucide-react'
-import { formatPercent } from '@/lib/utils'
+import { formatPercentage } from '@/lib/utils'
 import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
 
@@ -118,7 +118,7 @@ function SectorRow({ sector, showRank = true, variant }: SectorRowProps) {
         className="text-sm font-bold tabular-nums"
         style={{ color: valueColor }}
       >
-        {formatPercent(sector.change)}
+        {formatPercentage(sector.change)}
       </span>
 
       {/* Signal Badge */}
@@ -238,7 +238,7 @@ export function SectorRotationModule({ data: initialData, className }: SectorRot
               {data.marketDriver.name}
             </span>
             <span className="text-sm font-bold tabular-nums text-up">
-              {formatPercent(data.marketDriver.change)}
+              {formatPercentage(data.marketDriver.change)}
             </span>
           </div>
         </div>
@@ -251,7 +251,7 @@ export function SectorRotationModule({ data: initialData, className }: SectorRot
             Concentration
           </span>
           <span className="text-xs font-medium text-text-1">
-            {formatPercent(data.concentration)}
+            {formatPercentage(data.concentration)}
           </span>
         </div>
         {/* Concentration bar */}

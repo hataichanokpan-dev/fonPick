@@ -7,7 +7,7 @@
  */
 
 import { SearchClient } from './SearchClient'
-import { formatNumber, formatPercent, cn } from '@/lib/utils'
+import { formatNumber, formatPercentage, cn } from '@/lib/utils'
 import Link from 'next/link'
 import { searchStocksByPrefix } from '@/lib/rtdb'
 
@@ -123,7 +123,7 @@ export default async function SearchPage({
                         )}
                       >
                         {stock.change >= 0 ? '+' : ''}
-                        {formatPercent(stock.change)}
+                        {formatPercentage(stock.change)}
                       </div>
                     </div>
                   </div>

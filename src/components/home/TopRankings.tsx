@@ -12,7 +12,7 @@
 
 import { Card } from '@/components/shared'
 import { TrendingUp, TrendingDown, Activity, Coins, Flame } from 'lucide-react'
-import { formatPercent, formatVolume, formatTradingValue, formatDecimal } from '@/lib/utils'
+import { formatPercentage, formatVolume, formatTradingValue, formatDecimal } from '@/lib/utils'
 import Link from 'next/link'
 import { memo } from 'react'
 
@@ -273,7 +273,7 @@ function RankingList({ title, icon, stocks, type }: RankingListProps) {
                       </div>
                     ) : (
                       <span className="text-xs font-medium tabular-nums" style={valueStyle}>
-                        {stock.change !== undefined ? formatPercent(stock.change) : 'N/A'}
+                        {stock.change !== undefined ? formatPercentage(stock.change) : 'N/A'}
                       </span>
                     )}
                   </div>
@@ -383,7 +383,7 @@ function CrossRankingSection({ stocks }: CrossRankingSectionProps) {
               <div className="flex items-center gap-2 ml-auto">
                 {changePct !== undefined && (
                   <span className="text-xs font-medium tabular-nums" style={{ color: changeColor }}>
-                    {formatPercent(changePct)}
+                    {formatPercentage(changePct)}
                   </span>
                 )}
                 <SectorBadge code={sectorCode} />

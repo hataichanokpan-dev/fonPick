@@ -38,7 +38,7 @@ import {
   Award,
   AlertCircle,
 } from 'lucide-react'
-import { formatTradingValue, formatPercent, formatVolume } from '@/lib/utils'
+import { formatTradingValue, formatPercentage, formatVolume } from '@/lib/utils'
 import { useQuery } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState } from 'react'
@@ -334,7 +334,7 @@ function ActiveStockRow({ stock, rank, enableSwipeable, onSwipeRight, onSwipeLef
         <div className="text-sm font-bold tabular-nums text-text">{formatTradingValue(stock.value)}</div>
         <div className="text-xs tabular-nums" style={{ color: valueColor }}>
           {isPositive && '+'}
-          {formatPercent(stock.changePercent)}
+          {formatPercentage(stock.changePercent)}
         </div>
       </div>
 
@@ -401,7 +401,7 @@ function GainerLoserRow({ stock, rank, type, enableSwipeable, onSwipeRight, onSw
 
       <div className="text-xs font-medium tabular-nums" style={{ color: valueColor }}>
         {isGainer && '+'}
-        {formatPercent(stock.changePct)}
+        {formatPercentage(stock.changePct)}
       </div>
     </div>
   )

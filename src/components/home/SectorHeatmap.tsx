@@ -4,7 +4,7 @@
  */
 
 import { Card } from '@/components/shared'
-import { formatPercent, getValueArrow } from '@/lib/utils'
+import { formatPercentage, getValueArrow } from '@/lib/utils'
 import type { TrendValue } from '@/lib/trends/types'
 
 interface SectorHeatmapProps {
@@ -91,7 +91,7 @@ export function SectorHeatmap({
               }}
               title={
                 showTrends && sector.trend5Day
-                  ? `5D: ${formatPercent(sector.trend5Day.changePercent, 2)}`
+                  ? `5D: ${formatPercentage(sector.trend5Day.changePercent, 2)}`
                   : undefined
               }
             >
@@ -109,7 +109,7 @@ export function SectorHeatmap({
                 )}
               </div>
               <div className="text-sm font-bold">
-                {formatPercent(sector.changePercent, 2)}
+                {formatPercentage(sector.changePercent, 2)}
               </div>
             </div>
           )

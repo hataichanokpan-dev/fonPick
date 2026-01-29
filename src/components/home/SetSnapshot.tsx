@@ -9,7 +9,7 @@
 import { Card } from '@/components/shared'
 import {
   formatNumber,
-  formatPercent,
+  formatPercentage,
   formatMarketCap,
   getValueArrow,
 } from '@/lib/utils'
@@ -59,7 +59,7 @@ function TrendBadge({ label, trend }: TrendBadgeProps) {
         className="text-[10px] font-semibold rounded px-1.5 py-0.5 tabular-nums"
         style={{ backgroundColor: styles.bg, color: styles.text }}
       >
-        {arrow} {formatPercent(Math.abs(trend.changePercent))}
+        {arrow} {formatPercentage(Math.abs(trend.changePercent))}
       </span>
     </div>
   )
@@ -109,7 +109,7 @@ export function SetSnapshot({
               )}
               style={{ backgroundColor: mainBadgeStyle.bg, color: mainBadgeStyle.text }}
             >
-              {arrow} {formatPercent(Math.abs(data.changePercent))}
+              {arrow} {formatPercentage(Math.abs(data.changePercent))}
             </span>
           </div>
 
