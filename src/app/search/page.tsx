@@ -3,32 +3,45 @@
  * Stock search with autocomplete functionality
  * Theme: Green-tinted dark with teal up / soft red down
  *
- * Phase 5: Enhanced with smooth transitions
+ * Enhanced to show stock information like stock detail page
  */
 
 import { SearchClient } from './SearchClient'
-import { formatNumber, formatPercentage, cn } from '@/lib/utils'
+import { formatNumber, formatPercentage, formatMarketCap, cn } from '@/lib/utils'
 import Link from 'next/link'
 import { searchStocksByPrefix } from '@/lib/rtdb'
+import { Badge } from '@/components/shared/Badge'
+import { TrendingUp, TrendingDown, Award } from 'lucide-react'
 
 // Mock stock data for fallback when RTDB stock list is not available
+// Enhanced with more detailed information
 const MOCK_STOCKS = [
-  { symbol: 'PTT', name: 'PTT Public Company Limited', price: 35.5, change: 5.2, sector: 'Energy' },
-  { symbol: 'KBANK', name: 'Kasikornbank Public Company Limited', price: 142.0, change: 3.3, sector: 'Banking' },
-  { symbol: 'ADV', name: 'Advanced Info Service Public Company Limited', price: 18.75, change: 4.1, sector: 'Technology' },
-  { symbol: 'AOT', name: 'Airports of Thailand Public Company Limited', price: 68.5, change: 2.9, sector: 'Transport' },
-  { symbol: 'CPF', name: 'Charoen Pokphand Foods Public Company Limited', price: 28.75, change: -1.5, sector: 'Food' },
-  { symbol: 'SCB', name: 'Siam Commercial Bank Public Company Limited', price: 135.0, change: 1.8, sector: 'Banking' },
-  { symbol: 'BDMS', name: 'Bangkok Dusit Medical Services Public Company Limited', price: 21.5, change: -2.1, sector: 'Healthcare' },
-  { symbol: 'CPALL', name: 'CP ALL Public Company Limited', price: 62.0, change: 2.5, sector: 'Retail' },
-  { symbol: 'PTTGC', name: 'PTT Global Chemical Public Company Limited', price: 58.0, change: -3.2, sector: 'Energy' },
-  { symbol: 'TU', name: 'Thai Union Group Public Company Limited', price: 14.5, change: -0.9, sector: 'Food' },
-  { symbol: 'BBL', name: 'Bangkok Bank Public Company Limited', price: 152.0, change: 2.1, sector: 'Banking' },
-  { symbol: 'DELTA', name: 'Delta Electronics Public Company Limited', price: 48.5, change: 3.8, sector: 'Technology' },
-  { symbol: 'TRUE', name: 'True Corporation Public Company Limited', price: 5.2, change: -0.5, sector: 'Technology' },
-  { symbol: 'INTOUCH', name: 'Intouch Holdings Public Company Limited', price: 58.5, change: 1.5, sector: 'Technology' },
-  { symbol: 'LH', name: 'Land and Houses Public Company Limited', price: 12.8, change: -1.2, sector: 'Property' },
+  { symbol: 'PTT', name: 'PTT Public Company Limited', price: 35.5, change: 5.2, sector: 'Energy', marketCap: 992000000000, volume: 15000000 },
+  { symbol: 'KBANK', name: 'Kasikornbank Public Company Limited', price: 142.0, change: 3.3, sector: 'Banking', marketCap: 520000000000, volume: 8000000 },
+  { symbol: 'ADV', name: 'Advanced Info Service Public Company Limited', price: 18.75, change: 4.1, sector: 'Technology', marketCap: 560000000000, volume: 12000000 },
+  { symbol: 'AOT', name: 'Airports of Thailand Public Company Limited', price: 68.5, change: 2.9, sector: 'Transport', marketCap: 280000000000, volume: 5000000 },
+  { symbol: 'CPF', name: 'Charoen Pokphand Foods Public Company Limited', price: 28.75, change: -1.5, sector: 'Food', marketCap: 350000000000, volume: 7000000 },
+  { symbol: 'SCB', name: 'Siam Commercial Bank Public Company Limited', price: 135.0, change: 1.8, sector: 'Banking', marketCap: 480000000000, volume: 6000000 },
+  { symbol: 'BDMS', name: 'Bangkok Dusit Medical Services Public Company Limited', price: 21.5, change: -2.1, sector: 'Healthcare', marketCap: 180000000000, volume: 4000000 },
+  { symbol: 'CPALL', name: 'CP ALL Public Company Limited', price: 62.0, change: 2.5, sector: 'Retail', marketCap: 420000000000, volume: 9000000 },
+  { symbol: 'PTTGC', name: 'PTT Global Chemical Public Company Limited', price: 58.0, change: -3.2, sector: 'Energy', marketCap: 320000000000, volume: 5500000 },
+  { symbol: 'TU', name: 'Thai Union Group Public Company Limited', price: 14.5, change: -0.9, sector: 'Food', marketCap: 95000000000, volume: 3000000 },
+  { symbol: 'BBL', name: 'Bangkok Bank Public Company Limited', price: 152.0, change: 2.1, sector: 'Banking', marketCap: 550000000000, volume: 6500000 },
+  { symbol: 'DELTA', name: 'Delta Electronics Public Company Limited', price: 48.5, change: 3.8, sector: 'Technology', marketCap: 280000000000, volume: 4500000 },
+  { symbol: 'TRUE', name: 'True Corporation Public Company Limited', price: 5.2, change: -0.5, sector: 'Technology', marketCap: 150000000000, volume: 25000000 },
+  { symbol: 'INTOUCH', name: 'Intouch Holdings Public Company Limited', price: 58.5, change: 1.5, sector: 'Technology', marketCap: 170000000000, volume: 3500000 },
+  { symbol: 'LH', name: 'Land and Houses Public Company Limited', price: 12.8, change: -1.2, sector: 'Property', marketCap: 85000000000, volume: 2000000 },
 ]
+
+/**
+ * Get decision badge based on change percentage (simplified logic)
+ */
+function getDecisionBadge(changePct: number): { label: string; color: 'buy' | 'watch' | 'sell' | 'neutral' } {
+  if (changePct >= 3) return { label: 'BUY', color: 'buy' }
+  if (changePct >= 1) return { label: 'WATCH', color: 'watch' }
+  if (changePct <= -2) return { label: 'AVOID', color: 'sell' }
+  return { label: 'HOLD', color: 'neutral' }
+}
 
 async function searchStocks(query: string): Promise<
   Array<{ symbol: string; name: string; price: number; change: number; sector: string }>
@@ -84,51 +97,96 @@ export default async function SearchPage({
       {/* Search Bar */}
       <SearchClient defaultValue={query} />
 
-      {/* Search Results - Compact */}
+      {/* Search Results - Enhanced with stock details */}
       {query && (
         <div>
           {results.length > 0 ? (
-            <div className="rounded-lg divide-y border border-border bg-surface">
-              {results.map((stock) => (
-                <Link
-                  key={stock.symbol}
-                  href={`/stock/${stock.symbol}`}
-                  className="block transition-all duration-200 hover:bg-surface-1"
-                >
-                  <div className="p-3 flex items-center justify-between">
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-3">
-                        <div>
-                          <div className="font-semibold text-sm text-text">
-                            {stock.symbol}
+            <div className="rounded-lg divide-y border border-border bg-surface overflow-hidden">
+              {results.map((stock) => {
+                const decision = getDecisionBadge(stock.change)
+                const isPositive = stock.change >= 0
+                return (
+                  <Link
+                    key={stock.symbol}
+                    href={`/stock/${stock.symbol}`}
+                    className="block transition-all duration-200 hover:bg-surface-1"
+                  >
+                    <div className="p-4">
+                      {/* Top row: Symbol, Name, Decision Badge, Price */}
+                      <div className="flex items-start justify-between gap-4">
+                        {/* Left: Symbol and Name */}
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2 mb-1">
+                            <span className="text-lg font-bold text-text">
+                              {stock.symbol}
+                            </span>
+                            <Badge size="sm" color={decision.color}>
+                              {decision.label}
+                            </Badge>
+                            <Badge size="sm" color="neutral" className="text-[10px] uppercase">
+                              {stock.sector}
+                            </Badge>
                           </div>
-                          <div className="text-xs truncate max-w-md text-text-2">
+                          <p className="text-xs text-text-2 truncate max-w-md">
                             {stock.name}
+                          </p>
+                        </div>
+
+                        {/* Right: Price and Change */}
+                        <div className="text-right flex-shrink-0">
+                          <div className="text-xl font-bold text-text tabular-nums">
+                            ฿{formatNumber(stock.price, 2)}
                           </div>
-                          <div className="text-[10px] mt-1 text-text-3 uppercase tracking-wide">
-                            {stock.sector}
+                          <div className={cn(
+                            'text-sm font-medium flex items-center justify-end gap-1',
+                            isPositive ? 'text-up' : 'text-down'
+                          )}>
+                            {isPositive ? (
+                              <TrendingUp className="w-3 h-3" />
+                            ) : (
+                              <TrendingDown className="w-3 h-3" />
+                            )}
+                            {isPositive && '+'}
+                            {formatPercentage(stock.change)}
                           </div>
                         </div>
                       </div>
-                    </div>
 
-                    <div className="text-right ml-3">
-                      <div className="font-semibold text-sm text-text">
-                        {formatNumber(stock.price, 2)}
-                      </div>
-                      <div
-                        className={cn(
-                          'text-xs font-medium transition-colors duration-200',
-                          stock.change >= 0 ? 'text-up' : 'text-down'
+                      {/* Bottom row: Additional details */}
+                      <div className="flex items-center gap-4 mt-3 pt-3 border-t border-border-subtle text-xs text-text-2">
+                        {/* Market Cap */}
+                        <div className="flex items-center gap-1">
+                          <Award className="w-3 h-3 text-text-3" />
+                          <span>MCap: {formatMarketCap((stock as any).marketCap || 0)}</span>
+                        </div>
+
+                        {/* Volume (if available) */}
+                        {(stock as any).volume && (
+                          <div className="flex items-center gap-1">
+                            <span>Vol: {((stock as any).volume / 1000000).toFixed(1)}M</span>
+                          </div>
                         )}
-                      >
-                        {stock.change >= 0 ? '+' : ''}
-                        {formatPercentage(stock.change)}
+
+                        {/* Recommendation indicator */}
+                        <div className="ml-auto">
+                          {decision.color === 'buy' && (
+                            <span className="text-up font-medium">Strong Buy Signal</span>
+                          )}
+                          {decision.color === 'watch' && (
+                            <span className="text-warn font-medium">Watch Closely</span>
+                          )}
+                          {decision.color === 'sell' && (
+                            <span className="text-down font-medium">High Risk</span>
+                          )}
+                          {decision.color === 'neutral' && (
+                            <span className="text-text-muted font-medium">Hold</span>
+                          )}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </Link>
-              ))}
+                  </Link>
+                )
+              })}
             </div>
           ) : (
             <div className="text-center py-12">

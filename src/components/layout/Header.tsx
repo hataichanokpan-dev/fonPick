@@ -65,8 +65,8 @@ export function Header() {
               </span>
             </Link>
 
-            {/* Desktop Navigation */}
-            <div className="hidden sm:flex items-center gap-3">
+            {/* Navigation - 3 buttons: Market, Search, Guide */}
+            <div className="flex items-center gap-3">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
@@ -85,30 +85,6 @@ export function Header() {
                 </Link>
               ))}
             </div>
-
-            {/* Mobile menu button (placeholder for future menu) */}
-            <button
-              disabled
-              className="sm:hidden p-2 -mr-2 text-text-disabled opacity-50 cursor-not-allowed"
-              aria-label="Menu coming soon"
-              type="button"
-            >
-              {/* Hamburger icon */}
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
-            </button>
           </div>
         </nav>
       </div>
