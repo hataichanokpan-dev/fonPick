@@ -12,6 +12,7 @@ export * from './smart-money'
 export * from './insights'
 export * from './correlation'
 export * from './market-intelligence'
+export * from './stock-api'
 
 /**
  * Common UI Props

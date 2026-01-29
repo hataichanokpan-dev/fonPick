@@ -3,7 +3,7 @@
  * Detailed stock analysis with verdict engine results
  * Theme: Green-tinted dark with teal up / soft red down
  *
- * Phase 5: Enhanced with smooth transitions
+ * Phase 2: Enhanced with API data fetching using useStockData hook
  */
 
 import {
@@ -12,6 +12,8 @@ import {
   EvidenceCards,
   LensScores,
   WatchlistButton,
+  StockPageSkeleton,
+  StockPageErrorBoundary,
 } from '@/components/stock'
 import { ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
@@ -22,6 +24,7 @@ import { analyzeMarketRegime } from '@/services/market-regime'
 import { cn } from '@/lib/utils'
 import type { StockVerdict } from '@/services/verdict'
 import type { MarketRegime } from '@/types/market'
+import { StockPageClient } from './stock-page-client'
 
 interface StockPageData {
   stock: {

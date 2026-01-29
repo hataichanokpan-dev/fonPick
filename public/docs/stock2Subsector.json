@@ -1,0 +1,2810 @@
+[
+    {
+        "Ticker": "2S",
+        "Name": "2S Metal",
+        "Sub-Sector": "Steel Products",
+        "Sector": "INDUS"
+    },
+    {
+        "Ticker": "3K-BAT",
+        "Name": "3K Battery",
+        "Sub-Sector": "Auto Parts",
+        "Sector": "INDUS"
+    },
+    {
+        "Ticker": "A",
+        "Name": "Adisorn Telecom",
+        "Sub-Sector": "Telecommunications Equipment",
+        "Sector": "TECH"
+    },
+    {
+        "Ticker": "A5",
+        "Name": "A5 Capital",
+        "Sub-Sector": "Securities",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "AAI",
+        "Name": "Asia Aviation",
+        "Sub-Sector": "Airlines",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "AAV",
+        "Name": "Asia Aviation (Thai AirAsia)",
+        "Sub-Sector": "Airlines",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "ABC",
+        "Name": "Asia Biomass",
+        "Sub-Sector": "Renewable Energy",
+        "Sector": "RESOURC"
+    },
+    {
+        "Ticker": "ABM",
+        "Name": "Asia Bio Chem",
+        "Sub-Sector": "Chemicals",
+        "Sector": "INDUS"
+    },
+    {
+        "Ticker": "ABPIF",
+        "Name": "Asia Bangkok Property Industrial Freehold REIT",
+        "Sub-Sector": "Industrial REIT",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "ACE",
+        "Name": "Electricity Generating",
+        "Sub-Sector": "Renewable Energy",
+        "Sector": "RESOURC"
+    },
+    {
+        "Ticker": "ACG",
+        "Name": "Asia Capital Group",
+        "Sub-Sector": "Securities",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "ADB",
+        "Name": "Advanc Development",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "ADVANC",
+        "Name": "Advanced Info Service",
+        "Sub-Sector": "Telecommunications",
+        "Sector": "TECH"
+    },
+    {
+        "Ticker": "AEONTS",
+        "Name": "AEON Thana Sinsap",
+        "Sub-Sector": "Credit Cards & Consumer Finance",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "AF",
+        "Name": "Asia Fiber",
+        "Sub-Sector": "Packaging",
+        "Sector": "INDUS"
+    },
+    {
+        "Ticker": "AFC",
+        "Name": "Asia Fiber Container",
+        "Sub-Sector": "Packaging",
+        "Sector": "INDUS"
+    },
+    {
+        "Ticker": "AGE",
+        "Name": "Agro Enterprise",
+        "Sub-Sector": "Animal Feed",
+        "Sector": "AGRO"
+    },
+    {
+        "Ticker": "AH",
+        "Name": "Asia Hero",
+        "Sub-Sector": "Auto Parts",
+        "Sector": "INDUS"
+    },
+    {
+        "Ticker": "AHC",
+        "Name": "Antique House Chuanpisamai",
+        "Sub-Sector": "Furniture & Fixtures",
+        "Sector": "CONSUMP"
+    },
+    {
+        "Ticker": "AI",
+        "Name": "Asia Insurance",
+        "Sub-Sector": "Non-Life Insurance",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "AIT",
+        "Name": "Advanced Information Technology",
+        "Sub-Sector": "IT Services",
+        "Sector": "TECH"
+    },
+    {
+        "Ticker": "AIRA",
+        "Name": "Aira Property",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "AIE",
+        "Name": "Asia Industrial Estate",
+        "Sub-Sector": "Industrial Estate",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "ALL",
+        "Name": "All Inspire Development",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "ALUCON",
+        "Name": "Aluminium Container",
+        "Sub-Sector": "Packaging",
+        "Sector": "INDUS"
+    },
+    {
+        "Ticker": "AMANAH",
+        "Name": "Amanah Leasing",
+        "Sub-Sector": "Consumer Finance",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "AMARIN",
+        "Name": "Amarin Printing",
+        "Sub-Sector": "Media & Publishing",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "AMATAV",
+        "Name": "Amata VN",
+        "Sub-Sector": "Industrial Estate",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "AMATA",
+        "Name": "Amata Corporation",
+        "Sub-Sector": "Industrial Estate",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "AMC",
+        "Name": "Amata Corporation (Warrants)",
+        "Sub-Sector": "Industrial Estate",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "ANAN",
+        "Name": "Anan Development",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "AOT",
+        "Name": "Airports of Thailand",
+        "Sub-Sector": "Airports",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "AP",
+        "Name": "AP Thailand",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "APCO",
+        "Name": "Asia Precision",
+        "Sub-Sector": "Auto Parts",
+        "Sector": "INDUS"
+    },
+    {
+        "Ticker": "APO",
+        "Name": "Asia Plus Outsourcing",
+        "Sub-Sector": "Professional Services",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "APP",
+        "Name": "Asia Plus Property",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "APURE",
+        "Name": "Asia Pure",
+        "Sub-Sector": "Beverages",
+        "Sector": "AGRO"
+    },
+    {
+        "Ticker": "AQ",
+        "Name": "AQ Estate",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "AQUA",
+        "Name": "Aqua Corporation",
+        "Sub-Sector": "Beverages",
+        "Sector": "AGRO"
+    },
+    {
+        "Ticker": "ARROW",
+        "Name": "Arrow Syndicate",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "ARIP",
+        "Name": "Areeya Property",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "AS",
+        "Name": "Asia Steel",
+        "Sub-Sector": "Steel Products",
+        "Sector": "INDUS"
+    },
+    {
+        "Ticker": "ASK",
+        "Name": "Asoke",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "ASN",
+        "Name": "Asanee Aviation",
+        "Sub-Sector": "Aviation Services",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "ASP",
+        "Name": "Asia Plus Securities",
+        "Sub-Sector": "Securities",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "ASPS",
+        "Name": "Asia Sermkij Leasing",
+        "Sub-Sector": "Consumer Finance",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "ATP30",
+        "Name": "Asia Technology Property 30",
+        "Sub-Sector": "Industrial REIT",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "AUCT",
+        "Name": "Bangkok Auction",
+        "Sub-Sector": "Professional Services",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "AU",
+        "Name": "Unicorn Enterprises",
+        "Sub-Sector": "Garments",
+        "Sector": "CONSUMP"
+    },
+    {
+        "Ticker": "AWC",
+        "Name": "Asset World Corporation",
+        "Sub-Sector": "Hotels & Resorts",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "B",
+        "Name": "Banpu",
+        "Sub-Sector": "Coal Mining",
+        "Sector": "RESOURC"
+    },
+    {
+        "Ticker": "B52",
+        "Name": "B52 Capital",
+        "Sub-Sector": "Securities",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "BA",
+        "Name": "Bangkok Airways",
+        "Sub-Sector": "Airlines",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "BAM",
+        "Name": "Bangkok Commercial Asset Management",
+        "Sub-Sector": "Asset Management",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "BANPU",
+        "Name": "Banpu",
+        "Sub-Sector": "Coal Mining",
+        "Sector": "RESOURC"
+    },
+    {
+        "Ticker": "BAY",
+        "Name": "Bank of Ayudhya (Krungsri)",
+        "Sub-Sector": "Commercial Banks",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "BBL",
+        "Name": "Bangkok Bank",
+        "Sub-Sector": "Commercial Banks",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "BC",
+        "Name": "Berli Jucker",
+        "Sub-Sector": "Commerce",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "BCP",
+        "Name": "Bangchak Corporation",
+        "Sub-Sector": "Oil & Gas Refining",
+        "Sector": "RESOURC"
+    },
+    {
+        "Ticker": "BCPG",
+        "Name": "Bangchak Green Net",
+        "Sub-Sector": "Renewable Energy",
+        "Sector": "RESOURC"
+    },
+    {
+        "Ticker": "BCH",
+        "Name": "Bangkok Chain Hospital",
+        "Sub-Sector": "Healthcare Services",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "BCP",
+        "Name": "Bangchak Corporation",
+        "Sub-Sector": "Oil & Gas Refining",
+        "Sector": "RESOURC"
+    },
+    {
+        "Ticker": "BDMS",
+        "Name": "Bangkok Dusit Medical Services",
+        "Sub-Sector": "Healthcare Services",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "BEAUTY",
+        "Name": "Beauty Community",
+        "Sub-Sector": "Personal Care Retail",
+        "Sector": "CONSUMP"
+    },
+    {
+        "Ticker": "BEC",
+        "Name": "BEC World",
+        "Sub-Sector": "Media & Broadcasting",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "BEM",
+        "Name": "Bangkok Expressway",
+        "Sub-Sector": "Transportation Infrastructure",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "BEYOND",
+        "Name": "Beyond Asset Development",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "BF",
+        "Name": "Bio Fertilizer",
+        "Sub-Sector": "Agricultural Products",
+        "Sector": "AGRO"
+    },
+    {
+        "Ticker": "BFI",
+        "Name": "Bangkok Forest Industry",
+        "Sub-Sector": "Furniture & Fixtures",
+        "Sector": "CONSUMP"
+    },
+    {
+        "Ticker": "BGC",
+        "Name": "BGC",
+        "Sub-Sector": "Chemicals",
+        "Sector": "INDUS"
+    },
+    {
+        "Ticker": "BGRIM",
+        "Name": "B.Grimm Power",
+        "Sub-Sector": "Power Generation",
+        "Sector": "RESOURC"
+    },
+    {
+        "Ticker": "BH",
+        "Name": "Bumrungrad Hospital",
+        "Sub-Sector": "Healthcare Services",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "BIG",
+        "Name": "Big C Supercenter",
+        "Sub-Sector": "Retail - Hypermarket",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "BIOTEC",
+        "Name": "Biotechnology",
+        "Sub-Sector": "Pharmaceuticals",
+        "Sector": "CONSUMP"
+    },
+    {
+        "Ticker": "BIZ",
+        "Name": "Business Online",
+        "Sub-Sector": "Media & Publishing",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "BJC",
+        "Name": "Berli Jucker",
+        "Sub-Sector": "Commerce",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "BJCHI",
+        "Name": "Berli Jucker Infrastructure",
+        "Sub-Sector": "Logistics",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "BKD",
+        "Name": "Bangkok Dusit Medical Services (Warrants)",
+        "Sub-Sector": "Healthcare Services",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "BKI",
+        "Name": "Bangkok Insurance",
+        "Sub-Sector": "Non-Life Insurance",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "BLA",
+        "Name": "Bangkok Life Assurance",
+        "Sub-Sector": "Life Insurance",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "BLAND",
+        "Name": "Bangkok Land",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "BM",
+        "Name": "Bangkok Metro",
+        "Sub-Sector": "Mass Transit",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "BOL",
+        "Name": "Better Online",
+        "Sub-Sector": "E-commerce",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "BPP",
+        "Name": "Bangkok Poly Pipe",
+        "Sub-Sector": "Building Materials",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "BR",
+        "Name": "British Dispensary",
+        "Sub-Sector": "Pharmaceuticals",
+        "Sector": "CONSUMP"
+    },
+    {
+        "Ticker": "BROOK",
+        "Name": "Brook Property",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "BRR",
+        "Name": "Britania",
+        "Sub-Sector": "Food & Beverages",
+        "Sector": "AGRO"
+    },
+    {
+        "Ticker": "BSBM",
+        "Name": "Bangkok Steel Blanks",
+        "Sub-Sector": "Steel Products",
+        "Sector": "INDUS"
+    },
+    {
+        "Ticker": "BSM",
+        "Name": "Bangkok Synthetics",
+        "Sub-Sector": "Personal Care Products",
+        "Sector": "CONSUMP"
+    },
+    {
+        "Ticker": "BTC",
+        "Name": "Bangkok Tank Terminal",
+        "Sub-Sector": "Logistics - Storage",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "BTSC",
+        "Name": "Bangkok Mass Transit System (BTS)",
+        "Sub-Sector": "Mass Transit",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "BTS",
+        "Name": "BTS Group Holdings",
+        "Sub-Sector": "Transportation & Media",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "BTW",
+        "Name": "Better Way",
+        "Sub-Sector": "Automotive Retail",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "BUI",
+        "Name": "Bumrungrad International",
+        "Sub-Sector": "Healthcare Services",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "BWG",
+        "Name": "Better World Green",
+        "Sub-Sector": "Renewable Energy",
+        "Sector": "RESOURC"
+    },
+    {
+        "Ticker": "BUZZ",
+        "Name": "Buzz Beverage",
+        "Sub-Sector": "Beverages",
+        "Sector": "AGRO"
+    },
+    {
+        "Ticker": "BYD",
+        "Name": "Beyond Asset Development",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "CABLE",
+        "Name": "Bangkok Cable",
+        "Sub-Sector": "Cables & Wires",
+        "Sector": "INDUS"
+    },
+    {
+        "Ticker": "CARABAO",
+        "Name": "Carabao Group (CBG)",
+        "Sub-Sector": "Energy Drinks",
+        "Sector": "AGRO"
+    },
+    {
+        "Ticker": "CARING",
+        "Name": "Caring Pharmacy Group",
+        "Sub-Sector": "Retail - Pharmacy",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "CBG",
+        "Name": "Carabao Group",
+        "Sub-Sector": "Energy Drinks",
+        "Sector": "AGRO"
+    },
+    {
+        "Ticker": "CCET",
+        "Name": "Country Group Development",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "CCP",
+        "Name": "City Cement Package",
+        "Sub-Sector": "Cement",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "CDGS",
+        "Name": "Country Group Securities",
+        "Sub-Sector": "Securities",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "CENTEL",
+        "Name": "Central Plaza Hotel",
+        "Sub-Sector": "Hotels & Resorts",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "CFRESH",
+        "Name": "CPF Fresh Mart",
+        "Sub-Sector": "Food Retail",
+        "Sector": "AGRO"
+    },
+    {
+        "Ticker": "CFG",
+        "Name": "Central Food Group",
+        "Sub-Sector": "Food & Beverages",
+        "Sector": "AGRO"
+    },
+    {
+        "Ticker": "CGD",
+        "Name": "Country Group Development",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "CGH",
+        "Name": "Chularat Hospital",
+        "Sub-Sector": "Healthcare Services",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "CHAYO",
+        "Name": "Chayo Group",
+        "Sub-Sector": "Debt Collection",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "CHG",
+        "Name": "Chularat Hospital Group",
+        "Sub-Sector": "Healthcare Services",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "CHO",
+        "Name": "Cho Thavee",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "CI",
+        "Name": "Chaiyaphum Inn",
+        "Sub-Sector": "Hotels",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "CIMBT",
+        "Name": "CIMB Thai Bank",
+        "Sub-Sector": "Commercial Banks",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "CK",
+        "Name": "Ch. Karnchang",
+        "Sub-Sector": "Construction & Infrastructure",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "CKP",
+        "Name": "CK Power",
+        "Sub-Sector": "Power Generation",
+        "Sector": "RESOURC"
+    },
+    {
+        "Ticker": "CM",
+        "Name": "Chiangmai Frozen Foods",
+        "Sub-Sector": "Food Processing",
+        "Sector": "AGRO"
+    },
+    {
+        "Ticker": "CMAN",
+        "Name": "Cattleman",
+        "Sub-Sector": "Meat Products",
+        "Sector": "AGRO"
+    },
+    {
+        "Ticker": "CMC",
+        "Name": "Chonmakarn",
+        "Sub-Sector": "Logistics",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "CMO",
+        "Name": "CM Organizer",
+        "Sub-Sector": "Event Management",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "CMR",
+        "Name": "Chiangmai Retail",
+        "Sub-Sector": "Retail",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "CNCT",
+        "Name": "Connect",
+        "Sub-Sector": "IT Services",
+        "Sector": "TECH"
+    },
+    {
+        "Ticker": "CNC",
+        "Name": "CNC Logistics",
+        "Sub-Sector": "Logistics",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "COLOR",
+        "Name": "Color Man",
+        "Sub-Sector": "Paints & Coatings",
+        "Sector": "INDUS"
+    },
+    {
+        "Ticker": "COM7",
+        "Name": "COM7",
+        "Sub-Sector": "IT Retail",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "COMAN",
+        "Name": "Comantech",
+        "Sub-Sector": "IT Services",
+        "Sector": "TECH"
+    },
+    {
+        "Ticker": "COTTO",
+        "Name": "Cotto",
+        "Sub-Sector": "Ceramics",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "CPF",
+        "Name": "Charoen Pokphand Foods",
+        "Sub-Sector": "Integrated Agri-Food",
+        "Sector": "AGRO"
+    },
+    {
+        "Ticker": "CPI",
+        "Name": "Capital Piston",
+        "Sub-Sector": "Auto Parts",
+        "Sector": "INDUS"
+    },
+    {
+        "Ticker": "CPL",
+        "Name": "CP Land",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "CPALL",
+        "Name": "CP All (7-Eleven)",
+        "Sub-Sector": "Convenience Stores",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "CPANEL",
+        "Name": "CP Panel",
+        "Sub-Sector": "Building Materials",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "CPAT",
+        "Name": "CP Axtra (Lotus's)",
+        "Sub-Sector": "Retail - Hypermarket",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "CPN",
+        "Name": "Central Pattana",
+        "Sub-Sector": "Shopping Malls",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "CPNREIT",
+        "Name": "CPN Retail Growth Leasehold REIT",
+        "Sub-Sector": "Retail REIT",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "CPR",
+        "Name": "Chaiyaphum Plastic Resin",
+        "Sub-Sector": "Plastics",
+        "Sector": "INDUS"
+    },
+    {
+        "Ticker": "CPT",
+        "Name": "CP Towerco",
+        "Sub-Sector": "Telecommunications Infrastructure",
+        "Sector": "TECH"
+    },
+    {
+        "Ticker": "CRC",
+        "Name": "Central Retail Corporation",
+        "Sub-Sector": "Department Stores",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "CREDIX",
+        "Name": "Credix Finance",
+        "Sub-Sector": "Consumer Finance",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "CSC",
+        "Name": "CS Credit",
+        "Sub-Sector": "Consumer Finance",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "CSP",
+        "Name": "CS Plastic",
+        "Sub-Sector": "Plastics",
+        "Sector": "INDUS"
+    },
+    {
+        "Ticker": "CSR",
+        "Name": "CS Rubber",
+        "Sub-Sector": "Rubber Products",
+        "Sector": "INDUS"
+    },
+    {
+        "Ticker": "CTW",
+        "Name": "Central World",
+        "Sub-Sector": "Shopping Malls",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "CWT",
+        "Name": "Central Warehousing & Transport",
+        "Sub-Sector": "Logistics",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "DCON",
+        "Name": "D-CON",
+        "Sub-Sector": "Construction Materials",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "DELTA",
+        "Name": "Delta Electronics Thailand",
+        "Sub-Sector": "Power Electronics / EV Components",
+        "Sector": "TECH"
+    },
+    {
+        "Ticker": "DEMCO",
+        "Name": "Demco",
+        "Sub-Sector": "Engineering Services",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "DCC",
+        "Name": "Digital Creative Center",
+        "Sub-Sector": "Media & Content",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "DDD",
+        "Name": "Digital Data Development",
+        "Sub-Sector": "IT Services",
+        "Sector": "TECH"
+    },
+    {
+        "Ticker": "DHOUSE",
+        "Name": "Design House",
+        "Sub-Sector": "Furniture & Interior",
+        "Sector": "CONSUMP"
+    },
+    {
+        "Ticker": "DIF",
+        "Name": "Digital Infrastructure Fund",
+        "Sub-Sector": "Infrastructure Fund",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "DISTAR",
+        "Name": "Distar",
+        "Sub-Sector": "Automotive Parts",
+        "Sector": "INDUS"
+    },
+    {
+        "Ticker": "DMT",
+        "Name": "Demeter Corporation",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "DOHOME",
+        "Name": "DoHome",
+        "Sub-Sector": "Home Improvement Retail",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "DOD",
+        "Name": "DOD Biotech",
+        "Sub-Sector": "Biotechnology",
+        "Sector": "CONSUMP"
+    },
+    {
+        "Ticker": "DTAC",
+        "Name": "Total Access Communication",
+        "Sub-Sector": "Telecommunications",
+        "Sector": "TECH"
+    },
+    {
+        "Ticker": "DRT",
+        "Name": "Daorung Trading",
+        "Sub-Sector": "Trading",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "DTCI",
+        "Name": "Diamond Trust Capital International",
+        "Sub-Sector": "Securities",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "DUSIT",
+        "Name": "Dusit Thani",
+        "Sub-Sector": "Hotels & Resorts",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "DV8",
+        "Name": "DV8 Property",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "EA",
+        "Name": "Energy Absolute",
+        "Sub-Sector": "Renewable Energy / EV",
+        "Sector": "RESOURC"
+    },
+    {
+        "Ticker": "EARTH",
+        "Name": "Earth Tech Environment",
+        "Sub-Sector": "Environmental Services",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "EASTW",
+        "Name": "Eastern Water Resources",
+        "Sub-Sector": "Water Utilities",
+        "Sector": "RESOURC"
+    },
+    {
+        "Ticker": "ECF",
+        "Name": "ECF Power",
+        "Sub-Sector": "Renewable Energy",
+        "Sector": "RESOURC"
+    },
+    {
+        "Ticker": "ECL",
+        "Name": "Eastern Commercial Leasing",
+        "Sub-Sector": "Consumer Finance",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "EE",
+        "Name": "Eastern Electricity",
+        "Sub-Sector": "Utilities",
+        "Sector": "RESOURC"
+    },
+    {
+        "Ticker": "EGCO",
+        "Name": "Electricity Generating",
+        "Sub-Sector": "Power Generation",
+        "Sector": "RESOURC"
+    },
+    {
+        "Ticker": "EFORL",
+        "Name": "E For L Aim",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "EKH",
+        "Name": "Eksang Holdings",
+        "Sub-Sector": "Agriculture",
+        "Sector": "AGRO"
+    },
+    {
+        "Ticker": "EP",
+        "Name": "Eastern Polymer",
+        "Sub-Sector": "Petrochemicals",
+        "Sector": "INDUS"
+    },
+    {
+        "Ticker": "EPCO",
+        "Name": "Eastern Power",
+        "Sub-Sector": "Power Generation",
+        "Sector": "RESOURC"
+    },
+    {
+        "Ticker": "EPG",
+        "Name": "Eastern Printing",
+        "Sub-Sector": "Printing & Publishing",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "ERW",
+        "Name": "Erawan Group",
+        "Sub-Sector": "Hotels & Resorts",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "ESSO",
+        "Name": "Esso Thailand",
+        "Sub-Sector": "Oil & Gas Marketing",
+        "Sector": "RESOURC"
+    },
+    {
+        "Ticker": "ESTAR",
+        "Name": "Eastern Star Real Estate",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "ETC",
+        "Name": "Eastern Tuna Corporation",
+        "Sub-Sector": "Seafood Processing",
+        "Sector": "AGRO"
+    },
+    {
+        "Ticker": "EVER",
+        "Name": "Ever Rich Development",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "FE",
+        "Name": "Far Eastern Group",
+        "Sub-Sector": "Garments",
+        "Sector": "CONSUMP"
+    },
+    {
+        "Ticker": "FENG",
+        "Name": "Feng Engineering",
+        "Sub-Sector": "Engineering Services",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "FN",
+        "Name": "Finansa",
+        "Sub-Sector": "Securities",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "FNS",
+        "Name": "FNS Holdings",
+        "Sub-Sector": "Securities",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "FORTH",
+        "Name": "Forth Corporation",
+        "Sub-Sector": "Smart Solutions",
+        "Sector": "TECH"
+    },
+    {
+        "Ticker": "FPI",
+        "Name": "Food Products International",
+        "Sub-Sector": "Food Processing",
+        "Sector": "AGRO"
+    },
+    {
+        "Ticker": "FSMART",
+        "Name": "Finno Smart",
+        "Sub-Sector": "FinTech",
+        "Sector": "TECH"
+    },
+    {
+        "Ticker": "FTE",
+        "Name": "Fitterace",
+        "Sub-Sector": "Automotive Parts",
+        "Sector": "INDUS"
+    },
+    {
+        "Ticker": "FVC",
+        "Name": "Fine Vietnam Corporation",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "GABLE",
+        "Name": "Gable Great",
+        "Sub-Sector": "Telecommunications Equipment",
+        "Sector": "TECH"
+    },
+    {
+        "Ticker": "GCAP",
+        "Name": "Global Capital",
+        "Sub-Sector": "Securities",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "GC",
+        "Name": "PTT Global Chemical (PTTGC)",
+        "Sub-Sector": "Petrochemicals",
+        "Sector": "INDUS"
+    },
+    {
+        "Ticker": "GFPT",
+        "Name": "GFP Tropical Foods",
+        "Sub-Sector": "Poultry Processing",
+        "Sector": "AGRO"
+    },
+    {
+        "Ticker": "GGC",
+        "Name": "GGC",
+        "Sub-Sector": "Petrochemicals",
+        "Sector": "INDUS"
+    },
+    {
+        "Ticker": "GLAND",
+        "Name": "Grand Canal Land",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "GL",
+        "Name": "Grand Canal Land",
+        "Sub-Sector": "Property Development & Finance",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "GLOBAL",
+        "Name": "Global Green Chemicals",
+        "Sub-Sector": "Biochemicals",
+        "Sector": "INDUS"
+    },
+    {
+        "Ticker": "GLOW",
+        "Name": "Glow Energy",
+        "Sub-Sector": "Power Generation",
+        "Sector": "RESOURC"
+    },
+    {
+        "Ticker": "GM",
+        "Name": "General Mart",
+        "Sub-Sector": "Retail",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "GMILL",
+        "Name": "Grand Mill",
+        "Sub-Sector": "Food Processing",
+        "Sector": "AGRO"
+    },
+    {
+        "Ticker": "GOLD",
+        "Name": "Golden Land Property Development",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "GPSC",
+        "Name": "Global Power Synergy",
+        "Sub-Sector": "Cogeneration / Power",
+        "Sector": "RESOURC"
+    },
+    {
+        "Ticker": "GRAMMY",
+        "Name": "Grammy Entertainment",
+        "Sub-Sector": "Entertainment & Media",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "GREEN",
+        "Name": "Green Resources",
+        "Sub-Sector": "Renewable Energy",
+        "Sector": "RESOURC"
+    },
+    {
+        "Ticker": "GULF",
+        "Name": "Gulf Energy Development",
+        "Sub-Sector": "Power Generation / Renewable / Infrastructure",
+        "Sector": "RESOURC"
+    },
+    {
+        "Ticker": "GUNKUL",
+        "Name": "Gunkul Engineering",
+        "Sub-Sector": "Renewable Energy / Engineering",
+        "Sector": "RESOURC"
+    },
+    {
+        "Ticker": "GYT",
+        "Name": "Grand Unity Technology",
+        "Sub-Sector": "Electronics",
+        "Sector": "TECH"
+    },
+    {
+        "Ticker": "HANA",
+        "Name": "Hana Microelectronics",
+        "Sub-Sector": "Semiconductor Packaging",
+        "Sector": "TECH"
+    },
+    {
+        "Ticker": "HARN",
+        "Name": "Harn Engineering Solutions",
+        "Sub-Sector": "Engineering Services",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "HMPRO",
+        "Name": "Home Product Center",
+        "Sub-Sector": "Home Improvement Retail",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "HOTPOT",
+        "Name": "Hotpot Development",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "HPT",
+        "Name": "Hemaraj Land and Development",
+        "Sub-Sector": "Industrial Estate",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "HUMAN",
+        "Name": "Human Resources Management",
+        "Sub-Sector": "HR Services",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "HYDRO",
+        "Name": "Hydro Agri",
+        "Sub-Sector": "Fertilizer",
+        "Sector": "AGRO"
+    },
+    {
+        "Ticker": "ICC",
+        "Name": "ICC International",
+        "Sub-Sector": "Cosmetics Distribution",
+        "Sector": "CONSUMP"
+    },
+    {
+        "Ticker": "ICHI",
+        "Name": "Ichitan Group",
+        "Sub-Sector": "Beverages",
+        "Sector": "AGRO"
+    },
+    {
+        "Ticker": "IFS",
+        "Name": "Infinite Futures",
+        "Sub-Sector": "Securities",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "III",
+        "Name": "Infinite Innovation",
+        "Sub-Sector": "Technology Services",
+        "Sector": "TECH"
+    },
+    {
+        "Ticker": "IIG",
+        "Name": "Indorama Industrial Group",
+        "Sub-Sector": "Petrochemicals",
+        "Sector": "INDUS"
+    },
+    {
+        "Ticker": "INDEX",
+        "Name": "Index Creative Village",
+        "Sub-Sector": "Media & Publishing",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "INETREIT",
+        "Name": "INETREIT",
+        "Sub-Sector": "Industrial REIT",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "INSET",
+        "Name": "Inset",
+        "Sub-Sector": "Software Development",
+        "Sector": "TECH"
+    },
+    {
+        "Ticker": "INTUCH",
+        "Name": "Intouch Holdings",
+        "Sub-Sector": "Telecommunications Holding",
+        "Sector": "TECH"
+    },
+    {
+        "Ticker": "IP",
+        "Name": "Inter Pharma",
+        "Sub-Sector": "Pharmaceuticals",
+        "Sector": "CONSUMP"
+    },
+    {
+        "Ticker": "IRC",
+        "Name": "IRC",
+        "Sub-Sector": "Construction",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "IRPC",
+        "Name": "IRPC",
+        "Sub-Sector": "Integrated Refinery & Petrochemicals",
+        "Sector": "RESOURC"
+    },
+    {
+        "Ticker": "IRU",
+        "Name": "Innovative Rubber",
+        "Sub-Sector": "Rubber Products",
+        "Sector": "INDUS"
+    },
+    {
+        "Ticker": "ISRA",
+        "Name": "Isra Design",
+        "Sub-Sector": "Interior Design",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "ITC",
+        "Name": "Intouch Holdings",
+        "Sub-Sector": "Telecommunications",
+        "Sector": "TECH"
+    },
+    {
+        "Ticker": "ITALTHAI",
+        "Name": "Italian-Thai Development",
+        "Sub-Sector": "Construction & Infrastructure",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "ITD",
+        "Name": "Italian-Thai Development",
+        "Sub-Sector": "Construction & Infrastructure",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "IVL",
+        "Name": "Indorama Ventures",
+        "Sub-Sector": "Petrochemicals",
+        "Sector": "INDUS"
+    },
+    {
+        "Ticker": "J",
+        "Name": "Jasmine International",
+        "Sub-Sector": "Telecommunications",
+        "Sector": "TECH"
+    },
+    {
+        "Ticker": "JADE",
+        "Name": "Jade Prosperity",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "JAS",
+        "Name": "Jasmine Broadband Internet",
+        "Sub-Sector": "Telecommunications",
+        "Sector": "TECH"
+    },
+    {
+        "Ticker": "JASIF",
+        "Name": "Jasmine Broadband Internet Infrastructure Fund",
+        "Sub-Sector": "Infrastructure Fund",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "JCKH",
+        "Name": "Jutha Chemical",
+        "Sub-Sector": "Chemicals",
+        "Sector": "INDUS"
+    },
+    {
+        "Ticker": "JCK",
+        "Name": "Jutha Chemical",
+        "Sub-Sector": "Chemicals",
+        "Sector": "INDUS"
+    },
+    {
+        "Ticker": "JCT",
+        "Name": "JC Transcontinental",
+        "Sub-Sector": "Logistics",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "JKN",
+        "Name": "JKN Global Group",
+        "Sub-Sector": "Media & Entertainment",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "JMT",
+        "Name": "JMT Network Services",
+        "Sub-Sector": "Debt Collection",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "JMART",
+        "Name": "Jay Mart",
+        "Sub-Sector": "Mobile Phone Retail",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "JSP",
+        "Name": "Jaspal",
+        "Sub-Sector": "Fashion Retail",
+        "Sector": "CONSUMP"
+    },
+    {
+        "Ticker": "JTS",
+        "Name": "Jay Tana Sinsap",
+        "Sub-Sector": "Consumer Finance",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "JULA",
+        "Name": "Jutha Maritime",
+        "Sub-Sector": "Shipping",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "KASET",
+        "Name": "Kasetsart",
+        "Sub-Sector": "Agriculture",
+        "Sector": "AGRO"
+    },
+    {
+        "Ticker": "KBANK",
+        "Name": "Kasikornbank",
+        "Sub-Sector": "Commercial Banks",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "KC",
+        "Name": "Khon Kaen Corporation",
+        "Sub-Sector": "Sugar & Ethanol",
+        "Sector": "AGRO"
+    },
+    {
+        "Ticker": "KCAR",
+        "Name": "Kasikorn Leasing",
+        "Sub-Sector": "Auto Leasing",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "KCE",
+        "Name": "KCE Electronics",
+        "Sub-Sector": "PCB Manufacturing",
+        "Sector": "TECH"
+    },
+    {
+        "Ticker": "KCON",
+        "Name": "K Construction",
+        "Sub-Sector": "Construction",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "KGI",
+        "Name": "KGI Securities Thailand",
+        "Sub-Sector": "Securities",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "KIAT",
+        "Name": "Kiattana Transport",
+        "Sub-Sector": "Logistics",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "KKC",
+        "Name": "Khon Kaen Kalasin",
+        "Sub-Sector": "Sugar",
+        "Sector": "AGRO"
+    },
+    {
+        "Ticker": "KKP",
+        "Name": "Kiatnakin Phatra Bank",
+        "Sub-Sector": "Commercial Banks",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "KKPf",
+        "Name": "Kiatnakin Phatra Financial Group",
+        "Sub-Sector": "Financial Services",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "GLORY",
+        "Name": "Glory Property",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "KSL",
+        "Name": "Khonburi Sugar",
+        "Sub-Sector": "Sugar & Bio-Energy",
+        "Sector": "AGRO"
+    },
+    {
+        "Ticker": "KTC",
+        "Name": "Krungthai Card",
+        "Sub-Sector": "Credit Card Issuer",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "KTB",
+        "Name": "Krung Thai Bank",
+        "Sub-Sector": "Commercial Banks",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "KTBST",
+        "Name": "Krungthai Business Solutions",
+        "Sub-Sector": "IT Services",
+        "Sector": "TECH"
+    },
+    {
+        "Ticker": "KTC",
+        "Name": "Krungthai Card",
+        "Sub-Sector": "Credit Cards",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "KWC",
+        "Name": "Khon Kaen Warehouse",
+        "Sub-Sector": "Warehousing",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "KWG",
+        "Name": "Kingwood Group",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "KWI",
+        "Name": "Krungthai Wine",
+        "Sub-Sector": "Beverages",
+        "Sector": "AGRO"
+    },
+    {
+        "Ticker": "L&E",
+        "Name": "L&E Logistics",
+        "Sub-Sector": "Logistics",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "LALIN",
+        "Name": "Lalin Property",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "LANNA",
+        "Name": "Lanna Resources",
+        "Sub-Sector": "Coal Mining",
+        "Sector": "RESOURC"
+    },
+    {
+        "Ticker": "LDC",
+        "Name": "Land Development Corporation",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "LEO",
+        "Name": "Leo Global Logistics",
+        "Sub-Sector": "Logistics",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "LH",
+        "Name": "Land and Houses",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "LHFG",
+        "Name": "Land and Houses Financial Group",
+        "Sub-Sector": "Financial Services",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "LHK",
+        "Name": "Land and Houses Bank",
+        "Sub-Sector": "Commercial Banks",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "LHSC",
+        "Name": "Land and Houses Securities",
+        "Sub-Sector": "Securities",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "LIT",
+        "Name": "Loxley Industrial Park",
+        "Sub-Sector": "Industrial Estate",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "LPN",
+        "Name": "LPN Development",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "LRH",
+        "Name": "Laguna Resorts & Hotels",
+        "Sub-Sector": "Hotels & Resorts",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "LST",
+        "Name": "Livestock and Aquaculture Technology",
+        "Sub-Sector": "Agriculture",
+        "Sector": "AGRO"
+    },
+    {
+        "Ticker": "LTF",
+        "Name": "Lanna Resources",
+        "Sub-Sector": "Coal Mining",
+        "Sector": "RESOURC"
+    },
+    {
+        "Ticker": "M",
+        "Name": "Malee Group",
+        "Sub-Sector": "Beverages",
+        "Sector": "AGRO"
+    },
+    {
+        "Ticker": "M-CHAI",
+        "Name": "M-Chai",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "MACO",
+        "Name": "Maco",
+        "Sub-Sector": "Outdoor Advertising",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "MAJOR",
+        "Name": "Major Cineplex Group",
+        "Sub-Sector": "Cinema & Entertainment",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "MAKRO",
+        "Name": "Siam Makro",
+        "Sub-Sector": "Cash & Carry Wholesale",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "MANRIN",
+        "Name": "Maneerinth Development",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "MATCH",
+        "Name": "Match Hospitality",
+        "Sub-Sector": "Hospitality Services",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "MBKET",
+        "Name": "Merchant Partners Securities",
+        "Sub-Sector": "Securities",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "MBK",
+        "Name": "MBK",
+        "Sub-Sector": "Shopping Malls",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "MC",
+        "Name": "MC Group",
+        "Sub-Sector": "Automotive Distribution",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "MCOT",
+        "Name": "MCOT",
+        "Sub-Sector": "Broadcasting & Media",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "MCS",
+        "Name": "MCS Steel",
+        "Sub-Sector": "Steel Products",
+        "Sector": "INDUS"
+    },
+    {
+        "Ticker": "MDX",
+        "Name": "Medical Excellence",
+        "Sub-Sector": "Healthcare Services",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "MEGA",
+        "Name": "Mega Home Center",
+        "Sub-Sector": "Home Improvement Retail",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "METCO",
+        "Name": "Metro",
+        "Sub-Sector": "Retail",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "MFEC",
+        "Name": "MFEC",
+        "Sub-Sector": "IT Services",
+        "Sector": "TECH"
+    },
+    {
+        "Ticker": "MFC",
+        "Name": "MFC",
+        "Sub-Sector": "Asset Management",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "MGT",
+        "Name": "Muang Thai Life Assurance",
+        "Sub-Sector": "Life Insurance",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "MILL",
+        "Name": "Millcon Steel",
+        "Sub-Sector": "Steel Products",
+        "Sector": "INDUS"
+    },
+    {
+        "Ticker": "MIMI",
+        "Name": "Mimi Fashion",
+        "Sub-Sector": "Fashion Retail",
+        "Sector": "CONSUMP"
+    },
+    {
+        "Ticker": "MINT",
+        "Name": "Minor International",
+        "Sub-Sector": "Hotels & Restaurants",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "MJD",
+        "Name": "Modern Development",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "MK",
+        "Name": "MK Restaurant Group",
+        "Sub-Sector": "Restaurants",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "ML",
+        "Name": "Malee Group",
+        "Sub-Sector": "Beverages",
+        "Sector": "AGRO"
+    },
+    {
+        "Ticker": "MOONG",
+        "Name": "Moong Pattana International",
+        "Sub-Sector": "Fashion Retail",
+        "Sector": "CONSUMP"
+    },
+    {
+        "Ticker": "MONO",
+        "Name": "Mono Technology",
+        "Sub-Sector": "Digital Content & Media",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "MOSHI",
+        "Name": "Moshi Moshi Retail",
+        "Sub-Sector": "Fashion Retail",
+        "Sector": "CONSUMP"
+    },
+    {
+        "Ticker": "MPIC",
+        "Name": "MP Industrial Property",
+        "Sub-Sector": "Industrial Estate",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "MTC",
+        "Name": "Muangthai Capital",
+        "Sub-Sector": "Consumer Finance - Hire Purchase",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "MTI",
+        "Name": "Muang Thai Life Assurance",
+        "Sub-Sector": "Life Insurance",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "MURE",
+        "Name": "Muangthong Real Estate",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "MUD",
+        "Name": "Muang Thai Development",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "NACCO",
+        "Name": "National Assets",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "NATION",
+        "Name": "Nation Broadcasting Corporation",
+        "Sub-Sector": "Media & Broadcasting",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "NNCL",
+        "Name": "NNC Logistics",
+        "Sub-Sector": "Logistics",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "NCAP",
+        "Name": "NFS Capital",
+        "Sub-Sector": "Consumer Finance",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "NCH",
+        "Name": "NC Housing",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "NCL",
+        "Name": "NC Logistics",
+        "Sub-Sector": "Logistics",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "NCP",
+        "Name": "North Pole",
+        "Sub-Sector": "Cold Storage",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "NEP",
+        "Name": "Nation Egat Power",
+        "Sub-Sector": "Power Generation",
+        "Sector": "RESOURC"
+    },
+    {
+        "Ticker": "NEW",
+        "Name": "New Asset",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "NEWS",
+        "Name": "News Network Corporation",
+        "Sub-Sector": "Media & Publishing",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "NFC",
+        "Name": "NFC Fertilizer",
+        "Sub-Sector": "Fertilizer",
+        "Sector": "AGRO"
+    },
+    {
+        "Ticker": "NHL",
+        "Name": "NH Foods",
+        "Sub-Sector": "Meat Products",
+        "Sector": "AGRO"
+    },
+    {
+        "Ticker": "NINE",
+        "Name": "Nine Entertainment",
+        "Sub-Sector": "Entertainment",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "NKI",
+        "Name": "Nok Airlines",
+        "Sub-Sector": "Airlines",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "NOBLE",
+        "Name": "Noble Development",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "NOK",
+        "Name": "Nok Airlines",
+        "Sub-Sector": "Airlines",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "NORTHWEST",
+        "Name": "Northwest Investment",
+        "Sub-Sector": "Investment",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "NPK",
+        "Name": "NPK Fertilizer",
+        "Sub-Sector": "Fertilizer",
+        "Sector": "AGRO"
+    },
+    {
+        "Ticker": "NRF",
+        "Name": "NR Instant Produce",
+        "Sub-Sector": "Food Processing",
+        "Sector": "AGRO"
+    },
+    {
+        "Ticker": "NSI",
+        "Name": "NS Intergroup",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "NSL",
+        "Name": "NS Logistics",
+        "Sub-Sector": "Logistics",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "NTV",
+        "Name": "Nation TV",
+        "Sub-Sector": "Broadcasting",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "NU",
+        "Name": "Nu Ventures",
+        "Sub-Sector": "Trading",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "NVD",
+        "Name": "Nouveau Development",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "NWR",
+        "Name": "Natural Wood Resources",
+        "Sub-Sector": "Wood Products",
+        "Sector": "CONSUMP"
+    },
+    {
+        "Ticker": "OCC",
+        "Name": "Ocean Commerce",
+        "Sub-Sector": "Trading",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "OGC",
+        "Name": "Osotspa",
+        "Sub-Sector": "Personal Care",
+        "Sector": "CONSUMP"
+    },
+    {
+        "Ticker": "OHTL",
+        "Name": "OHTL",
+        "Sub-Sector": "Hotels",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "OISHI",
+        "Name": "Oishi Group",
+        "Sub-Sector": "Restaurants & Beverages",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "ORI",
+        "Name": "Origin Property",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "ORIGIN",
+        "Name": "Origin Property",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "OSP",
+        "Name": "Osotspa",
+        "Sub-Sector": "Consumer Products",
+        "Sector": "CONSUMP"
+    },
+    {
+        "Ticker": "OTO",
+        "Name": "Oto Leasing",
+        "Sub-Sector": "Auto Leasing",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "PAE",
+        "Name": "Pacific Engineering",
+        "Sub-Sector": "Engineering Services",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "PAP",
+        "Name": "Prinsiri",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "PEACE",
+        "Name": "Peace Property",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "PF",
+        "Name": "Prime Forest",
+        "Sub-Sector": "Wood Products",
+        "Sector": "CONSUMP"
+    },
+    {
+        "Ticker": "PG",
+        "Name": "Passion Group",
+        "Sub-Sector": "Fashion Retail",
+        "Sector": "CONSUMP"
+    },
+    {
+        "Ticker": "PIN",
+        "Name": "Pinmark",
+        "Sub-Sector": "Fashion Retail",
+        "Sector": "CONSUMP"
+    },
+    {
+        "Ticker": "PJW",
+        "Name": "PJW Group",
+        "Sub-Sector": "Trading",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "PK",
+        "Name": "Patkol",
+        "Sub-Sector": "Food Processing",
+        "Sector": "AGRO"
+    },
+    {
+        "Ticker": "PLANB",
+        "Name": "Plan B Media",
+        "Sub-Sector": "Advertising",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "PLANET",
+        "Name": "Planet Communications Asia",
+        "Sub-Sector": "Telecommunications",
+        "Sector": "TECH"
+    },
+    {
+        "Ticker": "PLAT",
+        "Name": "Platinum Group",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "PLE",
+        "Name": "Plengkiat",
+        "Sub-Sector": "Food Distribution",
+        "Sector": "AGRO"
+    },
+    {
+        "Ticker": "PM",
+        "Name": "Premier Marketing",
+        "Sub-Sector": "Marketing Services",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "PMTA",
+        "Name": "Phuket Marsh",
+        "Sub-Sector": "Insurance Broker",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "PO",
+        "Name": "PO Audio",
+        "Sub-Sector": "Electronics",
+        "Sector": "TECH"
+    },
+    {
+        "Ticker": "POLAR",
+        "Name": "Polar",
+        "Sub-Sector": "Cold Storage",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "PORT",
+        "Name": "Port Authority of Thailand",
+        "Sub-Sector": "Port Services",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "POST",
+        "Name": "Post Publishing",
+        "Sub-Sector": "Media & Publishing",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "PP",
+        "Name": "Praram",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "PPP",
+        "Name": "Property Perfect",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "PPM",
+        "Name": "Poly Plus",
+        "Sub-Sector": "Plastics",
+        "Sector": "INDUS"
+    },
+    {
+        "Ticker": "PPPM",
+        "Name": "Polyplex Thailand",
+        "Sub-Sector": "Packaging",
+        "Sector": "INDUS"
+    },
+    {
+        "Ticker": "PPS",
+        "Name": "Pruksa Property Services",
+        "Sub-Sector": "Property Services",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "PR9",
+        "Name": "PR9",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "PRC",
+        "Name": "Prinsiri",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "PRI",
+        "Name": "Prinsiri",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "PRIME",
+        "Name": "Prime Road Power",
+        "Sub-Sector": "Power Generation",
+        "Sector": "RESOURC"
+    },
+    {
+        "Ticker": "PRINC",
+        "Name": "Principal Capital",
+        "Sub-Sector": "Asset Management",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "PRM",
+        "Name": "Precious Shipping",
+        "Sub-Sector": "Dry Bulk Shipping",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "PRO",
+        "Name": "Professional Waste",
+        "Sub-Sector": "Waste Management",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "PROS",
+        "Name": "Prosperity Development",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "PROUD",
+        "Name": "Proud Estate",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "PRS",
+        "Name": "Pranda Jewelry",
+        "Sub-Sector": "Jewelry",
+        "Sector": "CONSUMP"
+    },
+    {
+        "Ticker": "PRUKSA",
+        "Name": "Pruksa Holding",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "PS",
+        "Name": "Pruksa Holding",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "PSH",
+        "Name": "Prinsiri",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "PSL",
+        "Name": "Precious Shipping",
+        "Sub-Sector": "Dry Bulk Shipping",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "PSP",
+        "Name": "PS Patana",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "PST",
+        "Name": "Phol Siam Tong",
+        "Sub-Sector": "Food Processing",
+        "Sector": "AGRO"
+    },
+    {
+        "Ticker": "PT",
+        "Name": "PTT",
+        "Sub-Sector": "Oil & Gas / Integrated",
+        "Sector": "RESOURC"
+    },
+    {
+        "Ticker": "PTG",
+        "Name": "PTG Energy",
+        "Sub-Sector": "Oil & Gas Marketing",
+        "Sector": "RESOURC"
+    },
+    {
+        "Ticker": "PTL",
+        "Name": "Precious Transport and Logistics",
+        "Sub-Sector": "Logistics",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "PTT",
+        "Name": "PTT",
+        "Sub-Sector": "Oil & Gas / Integrated",
+        "Sector": "RESOURC"
+    },
+    {
+        "Ticker": "PTTEP",
+        "Name": "PTT Exploration and Production",
+        "Sub-Sector": "Upstream Oil & Gas",
+        "Sector": "RESOURC"
+    },
+    {
+        "Ticker": "PTTGC",
+        "Name": "PTT Global Chemical",
+        "Sub-Sector": "Petrochemicals",
+        "Sector": "INDUS"
+    },
+    {
+        "Ticker": "PVD",
+        "Name": "Polyplex Thailand",
+        "Sub-Sector": "Packaging",
+        "Sector": "INDUS"
+    },
+    {
+        "Ticker": "Q-CON",
+        "Name": "Quality Construction Products",
+        "Sub-Sector": "Construction Materials",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "QH",
+        "Name": "Quality Houses",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "QTC",
+        "Name": "Quality Thai Clothing",
+        "Sub-Sector": "Garments",
+        "Sector": "CONSUMP"
+    },
+    {
+        "Ticker": "RABBIT",
+        "Name": "Rabbit Digital Group",
+        "Sub-Sector": "Digital Services",
+        "Sector": "TECH"
+    },
+    {
+        "Ticker": "RAM",
+        "Name": "Ramkhamhaeng Hospital",
+        "Sub-Sector": "Healthcare Services",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "RATCH",
+        "Name": "Ratchaburi Electricity Generating",
+        "Sub-Sector": "Power Generation",
+        "Sector": "RESOURC"
+    },
+    {
+        "Ticker": "RBF",
+        "Name": "RBF",
+        "Sub-Sector": "Food Processing",
+        "Sector": "AGRO"
+    },
+    {
+        "Ticker": "RCL",
+        "Name": "Regional Container Lines",
+        "Sub-Sector": "Container Shipping",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "RCI",
+        "Name": "Retail Corporation of India",
+        "Sub-Sector": "Retail",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "RICHY",
+        "Name": "Rich Asia Corporation",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "RJH",
+        "Name": "Rajavithi Hospital",
+        "Sub-Sector": "Healthcare Services",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "RML",
+        "Name": "Raimon Land",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "ROCK",
+        "Name": "Rock Holdings",
+        "Sub-Sector": "Entertainment",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "ROH",
+        "Name": "Royal Orchid Hotels",
+        "Sub-Sector": "Hotels",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "ROJNA",
+        "Name": "Rojana Industrial Park",
+        "Sub-Sector": "Industrial Estate",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "RS",
+        "Name": "RS",
+        "Sub-Sector": "Media & Entertainment",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "RSP",
+        "Name": "RS",
+        "Sub-Sector": "Media & Entertainment",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "SABINA",
+        "Name": "Sabina",
+        "Sub-Sector": "Intimate Apparel",
+        "Sector": "CONSUMP"
+    },
+    {
+        "Ticker": "SALEE",
+        "Name": "Salee Color",
+        "Sub-Sector": "Paints",
+        "Sector": "INDUS"
+    },
+    {
+        "Ticker": "SAM",
+        "Name": "Sammakorn",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "SAMART",
+        "Name": "Samart Corporation",
+        "Sub-Sector": "Technology Services",
+        "Sector": "TECH"
+    },
+    {
+        "Ticker": "SAMTEL",
+        "Name": "Samart Telcoms",
+        "Sub-Sector": "Telecommunications Equipment",
+        "Sector": "TECH"
+    },
+    {
+        "Ticker": "SANKO",
+        "Name": "Sanko Diecasting Thailand",
+        "Sub-Sector": "Auto Parts",
+        "Sector": "INDUS"
+    },
+    {
+        "Ticker": "SAP",
+        "Name": "Saha Pathanapibul",
+        "Sub-Sector": "Food Processing",
+        "Sector": "AGRO"
+    },
+    {
+        "Ticker": "SAPPE",
+        "Name": "Sappe",
+        "Sub-Sector": "Functional Beverages",
+        "Sector": "AGRO"
+    },
+    {
+        "Ticker": "SARAN",
+        "Name": "Saran Industrial",
+        "Sub-Sector": "Industrial Estate",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "SATO",
+        "Name": "Sato",
+        "Sub-Sector": "Building Materials",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "SAT",
+        "Name": "Somboon Advance Technology",
+        "Sub-Sector": "Auto Parts",
+        "Sector": "INDUS"
+    },
+    {
+        "Ticker": "SAUCE",
+        "Name": "Sauce & Seasoning",
+        "Sub-Sector": "Food Processing",
+        "Sector": "AGRO"
+    },
+    {
+        "Ticker": "SAWAD",
+        "Name": "Srisawad Corporation",
+        "Sub-Sector": "Consumer Finance",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "SAWANG",
+        "Name": "Sawang",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "SC",
+        "Name": "SC Asset Corporation",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "SCB",
+        "Name": "Siam Commercial Bank",
+        "Sub-Sector": "Commercial Banks",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "SCBX",
+        "Name": "Siam Commercial Bank (SCBX)",
+        "Sub-Sector": "Financial Holding",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "SCC",
+        "Name": "Siam City Cement",
+        "Sub-Sector": "Cement",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "SCG",
+        "Name": "Siam Cement Group",
+        "Sub-Sector": "Building Materials / Integrated",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "SCGP",
+        "Name": "SCG Packaging",
+        "Sub-Sector": "Packaging",
+        "Sector": "INDUS"
+    },
+    {
+        "Ticker": "SCM",
+        "Name": "SCM Polymer",
+        "Sub-Sector": "Plastics",
+        "Sector": "INDUS"
+    },
+    {
+        "Ticker": "SCN",
+        "Name": "Scan Inter",
+        "Sub-Sector": "Trading",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "SDC",
+        "Name": "Supalai Development",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "SE",
+        "Name": "Sermsuk",
+        "Sub-Sector": "Beverages",
+        "Sector": "AGRO"
+    },
+    {
+        "Ticker": "SEAFCO",
+        "Name": "SE Asian Fiber Optics",
+        "Sub-Sector": "Telecommunications Infrastructure",
+        "Sector": "TECH"
+    },
+    {
+        "Ticker": "SEAOIL",
+        "Name": "Seaoil",
+        "Sub-Sector": "Oil & Gas Marketing",
+        "Sector": "RESOURC"
+    },
+    {
+        "Ticker": "SE-ED",
+        "Name": "SE-ED Education",
+        "Sub-Sector": "Publishing & Retail",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "SECURE",
+        "Name": "Secure Data",
+        "Sub-Sector": "IT Services",
+        "Sector": "TECH"
+    },
+    {
+        "Ticker": "SENA",
+        "Name": "Sena Development",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "SENX",
+        "Name": "Senex",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "SESCO",
+        "Name": "Sermsang Power Corporation",
+        "Sub-Sector": "Renewable Energy",
+        "Sector": "RESOURC"
+    },
+    {
+        "Ticker": "SF",
+        "Name": "SF Cinema City",
+        "Sub-Sector": "Cinema",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "SFP",
+        "Name": "Saha Farms",
+        "Sub-Sector": "Agriculture",
+        "Sector": "AGRO"
+    },
+    {
+        "Ticker": "SGF",
+        "Name": "SG Food",
+        "Sub-Sector": "Food Processing",
+        "Sector": "AGRO"
+    },
+    {
+        "Ticker": "SGP",
+        "Name": "SG Property",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "SHANG",
+        "Name": "Shangri-La Hotel",
+        "Sub-Sector": "Hotels",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "SHR",
+        "Name": "Singha Estate",
+        "Sub-Sector": "Property Development / Hotels",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "SINGER",
+        "Name": "Singer Thailand",
+        "Sub-Sector": "Consumer Finance / Retail",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "SIRI",
+        "Name": "Siri Ventures",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "SITHAI",
+        "Name": "SiThai Ceramics",
+        "Sub-Sector": "Ceramics",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "SKE",
+        "Name": "SK Engineering & Construction",
+        "Sub-Sector": "Construction",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "SKN",
+        "Name": "Sermsang Power (SKN)",
+        "Sub-Sector": "Renewable Energy",
+        "Sector": "RESOURC"
+    },
+    {
+        "Ticker": "SKR",
+        "Name": "Synnex Korea",
+        "Sub-Sector": "IT Distribution",
+        "Sector": "TECH"
+    },
+    {
+        "Ticker": "SKY",
+        "Name": "Sky ICT",
+        "Sub-Sector": "IT Services",
+        "Sector": "TECH"
+    },
+    {
+        "Ticker": "SLP",
+        "Name": "Sri Lanka Petroleum",
+        "Sub-Sector": "Oil & Gas",
+        "Sector": "RESOURC"
+    },
+    {
+        "Ticker": "SM",
+        "Name": "Sahamitr Pressure Container",
+        "Sub-Sector": "Industrial Products",
+        "Sector": "INDUS"
+    },
+    {
+        "Ticker": "SMIT",
+        "Name": "Smile IT",
+        "Sub-Sector": "IT Services",
+        "Sector": "TECH"
+    },
+    {
+        "Ticker": "SMK",
+        "Name": "Muang Thai Insurance",
+        "Sub-Sector": "Non-Life Insurance",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "SMT",
+        "Name": "SMT",
+        "Sub-Sector": "Auto Parts",
+        "Sector": "INDUS"
+    },
+    {
+        "Ticker": "SMPC",
+        "Name": "Siam Yamato Steel",
+        "Sub-Sector": "Steel Products",
+        "Sector": "INDUS"
+    },
+    {
+        "Ticker": "SNP",
+        "Name": "Sino Pacific",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "SO",
+        "Name": "So Good Food",
+        "Sub-Sector": "Food Processing",
+        "Sector": "AGRO"
+    },
+    {
+        "Ticker": "SOLAR",
+        "Name": "Solar Power",
+        "Sub-Sector": "Renewable Energy",
+        "Sector": "RESOURC"
+    },
+    {
+        "Ticker": "SONIC",
+        "Name": "Sonic Technology Solutions",
+        "Sub-Sector": "IT Services",
+        "Sector": "TECH"
+    },
+    {
+        "Ticker": "SPA",
+        "Name": "Spa & Resort Properties",
+        "Sub-Sector": "Hotels & Resorts",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "SPALI",
+        "Name": "Supalai",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "SPC",
+        "Name": "Siam Poly Pipe",
+        "Sub-Sector": "Building Materials",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "SPCG",
+        "Name": "SP Group",
+        "Sub-Sector": "Solar Power",
+        "Sector": "RESOURC"
+    },
+    {
+        "Ticker": "SPCT",
+        "Name": "Supalai City Resort",
+        "Sub-Sector": "Property Development",
+        "Sector": "PROPCON"
+    },
+    {
+        "Ticker": "SPI",
+        "Name": "Saha Pathanapibul Industrial",
+        "Sub-Sector": "Industrial Products",
+        "Sector": "INDUS"
+    },
+    {
+        "Ticker": "SPKT",
+        "Name": "Sahaphatana Inter-holding",
+        "Sub-Sector": "Holding Company",
+        "Sector": "FINCIAL"
+    },
+    {
+        "Ticker": "SPPT",
+        "Name": "Supply Point",
+        "Sub-Sector": "Trading",
+        "Sector": "SERVICE"
+    },
+    {
+        "Ticker": "SPRC",
+        "Name": "Star Petroleum Refining",
+        "Sub-Sector": "Oil Refining",
+        "Sector": "RESOURC"
+    },
+    {
+        "Ticker": "SPS",
+        "Name": "Siam Global House",
+        "Sub-Sector": "Home Improvement Retail",
+        "Sector": "SERVICE"
+    }
+]

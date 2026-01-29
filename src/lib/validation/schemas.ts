@@ -7,6 +7,40 @@
 import { z } from 'zod'
 
 // ============================================================================
+// STOCK API SCHEMAS
+// ============================================================================
+
+/**
+ * Layer Score Schema
+ * Supports both 3-layer (backwards compatible) and 4-layer systems
+ */
+export const LayerScoreSchema = z
+  .object({
+    quality: z.number().min(0).max(100),
+    valuation: z.number().min(0).max(100),
+    timing: z.number().min(0).max(100).optional(),
+    growth: z.number().min(0).max(100).optional(),
+    technical: z.number().min(0).max(100).optional(),
+    catalyst: z.number().min(0).max(100).optional(),
+  })
+  .refine(
+    (data) => {
+      // Must have at least timing (3-layer) OR growth/technical/catalyst (4-layer)
+      return data.timing !== undefined || data.growth !== undefined || data.technical !== undefined || data.catalyst !== undefined
+    },
+    { message: 'LayerScore must have at least timing or growth/technical/catalyst' }
+  )
+
+/**
+ * Decision Badge Schema
+ */
+export const DecisionBadgeSchema = z.object({
+  label: z.string(),
+  score: z.number().min(0).max(100),
+  type: z.enum(['bullish', 'bearish', 'neutral']),
+})
+
+// ============================================================================
 // MARKET OVERVIEW SCHEMAS
 // ============================================================================
 
@@ -247,6 +281,8 @@ export const MetaSchema = z.object({
 // ============================================================================
 
 export type StockSymbolInput = z.infer<typeof StockSymbolSchema>
+export type ValidatedLayerScore = z.infer<typeof LayerScoreSchema>
+export type ValidatedDecisionBadge = z.infer<typeof DecisionBadgeSchema>
 export type ValidatedMarketOverviewData = z.infer<typeof MarketOverviewDataSchema>
 export type ValidatedMarketOverviewEntry = z.infer<typeof MarketOverviewEntrySchema>
 export type ValidatedInvestorTypeRow = z.infer<typeof InvestorTypeRowSchema>
@@ -270,6 +306,20 @@ export type ValidatedTopRankings = z.infer<typeof TopRankingsSchema>
  */
 export function sanitizeStockSymbol(input: string): string {
   return StockSymbolSchema.parse(input)
+}
+
+/**
+ * Validate layer score
+ */
+export function validateLayerScore(data: unknown): ValidatedLayerScore {
+  return LayerScoreSchema.parse(data)
+}
+
+/**
+ * Validate decision badge
+ */
+export function validateDecisionBadge(data: unknown): ValidatedDecisionBadge {
+  return DecisionBadgeSchema.parse(data)
 }
 
 /**

@@ -1,0 +1,515 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://fonpick.com/schemas/thailand-stocks.json",
+  "title": "Thailand Stock Universe Schema",
+  "description": "Schema for Thai listed companies with screening and analysis capabilities for stock recommendation system",
+  "type": "object",
+  "required": ["metadata", "industryGroups", "stocks"],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "description": "Dataset metadata information",
+      "required": ["lastUpdated", "totalStocks", "setIndex"],
+      "properties": {
+        "lastUpdated": {
+          "type": "string",
+          "format": "date",
+          "description": "Last date when data was updated"
+        },
+        "totalStocks": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Total number of stocks in the dataset"
+        },
+        "setIndex": {
+          "type": "number",
+          "description": "Current SET Index value"
+        },
+        "market": {
+          "type": "string",
+          "enum": ["SET", "mai", "both"],
+          "description": "Market coverage"
+        }
+      }
+    },
+    "industryGroups": {
+      "type": "array",
+      "description": "Industry group classifications with sub-sectors and screening criteria",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "code", "subSectors"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for industry group (e.g., 'financials')"
+          },
+          "name": {
+            "type": "string",
+            "description": "Industry group name in English"
+          },
+          "nameTh": {
+            "type": "string",
+            "description": "Industry group name in Thai"
+          },
+          "code": {
+            "type": "string",
+            "description": "Industry group code (e.g., 'FINCIAL')"
+          },
+          "stockCount": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Number of stocks in this industry group"
+          },
+          "marketCapPercentage": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100,
+            "description": "Percentage of total market cap"
+          },
+          "subSectors": {
+            "type": "array",
+            "description": "Sub-sectors within this industry group",
+            "items": {
+              "type": "object",
+              "required": ["id", "name"],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "Unique identifier for sub-sector"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Sub-sector name"
+                },
+                "nameTh": {
+                  "type": "string",
+                  "description": "Sub-sector name in Thai"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Description of the sub-sector"
+                },
+                "screeningCriteria": {
+                  "type": "object",
+                  "description": "Screening criteria specific to this sub-sector",
+                  "properties": {
+                    "peRange": {
+                      "type": "string",
+                      "description": "Acceptable P/E ratio range (e.g., '10-20x')"
+                    },
+                    "pbvRange": {
+                      "type": "string",
+                      "description": "Acceptable P/BV ratio range"
+                    },
+                    "roeRange": {
+                      "type": "string",
+                      "description": "Acceptable ROE range"
+                    },
+                    "dividendYieldMin": {
+                      "type": "number",
+                      "minimum": 0,
+                      "description": "Minimum acceptable dividend yield"
+                    },
+                    "debtToEquityMax": {
+                      "type": "number",
+                      "minimum": 0,
+                      "description": "Maximum acceptable debt-to-equity ratio"
+                    },
+                    "revenueGrowthMin": {
+                      "type": "number",
+                      "description": "Minimum acceptable revenue growth rate"
+                    },
+                    "specificKPIs": {
+                      "type": "array",
+                      "description": "Sector-specific KPIs with conditions",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string",
+                            "description": "KPI name"
+                          },
+                          "condition": {
+                            "type": "string",
+                            "description": "Acceptable condition (e.g., '< 3%')"
+                          },
+                          "description": {
+                            "type": "string",
+                            "description": "KPI description"
+                          }
+                        }
+                      }
+                    },
+                    "operationalKPIs": {
+                      "type": "array",
+                      "description": "Operational KPIs to monitor",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "catalysts": {
+                      "type": "array",
+                      "description": "Potential catalysts for the sector",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "stocks": {
+      "type": "array",
+      "description": "List of listed companies",
+      "items": {
+        "type": "object",
+        "required": ["ticker", "name", "industryGroupId", "subSectorId", "marketCap", "liquidity"],
+        "properties": {
+          "ticker": {
+            "type": "string",
+            "pattern": "^[A-Z]+$",
+            "description": "Stock symbol"
+          },
+          "name": {
+            "type": "string",
+            "description": "Company name"
+          },
+          "nameTh": {
+            "type": "string",
+            "description": "Company name in Thai"
+          },
+          "market": {
+            "type": "string",
+            "enum": ["SET", "mai"],
+            "description": "Market where stock is listed"
+          },
+          "industryGroupId": {
+            "type": "string",
+            "description": "Reference to industry group ID"
+          },
+          "subSectorId": {
+            "type": "string",
+            "description": "Reference to sub-sector ID"
+          },
+          "marketCap": {
+            "type": "object",
+            "required": ["tier", "tierSymbol"],
+            "properties": {
+              "tier": {
+                "type": "string",
+                "enum": ["mega", "large", "mid", "small"],
+                "description": "Market cap tier"
+              },
+              "tierSymbol": {
+                "type": "string",
+                "enum": ["⭐⭐⭐", "⭐⭐", "⭐", "•"],
+                "description": "Visual symbol for market cap tier"
+              },
+              "amountBillionTHB": {
+                "type": "number",
+                "minimum": 0,
+                "description": "Market cap amount in billion THB"
+              }
+            }
+          },
+          "liquidity": {
+            "type": "object",
+            "required": ["level", "levelSymbol"],
+            "properties": {
+              "level": {
+                "type": "string",
+                "enum": ["very_high", "high", "medium", "low"],
+                "description": "Liquidity level"
+              },
+              "levelSymbol": {
+                "type": "string",
+                "enum": ["🔥🔥🔥", "🔥🔥", "🔥", "•"],
+                "description": "Visual symbol for liquidity level"
+              },
+              "dailyVolumeMillionTHB": {
+                "type": "number",
+                "minimum": 0,
+                "description": "Average daily trading volume in million THB"
+              }
+            }
+          },
+          "valuations": {
+            "type": "object",
+            "properties": {
+              "pe": {
+                "type": "number",
+                "minimum": 0,
+                "description": "P/E ratio"
+              },
+              "peYear": {
+                "type": "string",
+                "description": "P/E year (e.g., '2026F' for forward)"
+              },
+              "pbv": {
+                "type": "number",
+                "minimum": 0,
+                "description": "P/BV ratio"
+              },
+              "ev": {
+                "type": "number",
+                "minimum": 0,
+                "description": "EV/EBITDA ratio"
+              },
+              "ps": {
+                "type": "number",
+                "minimum": 0,
+                "description": "P/S ratio"
+              }
+            }
+          },
+          "dividend": {
+            "type": "object",
+            "properties": {
+              "yield": {
+                "type": "number",
+                "minimum": 0,
+                "description": "Dividend yield percentage"
+              },
+              "payoutRatio": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 100,
+                "description": "Dividend payout ratio percentage"
+              },
+              "dividendPerShare": {
+                "type": "number",
+                "minimum": 0,
+                "description": "Dividend per share in THB"
+              }
+            }
+          },
+          "tags": {
+            "type": "array",
+            "description": "Investment style tags",
+            "items": {
+              "type": "string",
+              "enum": ["high_dividend", "growth", "defensive", "cyclical", "speculative"]
+            }
+          },
+          "tagSymbols": {
+            "type": "array",
+            "description": "Visual tag symbols",
+            "items": {
+              "type": "string",
+              "enum": ["💎", "🚀", "🛡️", "⚡", "⚠️"]
+            }
+          },
+          "financials": {
+            "type": "object",
+            "description": "Key financial metrics",
+            "properties": {
+              "roe": {
+                "type": "number",
+                "description": "Return on Equity percentage"
+              },
+              "roa": {
+                "type": "number",
+                "description": "Return on Assets percentage"
+              },
+              "netProfitMargin": {
+                "type": "number",
+                "description": "Net profit margin percentage"
+              },
+              "debtToEquity": {
+                "type": "number",
+                "minimum": 0,
+                "description": "Debt-to-equity ratio"
+              },
+              "currentRatio": {
+                "type": "number",
+                "minimum": 0,
+                "description": "Current ratio"
+              },
+              "epsGrowth": {
+                "type": "number",
+                "description": "EPS growth percentage"
+              },
+              "revenueGrowth": {
+                "type": "number",
+                "description": "Revenue growth percentage"
+              }
+            }
+          },
+          "metrics": {
+            "type": "object",
+            "description": "Sector-specific metrics",
+            "properties": {
+              "nplRatio": {
+                "type": "number",
+                "description": "NPL ratio (for financials)"
+              },
+              "nim": {
+                "type": "number",
+                "description": "Net Interest Margin (for banks)"
+              },
+              "pcr": {
+                "type": "number",
+                "description": "Provisioning Coverage Ratio (for banks)"
+              },
+              "combinedRatio": {
+                "type": "number",
+                "description": "Combined ratio (for insurance)"
+              },
+              "lossRatio": {
+                "type": "number",
+                "description": "Loss ratio (for insurance)"
+              },
+              "solvencyRatio": {
+                "type": "number",
+                "description": "Solvency ratio (for insurance)"
+              },
+              "persistencyRate": {
+                "type": "number",
+                "description": "Persistency rate (for life insurance)"
+              },
+              "occupancy": {
+                "type": "number",
+                "description": "Occupancy rate (for REITs)"
+              },
+              "ltv": {
+                "type": "number",
+                "description": "Loan-to-Value ratio (for REITs)"
+              },
+              "backlogToRevenue": {
+                "type": "number",
+                "description": "Backlog to revenue ratio (for construction)"
+              },
+              "backlogGrowth": {
+                "type": "number",
+                "description": "Backlog growth percentage (for construction)"
+              }
+            }
+          },
+          "analyst": {
+            "type": "object",
+            "description": "Analyst recommendations",
+            "properties": {
+              "recommendation": {
+                "type": "string",
+                "enum": ["strong_buy", "buy", "hold", "reduce", "sell", "speculative_buy"],
+                "description": "Analyst recommendation"
+              },
+              "targetPrice": {
+                "type": "number",
+                "minimum": 0,
+                "description": "Target price in THB"
+              },
+              "upside": {
+                "type": "number",
+                "description": "Potential upside percentage"
+              }
+            }
+          },
+          "catalysts": {
+            "type": "array",
+            "description": "Upcoming catalysts",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Catalyst name"
+                },
+                "timeline": {
+                  "type": "string",
+                  "description": "Expected timeline"
+                },
+                "impact": {
+                  "type": "string",
+                  "enum": ["positive", "neutral", "negative"],
+                  "description": "Expected impact"
+                }
+              }
+            }
+          },
+          "lastUpdated": {
+            "type": "string",
+            "format": "date",
+            "description": "Last update date for this stock"
+          }
+        }
+      }
+    },
+    "screeningPresets": {
+      "type": "array",
+      "description": "Pre-defined screening strategies",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "strategy", "filters"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique preset identifier"
+          },
+          "name": {
+            "type": "string",
+            "description": "Preset name"
+          },
+          "description": {
+            "type": "string",
+            "description": "Preset description"
+          },
+          "strategy": {
+            "type": "string",
+            "enum": ["value", "growth", "dividend", "momentum", "defensive", "balanced"],
+            "description": "Investment strategy type"
+          },
+          "filters": {
+            "type": "object",
+            "description": "Filter criteria",
+            "properties": {
+              "marketCapMin": {
+                "type": "string",
+                "enum": ["mega", "large", "mid", "small"],
+                "description": "Minimum market cap tier"
+              },
+              "liquidityMin": {
+                "type": "string",
+                "enum": ["very_high", "high", "medium", "low"],
+                "description": "Minimum liquidity level"
+              },
+              "peMax": {
+                "type": "number",
+                "description": "Maximum P/E ratio"
+              },
+              "dividendYieldMin": {
+                "type": "number",
+                "description": "Minimum dividend yield"
+              },
+              "tags": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Required tags"
+              },
+              "industryGroups": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Target industry groups"
+              },
+              "excludeTags": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Tags to exclude"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

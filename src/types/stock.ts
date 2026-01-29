@@ -4,6 +4,12 @@
 
 import type { RTDBStock } from './rtdb'
 import type { MarketRegime } from './market'
+import type {
+  StockOverviewResponse,
+  StockStatisticsResponse,
+  ApiError,
+  ApiErrorType,
+} from './stock-api'
 
 /**
  * Enhanced stock data with calculated fields
@@ -82,4 +88,12 @@ export interface StockDetail {
   metrics: StockMetrics
   marketRegime: MarketRegime | null
   peers: PeerComparison[]
+}
+
+// Re-export stock API types for convenience
+export type {
+  StockOverviewResponse,
+  StockStatisticsResponse,
+  ApiError,
+  ApiErrorType,
 }

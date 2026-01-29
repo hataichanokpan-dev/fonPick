@@ -1,0 +1,1772 @@
+[
+  {
+    "Ticker": "CPF",
+    "Name": "Charoen Pokphand Foods",
+    "Sub-Sector": "Integrated Food",
+    "MCap": "⭐⭐⭐",
+    "Liq": "🔥🔥🔥",
+    "PE": 16.5,
+    "Yield": "3.2%",
+    "Tags": "🛡️"
+  },
+  {
+    "Ticker": "TFG",
+    "Name": "Thai-Union Frozen Group",
+    "Sub-Sector": "Seafood Processing",
+    "MCap": "⭐⭐",
+    "Liq": "🔥🔥",
+    "PE": 18.2,
+    "Yield": "2.8%",
+    "Tags": "⚡"
+  },
+  {
+    "Ticker": "GFPT",
+    "Name": "GFP Tropical Foods",
+    "Sub-Sector": "Poultry Processing",
+    "MCap": "⭐",
+    "Liq": "🔥",
+    "PE": 15.8,
+    "Yield": "4.1%",
+    "Tags": "⚡"
+  },
+  {
+    "Ticker": "CPR",
+    "Name": "Centara Hotels & Resorts",
+    "Sub-Sector": "Palm Oil",
+    "MCap": "⭐",
+    "Liq": "🔥",
+    "PE": 12.5,
+    "Yield": "3.5%",
+    "Tags": "⚡💎"
+  },
+  {
+    "Ticker": "CFRESH",
+    "Name": "CPF Fresh Mart",
+    "Sub-Sector": "Fresh Food Retail",
+    "MCap": "•",
+    "Liq": "•",
+    "PE": 22,
+    "Yield": "1.5%",
+    "Tags": "🚀"
+  },
+  {
+    "Ticker": "LST",
+    "Name": "Livestock and Aquaculture Technology",
+    "Sub-Sector": "Feed & Livestock",
+    "MCap": "•",
+    "Liq": "•",
+    "PE": 14.2,
+    "Yield": "3.8%",
+    "Tags": "⚡"
+  },
+  {
+    "Ticker": "MAKRO",
+    "Name": "Siam Makro",
+    "Sub-Sector": "Wholesale Cash & Carry",
+    "MCap": "⭐⭐",
+    "Liq": "🔥🔥",
+    "PE": 19.5,
+    "Yield": "2.5%",
+    "Tags": "🛡️"
+  },
+  {
+    "Ticker": "TU",
+    "Name": "Thai Union Group",
+    "Sub-Sector": "Seafood Export",
+    "MCap": "⭐⭐",
+    "Liq": "🔥🔥",
+    "PE": 20.1,
+    "Yield": "2.2%",
+    "Tags": "⚡"
+  },
+  {
+    "Ticker": "STA",
+    "Name": "Sri Trang Agro-Industry",
+    "Sub-Sector": "Rubber Plantation",
+    "MCap": "⭐",
+    "Liq": "🔥",
+    "PE": 9.8,
+    "Yield": "5.8%",
+    "Tags": "💎⚡"
+  },
+  {
+    "Ticker": "TRUBB",
+    "Name": "Thai Rubber Latex",
+    "Sub-Sector": "Rubber Processing",
+    "MCap": "•",
+    "Liq": "•",
+    "PE": 8.5,
+    "Yield": "6.2%",
+    "Tags": "💎⚡"
+  },
+  {
+    "Ticker": "CFARM",
+    "Name": "Carabao Farm",
+    "Sub-Sector": "Agricultural Trading",
+    "MCap": "•",
+    "Liq": "•",
+    "PE": 11.2,
+    "Yield": "4.5%",
+    "Tags": "⚡"
+  },
+  {
+    "Ticker": "KTIS",
+    "Name": "KT Intergrowth Shipping",
+    "Sub-Sector": "Agri Export/Import",
+    "MCap": "•",
+    "Liq": "•",
+    "PE": 13.5,
+    "Yield": "3.2%",
+    "Tags": "⚡"
+  },
+  {
+    "Ticker": "MINT",
+    "Name": "Minor International",
+    "Sub-Sector": "Hotel + F&B",
+    "MCap": "⭐⭐⭐",
+    "Liq": "🔥🔥🔥",
+    "PE": 20.1,
+    "Yield": "2.1%",
+    "Tags": "🚀"
+  },
+  {
+    "Ticker": "CBG",
+    "Name": "Carabao Group",
+    "Sub-Sector": "Energy Drinks",
+    "MCap": "⭐⭐",
+    "Liq": "🔥🔥",
+    "PE": 18.7,
+    "Yield": "3.5%",
+    "Tags": "🚀"
+  },
+  {
+    "Ticker": "SAPPE",
+    "Name": "Sappe",
+    "Sub-Sector": "Functional Beverages",
+    "MCap": "⭐",
+    "Liq": "🔥",
+    "PE": 22.5,
+    "Yield": "2.8%",
+    "Tags": "🚀"
+  },
+  {
+    "Ticker": "OISHI",
+    "Name": "Oishi Group",
+    "Sub-Sector": "Japanese Restaurant",
+    "MCap": "⭐⭐",
+    "Liq": "🔥🔥",
+    "PE": 17.2,
+    "Yield": "3.1%",
+    "Tags": "🛡️"
+  },
+  {
+    "Ticker": "NRF",
+    "Name": "NR Instant Produce",
+    "Sub-Sector": "Instant Noodles",
+    "MCap": "•",
+    "Liq": "•",
+    "PE": 9.5,
+    "Yield": "5.5%",
+    "Tags": "💎"
+  },
+  {
+    "Ticker": "ASIAN",
+    "Name": "Asian Property Development",
+    "Sub-Sector": "Hotels",
+    "MCap": "•",
+    "Liq": "🔥",
+    "PE": 14.5,
+    "Yield": "4.5%",
+    "Tags": "⚡💎"
+  },
+  {
+    "Ticker": "SORKON",
+    "Name": "Sorkon",
+    "Sub-Sector": "Condiments",
+    "MCap": "•",
+    "Liq": "•",
+    "PE": 14.5,
+    "Yield": "3.8%",
+    "Tags": "🛡️"
+  },
+  {
+    "Ticker": "SAUCE",
+    "Name": "Sauce & Seasoning",
+    "Sub-Sector": "Food Ingredients",
+    "MCap": "•",
+    "Liq": "•",
+    "PE": 11.2,
+    "Yield": "4.5%",
+    "Tags": "🛡️"
+  },
+  {
+    "Ticker": "TBV",
+    "Name": "Thai Beverage",
+    "Sub-Sector": "Alcoholic Beverages",
+    "MCap": "⭐⭐⭐",
+    "Liq": "🔥🔥🔥",
+    "PE": 16.8,
+    "Yield": "4.8%",
+    "Tags": "🛡️💎"
+  },
+  {
+    "Ticker": "ICC",
+    "Name": "ICC International",
+    "Sub-Sector": "Cosmetics Distribution",
+    "MCap": "•",
+    "Liq": "•",
+    "PE": 22.1,
+    "Yield": "1.9%",
+    "Tags": "🚀"
+  },
+  {
+    "Ticker": "JASIF",
+    "Name": "Jasmine Broadband Internet Infrastructure Fund",
+    "Sub-Sector": "Fashion Retail (diversified)",
+    "MCap": "⭐",
+    "Liq": "🔥",
+    "PE": 14.5,
+    "Yield": "7.2%",
+    "Tags": "💎"
+  },
+  {
+    "Ticker": "SABINA",
+    "Name": "Sabina",
+    "Sub-Sector": "Women's Underwear",
+    "MCap": "•",
+    "Liq": "•",
+    "PE": 12.8,
+    "Yield": "5.5%",
+    "Tags": "💎"
+  },
+  {
+    "Ticker": "WACOAL",
+    "Name": "Wacoal",
+    "Sub-Sector": "Intimate Apparel",
+    "MCap": "•",
+    "Liq": "•",
+    "PE": 11.5,
+    "Yield": "6.1%",
+    "Tags": "💎"
+  },
+  {
+    "Ticker": "DOHOME",
+    "Name": "DoHome",
+    "Sub-Sector": "Home Improvement",
+    "MCap": "⭐⭐",
+    "Liq": "🔥🔥",
+    "PE": 15.2,
+    "Yield": "4.8%",
+    "Tags": "🚀💎"
+  },
+  {
+    "Ticker": "HMPRO",
+    "Name": "Home Product Center",
+    "Sub-Sector": "Home Improvement",
+    "MCap": "⭐⭐",
+    "Liq": "🔥🔥",
+    "PE": 14.5,
+    "Yield": "5.9%",
+    "Tags": "💎"
+  },
+  {
+    "Ticker": "MEGA",
+    "Name": "Mega Home Center",
+    "Sub-Sector": "Home Improvement",
+    "MCap": "⭐",
+    "Liq": "🔥",
+    "PE": 13.8,
+    "Yield": "4.2%",
+    "Tags": "🚀"
+  },
+  {
+    "Ticker": "SPC",
+    "Name": "Siam Poly Pipe",
+    "Sub-Sector": "Plastic Pipes",
+    "MCap": "•",
+    "Liq": "🔥",
+    "PE": 10.2,
+    "Yield": "5.8%",
+    "Tags": "💎"
+  },
+  {
+    "Ticker": "TPIPL",
+    "Name": "Thai Poly Pipe",
+    "Sub-Sector": "Plastic Pipes",
+    "MCap": "•",
+    "Liq": "•",
+    "PE": 10.8,
+    "Yield": "6.8%",
+    "Tags": "💎"
+  },
+  {
+    "Ticker": "BEAUTY",
+    "Name": "Beauty Community",
+    "Sub-Sector": "Cosmetics Retail",
+    "MCap": "•",
+    "Liq": "🔥",
+    "PE": 25.5,
+    "Yield": "1.8%",
+    "Tags": "🚀⚠️"
+  },
+  {
+    "Ticker": "BSM",
+    "Name": "Bangkok Synthetics",
+    "Sub-Sector": "Cosmetics Manufacturing",
+    "MCap": "•",
+    "Liq": "•",
+    "PE": 18.2,
+    "Yield": "2.5%",
+    "Tags": "🛡️"
+  },
+  {
+    "Ticker": "OGC",
+    "Name": "Osotspa",
+    "Sub-Sector": "Personal Care",
+    "MCap": "⭐",
+    "Liq": "🔥",
+    "PE": 16.5,
+    "Yield": "3.8%",
+    "Tags": "🛡️"
+  },
+  {
+    "Ticker": "LEO",
+    "Name": "Leo Global Logistics",
+    "Sub-Sector": "Pharmaceuticals",
+    "MCap": "•",
+    "Liq": "•",
+    "PE": 14.8,
+    "Yield": "4.2%",
+    "Tags": "🛡️"
+  },
+  {
+    "Ticker": "KBANK",
+    "Name": "Kasikornbank",
+    "Sub-Sector": "Commercial Bank",
+    "MCap": "⭐⭐⭐",
+    "Liq": "🔥🔥🔥",
+    "PE": 8.5,
+    "Yield": "5.8%",
+    "Tags": "🛡️💎"
+  },
+  {
+    "Ticker": "KTB",
+    "Name": "Krung Thai Bank",
+    "Sub-Sector": "Commercial Bank (State)",
+    "MCap": "⭐⭐⭐",
+    "Liq": "🔥🔥🔥",
+    "PE": 6.9,
+    "Yield": "5.8%",
+    "Tags": "🛡️💎"
+  },
+  {
+    "Ticker": "SCB",
+    "Name": "Siam Commercial Bank",
+    "Sub-Sector": "Commercial Bank",
+    "MCap": "⭐⭐⭐",
+    "Liq": "🔥🔥🔥",
+    "PE": 7.5,
+    "Yield": "9.1%",
+    "Tags": "🛡️💎"
+  },
+  {
+    "Ticker": "BBL",
+    "Name": "Bangkok Bank",
+    "Sub-Sector": "Commercial Bank",
+    "MCap": "⭐⭐⭐",
+    "Liq": "🔥🔥🔥",
+    "PE": 8.2,
+    "Yield": "5.5%",
+    "Tags": "🛡️💎"
+  },
+  {
+    "Ticker": "BAY",
+    "Name": "Bank of Ayudhya (Krungsri)",
+    "Sub-Sector": "Commercial Bank",
+    "MCap": "⭐⭐⭐",
+    "Liq": "🔥🔥🔥",
+    "PE": 7.8,
+    "Yield": "6.0%",
+    "Tags": "🛡️💎"
+  },
+  {
+    "Ticker": "TISCO",
+    "Name": "Tisco Steel",
+    "Sub-Sector": "Steel Manufacturing",
+    "MCap": "⭐",
+    "Liq": "🔥🔥",
+    "PE": 10.5,
+    "Yield": "6.5%",
+    "Tags": "💎⚡"
+  },
+  {
+    "Ticker": "KKP",
+    "Name": "Kiatnakin Phatra Bank",
+    "Sub-Sector": "Commercial Bank",
+    "MCap": "⭐",
+    "Liq": "🔥",
+    "PE": 8.8,
+    "Yield": "4.8%",
+    "Tags": "💎"
+  },
+  {
+    "Ticker": "TBANK",
+    "Name": "Thanachart Bank",
+    "Sub-Sector": "Commercial Bank",
+    "MCap": "⭐",
+    "Liq": "🔥",
+    "PE": 10.1,
+    "Yield": "4.5%",
+    "Tags": "💎"
+  },
+  {
+    "Ticker": "LH",
+    "Name": "Land and Houses",
+    "Sub-Sector": "Residential Property",
+    "MCap": "⭐⭐",
+    "Liq": "🔥🔥",
+    "PE": 11.8,
+    "Yield": "6.2%",
+    "Tags": "💎⚡"
+  },
+  {
+    "Ticker": "CIMBT",
+    "Name": "CIMB Thai Bank",
+    "Sub-Sector": "Commercial Bank",
+    "MCap": "⭐⭐",
+    "Liq": "🔥🔥",
+    "PE": 9.5,
+    "Yield": "4.2%",
+    "Tags": "💎"
+  },
+  {
+    "Ticker": "TMB",
+    "Name": "TMB Bank (now TTB)",
+    "Sub-Sector": "Commercial Bank",
+    "MCap": "⭐⭐",
+    "Liq": "🔥🔥",
+    "PE": 8.1,
+    "Yield": "5.5%",
+    "Tags": "💎"
+  },
+  {
+    "Ticker": "TCAP",
+    "Name": "Thonburi Automotive Assembly Plant",
+    "Sub-Sector": "Car Assembly",
+    "MCap": "•",
+    "Liq": "•",
+    "PE": 15.5,
+    "Yield": "2.8%",
+    "Tags": "⚡"
+  },
+  {
+    "Ticker": "UOBT",
+    "Name": "United Overseas Bank (Thai)",
+    "Sub-Sector": "Commercial Bank",
+    "MCap": "•",
+    "Liq": "🔥",
+    "PE": 10.5,
+    "Yield": "4.0%",
+    "Tags": "🛡️"
+  },
+  {
+    "Ticker": "MTC",
+    "Name": "Muangthai Capital",
+    "Sub-Sector": "Motorcycle/Car Hire Purchase",
+    "MCap": "⭐⭐",
+    "Liq": "🔥🔥🔥",
+    "PE": 10,
+    "Yield": "6.5%",
+    "Tags": "💎"
+  },
+  {
+    "Ticker": "TIDLOR",
+    "Name": "Ngern Tid Lor",
+    "Sub-Sector": "Micro Finance",
+    "MCap": "⭐⭐",
+    "Liq": "🔥🔥",
+    "PE": 11.5,
+    "Yield": "5.8%",
+    "Tags": "💎"
+  },
+  {
+    "Ticker": "SAWAD",
+    "Name": "Srisawad Corporation",
+    "Sub-Sector": "Motorcycle Finance",
+    "MCap": "⭐",
+    "Liq": "🔥🔥",
+    "PE": 9.8,
+    "Yield": "7.2%",
+    "Tags": "💎"
+  },
+  {
+    "Ticker": "CHAYO",
+    "Name": "Chayo Group",
+    "Sub-Sector": "Debt Collection & NPL",
+    "MCap": "⭐",
+    "Liq": "🔥",
+    "PE": 12.5,
+    "Yield": "4.5%",
+    "Tags": "⚡"
+  },
+  {
+    "Ticker": "SINGER",
+    "Name": "Singer Thailand",
+    "Sub-Sector": "Hire Purchase",
+    "MCap": "•",
+    "Liq": "🔥",
+    "PE": 8.5,
+    "Yield": "8.1%",
+    "Tags": "💎⚡"
+  },
+  {
+    "Ticker": "THANI",
+    "Name": "Srisawad Power 1989 (Thani)",
+    "Sub-Sector": "Motorcycle Finance",
+    "MCap": "•",
+    "Liq": "🔥",
+    "PE": 10.2,
+    "Yield": "6.8%",
+    "Tags": "💎"
+  },
+  {
+    "Ticker": "NCAP",
+    "Name": "NFS Capital",
+    "Sub-Sector": "Truck/Equipment Finance",
+    "MCap": "•",
+    "Liq": "•",
+    "PE": 11.8,
+    "Yield": "5.2%",
+    "Tags": "💎"
+  },
+  {
+    "Ticker": "GL",
+    "Name": "Grand Canal Land",
+    "Sub-Sector": "Finance (diversified)",
+    "MCap": "•",
+    "Liq": "•",
+    "PE": 7.5,
+    "Yield": "9.5%",
+    "Tags": "💎⚠️"
+  },
+  {
+    "Ticker": "KTC",
+    "Name": "Krungthai Card",
+    "Sub-Sector": "Credit Card Issuer",
+    "MCap": "⭐⭐",
+    "Liq": "🔥🔥",
+    "PE": 12.5,
+    "Yield": "5.5%",
+    "Tags": "💎"
+  },
+  {
+    "Ticker": "AEONTS",
+    "Name": "AEON Thana Sinsap",
+    "Sub-Sector": "Credit Card + Hire Purchase",
+    "MCap": "⭐",
+    "Liq": "🔥🔥",
+    "PE": 11.8,
+    "Yield": "6.2%",
+    "Tags": "💎"
+  },
+  {
+    "Ticker": "KCAR",
+    "Name": "Kasikorn Leasing",
+    "Sub-Sector": "Auto Leasing",
+    "MCap": "•",
+    "Liq": "🔥",
+    "PE": 10.5,
+    "Yield": "5.8%",
+    "Tags": "💎"
+  },
+  {
+    "Ticker": "KFIN",
+    "Name": "Kasikorn Securities",
+    "Sub-Sector": "Securities Brokerage",
+    "MCap": "⭐",
+    "Liq": "🔥🔥",
+    "PE": 15.2,
+    "Yield": "4.2%",
+    "Tags": "⚡"
+  },
+  {
+    "Ticker": "KTAM",
+    "Name": "Kasikorn Asset Management",
+    "Sub-Sector": "Fund Management",
+    "MCap": "•",
+    "Liq": "🔥",
+    "PE": 18.5,
+    "Yield": "3.5%",
+    "Tags": "🛡️"
+  },
+  {
+    "Ticker": "ASP",
+    "Name": "Asia Plus Securities",
+    "Sub-Sector": "Securities Brokerage",
+    "MCap": "•",
+    "Liq": "•",
+    "PE": 12.8,
+    "Yield": "4.8%",
+    "Tags": "⚡"
+  },
+  {
+    "Ticker": "MBKET",
+    "Name": "Merchant Partners Securities",
+    "Sub-Sector": "Securities Brokerage",
+    "MCap": "•",
+    "Liq": "•",
+    "PE": 14.5,
+    "Yield": "3.2%",
+    "Tags": "⚡"
+  },
+  {
+    "Ticker": "TLI",
+    "Name": "Thai Life Insurance",
+    "Sub-Sector": "Life Insurance",
+    "MCap": "⭐⭐",
+    "Liq": "🔥🔥",
+    "PE": 14.5,
+    "Yield": "4.8%",
+    "Tags": "🛡️💎"
+  },
+  {
+    "Ticker": "BLA",
+    "Name": "Bangkok Life Assurance",
+    "Sub-Sector": "Life Insurance",
+    "MCap": "⭐⭐",
+    "Liq": "🔥🔥",
+    "PE": 13.8,
+    "Yield": "5.2%",
+    "Tags": "🛡️💎"
+  },
+  {
+    "Ticker": "MTI",
+    "Name": "Muang Thai Life Assurance",
+    "Sub-Sector": "Life Insurance",
+    "MCap": "⭐",
+    "Liq": "🔥",
+    "PE": 12.5,
+    "Yield": "5.8%",
+    "Tags": "💎"
+  },
+  {
+    "Ticker": "THREL",
+    "Name": "Thairel",
+    "Sub-Sector": "Life Insurance",
+    "MCap": "•",
+    "Liq": "•",
+    "PE": 11.2,
+    "Yield": "6.5%",
+    "Tags": "💎"
+  },
+  {
+    "Ticker": "ALIFE",
+    "Name": "Asia Life PCL",
+    "Sub-Sector": "Life Insurance",
+    "MCap": "•",
+    "Liq": "•",
+    "PE": 10.8,
+    "Yield": "7.1%",
+    "Tags": "💎"
+  },
+  {
+    "Ticker": "TQM",
+    "Name": "Thai Quality Management",
+    "Sub-Sector": "Non-Life Insurance",
+    "MCap": "⭐",
+    "Liq": "🔥",
+    "PE": 11.5,
+    "Yield": "6.2%",
+    "Tags": "💎"
+  },
+  {
+    "Ticker": "BKI",
+    "Name": "Bangkok Insurance",
+    "Sub-Sector": "Non-Life Insurance",
+    "MCap": "⭐",
+    "Liq": "🔥",
+    "PE": 10.8,
+    "Yield": "6.8%",
+    "Tags": "💎"
+  },
+  {
+    "Ticker": "TIP",
+    "Name": "Thip Insurance",
+    "Sub-Sector": "Non-Life Insurance",
+    "MCap": "•",
+    "Liq": "•",
+    "PE": 9.5,
+    "Yield": "7.5%",
+    "Tags": "💎"
+  },
+  {
+    "Ticker": "SMK",
+    "Name": "Muang Thai Insurance",
+    "Sub-Sector": "Non-Life Insurance",
+    "MCap": "•",
+    "Liq": "•",
+    "PE": 12.2,
+    "Yield": "5.5%",
+    "Tags": "💎"
+  },
+  {
+    "Ticker": "DELTA",
+    "Name": "Delta Electronics",
+    "Sub-Sector": "EV Power Systems",
+    "MCap": "⭐⭐",
+    "Liq": "🔥🔥",
+    "PE": 25,
+    "Yield": "2.5%",
+    "Tags": "🚀"
+  },
+  {
+    "Ticker": "AH",
+    "Name": "Asia Hero",
+    "Sub-Sector": "Auto Parts",
+    "MCap": "⭐",
+    "Liq": "🔥",
+    "PE": 18.5,
+    "Yield": "3.2%",
+    "Tags": "🚀⚡"
+  },
+  {
+    "Ticker": "SVI",
+    "Name": "SVI",
+    "Sub-Sector": "Electronics Manufacturing",
+    "MCap": "•",
+    "Liq": "🔥",
+    "PE": 20.2,
+    "Yield": "2.8%",
+    "Tags": "🚀"
+  },
+  {
+    "Ticker": "SAT",
+    "Name": "Somboon Advance Technology",
+    "Sub-Sector": "Auto Parts",
+    "MCap": "•",
+    "Liq": "•",
+    "PE": 14.2,
+    "Yield": "3.8%",
+    "Tags": "⚡"
+  },
+  {
+    "Ticker": "TNP",
+    "Name": "Thai Nippon Rubber",
+    "Sub-Sector": "Tires & Rubber Parts",
+    "MCap": "•",
+    "Liq": "•",
+    "PE": 11.5,
+    "Yield": "5.2%",
+    "Tags": "💎⚡"
+  },
+  {
+    "Ticker": "MILL",
+    "Name": "Millcon Steel",
+    "Sub-Sector": "Steel Products",
+    "MCap": "•",
+    "Liq": "🔥",
+    "PE": 8.8,
+    "Yield": "7.2%",
+    "Tags": "💎⚡"
+  },
+  {
+    "Ticker": "SSSC",
+    "Name": "Sahaviriya Steel Industries",
+    "Sub-Sector": "Steel",
+    "MCap": "•",
+    "Liq": "•",
+    "PE": 9.2,
+    "Yield": "6.8%",
+    "Tags": "💎⚡"
+  },
+  {
+    "Ticker": "SMPC",
+    "Name": "Siam Makro Packaging",
+    "Sub-Sector": "Food Packaging",
+    "MCap": "•",
+    "Liq": "•",
+    "PE": 12.8,
+    "Yield": "4.8%",
+    "Tags": "🛡️"
+  },
+  {
+    "Ticker": "SCGP",
+    "Name": "SCG Packaging",
+    "Sub-Sector": "Integrated Packaging",
+    "MCap": "⭐⭐⭐",
+    "Liq": "🔥🔥🔥",
+    "PE": 16.5,
+    "Yield": "3.8%",
+    "Tags": "🛡️"
+  },
+  {
+    "Ticker": "TPIPP",
+    "Name": "Thai Paper Industry",
+    "Sub-Sector": "Paper Products",
+    "MCap": "•",
+    "Liq": "•",
+    "PE": 12.2,
+    "Yield": "4.5%",
+    "Tags": "🛡️"
+  },
+  {
+    "Ticker": "PTT",
+    "Name": "PTT",
+    "Sub-Sector": "Integrated Oil & Gas",
+    "MCap": "⭐⭐⭐",
+    "Liq": "🔥🔥🔥",
+    "PE": 14.5,
+    "Yield": "5.2%",
+    "Tags": "💎⚡"
+  },
+  {
+    "Ticker": "PTTGC",
+    "Name": "PTT Global Chemical",
+    "Sub-Sector": "Petrochemicals",
+    "MCap": "⭐⭐⭐",
+    "Liq": "🔥🔥🔥",
+    "PE": 12.8,
+    "Yield": "6.5%",
+    "Tags": "💎⚡"
+  },
+  {
+    "Ticker": "IRPC",
+    "Name": "IRPC",
+    "Sub-Sector": "Integrated Refinery",
+    "MCap": "⭐⭐",
+    "Liq": "🔥🔥",
+    "PE": 11.2,
+    "Yield": "5.8%",
+    "Tags": "💎⚡"
+  },
+  {
+    "Ticker": "TPCH",
+    "Name": "Thai Plastic and Chemicals",
+    "Sub-Sector": "Chemicals",
+    "MCap": "•",
+    "Liq": "🔥",
+    "PE": 10.5,
+    "Yield": "6.2%",
+    "Tags": "💎⚡"
+  },
+  {
+    "Ticker": "VNT",
+    "Name": "Vinythai",
+    "Sub-Sector": "PVC Manufacturing",
+    "MCap": "•",
+    "Liq": "🔥",
+    "PE": 9.8,
+    "Yield": "7.5%",
+    "Tags": "💎⚡"
+  },
+  {
+    "Ticker": "TPAC",
+    "Name": "Thai Packaging Industries",
+    "Sub-Sector": "Plastic Packaging",
+    "MCap": "•",
+    "Liq": "🔥",
+    "PE": 14.2,
+    "Yield": "4.2%",
+    "Tags": "🛡️"
+  },
+  {
+    "Ticker": "SCG",
+    "Name": "Siam Cement Group",
+    "Sub-Sector": "Integrated Building Materials",
+    "MCap": "⭐⭐⭐",
+    "Liq": "🔥🔥🔥",
+    "PE": 18.5,
+    "Yield": "4.2%",
+    "Tags": "🛡️💎"
+  },
+  {
+    "Ticker": "CPAC",
+    "Name": "Cia Pak",
+    "Sub-Sector": "Cement",
+    "MCap": "⭐",
+    "Liq": "🔥",
+    "PE": 12.5,
+    "Yield": "5.8%",
+    "Tags": "💎⚡"
+  },
+  {
+    "Ticker": "TASCO",
+    "Name": "Tata Steel Thailand",
+    "Sub-Sector": "Steel",
+    "MCap": "⭐",
+    "Liq": "🔥",
+    "PE": 11.2,
+    "Yield": "6.5%",
+    "Tags": "💎⚡"
+  },
+  {
+    "Ticker": "AP",
+    "Name": "AP Thailand",
+    "Sub-Sector": "Residential Property",
+    "MCap": "⭐⭐",
+    "Liq": "🔥🔥",
+    "PE": 12.5,
+    "Yield": "5.5%",
+    "Tags": "💎⚡"
+  },
+  {
+    "Ticker": "SPALI",
+    "Name": "Supalai",
+    "Sub-Sector": "Residential Property",
+    "MCap": "⭐⭐",
+    "Liq": "🔥🔥",
+    "PE": 10.5,
+    "Yield": "7.1%",
+    "Tags": "💎⚡"
+  },
+  {
+    "Ticker": "ORIGIN",
+    "Name": "Origin Property",
+    "Sub-Sector": "Condominium Developer",
+    "MCap": "⭐",
+    "Liq": "🔥🔥",
+    "PE": 9.8,
+    "Yield": "6.5%",
+    "Tags": "💎⚡"
+  },
+  {
+    "Ticker": "SIRI",
+    "Name": "Siri Ventures",
+    "Sub-Sector": "Property Developer",
+    "MCap": "⭐",
+    "Liq": "🔥",
+    "PE": 8.5,
+    "Yield": "8.2%",
+    "Tags": "💎⚡"
+  },
+  {
+    "Ticker": "PRUKSA",
+    "Name": "Pruksa Holding",
+    "Sub-Sector": "Residential Property",
+    "MCap": "⭐",
+    "Liq": "🔥",
+    "PE": 11.2,
+    "Yield": "5.8%",
+    "Tags": "💎"
+  },
+  {
+    "Ticker": "AMATA",
+    "Name": "Amata Corporation",
+    "Sub-Sector": "Industrial Estate",
+    "MCap": "⭐⭐",
+    "Liq": "🔥🔥",
+    "PE": 15.5,
+    "Yield": "3.8%",
+    "Tags": "🚀"
+  },
+  {
+    "Ticker": "WHA",
+    "Name": "WHA Corporation",
+    "Sub-Sector": "Logistics + Industrial Estate",
+    "MCap": "⭐⭐",
+    "Liq": "🔥🔥",
+    "PE": 18.2,
+    "Yield": "3.2%",
+    "Tags": "🚀"
+  },
+  {
+    "Ticker": "SC",
+    "Name": "SC Asset Corporation",
+    "Sub-Sector": "Mid-High End Condo",
+    "MCap": "⭐",
+    "Liq": "🔥",
+    "PE": 12.8,
+    "Yield": "4.5%",
+    "Tags": "⚡"
+  },
+  {
+    "Ticker": "PSH",
+    "Name": "Prinsiri",
+    "Sub-Sector": "Horizontal Housing",
+    "MCap": "•",
+    "Liq": "🔥",
+    "PE": 10.2,
+    "Yield": "6.8%",
+    "Tags": "💎"
+  },
+  {
+    "Ticker": "NOBLE",
+    "Name": "Noble Development",
+    "Sub-Sector": "Luxury Condo",
+    "MCap": "⭐",
+    "Liq": "🔥",
+    "PE": 14.5,
+    "Yield": "3.2%",
+    "Tags": "⚡"
+  },
+  {
+    "Ticker": "CPNREIT",
+    "Name": "CPN Retail Growth Leasehold REIT",
+    "Sub-Sector": "Retail REIT",
+    "MCap": "⭐⭐",
+    "Liq": "🔥🔥",
+    "PE": 18.5,
+    "Yield": "6.5%",
+    "Tags": "💎🛡️"
+  },
+  {
+    "Ticker": "WHAVHAR",
+    "Name": "WHA Premium Growth Freehold REIT",
+    "Sub-Sector": "Logistics REIT",
+    "MCap": "⭐",
+    "Liq": "🔥",
+    "PE": 16.2,
+    "Yield": "7.2%",
+    "Tags": "💎🛡️"
+  },
+  {
+    "Ticker": "FUTUREP",
+    "Name": "Frasers Property Thailand Industrial Freehold REIT",
+    "Sub-Sector": "Industrial REIT",
+    "MCap": "⭐",
+    "Liq": "🔥",
+    "PE": 15.8,
+    "Yield": "6.8%",
+    "Tags": "💎🛡️"
+  },
+  {
+    "Ticker": "HREIT",
+    "Name": "Hemaraj Leasehold REIT",
+    "Sub-Sector": "Industrial REIT",
+    "MCap": "•",
+    "Liq": "🔥",
+    "PE": 14.5,
+    "Yield": "7.5%",
+    "Tags": "💎🛡️"
+  },
+  {
+    "Ticker": "GAHREIT",
+    "Name": "Golden Land Property Development REIT",
+    "Sub-Sector": "Commercial REIT",
+    "MCap": "•",
+    "Liq": "•",
+    "PE": 12.8,
+    "Yield": "8.1%",
+    "Tags": "💎🛡️"
+  },
+  {
+    "Ticker": "CK",
+    "Name": "Ch. Karnchang",
+    "Sub-Sector": "Infrastructure Contractor",
+    "MCap": "⭐⭐",
+    "Liq": "🔥🔥",
+    "PE": 12.5,
+    "Yield": "4.5%",
+    "Tags": "⚡💎"
+  },
+  {
+    "Ticker": "STEC",
+    "Name": "Sino-Thai Engineering & Construction",
+    "Sub-Sector": "Infrastructure",
+    "MCap": "⭐",
+    "Liq": "🔥",
+    "PE": 11.8,
+    "Yield": "5.2%",
+    "Tags": "⚡💎"
+  },
+  {
+    "Ticker": "ITD",
+    "Name": "Italian-Thai Development",
+    "Sub-Sector": "Construction & Toll Roads",
+    "MCap": "⭐",
+    "Liq": "🔥",
+    "PE": 10.5,
+    "Yield": "5.8%",
+    "Tags": "⚡💎"
+  },
+  {
+    "Ticker": "STECON",
+    "Name": "STEC Corporation",
+    "Sub-Sector": "Civil Engineering",
+    "MCap": "•",
+    "Liq": "•",
+    "PE": 9.8,
+    "Yield": "6.5%",
+    "Tags": "⚡💎"
+  },
+  {
+    "Ticker": "UNIQ",
+    "Name": "Unique Engineering",
+    "Sub-Sector": "MEP Contractor",
+    "MCap": "•",
+    "Liq": "🔥",
+    "PE": 14.2,
+    "Yield": "3.8%",
+    "Tags": "⚡"
+  },
+  {
+    "Ticker": "SEAFCO",
+    "Name": "SE Asian Fiber Optics",
+    "Sub-Sector": "Telecom Infrastructure",
+    "MCap": "•",
+    "Liq": "•",
+    "PE": 15.5,
+    "Yield": "3.2%",
+    "Tags": "🚀"
+  },
+  {
+    "Ticker": "PTTEP",
+    "Name": "PTT Exploration & Production",
+    "Sub-Sector": "Upstream Oil & Gas",
+    "MCap": "⭐⭐⭐",
+    "Liq": "🔥🔥🔥",
+    "PE": 13.8,
+    "Yield": "6.5%",
+    "Tags": "💎⚡"
+  },
+  {
+    "Ticker": "TOP",
+    "Name": "Thai Oil",
+    "Sub-Sector": "Refinery",
+    "MCap": "⭐⭐",
+    "Liq": "🔥🔥",
+    "PE": 12.2,
+    "Yield": "5.8%",
+    "Tags": "💎⚡"
+  },
+  {
+    "Ticker": "BCP",
+    "Name": "Bangchak Corporation",
+    "Sub-Sector": "Refinery + Renewable",
+    "MCap": "⭐⭐",
+    "Liq": "🔥🔥",
+    "PE": 11.5,
+    "Yield": "6.2%",
+    "Tags": "💎⚡"
+  },
+  {
+    "Ticker": "GULF",
+    "Name": "Gulf Energy (Data Centers)",
+    "Sub-Sector": "Data Center Operator",
+    "MCap": "⭐⭐⭐",
+    "Liq": "🔥🔥🔥",
+    "PE": 16.8,
+    "Yield": "4.2%",
+    "Tags": "🚀💎"
+  },
+  {
+    "Ticker": "GPSC",
+    "Name": "Global Power Synergy",
+    "Sub-Sector": "EV Charging + Power",
+    "MCap": "⭐⭐",
+    "Liq": "🔥🔥",
+    "PE": 14.5,
+    "Yield": "4.8%",
+    "Tags": "💎🚀"
+  },
+  {
+    "Ticker": "RATCH",
+    "Name": "Ratchaburi Electricity Generating",
+    "Sub-Sector": "IPP",
+    "MCap": "⭐⭐",
+    "Liq": "🔥🔥",
+    "PE": 13.2,
+    "Yield": "5.5%",
+    "Tags": "💎"
+  },
+  {
+    "Ticker": "EGCO",
+    "Name": "Electricity Generating",
+    "Sub-Sector": "IPP",
+    "MCap": "⭐⭐",
+    "Liq": "🔥🔥",
+    "PE": 12.8,
+    "Yield": "5.2%",
+    "Tags": "💎"
+  },
+  {
+    "Ticker": "BGRIM",
+    "Name": "B.Grimm Power",
+    "Sub-Sector": "Solar + Wind + Gas",
+    "MCap": "⭐⭐",
+    "Liq": "🔥🔥",
+    "PE": 18.5,
+    "Yield": "3.8%",
+    "Tags": "🚀💎"
+  },
+  {
+    "Ticker": "SUPER",
+    "Name": "Super Energy",
+    "Sub-Sector": "Solar SPP",
+    "MCap": "⭐",
+    "Liq": "🔥",
+    "PE": 20.2,
+    "Yield": "3.2%",
+    "Tags": "🚀"
+  },
+  {
+    "Ticker": "EA",
+    "Name": "Energy Absolute",
+    "Sub-Sector": "EV Batteries + Solar",
+    "MCap": "⭐⭐",
+    "Liq": "🔥🔥",
+    "PE": 22.5,
+    "Yield": "2.5%",
+    "Tags": "🚀⚠️"
+  },
+  {
+    "Ticker": "SPCG",
+    "Name": "SP Group",
+    "Sub-Sector": "Solar Farm",
+    "MCap": "•",
+    "Liq": "🔥",
+    "PE": 15.8,
+    "Yield": "4.5%",
+    "Tags": "🚀💎"
+  },
+  {
+    "Ticker": "EASTW",
+    "Name": "Eastern Water Resources",
+    "Sub-Sector": "Water Utility",
+    "MCap": "⭐",
+    "Liq": "🔥",
+    "PE": 14.5,
+    "Yield": "5.5%",
+    "Tags": "💎🛡️"
+  },
+  {
+    "Ticker": "BANPU",
+    "Name": "Banpu",
+    "Sub-Sector": "Coal Mining",
+    "MCap": "⭐⭐",
+    "Liq": "🔥🔥",
+    "PE": 8.5,
+    "Yield": "8.2%",
+    "Tags": "💎⚡"
+  },
+  {
+    "Ticker": "LANNA",
+    "Name": "Lanna Resources",
+    "Sub-Sector": "Coal Mining",
+    "MCap": "•",
+    "Liq": "🔥",
+    "PE": 7.8,
+    "Yield": "9.5%",
+    "Tags": "💎⚡"
+  },
+  {
+    "Ticker": "TMILL",
+    "Name": "Tongkah Harbour",
+    "Sub-Sector": "Tin Mining",
+    "MCap": "•",
+    "Liq": "•",
+    "PE": 9.2,
+    "Yield": "7.8%",
+    "Tags": "💎⚡⚠️"
+  },
+  {
+    "Ticker": "CPALL",
+    "Name": "CP All (7-Eleven)",
+    "Sub-Sector": "Convenience Store",
+    "MCap": "⭐⭐⭐",
+    "Liq": "🔥🔥🔥",
+    "PE": 15.7,
+    "Yield": "3.2%",
+    "Tags": "🛡️"
+  },
+  {
+    "Ticker": "CRC",
+    "Name": "Central Retail Corporation",
+    "Sub-Sector": "Department Stores + Malls",
+    "MCap": "⭐⭐⭐",
+    "Liq": "🔥🔥🔥",
+    "PE": 22.5,
+    "Yield": "2.1%",
+    "Tags": "🛡️"
+  },
+  {
+    "Ticker": "CPN",
+    "Name": "Central Pattana",
+    "Sub-Sector": "Shopping Mall Developer",
+    "MCap": "⭐⭐⭐",
+    "Liq": "🔥🔥🔥",
+    "PE": 18.2,
+    "Yield": "4.5%",
+    "Tags": "💎🛡️"
+  },
+  {
+    "Ticker": "ROBINS",
+    "Name": "Robinson",
+    "Sub-Sector": "Department Store",
+    "MCap": "⭐",
+    "Liq": "🔥",
+    "PE": 16.5,
+    "Yield": "3.8%",
+    "Tags": "🛡️"
+  },
+  {
+    "Ticker": "POWER",
+    "Name": "Power Buy",
+    "Sub-Sector": "Electronics Retail",
+    "MCap": "•",
+    "Liq": "🔥",
+    "PE": 18.5,
+    "Yield": "2.5%",
+    "Tags": "⚡"
+  },
+  {
+    "Ticker": "COM7",
+    "Name": "COM7",
+    "Sub-Sector": "IT Retail",
+    "MCap": "•",
+    "Liq": "🔥",
+    "PE": 20.2,
+    "Yield": "1.8%",
+    "Tags": "🚀"
+  },
+  {
+    "Ticker": "BDMS",
+    "Name": "Bangkok Dusit Medical Services",
+    "Sub-Sector": "Hospital Network",
+    "MCap": "⭐⭐⭐",
+    "Liq": "🔥🔥🔥",
+    "PE": 28.5,
+    "Yield": "2.8%",
+    "Tags": "🛡️🚀"
+  },
+  {
+    "Ticker": "BH",
+    "Name": "Bumrungrad Hospital",
+    "Sub-Sector": "Premium Hospital",
+    "MCap": "⭐⭐",
+    "Liq": "🔥🔥",
+    "PE": 25.2,
+    "Yield": "3.5%",
+    "Tags": "🛡️🚀"
+  },
+  {
+    "Ticker": "BCH",
+    "Name": "Bangkok Chain Hospital",
+    "Sub-Sector": "Hospital Network",
+    "MCap": "⭐",
+    "Liq": "🔥",
+    "PE": 22.5,
+    "Yield": "3.2%",
+    "Tags": "🛡️"
+  },
+  {
+    "Ticker": "CHG",
+    "Name": "Chularat Hospital",
+    "Sub-Sector": "Regional Hospital",
+    "MCap": "•",
+    "Liq": "🔥",
+    "PE": 18.5,
+    "Yield": "4.2%",
+    "Tags": "🛡️💎"
+  },
+  {
+    "Ticker": "RAM",
+    "Name": "Ramkhamhaeng Hospital",
+    "Sub-Sector": "Hospital",
+    "MCap": "•",
+    "Liq": "•",
+    "PE": 16.8,
+    "Yield": "4.8%",
+    "Tags": "🛡️💎"
+  },
+  {
+    "Ticker": "BEC",
+    "Name": "BEC World",
+    "Sub-Sector": "Free TV Broadcasting",
+    "MCap": "⭐",
+    "Liq": "🔥",
+    "PE": 12.5,
+    "Yield": "6.5%",
+    "Tags": "💎⚡"
+  },
+  {
+    "Ticker": "MONO",
+    "Name": "Mono Technology",
+    "Sub-Sector": "Digital Content",
+    "MCap": "•",
+    "Liq": "🔥",
+    "PE": 18.5,
+    "Yield": "2.8%",
+    "Tags": "🚀⚠️"
+  },
+  {
+    "Ticker": "MAJOR",
+    "Name": "Major Cineplex",
+    "Sub-Sector": "Cinema",
+    "MCap": "⭐",
+    "Liq": "🔥🔥",
+    "PE": 22.5,
+    "Yield": "1.5%",
+    "Tags": "⚡"
+  },
+  {
+    "Ticker": "GRAMMY",
+    "Name": "Grammy Entertainment",
+    "Sub-Sector": "Music & Entertainment",
+    "MCap": "•",
+    "Liq": "•",
+    "PE": 15.2,
+    "Yield": "3.5%",
+    "Tags": "⚡"
+  },
+  {
+    "Ticker": "PLANB",
+    "Name": "Plan B Media",
+    "Sub-Sector": "Advertising",
+    "MCap": "•",
+    "Liq": "🔥",
+    "PE": 20.5,
+    "Yield": "2.1%",
+    "Tags": "🚀⚠️"
+  },
+  {
+    "Ticker": "AUCT",
+    "Name": "Bangkok Auction",
+    "Sub-Sector": "Auction Services",
+    "MCap": "•",
+    "Liq": "•",
+    "PE": 25.5,
+    "Yield": "1.2%",
+    "Tags": "🚀⚠️"
+  },
+  {
+    "Ticker": "HUMAN",
+    "Name": "Human Resources Management",
+    "Sub-Sector": "HR Services",
+    "MCap": "•",
+    "Liq": "•",
+    "PE": 18.2,
+    "Yield": "2.8%",
+    "Tags": "🚀"
+  },
+  {
+    "Ticker": "CENTEL",
+    "Name": "Central Plaza Hotel",
+    "Sub-Sector": "Hotel Network",
+    "MCap": "⭐⭐",
+    "Liq": "🔥🔥",
+    "PE": 18.5,
+    "Yield": "3.2%",
+    "Tags": "🚀⚡"
+  },
+  {
+    "Ticker": "ERW",
+    "Name": "Erawan Group",
+    "Sub-Sector": "Hotels",
+    "MCap": "⭐",
+    "Liq": "🔥",
+    "PE": 16.2,
+    "Yield": "3.8%",
+    "Tags": "⚡"
+  },
+  {
+    "Ticker": "SHR",
+    "Name": "Singha Estate",
+    "Sub-Sector": "Hotels + Property",
+    "MCap": "⭐",
+    "Liq": "🔥",
+    "PE": 14.5,
+    "Yield": "2.5%",
+    "Tags": "⚡"
+  },
+  {
+    "Ticker": "MK",
+    "Name": "MK Restaurant Group",
+    "Sub-Sector": "Suki Restaurant",
+    "MCap": "⭐",
+    "Liq": "🔥",
+    "PE": 15.8,
+    "Yield": "4.2%",
+    "Tags": "💎"
+  },
+  {
+    "Ticker": "COFFEE",
+    "Name": "Coffee Beans by Dao",
+    "Sub-Sector": "Coffee Chain",
+    "MCap": "•",
+    "Liq": "•",
+    "PE": 22.5,
+    "Yield": "1.5%",
+    "Tags": "🚀⚠️"
+  },
+  {
+    "Ticker": "LRH",
+    "Name": "Laguna Resorts & Hotels",
+    "Sub-Sector": "Resort Operator",
+    "MCap": "•",
+    "Liq": "•",
+    "PE": 18.5,
+    "Yield": "2.8%",
+    "Tags": "⚡"
+  },
+  {
+    "Ticker": "RCL",
+    "Name": "Regional Container Lines",
+    "Sub-Sector": "Container Shipping",
+    "MCap": "⭐",
+    "Liq": "🔥🔥",
+    "PE": 8.5,
+    "Yield": "9.2%",
+    "Tags": "💎⚡"
+  },
+  {
+    "Ticker": "PSL",
+    "Name": "Precious Shipping",
+    "Sub-Sector": "Dry Bulk Shipping",
+    "MCap": "⭐",
+    "Liq": "🔥🔥",
+    "PE": 6.8,
+    "Yield": "12.5%",
+    "Tags": "💎⚡⚠️"
+  },
+  {
+    "Ticker": "TTA",
+    "Name": "Thoresen Thai Agencies",
+    "Sub-Sector": "Logistics",
+    "MCap": "•",
+    "Liq": "🔥",
+    "PE": 7.2,
+    "Yield": "10.8%",
+    "Tags": "💎⚡"
+  },
+  {
+    "Ticker": "BTS",
+    "Name": "BTS Group Holdings",
+    "Sub-Sector": "BTS Skytrain Operator",
+    "MCap": "⭐⭐",
+    "Liq": "🔥🔥",
+    "PE": 18.5,
+    "Yield": "2.1%",
+    "Tags": "🚀"
+  },
+  {
+    "Ticker": "TSTE",
+    "Name": "Thai Seaport Terminal",
+    "Sub-Sector": "Port Services",
+    "MCap": "•",
+    "Liq": "🔥",
+    "PE": 14.5,
+    "Yield": "4.8%",
+    "Tags": "💎⚡"
+  },
+  {
+    "Ticker": "THAI",
+    "Name": "Thai Airways International",
+    "Sub-Sector": "Full Service Carrier",
+    "MCap": "⭐⭐",
+    "Liq": "🔥🔥",
+    "PE": 12.5,
+    "Yield": "2.5%",
+    "Tags": "⚡🚀"
+  },
+  {
+    "Ticker": "AAV",
+    "Name": "Asia Aviation (Thai AirAsia)",
+    "Sub-Sector": "Low Cost Carrier",
+    "MCap": "⭐",
+    "Liq": "🔥🔥",
+    "PE": null,
+    "Yield": "0%",
+    "Tags": "⚠️"
+  },
+  {
+    "Ticker": "BA",
+    "Name": "Bangkok Airways",
+    "Sub-Sector": "Regional Carrier",
+    "MCap": "•",
+    "Liq": "🔥",
+    "PE": 15.2,
+    "Yield": "1.8%",
+    "Tags": "⚡"
+  },
+  {
+    "Ticker": "NOK",
+    "Name": "Nok Airlines",
+    "Sub-Sector": "Low Cost Carrier",
+    "MCap": "•",
+    "Liq": "•",
+    "PE": null,
+    "Yield": "0%",
+    "Tags": "⚠️"
+  },
+  {
+    "Ticker": "AOT",
+    "Name": "Airports of Thailand",
+    "Sub-Sector": "Airport Operator",
+    "MCap": "⭐⭐⭐",
+    "Liq": "🔥🔥🔥",
+    "PE": 40.2,
+    "Yield": "1.5%",
+    "Tags": "🛡️🚀"
+  },
+  {
+    "Ticker": "U-CITY",
+    "Name": "U-City (U-Tapao)",
+    "Sub-Sector": "Airport Development",
+    "MCap": "•",
+    "Liq": "•",
+    "PE": null,
+    "Yield": "0%",
+    "Tags": "🚀⚠️"
+  },
+  {
+    "Ticker": "WHAUP",
+    "Name": "WHA Utilities & Power",
+    "Sub-Sector": "Logistics REIT + Utilities",
+    "MCap": "⭐",
+    "Liq": "🔥",
+    "PE": 16.5,
+    "Yield": "5.5%",
+    "Tags": "💎🚀"
+  },
+  {
+    "Ticker": "NYT",
+    "Name": "New York Thai",
+    "Sub-Sector": "Cold Storage Logistics",
+    "MCap": "•",
+    "Liq": "•",
+    "PE": 14.5,
+    "Yield": "4.2%",
+    "Tags": "🛡️"
+  },
+  {
+    "Ticker": "BMCL",
+    "Name": "Bangkok Metro (MRT)",
+    "Sub-Sector": "MRT Operator",
+    "MCap": "•",
+    "Liq": "🔥",
+    "PE": 22.5,
+    "Yield": "1.2%",
+    "Tags": "🚀⚡"
+  },
+  {
+    "Ticker": "BEM",
+    "Name": "Bangkok Expressway",
+    "Sub-Sector": "Expressway Operator",
+    "MCap": "⭐",
+    "Liq": "🔥🔥",
+    "PE": 14.5,
+    "Yield": "6.2%",
+    "Tags": "💎🛡️"
+  },
+  {
+    "Ticker": "CKP",
+    "Name": "CK Power (Orange Line)",
+    "Sub-Sector": "MRT Developer",
+    "MCap": "•",
+    "Liq": "🔥",
+    "PE": 16.8,
+    "Yield": "3.8%",
+    "Tags": "🚀"
+  },
+  {
+    "Ticker": "HANA",
+    "Name": "Hana Microelectronics",
+    "Sub-Sector": "Semiconductor Packaging",
+    "MCap": "⭐",
+    "Liq": "🔥🔥",
+    "PE": 22.5,
+    "Yield": "3.2%",
+    "Tags": "🚀⚡"
+  },
+  {
+    "Ticker": "KCE",
+    "Name": "KCE Electronics",
+    "Sub-Sector": "PCB Manufacturing",
+    "MCap": "⭐",
+    "Liq": "🔥",
+    "PE": 18.5,
+    "Yield": "4.5%",
+    "Tags": "🚀⚡"
+  },
+  {
+    "Ticker": "ADVANC",
+    "Name": "Advanced Info Service",
+    "Sub-Sector": "Mobile Operator",
+    "MCap": "⭐⭐⭐",
+    "Liq": "🔥🔥🔥",
+    "PE": 13.5,
+    "Yield": "6.8%",
+    "Tags": "🛡️💎"
+  },
+  {
+    "Ticker": "TRUE",
+    "Name": "True Corporation",
+    "Sub-Sector": "Integrated Telco",
+    "MCap": "⭐⭐⭐",
+    "Liq": "🔥🔥🔥",
+    "PE": 15.2,
+    "Yield": "5.5%",
+    "Tags": "💎"
+  },
+  {
+    "Ticker": "DTAC",
+    "Name": "Total Access Communication",
+    "Sub-Sector": "Mobile Operator",
+    "MCap": "⭐⭐",
+    "Liq": "🔥🔥",
+    "PE": 12.8,
+    "Yield": "6.2%",
+    "Tags": "💎"
+  },
+  {
+    "Ticker": "JAS",
+    "Name": "Jasmine International",
+    "Sub-Sector": "Broadband",
+    "MCap": "⭐",
+    "Liq": "🔥",
+    "PE": 18.5,
+    "Yield": "3.8%",
+    "Tags": "🚀"
+  },
+  {
+    "Ticker": "SYMC",
+    "Name": "Synnex Metrodata",
+    "Sub-Sector": "IT Distribution",
+    "MCap": "•",
+    "Liq": "🔥",
+    "PE": 16.5,
+    "Yield": "4.2%",
+    "Tags": "🛡️"
+  },
+  {
+    "Ticker": "INSET",
+    "Name": "Inset",
+    "Sub-Sector": "Software Development",
+    "MCap": "•",
+    "Liq": "•",
+    "PE": 22.5,
+    "Yield": "2.1%",
+    "Tags": "🚀"
+  },
+  {
+    "Ticker": "SYNEX",
+    "Name": "Syn Mun Kong Insurance Broker",
+    "Sub-Sector": "Insurtech",
+    "MCap": "•",
+    "Liq": "•",
+    "PE": 18.5,
+    "Yield": "3.2%",
+    "Tags": "🚀⚠️"
+  },
+  {
+    "Ticker": "ITC",
+    "Name": "Intouch Holdings",
+    "Sub-Sector": "Telecom + Data Center",
+    "MCap": "⭐⭐",
+    "Liq": "🔥🔥",
+    "PE": 14.5,
+    "Yield": "5.2%",
+    "Tags": "💎"
+  },
+  {
+    "Ticker": "FTREIT",
+    "Name": "Frasers Property Thailand Industrial Freehold & Leasehold REIT",
+    "Sub-Sector": "EV Factory REITs",
+    "MCap": "•",
+    "Liq": "🔥",
+    "PE": 15.8,
+    "Yield": "6.8%",
+    "Tags": "💎"
+  }
+]
