@@ -26,6 +26,7 @@
 
 'use client'
 
+import Link from 'next/link'
 import { Card } from '@/components/shared'
 import { Badge } from '@/components/shared/Badge'
 import { SwipeableCard } from '@/components/shared/modern/SwipeableCard'
@@ -310,38 +311,40 @@ function ActiveStockRow({ stock, rank, enableSwipeable, onSwipeRight, onSwipeLef
   const accumulationTag = formatAccumulationTag(stock.accumulationPattern, stock.accumulationDays)
 
   const stockContent = (
-    <div className="flex items-center gap-2 p-2 rounded hover:bg-surface-2 transition-colors">
-      <span className="text-xs font-semibold w-6 text-text-muted">{rank}</span>
+    <Link href={`/stock/${stock.symbol}`} className="block">
+      <div className="flex items-center gap-2 p-2 rounded hover:bg-surface-2 transition-colors">
+        <span className="text-xs font-semibold w-6 text-text-muted">{rank}</span>
 
-      <div className="flex-1 min-w-0">
-        <div className="flex items-center gap-2">
-          <span className="text-sm font-bold text-text">{stock.symbol}</span>
-          {stock.marketCapGroup && (
-            <span className="text-[9px] px-1 rounded text-text-muted bg-surface-2">
-              {stock.marketCapGroup}
-            </span>
-          )}
-          {accumulationTag && (
-            <Badge size="sm" color={getAccumulationBadgeColor(stock.accumulationPattern)}>
-              {accumulationTag}
-            </Badge>
-          )}
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-bold text-text">{stock.symbol}</span>
+            {stock.marketCapGroup && (
+              <span className="text-[9px] px-1 rounded text-text-muted bg-surface-2">
+                {stock.marketCapGroup}
+              </span>
+            )}
+            {accumulationTag && (
+              <Badge size="sm" color={getAccumulationBadgeColor(stock.accumulationPattern)}>
+                {accumulationTag}
+              </Badge>
+            )}
+          </div>
+          {stock.name && <span className="text-[10px] text-text-muted truncate block">{stock.name}</span>}
         </div>
-        {stock.name && <span className="text-[10px] text-text-muted truncate block">{stock.name}</span>}
-      </div>
 
-      <div className="text-right">
-        <div className="text-sm font-bold tabular-nums text-text">{formatTradingValue(stock.value)}</div>
-        <div className="text-xs tabular-nums" style={{ color: valueColor }}>
-          {isPositive && '+'}
-          {formatPercentage(stock.changePercent)}
+        <div className="text-right">
+          <div className="text-sm font-bold tabular-nums text-text">{formatTradingValue(stock.value)}</div>
+          <div className="text-xs tabular-nums" style={{ color: valueColor }}>
+            {isPositive && '+'}
+            {formatPercentage(stock.changePercent)}
+          </div>
         </div>
-      </div>
 
-      {rankingBadges.length > 0 && (
-        <div className="flex flex-wrap gap-1 justify-end">{rankingBadges}</div>
-      )}
-    </div>
+        {rankingBadges.length > 0 && (
+          <div className="flex flex-wrap gap-1 justify-end">{rankingBadges}</div>
+        )}
+      </div>
+    </Link>
   )
 
   // Wrap with SwipeableCard if enabled
@@ -385,25 +388,27 @@ function GainerLoserRow({ stock, rank, type, enableSwipeable, onSwipeRight, onSw
   const valueColor = isGainer ? COLORS.up : COLORS.down
 
   const stockContent = (
-    <div className="flex items-center gap-2 p-2 rounded hover:bg-surface-2 transition-colors">
-      <span className="text-xs font-semibold w-6 text-text-muted">{rank}</span>
+    <Link href={`/stock/${stock.symbol}`} className="block">
+      <div className="flex items-center gap-2 p-2 rounded hover:bg-surface-2 transition-colors">
+        <span className="text-xs font-semibold w-6 text-text-muted">{rank}</span>
 
-      <div className="flex-1 min-w-0">
-        <span className="text-sm font-bold text-text">{stock.symbol}</span>
-        {stock.name && <span className="text-[10px] text-text-muted truncate block ml-2">{stock.name}</span>}
-      </div>
-
-      {stock.value && (
-        <div className="text-right">
-          <div className="text-sm font-bold tabular-nums text-text">{formatTradingValue(stock.value)}</div>
+        <div className="flex-1 min-w-0">
+          <span className="text-sm font-bold text-text">{stock.symbol}</span>
+          {stock.name && <span className="text-[10px] text-text-muted truncate block ml-2">{stock.name}</span>}
         </div>
-      )}
 
-      <div className="text-xs font-medium tabular-nums" style={{ color: valueColor }}>
-        {isGainer && '+'}
-        {formatPercentage(stock.changePct)}
+        {stock.value && (
+          <div className="text-right">
+            <div className="text-sm font-bold tabular-nums text-text">{formatTradingValue(stock.value)}</div>
+          </div>
+        )}
+
+        <div className="text-xs font-medium tabular-nums" style={{ color: valueColor }}>
+          {isGainer && '+'}
+          {formatPercentage(stock.changePct)}
+        </div>
       </div>
-    </div>
+    </Link>
   )
 
   if (enableSwipeable) {
@@ -442,21 +447,23 @@ interface VolumeRowProps {
 
 function VolumeRow({ stock, rank, enableSwipeable, onSwipeRight, onSwipeLeft }: VolumeRowProps) {
   const stockContent = (
-    <div className="flex items-center gap-2 p-2 rounded hover:bg-surface-2 transition-colors">
-      <span className="text-xs font-semibold w-6 text-text-muted">{rank}</span>
+    <Link href={`/stock/${stock.symbol}`} className="block">
+      <div className="flex items-center gap-2 p-2 rounded hover:bg-surface-2 transition-colors">
+        <span className="text-xs font-semibold w-6 text-text-muted">{rank}</span>
 
-      <div className="flex-1 min-w-0">
-        <span className="text-sm font-bold text-text">{stock.symbol}</span>
-        {stock.name && <span className="text-[10px] text-text-muted truncate block ml-2">{stock.name}</span>}
-      </div>
+        <div className="flex-1 min-w-0">
+          <span className="text-sm font-bold text-text">{stock.symbol}</span>
+          {stock.name && <span className="text-[10px] text-text-muted truncate block ml-2">{stock.name}</span>}
+        </div>
 
-      <div className="text-right">
-        <div className="text-sm font-bold tabular-nums text-text">{formatVolume(stock.volume)}</div>
-        {stock.value && (
-          <div className="text-xs tabular-nums text-text-muted">{formatTradingValue(stock.value)}</div>
-        )}
+        <div className="text-right">
+          <div className="text-sm font-bold tabular-nums text-text">{formatVolume(stock.volume)}</div>
+          {stock.value && (
+            <div className="text-xs tabular-nums text-text-muted">{formatTradingValue(stock.value)}</div>
+          )}
+        </div>
       </div>
-    </div>
+    </Link>
   )
 
   if (enableSwipeable) {
@@ -491,15 +498,17 @@ interface CrossRankedBadgeProps {
 
 function CrossRankedBadge({ stock }: CrossRankedBadgeProps) {
   return (
-    <Badge
-      size="sm"
-      color={stock.strengthScore > 5 ? 'buy' : stock.strengthScore > 3 ? 'watch' : 'neutral'}
-      className="flex items-center gap-1"
-    >
-      <Award className="w-3 h-3" />
-      {stock.symbol}
-      <span className="text-[9px]">({stock.rankingCount})</span>
-    </Badge>
+    <Link href={`/stock/${stock.symbol}`}>
+      <Badge
+        size="sm"
+        color={stock.strengthScore > 5 ? 'buy' : stock.strengthScore > 3 ? 'watch' : 'neutral'}
+        className="flex items-center gap-1"
+      >
+        <Award className="w-3 h-3" />
+        {stock.symbol}
+        <span className="text-[9px]">({stock.rankingCount})</span>
+      </Badge>
+    </Link>
   )
 }
 

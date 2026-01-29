@@ -17,6 +17,7 @@
 
 'use client'
 
+import Link from 'next/link'
 import { Card, CardHeader } from '@/components/shared'
 import { Badge } from '@/components/shared/Badge'
 import { Award } from 'lucide-react'
@@ -134,21 +135,23 @@ function StockBadge({ stock, index }: StockBadgeProps) {
   const color = getStrengthColor(stock.strengthScore)
 
   return (
-    <motion.div
-      variants={ANIMATION_VARIANTS.item}
-      initial="hidden"
-      animate="visible"
-      custom={index}
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
-      className="transition-transform duration-150"
-    >
-      <Badge size="sm" color={color} className="flex items-center gap-1.5 px-2.5 py-1">
-        <Award className="w-3 h-3" />
-        {stock.symbol}
-        <span className="text-[9px] font-medium tabular-nums">({stock.rankingCount})</span>
-      </Badge>
-    </motion.div>
+    <Link href={`/stock/${stock.symbol}`}>
+      <motion.div
+        variants={ANIMATION_VARIANTS.item}
+        initial="hidden"
+        animate="visible"
+        custom={index}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        className="transition-transform duration-150"
+      >
+        <Badge size="sm" color={color} className="flex items-center gap-1.5 px-2.5 py-1">
+          <Award className="w-3 h-3" />
+          {stock.symbol}
+          <span className="text-[9px] font-medium tabular-nums">({stock.rankingCount})</span>
+        </Badge>
+      </motion.div>
+    </Link>
   )
 }
 
