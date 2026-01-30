@@ -4,6 +4,8 @@
  * Step-by-step guide on how to use FonPick for investment decisions
  */
 
+'use client'
+
 import { ArrowDown } from 'lucide-react'
 
 // ============================================================================

@@ -33,12 +33,15 @@ import {
   TabbedMovers,
   DataInsightCard,
 } from "@/components/dashboard";
+import { useTranslations } from "next-intl";
 
 // ============================================================================
 // MAIN PAGE COMPONENT (Client-side, Memory Optimized)
 // ============================================================================
 
 export default function HomePage() {
+  const t = useTranslations('dashboard.section')
+
   // No server-side data fetching - Context handles everything
   // This eliminates the 100-200MB server-client data duplication
 
@@ -54,8 +57,8 @@ export default function HomePage() {
       <section aria-labelledby="p0-heading" className="mb-6">
         <SectionHeader
           priority="P0"
-          title="Market Overview"
-          subtitle="Market Regime and Smart Money Analysis"
+          title={t('p0.title')}
+          subtitle={t('p0.subtitle')}
         />
         <ResponsiveGrid preset="asymmetric" gap="compact" className="mt-5">
           <AsymmetricWide>
@@ -85,8 +88,8 @@ export default function HomePage() {
       <section aria-labelledby="p1-heading" className="mb-6">
         <SectionHeader
           priority="P1"
-          title="Sector Analysis"
-          subtitle="Sector Strength and Performance"
+          title={t('p1.title')}
+          subtitle={t('p1.subtitle')}
         />
         <SectorStrengthCard className="mt-5" />
       </section>
@@ -95,8 +98,8 @@ export default function HomePage() {
       <section aria-labelledby="p2-heading" className="mb-6">
         <SectionHeader
           priority="P2"
-          title="Market Movers"
-          subtitle="Active Stocks and Top Rankings"
+          title={t('p2.title')}
+          subtitle={t('p2.subtitle')}
         />
         <TabbedMovers
           topCount={5}

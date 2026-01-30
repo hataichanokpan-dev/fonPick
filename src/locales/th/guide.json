@@ -1,0 +1,164 @@
+{
+  "title": "คู่มือการใช้งาน FonPick",
+  "description": "เรียนรู้วิธีใช้งาน FonPick Dashboard และการวิเคราะห์ตลาดหุ้นไทย",
+  "hero": {
+    "title": "วิธีใช้งาน FonPick",
+    "subtitle": "เข้าใจตลาดหุ้นไทยง่ายๆ ใน 5 นาที",
+    "description": "คู่มือนี้ออกแบบมาสำหรับผู้เริ่มต้น อธิบายแบบเข้าใจง่าย ไม่ต้องมีพื้นฐานการลงทุนมากก็สามารถเข้าใจได้"
+  },
+  "quickStart": {
+    "title": "ช่วยอะไรคุณได้บ้าง?",
+    "items": [
+      {
+        "question": "วันนี้ตลาดเป็นยังไง?",
+        "answer": "Market Regime บอกอารมณ์ตลาด - Risk-On (กล้าลงทุน) หรือ Risk-Off (ระวัง)"
+      },
+      {
+        "question": "นักลงทุนใหญ่ทำอะไร?",
+        "answer": "Smart Money ติดตามเงินฉลาด - Foreign และ Institution กำลังซื้อหรือขาย"
+      },
+      {
+        "question": "ควร Focus กลุ่มหุ้นไหน?",
+        "answer": "Sector Analysis บอก sector ไหนกำลังน่าสนใจ และ sector ไหนควรหลีกเลี่ยง"
+      },
+      {
+        "question": "หุ้นไหนน่าสนใจ?",
+        "answer": "Daily Focus แสดงหุ้นที่โดนพูดถึงหลายด้าน - High conviction picks"
+      }
+    ]
+  },
+  "faq": {
+    "title": "คำถามที่พบบ่อย (FAQ)",
+    "items": {
+      "updateFrequency": {
+        "title": "Data อัปเดตเมื่อไหร่?",
+        "content": {
+          "time": "End-time หลังตลาดปิด (18:30 น.)",
+          "sources": "ข้อมูลตลาดหุ้นไทย (SET)",
+          "dataSource": "ข้อมูลมาจาก SET + NVDR (Smart Money flow)"
+        }
+      },
+      "noData": {
+        "title": "ทำไมบางทีข้อมูลไม่แสดง?",
+        "content": {
+          "reason": "อาจเป็นเพราะ:",
+          "reasons": [
+            "ตลาดปิดแล้ว (หลัง 16:30 น.)",
+            "วันหยุดตลาด",
+            "ข้อมูลกำลังอัปเดต (retry อัตโนมัติ)"
+          ]
+        }
+      },
+      "priorityOrder": {
+        "title": "ควร Focus อะไรก่อน?",
+        "content": {
+          "reason": "ลำดับความสำคัญ:",
+          "priorities": [
+            "<strong>P0</strong> (Market Regime + Smart Money) → ตัดสินใจก่อนลงทุน",
+            "<strong>P1</strong> (Sector Analysis) → เลือก sector",
+            "<strong>P2</strong> (Market Movers) → เลือก stock"
+          ]
+        }
+      },
+      "smartMoneyDefinition": {
+        "title": "Smart Money คืออะไร?",
+        "content": {
+          "definition": "Smart Money คือนักลงทุนระดับสถาบัน:",
+          "types": [
+            "<strong>Foreign</strong> - นักลงทุนต่างชาติ",
+            "<strong>Institution</strong> - กองทุนรวม, บมจ."
+          ],
+          "advantage": "พวกเขามีเงินและข้อมูลมากกว่าคนรายย่อย ดังนั้นการตามพวกเขามักจะให้ผลดี"
+        }
+      },
+      "riskOnOff": {
+        "title": "Risk-On/Off คืออะไร?",
+        "content": {
+          "definition": "คืออารมณ์โดยรวมของตลาด:",
+          "riskOn": "Risk-On",
+          "riskOnDesc": "นักลงทุนกล้ารับความเสี่ยง เศรษฐกิจดี",
+          "riskOff": "Risk-Off",
+          "riskOffDesc": "นักลงทุนกลัว หนีความเสี่ยง เศรษฐกิจไม่แน่นอน"
+        }
+      },
+      "contradiction": {
+        "title": "ถ้า Smart Money ซื้อแต่ตลาดลง?",
+        "content": {
+          "reason": "อาจเป็น:",
+          "possibilities": [
+            "<strong>Accumulation phase</strong> - Smart Money สะสม รอขึ้น",
+            "<strong>Bottom fishing</strong> - Smart Money มองว่าตลาดถูกเกินไป",
+            "<strong>Divergence</strong> - ระวังอาจมี downside อีก"
+          ],
+          "advice": "ในกรณีนี้ ควรรอดูสัญญาณชัดเจนก่อนตัดสินใจ"
+        }
+      },
+      "crossRanked": {
+        "title": "Cross-ranked stocks คืออะไร?",
+        "content": {
+          "definition": "หุ้นที่ปรากฏในหลาย rankings เช่น:",
+          "examples": [
+            "อยู่ในทั้ง Active และ Gainers",
+            "อยู่ในทั้ง Gainers และ Volume"
+          ],
+          "conclusion": "ยิ่งโดนพูดถึงหลายด้าน = ยิ่งมี <strong>High Conviction</strong>"
+        }
+      }
+    }
+  },
+  "features": {
+    "title": "คำอธิบายคุณสมบัติ",
+    "regime": {
+      "title": "Market Regime",
+      "description": "แสดงอารมณ์โดยรวมของตลาด - Risk-On หรือ Risk-Off"
+    },
+    "smartMoney": {
+      "title": "Smart Money Flow",
+      "description": "ติดตามการซื้อ/ขายของนักลงทุนต่างชาติและสถาบัน"
+    },
+    "sectors": {
+      "title": "Sector Analysis",
+      "description": "แสดงกลุ่มอุตสาหกรรมไหนแข็งแกร่งหรืออ่อนแอ"
+    },
+    "movers": {
+      "title": "Market Movers",
+      "description": "หุ้นซื้อขายเด่น ขาขึ้น ขาลง และปริมาณสูงสุด"
+    }
+  },
+  "decisionFlow": {
+    "title": "ขั้นตอนการตัดสินใจลงทุน",
+    "steps": [
+      {
+        "step": "1",
+        "title": "ตรวจสอบ Market Regime",
+        "description": "Risk-On = พิจารณาซื้อ, Risk-Off = ระวัง"
+      },
+      {
+        "step": "2",
+        "title": "ตรวจสอบ Smart Money",
+        "description": "ติดตามการซื้อ/ขายของสถาบัน"
+      },
+      {
+        "step": "3",
+        "title": "เลือก Sectors",
+        "description": "Focus กลุ่มที่แข็งแกร่ง"
+      },
+      {
+        "step": "4",
+        "title": "เลือก Stocks",
+        "description": "มองหาหุ้น cross-ranked ที่มีความมั่นใจสูง"
+      }
+    ]
+  },
+  "glossary": {
+    "title": "อภิธาน",
+    "terms": {
+      "riskOn": "สภาวะตลาดที่นักลงทุนกล้ารับความเสี่ยง",
+      "riskOff": "สภาวะตลาดที่นักลงทุนระมัดระวัง",
+      "smartMoney": "นักลงทุนสถาบันที่มีเงินทุนมหาศาล",
+      "accumulation": "Smart Money ซื้อสะสมเงียบๆ",
+      "distribution": "Smart Money ขายให้คนรายย่อย",
+      "crossRanked": "หุ้นที่ปรากฏในหลาย rankings"
+    }
+  }
+}

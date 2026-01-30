@@ -5,13 +5,18 @@
  * Explains what FonPick helps with
  */
 
+'use client'
+
 import { BookOpen } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 // ============================================================================
 // HERO SECTION COMPONENT
 // ============================================================================
 
 export function HeroSection() {
+  const t = useTranslations('guide.hero')
+
   return (
     <section className="text-center space-y-6 py-8">
       {/* Icon */}
@@ -23,18 +28,17 @@ export function HeroSection() {
 
       {/* Title */}
       <h1 className="text-3xl md:text-4xl font-bold text-gray-100">
-        วิธีใช้งาน FonPick
+        {t('title')}
       </h1>
 
       {/* Subtitle */}
       <p className="text-lg text-gray-400 max-w-2xl mx-auto">
-        เข้าใจตลาดหุ้นไทยง่ายๆ ใน 5 นาที
+        {t('subtitle')}
       </p>
 
       {/* Description */}
       <p className="text-gray-500 max-w-2xl mx-auto">
-        คู่มือนี้ออกแบบมาสำหรับผู้เริ่มต้น อธิบายแบบเข้าใจง่าย
-        ไม่ต้องมีพื้นฐานการลงทุนมากก็สามารถเข้าใจได้
+        {t('description')}
       </p>
     </section>
   )

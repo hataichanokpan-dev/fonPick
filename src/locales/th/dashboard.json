@@ -87,12 +87,63 @@
   "dailyFocus": {
     "title": "จุดเด่นประจำวัน",
     "subtitle": "หุ้นที่ปรากฏในหลายอันดับ",
-    "empty": "ยังไม่มีข้อมูล"
+    "empty": "ยังไม่มีข้อมูล",
+    "noCrossRanked": "ไม่พบหุ้นที่อยู่ในหลายอันดับ"
   },
   "dataInsight": {
     "title": "ข้อมูลเชิงลึก",
     "noConflict": "ไม่มีความขัดแย้ง",
     "conflict": "มีความขัดแย้ง",
     "highConviction": "มั่นใจสูง"
+  },
+  "accumulationPatterns": {
+    "title": "รูปแบบการสะสม/แตกตัว",
+    "subtitle": "การวิเคราะห์กระแส 3 วัน",
+    "empty": "ไม่มีข้อมูลรูปแบบการสะสม",
+    "strongAccumulation": "Strong Accumulation",
+    "accumulation": "Accumulation",
+    "distribution": "Distribution",
+    "strongDistribution": "Strong Distribution"
+  },
+  "tabbedMovers": {
+    "title": "ตลาดเคลื่อนไหว",
+    "tabs": {
+      "active": "ซื้อขายเด่น",
+      "gainers": "ขาขึ้น",
+      "losers": "ขาลง",
+      "volume": "ปริมาณ"
+    },
+    "marketConcentration": "ความเข้มข้นของตลาด",
+    "concentrationLevels": {
+      "high": "เข้มข้นสูง",
+      "moderate": "เข้มข้นปานกลาง",
+      "low": "กระจายดี"
+    },
+    "top5Concentration": "Top 5 Concentration",
+    "hhiScore": "HHI Score",
+    "rankingBadges": {
+      "value": "มูลค่า",
+      "volume": "ปริมาณ",
+      "up": "ขึ้น",
+      "down": "ลง"
+    },
+    "swipeActions": {
+      "remove": "ลบ",
+      "addToWatchlist": "เพิ่มใน Watchlist"
+    },
+    "error": "ไม่สามารถโหลดข้อมูลตลาดได้",
+    "crossRanked": "Cross-Ranked",
+    "topByValue": "Top {{count}} มูลค่า",
+    "topGainers": "Top {{count}} ขาขึ้น",
+    "topLosers": "Top {{count}} ขาลง",
+    "topVolume": "Top {{count}} ปริมาณ",
+    "noGainers": "ไม่มีหุ้นขาขึ้น",
+    "noLosers": "ไม่มีหุ้นขาลง",
+    "accumulationShort": {
+      "strongAccumulation": "Str Acc",
+      "accumulation": "Acc",
+      "strongDistribution": "Str Dist",
+      "distribution": "Dist"
+    }
   }
 }

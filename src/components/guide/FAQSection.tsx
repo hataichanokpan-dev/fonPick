@@ -4,142 +4,152 @@
  * Frequently asked questions about FonPick
  */
 
+'use client'
+
 import { Accordion, AccordionItem } from '@/components/shared/Accordion'
-
-// ============================================================================
-// FAQ DATA
-// ============================================================================
-
-const faqs: AccordionItem[] = [
-  {
-    id: 'update-frequency',
-    title: 'Data อัปเดตเมื่อไหร่?',
-    content: (
-      <div className="text-gray-300 space-y-2">
-        <p>End-time หลังตลาดปิด (18:30 น.)</p>
-        <ul className="list-disc list-inside space-y-1 text-sm">
-          <li>ข้อมูลตลาดหุ้นไทย (SET)</li>
-          <li>ข้อมูลมาจาก SET + NVDR (Smart Money flow)</li>
-        </ul>
-      </div>
-    ),
-  },
-  {
-    id: 'no-data',
-    title: 'ทำไมบางทีข้อมูลไม่แสดง?',
-    content: (
-      <div className="text-gray-300 space-y-2">
-        <p>อาจเป็นเพราะ:</p>
-        <ul className="list-disc list-inside space-y-1 text-sm">
-          <li>ตลาดปิดแล้ว (หลัง 16:30 น.)</li>
-          <li>วันหยุดตลาด</li>
-          <li>ข้อมูลกำลังอัปเดต (retry อัตโนมัติ)</li>
-        </ul>
-      </div>
-    ),
-  },
-  {
-    id: 'priority-order',
-    title: 'ควร Focus อะไรก่อน?',
-    content: (
-      <div className="text-gray-300 space-y-2">
-        <p>ลำดับความสำคัญ:</p>
-        <ol className="list-decimal list-inside space-y-1 text-sm">
-          <li>
-            <strong className="text-blue-400">P0</strong> (Market Regime + Smart Money) → ตัดสินใจก่อนลงทุน
-          </li>
-          <li>
-            <strong className="text-purple-400">P1</strong> (Sector Analysis) → เลือก sector
-          </li>
-          <li>
-            <strong className="text-orange-400">P2</strong> (Market Movers) → เลือก stock
-          </li>
-        </ol>
-      </div>
-    ),
-  },
-  {
-    id: 'smart-money-definition',
-    title: 'Smart Money คืออะไร?',
-    content: (
-      <div className="text-gray-300 space-y-2">
-        <p>Smart Money คือนักลงทุนระดับสถาบัน:</p>
-        <ul className="list-disc list-inside space-y-1 text-sm">
-          <li><strong className="text-blue-400">Foreign</strong> - นักลงทุนต่างชาติ</li>
-          <li><strong className="text-blue-400">Institution</strong> - กองทุนรวม, บมจ.</li>
-        </ul>
-        <p className="text-sm mt-2">
-          พวกเขามีเงินและข้อมูลมากกว่าคนรายย่อย ดังนั้นการตามพวกเขามักจะให้ผลดี
-        </p>
-      </div>
-    ),
-  },
-  {
-    id: 'risk-on-off',
-    title: 'Risk-On/Off คืออะไร?',
-    content: (
-      <div className="text-gray-300 space-y-2">
-        <p>คืออารมณ์โดยรวมของตลาด:</p>
-        <div className="grid md:grid-cols-2 gap-3 mt-2">
-          <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-3">
-            <p className="font-semibold text-green-400">Risk-On</p>
-            <p className="text-sm">นักลงทุนกล้ารับความเสี่ยง เศรษฐกิจดี</p>
-          </div>
-          <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-3">
-            <p className="font-semibold text-red-400">Risk-Off</p>
-            <p className="text-sm">นักลงทุนกลัว หนีความเสี่ยง เศรษฐกิจไม่แน่นอน</p>
-          </div>
-        </div>
-      </div>
-    ),
-  },
-  {
-    id: 'contradiction',
-    title: 'ถ้า Smart Money ซื้อแต่ตลาดลง?',
-    content: (
-      <div className="text-gray-300 space-y-2">
-        <p>อาจเป็น:</p>
-        <ul className="list-disc list-inside space-y-1 text-sm">
-          <li><strong>Accumulation phase</strong> - Smart Money สะสม รอขึ้น</li>
-          <li><strong>Bottom fishing</strong> - Smart Money มองว่าตลาดถูกเกินไป</li>
-          <li><strong>Divergence</strong> - ระวังอาจมี downside อีก</li>
-        </ul>
-        <p className="text-sm mt-2 text-yellow-400">
-          ในกรณีนี้ ควรรอดูสัญญาณชัดเจนก่อนตัดสินใจ
-        </p>
-      </div>
-    ),
-  },
-  {
-    id: 'cross-ranked',
-    title: 'Cross-ranked stocks คืออะไร?',
-    content: (
-      <div className="text-gray-300 space-y-2">
-        <p>หุ้นที่ปรากฏในหลาย rankings เช่น:</p>
-        <ul className="list-disc list-inside space-y-1 text-sm">
-          <li>อยู่ในทั้ง Active และ Gainers</li>
-          <li>อยู่ในทั้ง Gainers และ Volume</li>
-        </ul>
-        <p className="text-sm mt-2">
-          ยิ่งโดนพูดถึงหลายด้าน = ยิ่งมี <strong className="text-yellow-400">High Conviction</strong>
-        </p>
-      </div>
-    ),
-  },
-]
+import { useTranslations } from 'next-intl'
 
 // ============================================================================
 // FAQ SECTION COMPONENT
 // ============================================================================
 
+const FAQ_KEYS = [
+  'updateFrequency',
+  'noData',
+  'priorityOrder',
+  'smartMoneyDefinition',
+  'riskOnOff',
+  'contradiction',
+  'crossRanked',
+] as const
+
 export function FAQSection() {
+  const t = useTranslations('guide.faq')
+
+  // Generate FAQ items with translation content
+  const faqs: AccordionItem[] = FAQ_KEYS.map((key) => ({
+    id: key,
+    title: t(`items.${key}.title` as any),
+    content: <FAQContent itemKey={key} />,
+  }))
+
   return (
     <section className="space-y-4">
       <h2 className="text-2xl font-bold text-gray-100">
-        คำถามที่พบบ่อย (FAQ)
+        {t('title')}
       </h2>
 
       <Accordion items={faqs} allowMultiple={false} />
     </section>
   )
+}
+
+// Helper component to render FAQ content with translations
+interface FAQContentProps {
+  itemKey: typeof FAQ_KEYS[number]
+}
+
+function FAQContent({ itemKey }: FAQContentProps) {
+  const t = useTranslations('guide.faq')
+
+  // Render different content based on FAQ type
+  if (itemKey === 'updateFrequency') {
+    return (
+      <div className="text-gray-300 space-y-2">
+        <p>{t('items.updateFrequency.content.time' as any)}</p>
+        <ul className="list-disc list-inside space-y-1 text-sm">
+          <li>{t('items.updateFrequency.content.sources' as any)}</li>
+          <li>{t('items.updateFrequency.content.dataSource' as any)}</li>
+        </ul>
+      </div>
+    )
+  }
+
+  if (itemKey === 'noData') {
+    return (
+      <div className="text-gray-300 space-y-2">
+        <p>{t('items.noData.content.reason' as any)}</p>
+        <ul className="list-disc list-inside space-y-1 text-sm">
+          {(t.raw('items.noData.content.reasons') as string[]).map((reason, i) => (
+            <li key={i}>{reason}</li>
+          ))}
+        </ul>
+      </div>
+    )
+  }
+
+  if (itemKey === 'priorityOrder') {
+    return (
+      <div className="text-gray-300 space-y-2">
+        <p>{t('items.priorityOrder.content.reason' as any)}</p>
+        <ol className="list-decimal list-inside space-y-1 text-sm">
+          {(t.raw('items.priorityOrder.content.priorities') as string[]).map((priority, i) => (
+            <li key={i} dangerouslySetInnerHTML={{ __html: priority }} />
+          ))}
+        </ol>
+      </div>
+    )
+  }
+
+  if (itemKey === 'smartMoneyDefinition') {
+    return (
+      <div className="text-gray-300 space-y-2">
+        <p>{t('items.smartMoneyDefinition.content.definition' as any)}</p>
+        <ul className="list-disc list-inside space-y-1 text-sm">
+          {(t.raw('items.smartMoneyDefinition.content.types') as string[]).map((type, i) => (
+            <li key={i} dangerouslySetInnerHTML={{ __html: type }} />
+          ))}
+        </ul>
+        <p className="text-sm mt-2">{t('items.smartMoneyDefinition.content.advantage' as any)}</p>
+      </div>
+    )
+  }
+
+  if (itemKey === 'riskOnOff') {
+    return (
+      <div className="text-gray-300 space-y-2">
+        <p>{t('items.riskOnOff.content.definition' as any)}</p>
+        <div className="grid md:grid-cols-2 gap-3 mt-2">
+          <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-3">
+            <p className="font-semibold text-green-400">{t('items.riskOnOff.content.riskOn' as any)}</p>
+            <p className="text-sm">{t('items.riskOnOff.content.riskOnDesc' as any)}</p>
+          </div>
+          <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-3">
+            <p className="font-semibold text-red-400">{t('items.riskOnOff.content.riskOff' as any)}</p>
+            <p className="text-sm">{t('items.riskOnOff.content.riskOffDesc' as any)}</p>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  if (itemKey === 'contradiction') {
+    return (
+      <div className="text-gray-300 space-y-2">
+        <p>{t('items.contradiction.content.reason' as any)}</p>
+        <ul className="list-disc list-inside space-y-1 text-sm">
+          {(t.raw('items.contradiction.content.possibilities') as string[]).map((possibility, i) => (
+            <li key={i} dangerouslySetInnerHTML={{ __html: possibility }} />
+          ))}
+        </ul>
+        <p className="text-sm mt-2 text-yellow-400">{t('items.contradiction.content.advice' as any)}</p>
+      </div>
+    )
+  }
+
+  if (itemKey === 'crossRanked') {
+    return (
+      <div className="text-gray-300 space-y-2">
+        <p>{t('items.crossRanked.content.definition' as any)}</p>
+        <ul className="list-disc list-inside space-y-1 text-sm">
+          {(t.raw('items.crossRanked.content.examples') as string[]).map((example, i) => (
+            <li key={i}>{example}</li>
+          ))}
+        </ul>
+        <p className="text-sm mt-2" dangerouslySetInnerHTML={{ __html: t('items.crossRanked.content.conclusion' as any) }} />
+      </div>
+    )
+  }
+
+  return <div className="text-gray-300">Content not found</div>
 }

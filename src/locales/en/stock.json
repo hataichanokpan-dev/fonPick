@@ -3,7 +3,24 @@
   "search": {
     "placeholder": "Search stocks...",
     "noResults": "No stocks found",
-    "recent": "Recent searches"
+    "recent": "Recent searches",
+    "title": "Search Stocks",
+    "subtitle": "Find stocks by symbol or company name",
+    "tryDifferent": "Try a different search term",
+    "searchFor": "Search for stocks",
+    "searchPrompt": "Enter a stock symbol (e.g., PTT, KBANK) or company name to see detailed analysis and investment recommendations.",
+    "mcap": "MCap",
+    "vol": "Vol"
+  },
+  "decision": {
+    "buy": "BUY",
+    "watch": "WATCH",
+    "avoid": "AVOID",
+    "hold": "HOLD",
+    "strongBuy": "Strong Buy Signal",
+    "watchClosely": "Watch Closely",
+    "highRisk": "High Risk",
+    "holdLabel": "Hold"
   },
   "info": {
     "price": "Price",
@@ -27,6 +44,17 @@
     "removeFromWatchlist": "Remove from Watchlist",
     "viewChart": "View Chart",
     "viewNews": "View News"
+  },
+  "page": {
+    "backToMarket": "Back to Market",
+    "loading": "Loading stock data...",
+    "sector": "Sector",
+    "marketCap": "Market Cap",
+    "nextStep": "Next Step",
+    "dataCompleteness": "Analysis based on {{completeness}}% data completeness. Always verify with additional research before making investment decisions.",
+    "billionTHB": "B THB",
+    "millionTHB": "M THB",
+    "notAvailable": "N/A"
   },
   "technical": {
     "title": "Technical Analysis",

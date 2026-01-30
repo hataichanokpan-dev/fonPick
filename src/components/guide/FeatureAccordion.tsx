@@ -5,6 +5,8 @@
  * Uses accordion for expandable content
  */
 
+'use client'
+
 import { Accordion, AccordionItem } from '@/components/shared/Accordion'
 import { Tooltip } from '@/components/shared/Tooltip'
 import { BarChart3, DollarSign, TrendingUp, Star, Zap } from 'lucide-react'

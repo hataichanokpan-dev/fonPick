@@ -12,14 +12,21 @@ import { FeatureAccordion } from '@/components/guide/FeatureAccordion'
 import { DecisionFlow } from '@/components/guide/DecisionFlow'
 import { FAQSection } from '@/components/guide/FAQSection'
 import { GlossarySection } from '@/components/guide/GlossarySection'
+import { getTranslations } from 'next-intl/server'
+import type { Metadata } from 'next'
 
 // ============================================================================
 // METADATA
 // ============================================================================
 
-export const metadata = {
-  title: 'คู่มือการใช้งาน FonPick',
-  description: 'เรียนรู้วิธีใช้งาน FonPick Dashboard และการวิเคราะห์ตลาดหุ้นไทย',
+export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
+  void params // Unused but required for Next.js params
+  const t = await getTranslations('guide')
+
+  return {
+    title: t('title'),
+    description: t('description'),
+  }
 }
 
 // ============================================================================
@@ -48,7 +55,7 @@ export default function GuidePage() {
         {/* Glossary */}
         <GlossarySection />
 
-        
+
       </div>
     </main>
   )

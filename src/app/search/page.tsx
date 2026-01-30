@@ -12,6 +12,7 @@ import Link from 'next/link'
 import { searchStocksByPrefix } from '@/lib/rtdb'
 import { Badge } from '@/components/shared/Badge'
 import { TrendingUp, TrendingDown, Award } from 'lucide-react'
+import { getTranslations } from 'next-intl/server'
 
 // Mock stock data for fallback when RTDB stock list is not available
 // Enhanced with more detailed information
@@ -36,11 +37,11 @@ const MOCK_STOCKS = [
 /**
  * Get decision badge based on change percentage (simplified logic)
  */
-function getDecisionBadge(changePct: number): { label: string; color: 'buy' | 'watch' | 'sell' | 'neutral' } {
-  if (changePct >= 3) return { label: 'BUY', color: 'buy' }
-  if (changePct >= 1) return { label: 'WATCH', color: 'watch' }
-  if (changePct <= -2) return { label: 'AVOID', color: 'sell' }
-  return { label: 'HOLD', color: 'neutral' }
+function getDecisionBadge(changePct: number, t: (key: string) => string): { label: string; color: 'buy' | 'watch' | 'sell' | 'neutral' } {
+  if (changePct >= 3) return { label: t('decision.buy'), color: 'buy' }
+  if (changePct >= 1) return { label: t('decision.watch'), color: 'watch' }
+  if (changePct <= -2) return { label: t('decision.avoid'), color: 'sell' }
+  return { label: t('decision.hold'), color: 'neutral' }
 }
 
 async function searchStocks(query: string): Promise<
@@ -79,6 +80,7 @@ export default async function SearchPage({
 }: {
   searchParams: { q?: string }
 }) {
+  const t = await getTranslations('stock')
   const query = searchParams.q || ''
   const results = query ? await searchStocks(query) : []
 
@@ -87,10 +89,10 @@ export default async function SearchPage({
       {/* Header - Compact */}
       <div>
         <h1 className="text-xl font-bold mb-1 text-text">
-          Search Stocks
+          {t('search.title')}
         </h1>
         <p className="text-sm text-text-2">
-          Find stocks by symbol or company name
+          {t('search.subtitle')}
         </p>
       </div>
 
@@ -103,7 +105,7 @@ export default async function SearchPage({
           {results.length > 0 ? (
             <div className="rounded-lg divide-y border border-border bg-surface overflow-hidden">
               {results.map((stock) => {
-                const decision = getDecisionBadge(stock.change)
+                const decision = getDecisionBadge(stock.change, t)
                 const isPositive = stock.change >= 0
                 return (
                   <Link
@@ -157,29 +159,29 @@ export default async function SearchPage({
                         {/* Market Cap */}
                         <div className="flex items-center gap-1">
                           <Award className="w-3 h-3 text-text-3" />
-                          <span>MCap: {formatMarketCap((stock as any).marketCap || 0)}</span>
+                          <span>{t('search.mcap')}: {formatMarketCap((stock as any).marketCap || 0)}</span>
                         </div>
 
                         {/* Volume (if available) */}
                         {(stock as any).volume && (
                           <div className="flex items-center gap-1">
-                            <span>Vol: {((stock as any).volume / 1000000).toFixed(1)}M</span>
+                            <span>{t('search.vol')}: {((stock as any).volume / 1000000).toFixed(1)}M</span>
                           </div>
                         )}
 
                         {/* Recommendation indicator */}
                         <div className="ml-auto">
                           {decision.color === 'buy' && (
-                            <span className="text-up font-medium">Strong Buy Signal</span>
+                            <span className="text-up font-medium">{t('decision.strongBuy')}</span>
                           )}
                           {decision.color === 'watch' && (
-                            <span className="text-warn font-medium">Watch Closely</span>
+                            <span className="text-warn font-medium">{t('decision.watchClosely')}</span>
                           )}
                           {decision.color === 'sell' && (
-                            <span className="text-down font-medium">High Risk</span>
+                            <span className="text-down font-medium">{t('decision.highRisk')}</span>
                           )}
                           {decision.color === 'neutral' && (
-                            <span className="text-text-muted font-medium">Hold</span>
+                            <span className="text-text-muted font-medium">{t('decision.holdLabel')}</span>
                           )}
                         </div>
                       </div>
@@ -205,9 +207,9 @@ export default async function SearchPage({
                   />
                 </svg>
               </div>
-              <p className="text-sm font-medium text-text-2">No stocks found</p>
+              <p className="text-sm font-medium text-text-2">{t('search.noResults')}</p>
               <p className="text-xs mt-1 text-text-3">
-                Try a different search term
+                {t('search.tryDifferent')}
               </p>
             </div>
           )}
@@ -233,11 +235,10 @@ export default async function SearchPage({
             </svg>
           </div>
           <h3 className="text-base font-semibold mb-2 text-text">
-            Search for stocks
+            {t('search.searchFor')}
           </h3>
           <p className="max-w-md mx-auto text-sm text-text-2">
-            Enter a stock symbol (e.g., PTT, KBANK) or company name to see
-            detailed analysis and investment recommendations.
+            {t('search.searchPrompt')}
           </p>
         </div>
       )}

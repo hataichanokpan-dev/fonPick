@@ -13,14 +13,15 @@
  *
  * Theme: Green-tinted dark with teal up / soft red down
  * Design: Compact 12px padding, rank numbers, pattern badges
+ * i18n: Supports Thai/English translations
  */
 
 'use client'
 
 import { Card, Badge } from '@/components/shared'
 import { Activity } from 'lucide-react'
-import { motion } from 'framer-motion'
 import { useMemo } from 'react'
+import { useTranslations } from 'next-intl'
 
 // ==================================================================
 // TYPES
@@ -112,22 +113,20 @@ interface PatternRowProps {
   pattern: AccumulationPattern
   rank: number
   index: number
+  t: (key: string) => string
 }
 
-function PatternRow({ pattern, rank, index }: PatternRowProps) {
+function PatternRow({ pattern, rank, index, t }: PatternRowProps) {
   const isAccumulation = pattern.pattern.includes('Accumulation')
   const colorClass = getPatternColorClass(pattern.pattern)
   const flowDisplay = formatNetFlow(pattern.avgNetFlow)
   const isStrong = isStrongPattern(pattern.pattern)
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3, delay: index * 0.05 }}
+    <div
       data-testid={`pattern-row-${pattern.symbol}`}
       data-index={index}
-      className={`flex items-center gap-2 p-2 rounded hover:bg-surface-2 transition-colors ${
+      className={`flex items-center gap-2 p-2 rounded hover:bg-surface-2 transition-colors animate-fade-in-up ${
         isAccumulation ? 'accumulation' : 'distribution'
       }`}
     >
@@ -164,9 +163,9 @@ function PatternRow({ pattern, rank, index }: PatternRowProps) {
         color={PATTERN_BADGE_COLORS[pattern.pattern]}
         className={isStrong ? 'font-semibold' : ''}
       >
-        {pattern.pattern}
+        {t(`accumulationPatterns.${pattern.pattern.toLowerCase().replace(/ /g, '')}`)}
       </Badge>
-    </motion.div>
+    </div>
   )
 }
 
@@ -178,6 +177,8 @@ export function AccumulationPatternsCard({
   patterns,
   topCount = DEFAULT_TOP_COUNT,
 }: AccumulationPatternsCardProps) {
+  const t = useTranslations('dashboard.accumulationPatterns')
+
   // Sort patterns by score (descending) - immutable
   const sortedPatterns = useMemo(() => {
     return [...patterns].sort((a, b) => b.score - a.score)
@@ -193,11 +194,11 @@ export function AccumulationPatternsCard({
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
             <Activity className="w-4 h-4 text-text-muted" />
-            <h3 className="text-sm font-semibold text-text-2">Accumulation Patterns</h3>
+            <h3 className="text-sm font-semibold text-text-2">{t('title')}</h3>
           </div>
         </div>
         <p className="text-text-muted text-xs">
-          No accumulation patterns data available
+          {t('empty')}
         </p>
       </Card>
     )
@@ -209,10 +210,10 @@ export function AccumulationPatternsCard({
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
           <Activity className="w-4 h-4 text-text-muted" />
-          <h3 className="text-sm font-semibold text-text-2">Accumulation Patterns</h3>
+          <h3 className="text-sm font-semibold text-text-2">{t('title')}</h3>
         </div>
         <span className="text-[10px] uppercase tracking-wide text-text-muted">
-          3-Day Flow Analysis
+          {t('subtitle')}
         </span>
       </div>
 
@@ -224,6 +225,7 @@ export function AccumulationPatternsCard({
             pattern={pattern}
             rank={index + 1}
             index={index}
+            t={t}
           />
         ))}
       </div>

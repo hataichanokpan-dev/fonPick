@@ -22,6 +22,7 @@ import { analyzeMarketRegime } from '@/services/market-regime'
 import { cn } from '@/lib/utils'
 import type { StockVerdict } from '@/services/verdict'
 import type { MarketRegime } from '@/types/market'
+import { getTranslations } from 'next-intl/server'
 
 interface StockPageData {
   stock: {
@@ -122,8 +123,9 @@ async function fetchStockData(symbol: string): Promise<StockPageData | null> {
 export default async function StockPage({
   params,
 }: {
-  params: { symbol: string }
+  params: { symbol: string; locale: string }
 }) {
+  const t = await getTranslations('stock.page')
   const symbol = decodeURIComponent(params.symbol).toUpperCase()
   const data = await fetchStockData(symbol)
 
@@ -139,13 +141,13 @@ export default async function StockPage({
             style={{ color: '#B8C1BD' }}
           >
             <ArrowLeft className="w-3 h-3 mr-1" />
-            Back to Market
+            {t('backToMarket')}
           </Link>
           <WatchlistButton symbol={symbol} />
         </div>
         {/* Show loading state while client fetches from external API */}
         <div className="rounded-lg p-8 bg-surface border border-border text-center">
-          <p className="text-text-2">Loading stock data...</p>
+          <p className="text-text-2">{t('loading')}</p>
         </div>
       </div>
     )
@@ -160,7 +162,7 @@ export default async function StockPage({
         style={{ color: '#B8C1BD' }}
       >
         <ArrowLeft className="w-3 h-3 mr-1" />
-        Back to Market
+        {t('backToMarket')}
       </Link>
 
       {/* StockPageClient handles external API fetching with RTDB fallback */}
@@ -189,9 +191,9 @@ export default async function StockPage({
               </div>
 
               <div className="text-xs text-text-2">
-                <div>Sector: {data.stock.sector || 'N/A'}</div>
+                <div>{t('sector')}: {data.stock.sector || t('notAvailable')}</div>
                 {data.stock.marketCap && (
-                  <div>Market Cap: {(data.stock.marketCap / 1_000_000_000).toFixed(0)}B THB</div>
+                  <div>{t('marketCap')}: {(data.stock.marketCap / 1_000_000_000).toFixed(0)}{t('billionTHB')}</div>
                 )}
               </div>
             </div>
@@ -229,7 +231,7 @@ export default async function StockPage({
                 <span className="text-sm text-info">➜</span>
                 <div>
                   <h3 className="font-semibold mb-1 text-xs text-info">
-                    Next Step
+                    {t('nextStep')}
                   </h3>
                   <p className="text-xs text-text">
                     {data.verdict.nextStep}
@@ -241,8 +243,7 @@ export default async function StockPage({
 
           {/* Data Completeness Disclaimer - Compact */}
           <div className="text-[10px] text-center text-text-3">
-            Analysis based on {data.verdict.dataCompleteness}% data completeness.
-            Always verify with additional research before making investment decisions.
+            {t('dataCompleteness', { completeness: data.verdict.dataCompleteness })}
           </div>
         </div>
       </StockPageClient>

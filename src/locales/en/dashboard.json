@@ -87,12 +87,63 @@
   "dailyFocus": {
     "title": "Daily Focus",
     "subtitle": "Stocks appearing in multiple rankings",
-    "empty": "No data available"
+    "empty": "No data available",
+    "noCrossRanked": "No cross-ranked stocks found"
   },
   "dataInsight": {
     "title": "Data Insight",
     "noConflict": "No conflict",
     "conflict": "Conflict detected",
     "highConviction": "High conviction"
+  },
+  "accumulationPatterns": {
+    "title": "Accumulation Patterns",
+    "subtitle": "3-Day Flow Analysis",
+    "empty": "No accumulation patterns data available",
+    "strongAccumulation": "Strong Accumulation",
+    "accumulation": "Accumulation",
+    "distribution": "Distribution",
+    "strongDistribution": "Strong Distribution"
+  },
+  "tabbedMovers": {
+    "title": "Market Movers",
+    "tabs": {
+      "active": "Active",
+      "gainers": "Gainers",
+      "losers": "Losers",
+      "volume": "Volume"
+    },
+    "marketConcentration": "Market Concentration",
+    "concentrationLevels": {
+      "high": "Highly Concentrated",
+      "moderate": "Moderately Concentrated",
+      "low": "Diversified"
+    },
+    "top5Concentration": "Top 5 Concentration",
+    "hhiScore": "HHI Score",
+    "rankingBadges": {
+      "value": "Val",
+      "volume": "Vol",
+      "up": "Up",
+      "down": "Dn"
+    },
+    "swipeActions": {
+      "remove": "Remove",
+      "addToWatchlist": "Add to Watchlist"
+    },
+    "error": "Unable to load market data",
+    "crossRanked": "Cross-Ranked",
+    "topByValue": "Top {{count}} by Value",
+    "topGainers": "Top {{count}} Gainers",
+    "topLosers": "Top {{count}} Losers",
+    "topVolume": "Top {{count}} Volume",
+    "noGainers": "No gainers available",
+    "noLosers": "No losers available",
+    "accumulationShort": {
+      "strongAccumulation": "Str Acc",
+      "accumulation": "Acc",
+      "strongDistribution": "Str Dist",
+      "distribution": "Dist"
+    }
   }
 }

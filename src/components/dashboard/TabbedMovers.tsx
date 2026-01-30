@@ -47,6 +47,7 @@ import type {
   AccumulationPattern,
 } from '@/types/market-intelligence'
 import { useActiveStocks } from '@/hooks/useMarketIntelligence'
+import { useTranslations } from 'next-intl'
 
 // ==================================================================
 // TYPES
@@ -96,12 +97,17 @@ const COLORS = {
 
 const DEFAULT_TOP_COUNT = 10
 
-const TABS: { key: TabType; label: string; icon: React.ReactNode }[] = [
-  { key: 'active', label: 'Active', icon: <Activity className="w-4 h-4" /> },
-  { key: 'gainers', label: 'Gainers', icon: <TrendingUp className="w-4 h-4" /> },
-  { key: 'losers', label: 'Losers', icon: <TrendingDown className="w-4 h-4" /> },
-  { key: 'volume', label: 'Volume', icon: <Activity className="w-4 h-4" /> },
-]
+/**
+ * Create tabs array with translations
+ */
+function createTabs(t: (key: string) => string): { key: TabType; label: string; icon: React.ReactNode }[] {
+  return [
+    { key: 'active', label: t('tabs.active'), icon: <Activity className="w-4 h-4" /> },
+    { key: 'gainers', label: t('tabs.gainers'), icon: <TrendingUp className="w-4 h-4" /> },
+    { key: 'losers', label: t('tabs.losers'), icon: <TrendingDown className="w-4 h-4" /> },
+    { key: 'volume', label: t('tabs.volume'), icon: <Activity className="w-4 h-4" /> },
+  ]
+}
 
 // ==================================================================
 // UTILITY FUNCTIONS
@@ -127,14 +133,27 @@ function getAccumulationBadgeColor(pattern?: AccumulationPattern): 'buy' | 'sell
 /**
  * Format accumulation pattern text
  */
-function formatAccumulationTag(pattern?: AccumulationPattern, days?: number): string | null {
+function formatAccumulationTag(
+  pattern?: AccumulationPattern,
+  days?: number,
+  t?: (key: string) => string
+): string | null {
   if (!pattern) return null
 
-  const patternShort = pattern
-    .replace('Strong Accumulation', 'Str Acc')
-    .replace('Strong Distribution', 'Str Dist')
-    .replace('Accumulation', 'Acc')
-    .replace('Distribution', 'Dist')
+  let patternShort: string
+
+  if (t) {
+    // Use translation if t function is provided
+    const key = pattern.toLowerCase().replace(/ /g, '')
+    patternShort = t(`accumulationShort.${key}`)
+  } else {
+    // Fallback to hardcoded values
+    patternShort = pattern
+      .replace('Strong Accumulation', 'Str Acc')
+      .replace('Strong Distribution', 'Str Dist')
+      .replace('Accumulation', 'Acc')
+      .replace('Distribution', 'Dist')
+  }
 
   return days ? `${days}d ${patternShort}` : patternShort
 }
@@ -196,9 +215,10 @@ interface ConcentrationBarProps {
     hhi: number
     interpretation: string
   }
+  t: (key: string) => string
 }
 
-function ConcentrationBar({ metrics }: ConcentrationBarProps) {
+function ConcentrationBar({ metrics, t }: ConcentrationBarProps) {
   const getInterpretationColor = () => {
     switch (metrics.interpretation) {
       case 'Highly Concentrated':
@@ -212,13 +232,24 @@ function ConcentrationBar({ metrics }: ConcentrationBarProps) {
 
   const interpretationColor = getInterpretationColor()
 
+  const getInterpretationBadge = () => {
+    switch (metrics.interpretation) {
+      case 'Highly Concentrated':
+        return t('concentrationLevels.high')
+      case 'Moderately Concentrated':
+        return t('concentrationLevels.moderate')
+      default:
+        return t('concentrationLevels.low')
+    }
+  }
+
   return (
     <div className="p-3 rounded-lg bg-surface-2">
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-2">
           <BarChart3 className="w-4 h-4" style={{ color: interpretationColor }} />
           <span className="text-[10px] uppercase tracking-wide text-text-muted">
-            Market Concentration
+            {t('marketConcentration')}
           </span>
         </div>
         <Badge
@@ -231,14 +262,14 @@ function ConcentrationBar({ metrics }: ConcentrationBarProps) {
                 : 'buy'
           }
         >
-          {metrics.interpretation}
+          {getInterpretationBadge()}
         </Badge>
       </div>
 
       <div className="space-y-2">
         <div>
           <div className="flex items-center justify-between mb-1">
-            <span className="text-[9px] text-text-muted uppercase">Top 5 Concentration</span>
+            <span className="text-[9px] text-text-muted uppercase">{t('top5Concentration')}</span>
             <span className="text-xs font-medium text-text">{metrics.top5StockConcentration.toFixed(1)}%</span>
           </div>
           <div className="h-1.5 bg-surface rounded-full overflow-hidden">
@@ -254,7 +285,7 @@ function ConcentrationBar({ metrics }: ConcentrationBarProps) {
         </div>
 
         <div className="flex items-center justify-between">
-          <span className="text-[9px] text-text-muted uppercase">HHI Score</span>
+          <span className="text-[9px] text-text-muted uppercase">{t('hhiScore')}</span>
           <span className="text-xs font-medium text-text">{metrics.hhi.toFixed(0)}</span>
         </div>
       </div>
@@ -268,9 +299,10 @@ interface ActiveStockRowProps {
   enableSwipeable?: boolean
   onSwipeRight?: (symbol: string) => void
   onSwipeLeft?: (symbol: string) => void
+  t: (key: string) => string
 }
 
-function ActiveStockRow({ stock, rank, enableSwipeable, onSwipeRight, onSwipeLeft }: ActiveStockRowProps) {
+function ActiveStockRow({ stock, rank, enableSwipeable, onSwipeRight, onSwipeLeft, t }: ActiveStockRowProps) {
   const isPositive = stock.changePercent >= 0
   const valueColor = isPositive ? COLORS.up : COLORS.down
 
@@ -279,33 +311,33 @@ function ActiveStockRow({ stock, rank, enableSwipeable, onSwipeRight, onSwipeLef
   if (stock.rankings?.value) {
     rankingBadges.push(
       <Badge key="value" size="sm" color="neutral">
-        #{stock.rankings.value} Val
+        #{stock.rankings.value} {t('rankingBadges.value')}
       </Badge>
     )
   }
   if (stock.rankings?.volume) {
     rankingBadges.push(
       <Badge key="volume" size="sm" color="neutral">
-        #{stock.rankings.volume} Vol
+        #{stock.rankings.volume} {t('rankingBadges.volume')}
       </Badge>
     )
   }
   if (stock.rankings?.gainer) {
     rankingBadges.push(
       <Badge key="gainer" size="sm" color="buy">
-        #{stock.rankings.gainer} Up
+        #{stock.rankings.gainer} {t('rankingBadges.up')}
       </Badge>
     )
   }
   if (stock.rankings?.loser) {
     rankingBadges.push(
       <Badge key="loser" size="sm" color="sell">
-        #{stock.rankings.loser} Dn
+        #{stock.rankings.loser} {t('rankingBadges.down')}
       </Badge>
     )
   }
 
-  const accumulationTag = formatAccumulationTag(stock.accumulationPattern, stock.accumulationDays)
+  const accumulationTag = formatAccumulationTag(stock.accumulationPattern, stock.accumulationDays, t)
 
   const stockContent = (
     <Link href={`/stock/${stock.symbol}`} className="block">
@@ -351,8 +383,8 @@ function ActiveStockRow({ stock, rank, enableSwipeable, onSwipeRight, onSwipeLef
         key={stock.symbol}
         onSwipeRight={() => onSwipeRight?.(stock.symbol)}
         onSwipeLeft={() => onSwipeLeft?.(stock.symbol)}
-        leftAction={{ label: 'Remove' }}
-        rightAction={{ label: 'Add to Watchlist' }}
+        leftAction={{ label: t('swipeActions.remove') }}
+        rightAction={{ label: t('swipeActions.addToWatchlist') }}
         className="mb-1"
       >
         {stockContent}
@@ -374,9 +406,10 @@ interface GainerLoserRowProps {
   enableSwipeable?: boolean
   onSwipeRight?: (symbol: string) => void
   onSwipeLeft?: (symbol: string) => void
+  t: (key: string) => string
 }
 
-function GainerLoserRow({ stock, rank, type, enableSwipeable, onSwipeRight, onSwipeLeft }: GainerLoserRowProps) {
+function GainerLoserRow({ stock, rank, type, enableSwipeable, onSwipeRight, onSwipeLeft, t }: GainerLoserRowProps) {
   const isGainer = type === 'gainer'
   const valueColor = isGainer ? COLORS.up : COLORS.down
 
@@ -410,8 +443,8 @@ function GainerLoserRow({ stock, rank, type, enableSwipeable, onSwipeRight, onSw
         key={stock.symbol}
         onSwipeRight={() => onSwipeRight?.(stock.symbol)}
         onSwipeLeft={() => onSwipeLeft?.(stock.symbol)}
-        leftAction={{ label: 'Remove' }}
-        rightAction={{ label: 'Add to Watchlist' }}
+        leftAction={{ label: t('swipeActions.remove') }}
+        rightAction={{ label: t('swipeActions.addToWatchlist') }}
         className="mb-1"
       >
         {stockContent}
@@ -432,9 +465,10 @@ interface VolumeRowProps {
   enableSwipeable?: boolean
   onSwipeRight?: (symbol: string) => void
   onSwipeLeft?: (symbol: string) => void
+  t: (key: string) => string
 }
 
-function VolumeRow({ stock, rank, enableSwipeable, onSwipeRight, onSwipeLeft }: VolumeRowProps) {
+function VolumeRow({ stock, rank, enableSwipeable, onSwipeRight, onSwipeLeft, t }: VolumeRowProps) {
   const stockContent = (
     <Link href={`/stock/${stock.symbol}`} className="block">
       <div className="flex items-center gap-2 p-2 rounded hover:bg-surface-2 transition-colors">
@@ -461,8 +495,8 @@ function VolumeRow({ stock, rank, enableSwipeable, onSwipeRight, onSwipeLeft }: 
         key={stock.symbol}
         onSwipeRight={() => onSwipeRight?.(stock.symbol)}
         onSwipeLeft={() => onSwipeLeft?.(stock.symbol)}
-        leftAction={{ label: 'Remove' }}
-        rightAction={{ label: 'Add to Watchlist' }}
+        leftAction={{ label: t('swipeActions.remove') }}
+        rightAction={{ label: t('swipeActions.addToWatchlist') }}
         className="mb-1"
       >
         {stockContent}
@@ -498,11 +532,15 @@ function CrossRankedBadge({ stock }: CrossRankedBadgeProps) {
 }
 
 // Loading Skeleton
-function TabbedMoversSkeleton() {
+interface TabbedMoversSkeletonProps {
+  t: (key: string) => string
+}
+
+function TabbedMoversSkeleton({ t }: TabbedMoversSkeletonProps) {
   return (
     <Card padding="sm">
       <div className="flex items-center justify-between mb-3">
-        <h3 className="text-sm font-semibold text-text-2">Market Movers</h3>
+        <h3 className="text-sm font-semibold text-text-2">{t('title')}</h3>
       </div>
       <div className="animate-pulse space-y-2">
         <div className="flex gap-2 mb-4">
@@ -531,6 +569,8 @@ export function TabbedMovers({
   onSwipeRight,
   onSwipeLeft,
 }: TabbedMoversProps) {
+  const t = useTranslations('dashboard.tabbedMovers')
+  const tabs = useMemo(() => createTabs(t), [t])
   const [activeTab, setActiveTab] = useState<TabType>('active')
 
   // Use consolidated market intelligence hook
@@ -567,7 +607,7 @@ export function TabbedMovers({
 
   // Handle loading state (AFTER all hooks)
   if (isLoading) {
-    return <TabbedMoversSkeleton />
+    return <TabbedMoversSkeleton t={t} />
   }
 
   // Handle error state (AFTER all hooks)
@@ -583,10 +623,10 @@ export function TabbedMovers({
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
             <Activity className="w-4 h-4 text-text-muted" />
-            <h3 className="text-sm font-semibold text-text-2">Market Movers</h3>
+            <h3 className="text-sm font-semibold text-text-2">{t('title')}</h3>
           </div>
         </div>
-        <p className="text-text-muted text-xs">Unable to load market data</p>
+        <p className="text-text-muted text-xs">{t('error')}</p>
       </CardComponent>
     )
   }
@@ -603,13 +643,13 @@ export function TabbedMovers({
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
           <Activity className="w-4 h-4 text-text-muted" />
-          <h3 className="text-sm font-semibold text-text-2">Market Movers</h3>
+          <h3 className="text-sm font-semibold text-text-2">{t('title')}</h3>
         </div>
       </div>
 
       {/* Tab Navigation */}
       <div className="flex gap-1 mb-4 border-b border-border-subtle">
-        {TABS.map((tab) => (
+        {tabs.map((tab) => (
           <button
             key={tab.key}
             onClick={() => setActiveTab(tab.key)}
@@ -636,7 +676,7 @@ export function TabbedMovers({
       {activeTab === 'active' && (
         <div key="active" className="fade-in">
           {/* Concentration Metrics */}
-          <ConcentrationBar metrics={activeStocksData.metrics} />
+          <ConcentrationBar metrics={activeStocksData.metrics} t={t} />
 
           {/* Cross-Ranked Stocks Section */}
           {activeStocksData.crossRanked.length > 0 && (
@@ -644,7 +684,7 @@ export function TabbedMovers({
               <div className="flex items-center gap-1 mb-2">
                 <Award className="w-3 h-3 text-warn" />
                 <span className="text-[10px] uppercase tracking-wide text-text-muted">
-                  Cross-Ranked ({activeStocksData.crossRanked.length})
+                  {t('crossRanked')} ({activeStocksData.crossRanked.length})
                 </span>
               </div>
               <div className="flex flex-wrap gap-1.5">
@@ -660,7 +700,7 @@ export function TabbedMovers({
             <div className="flex items-center gap-1 mb-2">
               <TrendingUp className="w-3 h-3 text-up" />
               <span className="text-[10px] uppercase tracking-wide text-text-muted">
-                Top {effectiveCount} by Value
+                {t('topByValue', { count: effectiveCount })}
               </span>
             </div>
             <div className="space-y-1">
@@ -672,6 +712,7 @@ export function TabbedMovers({
                   enableSwipeable={enableSwipeableCards}
                   onSwipeRight={onSwipeRight}
                   onSwipeLeft={onSwipeLeft}
+                  t={t}
                 />
               ))}
             </div>
@@ -696,7 +737,7 @@ export function TabbedMovers({
           <div className="flex items-center gap-1 mb-2">
             <TrendingUp className="w-3 h-3 text-up" />
             <span className="text-[10px] uppercase tracking-wide text-text-muted">
-              Top {effectiveCount} Gainers
+              {t('topGainers', { count: effectiveCount })}
             </span>
           </div>
           <div className="space-y-1">
@@ -710,10 +751,11 @@ export function TabbedMovers({
                   enableSwipeable={enableSwipeableCards}
                   onSwipeRight={onSwipeRight}
                   onSwipeLeft={onSwipeLeft}
+                  t={t}
                 />
               ))
             ) : (
-              <p className="text-xs text-text-muted">No gainers available</p>
+              <p className="text-xs text-text-muted">{t('noGainers')}</p>
             )}
           </div>
         </div>
@@ -724,7 +766,7 @@ export function TabbedMovers({
           <div className="flex items-center gap-1 mb-2">
             <TrendingDown className="w-3 h-3 text-down" />
             <span className="text-[10px] uppercase tracking-wide text-text-muted">
-              Top {effectiveCount} Losers
+              {t('topLosers', { count: effectiveCount })}
             </span>
           </div>
           <div className="space-y-1">
@@ -738,10 +780,11 @@ export function TabbedMovers({
                   enableSwipeable={enableSwipeableCards}
                   onSwipeRight={onSwipeRight}
                   onSwipeLeft={onSwipeLeft}
+                  t={t}
                 />
               ))
             ) : (
-              <p className="text-xs text-text-muted">No losers available</p>
+              <p className="text-xs text-text-muted">{t('noLosers')}</p>
             )}
           </div>
         </div>
@@ -752,7 +795,7 @@ export function TabbedMovers({
           <div className="flex items-center gap-1 mb-2">
             <Activity className="w-3 h-3 text-accent-blue" />
             <span className="text-[10px] uppercase tracking-wide text-text-muted">
-              Top {effectiveCount} Volume
+              {t('topVolume', { count: effectiveCount })}
             </span>
           </div>
           <div className="space-y-1">
@@ -764,6 +807,7 @@ export function TabbedMovers({
                 enableSwipeable={enableSwipeableCards}
                 onSwipeRight={onSwipeRight}
                 onSwipeLeft={onSwipeLeft}
+                t={t}
               />
             ))}
           </div>

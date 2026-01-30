@@ -23,6 +23,7 @@ import { Badge } from '@/components/shared/Badge'
 import { Award } from 'lucide-react'
 import type { CrossRankedStock } from '@/types/market-intelligence'
 import { useActiveStocks } from '@/hooks/useMarketIntelligence'
+import { useTranslations } from 'next-intl'
 
 // ==================================================================
 // TYPES
@@ -126,15 +127,14 @@ function StockBadge({ stock, index }: StockBadgeProps) {
 
 interface EmptyStateProps {
   stockCount: number
+  t: (key: string) => string
 }
 
-function EmptyState({ stockCount }: EmptyStateProps) {
+function EmptyState({ stockCount, t }: EmptyStateProps) {
   return (
     <div className="flex items-center justify-center py-8">
       <p className="text-sm text-text-muted">
-        {stockCount === 0
-          ? 'No focus stocks available'
-          : 'No cross-ranked stocks found'}
+        {t(stockCount === 0 ? 'empty' : 'noCrossRanked')}
       </p>
     </div>
   )
@@ -148,6 +148,8 @@ export function DailyFocusList({
   crossRankedStocks: propsCrossRankedStocks,
   topCount,
 }: DailyFocusListProps) {
+  const t = useTranslations('dashboard.dailyFocus')
+
   // Fetch from Context if props not provided (prevents duplication)
   const { data: activeStocksData } = useActiveStocks()
   const crossRankedStocks = propsCrossRankedStocks ?? activeStocksData?.crossRanked ?? []
@@ -175,7 +177,7 @@ export function DailyFocusList({
             <div className="flex items-center gap-2">
               <Award className="w-4 h-4 text-warn" />
               <h3 className="text-sm font-semibold text-text-primary">
-                Daily Focus
+                {t('title')}
               </h3>
             </div>
             <Badge size="sm" color="neutral">
@@ -183,7 +185,7 @@ export function DailyFocusList({
             </Badge>
           </div>
         </CardHeader>
-        <EmptyState stockCount={validStocks.length} />
+        <EmptyState stockCount={validStocks.length} t={t} />
       </Card>
     )
   }
@@ -201,7 +203,7 @@ export function DailyFocusList({
           <div className="flex items-center gap-2">
             <Award className="w-4 h-4 text-warn" />
             <h3 className="text-sm font-semibold text-text-primary">
-              Daily Focus
+              {t('title')}
             </h3>
           </div>
           <div className="flex items-center gap-2">

@@ -1,0 +1,164 @@
+{
+  "title": "FonPick User Guide",
+  "description": "Learn how to use FonPick Dashboard and analyze Thai stock market",
+  "hero": {
+    "title": "How to Use FonPick",
+    "subtitle": "Understand Thai stock market in 5 minutes",
+    "description": "This guide is designed for beginners with easy-to-understand explanations. No prior investment knowledge required."
+  },
+  "quickStart": {
+    "title": "What Can FonPick Help You With?",
+    "items": [
+      {
+        "question": "How is the market today?",
+        "answer": "Market Regime tells market sentiment - Risk-On (bold to invest) or Risk-Off (cautious)"
+      },
+      {
+        "question": "What are big investors doing?",
+        "answer": "Smart Money tracks smart money - Foreign and Institution buying or selling"
+      },
+      {
+        "question": "Which sectors should I focus on?",
+        "answer": "Sector Analysis shows which sectors are interesting and which to avoid"
+      },
+      {
+        "question": "Which stocks are interesting?",
+        "answer": "Daily Focus shows stocks mentioned in multiple areas - High conviction picks"
+      }
+    ]
+  },
+  "faq": {
+    "title": "Frequently Asked Questions (FAQ)",
+    "items": {
+      "updateFrequency": {
+        "title": "When is data updated?",
+        "content": {
+          "time": "End-of-day after market close (6:30 PM)",
+          "sources": "Thai stock market data (SET)",
+          "dataSource": "Data from SET + NVDR (Smart Money flow)"
+        }
+      },
+      "noData": {
+        "title": "Why is data sometimes not displayed?",
+        "content": {
+          "reason": "It may be because:",
+          "reasons": [
+            "Market closed (after 4:30 PM)",
+            "Market holiday",
+            "Data is being updated (automatic retry)"
+          ]
+        }
+      },
+      "priorityOrder": {
+        "title": "What should I focus on first?",
+        "content": {
+          "reason": "Priority order:",
+          "priorities": [
+            "<strong>P0</strong> (Market Regime + Smart Money) → Decide before investing",
+            "<strong>P1</strong> (Sector Analysis) → Choose sector",
+            "<strong>P2</strong> (Market Movers) → Choose stock"
+          ]
+        }
+      },
+      "smartMoneyDefinition": {
+        "title": "What is Smart Money?",
+        "content": {
+          "definition": "Smart Money is institutional-level investors:",
+          "types": [
+            "<strong>Foreign</strong> - Foreign investors",
+            "<strong>Institution</strong> - Mutual funds, companies"
+          ],
+          "advantage": "They have more money and information than retail investors, so following them usually gives good results"
+        }
+      },
+      "riskOnOff": {
+        "title": "What is Risk-On/Off?",
+        "content": {
+          "definition": "It's the overall market sentiment:",
+          "riskOn": "Risk-On",
+          "riskOnDesc": "Investors bold to take risk, economy is good",
+          "riskOff": "Risk-Off",
+          "riskOffDesc": "Investors afraid, avoiding risk, economy uncertain"
+        }
+      },
+      "contradiction": {
+        "title": "If Smart Money buys but market falls?",
+        "content": {
+          "reason": "It may be:",
+          "possibilities": [
+            "<strong>Accumulation phase</strong> - Smart Money accumulating, waiting to rise",
+            "<strong>Bottom fishing</strong> - Smart Money thinks market is too cheap",
+            "<strong>Divergence</strong> - Beware, there may be more downside"
+          ],
+          "advice": "In this case, wait for clear signals before deciding"
+        }
+      },
+      "crossRanked": {
+        "title": "What are cross-ranked stocks?",
+        "content": {
+          "definition": "Stocks appearing in multiple rankings, such as:",
+          "examples": [
+            "In both Active and Gainers",
+            "In both Gainers and Volume"
+          ],
+          "conclusion": "The more mentioned in multiple areas = The more <strong>High Conviction</strong>"
+        }
+      }
+    }
+  },
+  "features": {
+    "title": "Feature Explanations",
+    "regime": {
+      "title": "Market Regime",
+      "description": "Shows overall market sentiment - Risk-On or Risk-Off"
+    },
+    "smartMoney": {
+      "title": "Smart Money Flow",
+      "description": "Tracks buying/selling of Foreign and Institutional investors"
+    },
+    "sectors": {
+      "title": "Sector Analysis",
+      "description": "Shows which sectors are strong or weak"
+    },
+    "movers": {
+      "title": "Market Movers",
+      "description": "Top active, gainers, losers, and volume leaders"
+    }
+  },
+  "decisionFlow": {
+    "title": "Investment Decision Flow",
+    "steps": [
+      {
+        "step": "1",
+        "title": "Check Market Regime",
+        "description": "Risk-On = Consider buying, Risk-Off = Be cautious"
+      },
+      {
+        "step": "2",
+        "title": "Check Smart Money",
+        "description": "Follow institutional buying/selling"
+      },
+      {
+        "step": "3",
+        "title": "Select Sectors",
+        "description": "Focus on strong sectors"
+      },
+      {
+        "step": "4",
+        "title": "Pick Stocks",
+        "description": "Look for cross-ranked stocks with high conviction"
+      }
+    ]
+  },
+  "glossary": {
+    "title": "Glossary",
+    "terms": {
+      "riskOn": "Market condition where investors are willing to take risks",
+      "riskOff": "Market condition where investors are cautious",
+      "smartMoney": "Institutional investors with large capital",
+      "accumulation": "Smart Money quietly buying stocks",
+      "distribution": "Smart Money selling stocks to retail",
+      "crossRanked": "Stocks appearing in multiple rankings"
+    }
+  }
+}
