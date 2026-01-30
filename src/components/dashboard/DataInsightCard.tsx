@@ -49,7 +49,6 @@ export interface DataInsightCardProps {
 // CONSTANTS
 // ============================================================================
 
-const REFRESH_INTERVAL = 2 * 60 * 1000 // 2 minutes
 const SESSION_STORAGE_KEY = 'data-insight-dismissed'
 
 const VERDICT_COLORS: Record<Verdict, { bg: string; text: string; border: string }> = {
@@ -232,7 +231,12 @@ export function DataInsightCard({ className, showOnLoad }: DataInsightCardProps)
       }
       return res.json()
     },
-    refetchInterval: REFRESH_INTERVAL,
+    // RTDB updates once daily at 18:30 - no polling needed
+    refetchInterval: false,
+    staleTime: 12 * 60 * 60 * 1000, // 12 hours
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+    refetchOnReconnect: false,
   })
 
   const insight = data?.data?.dataInsight as DataInsight | undefined

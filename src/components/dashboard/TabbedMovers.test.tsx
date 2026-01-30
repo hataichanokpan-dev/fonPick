@@ -15,6 +15,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen, waitFor, act } from '@testing-library/react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { MarketIntelligenceProvider } from '@/contexts/MarketIntelligenceContext'
 import { TabbedMovers } from './TabbedMovers'
 import type {
   ActiveStocksAnalysis,
@@ -145,7 +146,45 @@ const mockActiveStocksData: ActiveStocksAnalysis = {
 const mockMarketIntelligenceResponse = {
   success: true,
   data: {
+    regime: {
+      regime: 'Risk-On',
+      confidence: 'High',
+      reasons: ['Strong foreign inflow', 'Sector strength'],
+      focus: 'Accumulate quality stocks',
+      caution: 'Monitor global risks',
+    },
+    smartMoney: {
+      foreignFlow: { net: 1500000000, trend: 'Inflow' as const },
+      institutionalFlow: { net: 500000000, trend: 'Inflow' as const },
+      retailFlow: { net: -200000000, trend: 'Outflow' as const },
+      propFlow: { net: 300000000, trend: 'Inflow' as const },
+      overallSentiment: 'Bullish',
+      keySignals: ['Strong foreign buying'],
+      recommendations: ['Follow smart money'],
+    },
+    sectorRotation: {
+      topSectors: [
+        { sector: 'ENERGY', changePercent: 2.5, strength: 'Strong' as const },
+        { sector: 'FIN', changePercent: 1.8, strength: 'Moderate' as const },
+      ],
+      bottomSectors: [
+        { sector: 'TECH', changePercent: -1.2, strength: 'Weak' as const },
+      ],
+      rotationSignal: 'Energy leading',
+      overallTrend: 'Bullish rotation',
+    },
     activeStocks: mockActiveStocksData,
+    timestamp: Date.now(),
+    freshness: {
+      isFresh: true,
+      maxAgeMinutes: 60,
+      sources: {
+        market: 5,
+        investor: 5,
+        sector: 5,
+        rankings: 5,
+      },
+    },
   },
 }
 
@@ -164,7 +203,11 @@ function createWrapper() {
   })
 
   return function Wrapper({ children }: { children: React.ReactNode }) {
-    return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    return (
+      <QueryClientProvider client={queryClient}>
+        <MarketIntelligenceProvider>{children}</MarketIntelligenceProvider>
+      </QueryClientProvider>
+    )
   }
 }
 
@@ -327,10 +370,13 @@ describe('TabbedMovers', () => {
         gainersTab.click()
       })
 
-      await waitFor(() => {
-        expect(screen.getByText('PTT')).toBeInTheDocument()
-        expect(screen.getByText(/2\.5%/)).toBeInTheDocument() // changePct
-      })
+      await waitFor(
+        () => {
+          expect(screen.getByText('PTT')).toBeInTheDocument()
+          expect(screen.getByText(/\+2\.50%/)).toBeInTheDocument() // changePct formatted with + and 2 decimals
+        },
+        { timeout: 5000 }
+      )
     })
 
     it('should show gainers with green color', async () => {
@@ -738,9 +784,13 @@ describe('TabbedMovers', () => {
 
       render(<TabbedMovers />, { wrapper })
 
-      await waitFor(() => {
-        expect(screen.getByText(/2\.5%/)).toBeInTheDocument()
-      })
+      await waitFor(
+        () => {
+          // formatPercentage adds + for positive values and uses 2 decimals
+          expect(screen.getByText(/\+2\.50%/)).toBeInTheDocument()
+        },
+        { timeout: 5000 }
+      )
     })
   })
 })

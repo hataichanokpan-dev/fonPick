@@ -18,7 +18,6 @@
 'use client'
 
 import { useState, useEffect, useMemo, useCallback, useRef } from 'react'
-import { motion } from 'framer-motion'
 import { Clock, RefreshCw, AlertCircle } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { formatThaiDateTime } from '@/lib/utils/date'
@@ -190,15 +189,13 @@ export function StockDataFreshness({
 
       {/* Live Indicator */}
       {isLive && (
-        <motion.span
+        <span
           data-testid="live-indicator"
-          className="px-1.5 py-0.5 bg-up-primary/20 text-up-primary text-xs font-medium rounded-full"
-          animate={{ opacity: [1, 0.7, 1] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
+          className="px-1.5 py-0.5 bg-up-primary/20 text-up-primary text-xs font-medium rounded-full animate-pulse-opacity"
           aria-live="polite"
         >
           LIVE
-        </motion.span>
+        </span>
       )}
 
       {/* Stale Warning */}

@@ -18,7 +18,7 @@
 
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Star, StarOff } from 'lucide-react'
 import { Button } from '@/components/shared'
@@ -50,8 +50,9 @@ export function WatchlistButton({
   const [watchlist, setWatchlist] = useState<string[]>([])
   const [showToast, setShowToast] = useState(false)
   const [toastMessage, setToastMessage] = useState('')
+  const toastTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
-  // Load watchlist from localStorage on mount
+  // Load watchlist from localStorage on mount (run once)
   useEffect(() => {
     try {
       const stored = localStorage.getItem(WATCHLIST_STORAGE_KEY)
@@ -69,7 +70,8 @@ export function WatchlistButton({
     } finally {
       setIsLoaded(true)
     }
-  }, [symbol, controlledIsOnWatchlist])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []) // Run once on mount only
 
   // Watch for controlled prop changes
   useEffect(() => {
@@ -82,9 +84,25 @@ export function WatchlistButton({
   const showToastNotification = useCallback((message: string) => {
     setToastMessage(message)
     setShowToast(true)
-    setTimeout(() => {
+
+    // Clear any existing timeout
+    if (toastTimeoutRef.current) {
+      clearTimeout(toastTimeoutRef.current)
+    }
+
+    // Set new timeout
+    toastTimeoutRef.current = setTimeout(() => {
       setShowToast(false)
     }, TOAST_DURATION)
+  }, [])
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (toastTimeoutRef.current) {
+        clearTimeout(toastTimeoutRef.current)
+      }
+    }
   }, [])
 
   // Toggle watchlist status

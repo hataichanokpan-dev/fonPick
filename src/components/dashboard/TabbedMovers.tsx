@@ -40,15 +40,14 @@ import {
   AlertCircle,
 } from 'lucide-react'
 import { formatTradingValue, formatPercentage, formatVolume } from '@/lib/utils'
-import { useQuery } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState } from 'react'
 import type {
-  ActiveStocksAnalysis,
   StockConcentration,
   CrossRankedStock,
   AccumulationPattern,
 } from '@/types/market-intelligence'
+import { useActiveStocks } from '@/hooks/useMarketIntelligence'
 
 // ==================================================================
 // TYPES
@@ -88,8 +87,6 @@ interface VolumeStock {
 // ==================================================================
 // CONSTANTS
 // ==================================================================
-
-const REFRESH_INTERVAL = 2 * 60 * 1000 // 2 minutes
 
 const COLORS = {
   up: '#2ED8A7',
@@ -548,22 +545,8 @@ export function TabbedMovers({
 }: TabbedMoversProps) {
   const [activeTab, setActiveTab] = useState<TabType>('active')
 
-  // Fetch data from market intelligence API
-  const { data, isLoading, error } = useQuery<{
-    success: boolean
-    data?: { activeStocks: ActiveStocksAnalysis | null }
-  }>({
-    queryKey: ['market-intelligence', 'tabbed-movers'],
-    queryFn: async () => {
-      const res = await fetch('/api/market-intelligence?includeP2=true')
-      if (!res.ok) throw new Error('Failed to fetch market movers data')
-      return res.json()
-    },
-    refetchInterval: REFRESH_INTERVAL,
-  })
-
-  // Extract active stocks data
-  const activeStocksData = data?.data?.activeStocks
+  // Use consolidated market intelligence hook
+  const { data: activeStocksData, isLoading, error } = useActiveStocks()
 
   // Handle loading state
   if (isLoading) {
@@ -571,7 +554,7 @@ export function TabbedMovers({
   }
 
   // Handle error state
-  if (error || !data?.success || !activeStocksData) {
+  if (error || !activeStocksData) {
     const CardComponent = useModernCard ? GlassCard : Card
 
     return (

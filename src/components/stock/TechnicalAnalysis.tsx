@@ -463,9 +463,9 @@ export function TechnicalAnalysis({
                       </div>
                       <div className="relative h-8 bg-surface-2 rounded-lg overflow-hidden border border-border/30">
                         {/* Position marker */}
-                        <motion.div
+                        <div
                           data-testid="price-range-position"
-                          className="absolute top-0 bottom-0 w-1 bg-blue-500"
+                          className="absolute top-0 bottom-0 w-1 bg-blue-500 animate-pulse-opacity"
                           style={{
                             left: `${calculateRangePosition(
                               currentPrice,
@@ -473,8 +473,6 @@ export function TechnicalAnalysis({
                               week52Low
                             )}%`,
                           }}
-                          animate={{ opacity: [1, 0.5, 1] }}
-                          transition={{ duration: 2, repeat: Infinity }}
                         />
                         {/* Current price label */}
                         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">

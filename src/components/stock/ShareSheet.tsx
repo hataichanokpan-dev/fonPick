@@ -19,7 +19,7 @@
 
 'use client'
 
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   Share2,
@@ -68,6 +68,7 @@ export function ShareSheet({
   const [isSharing, setIsSharing] = useState(false)
   const [showToast, setShowToast] = useState(false)
   const [toastMessage, setToastMessage] = useState('')
+  const toastTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   // Get current URL for sharing
   const shareUrl = typeof window !== 'undefined' ? window.location.href : ''
@@ -88,9 +89,25 @@ export function ShareSheet({
   const showToastNotification = useCallback((message: string) => {
     setToastMessage(message)
     setShowToast(true)
-    setTimeout(() => {
+
+    // Clear any existing timeout
+    if (toastTimeoutRef.current) {
+      clearTimeout(toastTimeoutRef.current)
+    }
+
+    // Set new timeout
+    toastTimeoutRef.current = setTimeout(() => {
       setShowToast(false)
     }, 3000)
+  }, [])
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (toastTimeoutRef.current) {
+        clearTimeout(toastTimeoutRef.current)
+      }
+    }
   }, [])
 
   // Handle Web Share API

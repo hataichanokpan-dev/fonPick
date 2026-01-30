@@ -112,6 +112,10 @@ export function AnimatedPrice({
 
   // Track value ref for comparison
   const valueRef = useRef(value)
+  // Track animation target value to prevent redundant animations
+  const targetValueRef = useRef(value)
+  // Track RAF ID for reliable cleanup
+  const rafIdRef = useRef<number>()
 
   // ==================================================================
   // FLASH ANIMATION
@@ -142,16 +146,20 @@ export function AnimatedPrice({
 
   /**
    * Animate number from old value to new value using requestAnimationFrame
-   * Uses cubic ease-out for smooth 60fps animation
+   * Uses cubic ease-out for smooth animation throttled to ~30fps for performance
    */
   useEffect(() => {
-    // Skip if value hasn't changed
-    if (displayValue === value) return
+    // Skip if value hasn't changed (compare with ref to avoid re-renders)
+    if (targetValueRef.current === value) return
 
-    const startValue = displayValue
+    const startValue = targetValueRef.current
     const endValue = value
+    targetValueRef.current = value // Update ref immediately
+
     const duration = 500 // 500ms duration
     const startTime = performance.now()
+    const frameInterval = 1000 / 30 // Throttle to ~30fps
+    let lastFrameTime = 0
 
     // Cubic ease-out function: 1 - (1 - t)^3
     const easeOutCubic = (t: number): number => {
@@ -159,11 +167,18 @@ export function AnimatedPrice({
     }
 
     let cancelled = false
-    let rafId: number
 
-    // Animation frame handler
+    // Animation frame handler (throttled)
     const animate = (currentTime: number) => {
       if (cancelled) return
+
+      // Throttle frame updates
+      if (currentTime - lastFrameTime < frameInterval) {
+        rafIdRef.current = requestAnimationFrame(animate)
+        return
+      }
+
+      lastFrameTime = currentTime
 
       const elapsed = currentTime - startTime
       const progress = Math.min(elapsed / duration, 1)
@@ -175,20 +190,24 @@ export function AnimatedPrice({
 
       // Continue animation if not complete
       if (progress < 1) {
-        rafId = requestAnimationFrame(animate)
+        rafIdRef.current = requestAnimationFrame(animate)
       } else {
         // Ensure final value is exact
         setDisplayValue(endValue)
+        rafIdRef.current = undefined // Clear ref when complete
       }
     }
 
-    // Start animation
-    rafId = requestAnimationFrame(animate)
+    // Start animation - store RAF ID in ref for reliable cleanup
+    rafIdRef.current = requestAnimationFrame(animate)
 
-    // Cleanup function
+    // Comprehensive cleanup function
     return () => {
       cancelled = true
-      if (rafId) cancelAnimationFrame(rafId)
+      if (rafIdRef.current) {
+        cancelAnimationFrame(rafIdRef.current)
+        rafIdRef.current = undefined
+      }
     }
   }, [value])
 

@@ -7,7 +7,7 @@
  * - Debounce/throttle functions
  */
 
-import { memo, ComponentType } from 'react'
+import { memo, ComponentType, useState, useRef, useEffect } from 'react'
 
 // ==================================================================
 // MEMOIZATION HELPERS
@@ -80,10 +80,10 @@ export function useLazyLoad(
   threshold: number = 0.1,
   rootMargin: string = '50px'
 ) {
-  const [isVisible, setIsVisible] = React.useState(false)
-  const elementRef = React.useRef<HTMLElement | null>(null)
+  const [isVisible, setIsVisible] = useState(false)
+  const elementRef = useRef<HTMLElement | null>(null)
 
-  React.useEffect(() => {
+  useEffect(() => {
     const element = elementRef.current
     if (!element) return
 
@@ -107,9 +107,6 @@ export function useLazyLoad(
 
   return [elementRef, isVisible] as const
 }
-
-// Import React for useLazyLoad hook
-import React from 'react'
 
 // ==================================================================
 // THROTTLE/DEBOUNCE UTILITIES

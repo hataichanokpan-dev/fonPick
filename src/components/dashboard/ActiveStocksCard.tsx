@@ -28,9 +28,9 @@ import {
   AlertCircle,
 } from 'lucide-react'
 import { formatTradingValue, formatPercentage } from '@/lib/utils'
-import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
 import type { AccumulationPattern } from '@/types/market-intelligence'
+import { useActiveStocks } from '@/hooks/useMarketIntelligence'
 
 // ==================================================================
 // TYPES
@@ -99,8 +99,6 @@ export interface ActiveStocksCardProps {
 // ==================================================================
 // CONSTANTS
 // ==================================================================
-
-const REFRESH_INTERVAL = 2 * 60 * 1000 // 2 minutes
 
 const COLORS = {
   up: '#2ED8A7',
@@ -386,22 +384,8 @@ export function ActiveStocksCard({
   className,
   topCount = DEFAULT_TOP_COUNT,
 }: ActiveStocksCardProps) {
-  // Fetch data from market intelligence API
-  const { data, isLoading, error } = useQuery<{
-    success: boolean
-    data?: { activeStocks: ActiveStocksCardData | null }
-  }>({
-    queryKey: ['market-intelligence', 'active-stocks'],
-    queryFn: async () => {
-      const res = await fetch('/api/market-intelligence?includeP2=true')
-      if (!res.ok) throw new Error('Failed to fetch active stocks data')
-      return res.json()
-    },
-    refetchInterval: REFRESH_INTERVAL,
-  })
-
-  // Extract active stocks data
-  const activeStocksData = data?.data?.activeStocks
+  // Use Context-based hook for market intelligence data
+  const { data: activeStocksData, isLoading, error } = useActiveStocks()
 
   if (isLoading) {
     return <ActiveStocksSkeleton />

@@ -29,8 +29,8 @@ import {
   AlertTriangle,
   Activity,
 } from "lucide-react";
-import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
+import { useMarketRegime } from "@/hooks/useMarketIntelligence";
 
 // ==================================================================
 // TYPES
@@ -58,8 +58,6 @@ export interface MarketRegimeCardProps {
 // ==================================================================
 // CONSTANTS
 // ==================================================================
-
-const REFRESH_INTERVAL = 2 * 60 * 1000; // 2 minutes
 
 const COLORS = {
   up: "#2ED8A7",
@@ -302,28 +300,14 @@ export function MarketRegimeCard({
   useModernCard = false,
   useAccessibleSignal = false,
 }: MarketRegimeCardProps) {
-  // Fetch data from market intelligence API
-  const { data, isLoading, error } = useQuery<{
-    success: boolean;
-    data?: { regime: MarketRegimeData | null };
-  }>({
-    queryKey: ["market-intelligence", "regime"],
-    queryFn: async () => {
-      const res = await fetch("/api/market-intelligence?includeP0=true");
-      if (!res.ok) throw new Error("Failed to fetch market regime data");
-      return res.json();
-    },
-    refetchInterval: REFRESH_INTERVAL,
-  });
-
-  // Extract regime data
-  const regimeData = data?.data?.regime;
+  // Use consolidated market intelligence hook
+  const { data: regimeData, isLoading, error } = useMarketRegime();
 
   if (isLoading) {
     return <MarketRegimeSkeleton variant={variant} />;
   }
 
-  if (error || !data?.success || !regimeData) {
+  if (error || !regimeData) {
     const CardComponent = useModernCard ? GlassCard : Card;
 
     return (

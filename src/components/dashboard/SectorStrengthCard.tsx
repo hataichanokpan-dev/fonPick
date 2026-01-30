@@ -25,9 +25,9 @@ import {
   Layers,
 } from 'lucide-react'
 import { formatPercentage } from '@/lib/utils'
-import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
-import type { SectorRotationAnalysis, SectorPerformance } from '@/types/sector-rotation'
+import type { SectorPerformance } from '@/types/sector-rotation'
+import { useSectorRotation } from '@/hooks/useMarketIntelligence'
 
 // ==================================================================
 // TYPES
@@ -45,8 +45,6 @@ export interface SectorStrengthCardProps {
 // ==================================================================
 // CONSTANTS
 // ==================================================================
-
-const REFRESH_INTERVAL = 2 * 60 * 1000 // 2 minutes
 
 const COLORS = {
   up: '#2ED8A7',
@@ -152,28 +150,14 @@ export function SectorStrengthCard({
   topCount = DEFAULT_TOP_COUNT,
   showLaggards = true,
 }: SectorStrengthCardProps) {
-  // Fetch data from market intelligence API
-  const { data, isLoading, error } = useQuery<{
-    success: boolean
-    data?: { sectorRotation: SectorRotationAnalysis | null }
-  }>({
-    queryKey: ['market-intelligence', 'sector-rotation'],
-    queryFn: async () => {
-      const res = await fetch('/api/market-intelligence?includeP1=true')
-      if (!res.ok) throw new Error('Failed to fetch sector rotation data')
-      return res.json()
-    },
-    refetchInterval: REFRESH_INTERVAL,
-  })
-
-  // Extract sector rotation data
-  const sectorData = data?.data?.sectorRotation
+  // Use consolidated market intelligence hook
+  const { data: sectorData, isLoading, error } = useSectorRotation()
 
   if (isLoading) {
     return <SectorStrengthSkeleton />
   }
 
-  if (error || !data?.success || !sectorData) {
+  if (error || !sectorData) {
     return (
       <Card padding="sm" className={className}>
         <div className="flex items-center justify-between mb-3">

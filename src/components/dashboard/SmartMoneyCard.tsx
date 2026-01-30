@@ -31,9 +31,8 @@ import {
   Gauge,
 } from "lucide-react";
 import { formatTradingValue } from "@/lib/utils";
-import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
-import type { SmartMoneyAnalysis } from "@/types/smart-money";
+import { useSmartMoney } from "@/hooks/useMarketIntelligence";
 
 // ==================================================================
 // TYPES
@@ -50,8 +49,6 @@ export interface SmartMoneyCardProps {
 // ==================================================================
 // CONSTANTS
 // ==================================================================
-
-const REFRESH_INTERVAL = 2 * 60 * 1000; // 2 minutes
 
 const COLORS = {
   up: "#2ED8A7",
@@ -246,28 +243,14 @@ function SmartMoneySkeleton() {
 // ==================================================================
 
 export function SmartMoneyCard({ className }: SmartMoneyCardProps) {
-  // Fetch data from market intelligence API
-  const { data, isLoading, error } = useQuery<{
-    success: boolean;
-    data?: { smartMoney: SmartMoneyAnalysis | null };
-  }>({
-    queryKey: ["market-intelligence", "smart-money"],
-    queryFn: async () => {
-      const res = await fetch("/api/market-intelligence?includeP0=true");
-      if (!res.ok) throw new Error("Failed to fetch smart money data");
-      return res.json();
-    },
-    refetchInterval: REFRESH_INTERVAL,
-  });
-
-  // Extract smart money data
-  const smartMoneyData = data?.data?.smartMoney;
+  // Use consolidated market intelligence hook
+  const { data: smartMoneyData, isLoading, error } = useSmartMoney();
 
   if (isLoading) {
     return <SmartMoneySkeleton />;
   }
 
-  if (error || !data?.success || !smartMoneyData) {
+  if (error || !smartMoneyData) {
     return (
       <Card padding="sm" className={className}>
         <div className="flex items-center justify-between mb-3">

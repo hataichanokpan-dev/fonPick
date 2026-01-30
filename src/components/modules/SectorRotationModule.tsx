@@ -143,7 +143,12 @@ export function SectorRotationModule({ data: initialData, className }: SectorRot
       return res.json()
     },
     initialData: initialData,
-    refetchInterval: 60000, // Refetch every minute
+    // RTDB updates once daily at 18:30 - no polling needed
+    refetchInterval: false,
+    staleTime: 12 * 60 * 60 * 1000, // 12 hours
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+    refetchOnReconnect: false,
   })
 
   if (isLoading) {

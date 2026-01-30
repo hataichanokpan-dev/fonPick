@@ -39,21 +39,8 @@ import { fetchTopRankingsEnhanced } from '@/lib/rtdb/top-rankings'
 // TYPES
 // ============================================================================
 
-interface MarketIntelligenceResponse {
-  success: boolean
-  data?: MarketIntelligenceData
-  error?: string
-  meta?: {
-    timestamp: number
-    processingTime: number
-    sourcesFetched: {
-      marketOverview: boolean
-      investorType: boolean
-      industrySector: boolean
-      rankings: boolean
-    }
-  }
-}
+// Note: MarketIntelligenceResponse type removed - now using inline type
+// to avoid duplication with types defined in @/types/market-intelligence
 
 interface QueryParams {
   includeP0: boolean
@@ -228,7 +215,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
 
     const processingTime = Date.now() - startTime
 
-    const response: MarketIntelligenceResponse = {
+    const response = {
       success: true,
       data,
       meta: {
@@ -236,6 +223,20 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
         processingTime,
         sourcesFetched,
       },
+    } satisfies {
+      success: boolean
+      data?: MarketIntelligenceData
+      error?: string
+      meta?: {
+        timestamp: number
+        processingTime: number
+        sourcesFetched: {
+          marketOverview: boolean
+          investorType: boolean
+          industrySector: boolean
+          rankings: boolean
+        }
+      }
     }
 
     return NextResponse.json(response, {
@@ -249,7 +250,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
     const processingTime = Date.now() - startTime
 
     // Return error response with valid structure
-    const response: MarketIntelligenceResponse = {
+    const response = {
       success: false,
       error: formatError(error),
       meta: {
@@ -257,6 +258,20 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
         processingTime,
         sourcesFetched,
       },
+    } satisfies {
+      success: boolean
+      data?: MarketIntelligenceData
+      error?: string
+      meta?: {
+        timestamp: number
+        processingTime: number
+        sourcesFetched: {
+          marketOverview: boolean
+          investorType: boolean
+          industrySector: boolean
+          rankings: boolean
+        }
+      }
     }
 
     return NextResponse.json(response, {

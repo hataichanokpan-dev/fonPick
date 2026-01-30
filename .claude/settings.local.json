@@ -37,7 +37,19 @@
       "Bash(git add:*)",
       "Bash(npm run dev:*)",
       "Bash(pnpm vitest run:*)",
-      "Bash(timeout:*)"
+      "Bash(timeout:*)",
+      "Bash(cd:*)",
+      "Bash(pkill:*)",
+      "Bash(taskkill:*)",
+      "Bash(for:*)",
+      "Bash(do:*)",
+      "Bash(then)",
+      "Bash(echo:*)",
+      "Bash(else)",
+      "Bash(done)",
+      "Bash(cmd //c taskkill //PID 7124 //F)",
+      "Bash(netstat:*)",
+      "Bash(tasklist:*)"
     ]
   }
 }

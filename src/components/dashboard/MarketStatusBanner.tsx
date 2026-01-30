@@ -91,13 +91,11 @@ interface MarketStatusIndicatorProps {
 function MarketStatusIndicator({ isOpen }: MarketStatusIndicatorProps) {
   return (
     <div className="flex items-center gap-1.5">
-      <motion.div
-        className="w-2 h-2 rounded-full"
+      <div
+        className={`w-2 h-2 rounded-full ${isOpen ? 'animate-pulse-green' : ''}`}
         style={{
           backgroundColor: isOpen ? "#2ED8A7" : "#AEB7B3",
         }}
-        animate={isOpen ? { opacity: [1, 0.5, 1] } : { opacity: 1 }}
-        transition={isOpen ? { duration: 2, repeat: Infinity } : {}}
       />
     </div>
   );
