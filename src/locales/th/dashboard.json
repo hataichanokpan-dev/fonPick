@@ -1,0 +1,98 @@
+{
+  "home": {
+    "title": "fonPick",
+    "description": "เครื่องมือวิเคราะห์หุ้น SET อัจฉริยะ"
+  },
+  "section": {
+    "p0": {
+      "title": "ภาพรวมตลาด",
+      "subtitle": "การวิเคราะห์ Regime และ Smart Money"
+    },
+    "p1": {
+      "title": "การวิเคราะห์ภาคส่วน",
+      "subtitle": "ความแข็งแกร่งและประสิทธิภาพของภาคส่วน"
+    },
+    "p2": {
+      "title": "ตลาดเคลื่อนไหว",
+      "subtitle": "หุ้นซื้อขายเด่นและอันดับสูงสุด"
+    }
+  },
+  "marketStatus": {
+    "title": "ดัชนี SET",
+    "marketOpen": "ตลาดเปิด",
+    "marketClosed": "ตลาดปิด",
+    "justNow": "เมื่อสักครู่"
+  },
+  "time": {
+    "minutesAgo": "ที่แล้ว",
+    "hoursAgo": "ที่แล้ว",
+    "daysAgo": "ที่แล้ว"
+  },
+  "regime": {
+    "title": "Market Regime",
+    "riskOn": "Risk-On",
+    "riskOff": "Risk-Off",
+    "neutral": "กลาง",
+    "riskOnDescription": "นักลงทุนเข้าซื้อหุ้นเสี่ยง ความน่าเชื่อถือสูง",
+    "riskOffDescription": "นักลงทุนหนีเข้าสินทรัพย์ปลอดภัย ความน่าเชื่อถือต่ำ",
+    "strongBuy": "ซื้อมาก",
+    "buy": "ซื้อ",
+    "sell": "ขาย",
+    "strongSell": "ขายมาก",
+    "confidence": "ความมั่นใจ",
+    "signal": "สัญญาณ"
+  },
+  "smartMoney": {
+    "title": "Smart Money",
+    "subtitle": "กระแสเงินนักลงทุนสถาบัน",
+    "foreign": "นักลงทุนต่างชาติ",
+    "institution": "นักลงทุนสถาบัน",
+    "retail": "นักลงทุนรายย่อย",
+    "prop": "หุ้นเทรดหุ้น",
+    "net": "Net",
+    "buy": "ซื้อ",
+    "sell": "ขาย",
+    "inflow": "กระแสเข้า",
+    "outflow": "กระแสออก",
+    "accumulation": "สะสม",
+    "distribution": "แตกตัว",
+    "neutral": "กลาง"
+  },
+  "sectors": {
+    "title": "ความแข็งแกร่งของภาคส่วน",
+    "topSectors": "ภาคส่วนแข็งแกร่ง",
+    "bottomSectors": "ภาคส่วนอ่อนแอ",
+    "strength": "ความแข็งแกร่ง",
+    "change": "เปลี่ยนแปลง",
+    "marketCap": "มูลค่าตลาด"
+  },
+  "movers": {
+    "title": "Market Movers",
+    "active": "หุ้นซื้อขายเด่น",
+    "gainers": "หุ้นขาขึ้น",
+    "losers": "หุ้นขาลง",
+    "volume": "ปริมาณ",
+    "topByValue": "มูลค่าสูงสุด",
+    "topGainers": "ขาขึ้นสูงสุด",
+    "topLosers": "ขาลงสูงสุด",
+    "topVolume": "ปริมาณสูงสุด",
+    "value": "มูลค่า",
+    "change": "เปลี่ยนแปลง",
+    "volume": "ปริมาณ",
+    "rank": "อันดับ",
+    "concentration": "ความเข้มข้น",
+    "crossRanked": "Cross-Ranked",
+    "observations": "ข้อสังเกต"
+  },
+  "dailyFocus": {
+    "title": "จุดเด่นประจำวัน",
+    "subtitle": "หุ้นที่ปรากฏในหลายอันดับ",
+    "empty": "ยังไม่มีข้อมูล"
+  },
+  "dataInsight": {
+    "title": "ข้อมูลเชิงลึก",
+    "noConflict": "ไม่มีความขัดแย้ง",
+    "conflict": "มีความขัดแย้ง",
+    "highConviction": "มั่นใจสูง"
+  }
+}

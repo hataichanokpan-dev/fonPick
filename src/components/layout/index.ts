@@ -47,6 +47,7 @@ export { Header } from './Header'
 export { MobileBottomNav } from './MobileBottomNav'
 export { Footer } from './Footer'
 export { ServiceWorkerRegister } from './ServiceWorkerRegister'
+export { LanguageSwitcher } from './LanguageSwitcher'
 
 // ==================================================================
 // CONVENIENCE EXPORTS

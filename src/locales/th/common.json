@@ -1,0 +1,68 @@
+{
+  "appName": "fonPick",
+  "tagline": "เครื่องมือวิเคราะห์หุ้น SET อัจฉริยะ",
+  "nav": {
+    "market": "ตลาด",
+    "search": "ค้นหา",
+    "guide": "คู่มือ",
+    "watchlist": "รายการเฝ้าดู"
+  },
+  "common": {
+    "loading": "กำลังโหลด...",
+    "error": "เกิดข้อผิดพลาด",
+    "lastUpdate": "อัปเดตล่าสุด",
+    "noData": "ไม่มีข้อมูล",
+    "retry": "ลองใหม่",
+    "close": "ปิด",
+    "save": "บันทึก",
+    "cancel": "ยกเลิก",
+    "confirm": "ยืนยัน",
+    "delete": "ลบ",
+    "edit": "แก้ไข",
+    "add": "เพิ่ม",
+    "remove": "ลบออก",
+    "search": "ค้นหา...",
+    "filter": "กรอง",
+    "sort": "เรียงลำดับ",
+    "showMore": "แสดงเพิ่มเติม",
+    "showLess": "แสดงน้อยลง"
+  },
+  "market": {
+    "setIndex": "ดัชนี SET",
+    "marketStatus": "สถานะตลาด",
+    "marketOpen": "ตลาดเปิด",
+    "marketClosed": "ตลาดปิด",
+    "value": "มูลค่า",
+    "volume": "ปริมาณ",
+    "change": "เปลี่ยนแปลง",
+    "changePercent": "เปลี่ยนแปลง(%)",
+    "topGainers": "หุ้นขาขึ้น",
+    "topLosers": "หุ้นขาลง",
+    "topVolume": "ปริมาณสูงสุด",
+    "active": "หุ้นซื้อขายเด่น"
+  },
+  "stock": {
+    "price": "ราคา",
+    "change": "เปลี่ยนแปลง",
+    "volume": "ปริมาณ",
+    "value": "มูลค่า",
+    "high": "ราคาสูงสุด",
+    "low": "ราคาต่ำสุด",
+    "open": "ราคาเปิด",
+    "previousClose": "ราคาปิดก่อนหน้า",
+    "pe": "P/E",
+    "pbv": "P/BV",
+    "marketCap": "มูลค่าตลาด",
+    "beta": "เบต้า",
+    "shares": "หุ้น",
+    "sector": "กลุ่มอุตสาหกรรม"
+  },
+  "time": {
+    "justNow": "เมื่อสักครู่",
+    "minutesAgo": "{minutes} นาทีที่แล้ว",
+    "hoursAgo": "{hours} ชั่วโมงที่แล้ว",
+    "daysAgo": "{days} วันที่แล้ว",
+    "today": "วันนี้",
+    "yesterday": "เมื่อวาน"
+  }
+}

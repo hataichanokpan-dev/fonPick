@@ -10,12 +10,14 @@
  * - Data age display (e.g., "2m ago")
  * - Sticky positioning with backdrop blur
  * - Animated price display with flash effect
+ * - i18n support for Thai/English
  */
 
 "use client";
 
 import { Activity } from "lucide-react";
 import { useMemo } from "react";
+import { useTranslations } from "next-intl";
 import { AnimatedPrice } from "@/components/shared/modern/AnimatedPrice";
 import { useMarketIntelligenceContext } from "@/contexts/MarketIntelligenceContext";
 
@@ -52,7 +54,7 @@ const COLORS = {
 // UTILITY FUNCTIONS
 // ==================================================================
 
-function formatTimestamp(timestamp: number): string {
+function formatTimestamp(timestamp: number, t: (key: string) => string): string {
   if (!timestamp || isNaN(timestamp)) return "N/A";
 
   const now = Date.now();
@@ -60,24 +62,24 @@ function formatTimestamp(timestamp: number): string {
 
   // Less than 1 minute
   if (diff < 60 * 1000) {
-    return "Just now";
+    return t("marketStatus.justNow");
   }
 
   // Less than 1 hour
   if (diff < 60 * 60 * 1000) {
     const minutes = Math.floor(diff / (60 * 1000));
-    return `${minutes}m`;
+    return `${minutes}m ${t("time.minutesAgo")}`;
   }
 
   // Less than 24 hours
   if (diff < 24 * 60 * 60 * 1000) {
     const hours = Math.floor(diff / (60 * 60 * 1000));
-    return `${hours}h`;
+    return `${hours}h ${t("time.hoursAgo")}`;
   }
 
   // Days
   const days = Math.floor(diff / (24 * 60 * 60 * 1000));
-  return `${days}d`;
+  return `${days}d ${t("time.daysAgo")}`;
 }
 
 // ==================================================================
@@ -86,11 +88,12 @@ function formatTimestamp(timestamp: number): string {
 
 interface MarketStatusIndicatorProps {
   isOpen: boolean;
+  label: string;
 }
 
-function MarketStatusIndicator({ isOpen }: MarketStatusIndicatorProps) {
+function MarketStatusIndicator({ isOpen, label }: MarketStatusIndicatorProps) {
   return (
-    <div className="flex items-center gap-1.5">
+    <div className="flex items-center gap-1.5" title={label}>
       <div
         className={`w-2 h-2 rounded-full ${isOpen ? 'animate-pulse-green' : ''}`}
         style={{
@@ -105,18 +108,20 @@ interface SetIndexDisplayProps {
   value: number;
   change: number;
   changePercent: number;
+  label: string;
 }
 
 function SetIndexDisplay({
   value,
   change,
   changePercent,
+  label,
 }: SetIndexDisplayProps) {
   return (
     <div className="flex items-baseline gap-2 sm:gap-3">
       {/* Main SET Index Label */}
       <span className="text-sm font-semibold text-text-secondary xs:text-base">
-        SET
+        {label}
       </span>
 
       {/* Main SET Index Value with AnimatedPrice */}
@@ -149,16 +154,17 @@ function SetIndexDisplay({
 
 interface DataFreshnessDisplayProps {
   timestamp?: number;
+  t: (key: string) => string;
 }
 
-function DataFreshnessDisplay({ timestamp }: DataFreshnessDisplayProps) {
+function DataFreshnessDisplay({ timestamp, t }: DataFreshnessDisplayProps) {
   if (!timestamp) return null;
 
   return (
     <div className="flex items-center gap-1.5">
       <Activity className="w-3.5 h-3.5 text-text-muted" />
       <span className="text-[10px] text-text-muted xs:text-xs tabular-nums font-medium">
-        {formatTimestamp(timestamp)}
+        {formatTimestamp(timestamp, t)}
       </span>
     </div>
   );
@@ -175,6 +181,8 @@ export function MarketStatusBanner({
   isMarketOpen = true,
   lastUpdate: propsLastUpdate,
 }: MarketStatusBannerProps) {
+  const t = useTranslations("dashboard");
+
   // Get data from Context (now includes marketOverview)
   const contextData = useMarketIntelligenceContext();
 
@@ -189,7 +197,7 @@ export function MarketStatusBanner({
   return (
     <div
       role="banner"
-      aria-label={`SET Index: ${setIndex.toFixed(2)}`}
+      aria-label={`${t("marketStatus.title")}: ${setIndex.toFixed(2)}`}
       className="sticky top-0 z-50 w-full backdrop-blur-lg border-b h-14 sm:h-16 rounded-lg mb-3 shadow-sm animate-fade-in-up"
       style={{
         backgroundColor: colors.bg,
@@ -204,13 +212,17 @@ export function MarketStatusBanner({
               value={setIndex}
               change={setChange}
               changePercent={setChangePercent}
+              label={t("marketStatus.title")}
             />
           </div>
 
           {/* Right: Market Status & Data Freshness */}
           <div className="flex items-center gap-2.5 sm:gap-3 flex-shrink-0">
-            <MarketStatusIndicator isOpen={isMarketOpen} />
-            <DataFreshnessDisplay timestamp={lastUpdate} />
+            <MarketStatusIndicator
+              isOpen={isMarketOpen}
+              label={isMarketOpen ? t("marketStatus.marketOpen") : t("marketStatus.marketClosed")}
+            />
+            <DataFreshnessDisplay timestamp={lastUpdate} t={t} />
           </div>
         </div>
       </div>

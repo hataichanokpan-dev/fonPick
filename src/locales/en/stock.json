@@ -1,0 +1,47 @@
+{
+  "title": "Stock",
+  "search": {
+    "placeholder": "Search stocks...",
+    "noResults": "No stocks found",
+    "recent": "Recent searches"
+  },
+  "info": {
+    "price": "Price",
+    "change": "Change",
+    "changePercent": "Change(%)",
+    "volume": "Volume",
+    "value": "Value",
+    "high": "High",
+    "low": "Low",
+    "open": "Open",
+    "previousClose": "Previous Close",
+    "pe": "P/E",
+    "pbv": "P/BV",
+    "marketCap": "Market Cap",
+    "beta": "Beta",
+    "sector": "Sector",
+    "name": "Company Name"
+  },
+  "action": {
+    "addToWatchlist": "Add to Watchlist",
+    "removeFromWatchlist": "Remove from Watchlist",
+    "viewChart": "View Chart",
+    "viewNews": "View News"
+  },
+  "technical": {
+    "title": "Technical Analysis",
+    "support": "Support",
+    "resistance": "Resistance",
+    "trend": "Trend",
+    "uptrend": "Uptrend",
+    "downtrend": "Downtrend",
+    "sideways": "Sideways"
+  },
+  "fundamental": {
+    "title": "Fundamental Analysis",
+    "dividend": "Dividend",
+    "yield": "Yield",
+    "eps": "EPS",
+    "bvb": "B/VB"
+  }
+}

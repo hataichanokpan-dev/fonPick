@@ -9,21 +9,15 @@
  * - Safe area insets for mobile
  * - Logo with gradient background
  * - Desktop navigation links
+ * - Language switcher
  */
 
 'use client'
 
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-
-/**
- * Navigation link config
- */
-const navLinks = [
-  { href: '/', label: 'Market' },
-  { href: '/search', label: 'Search' },
-  { href: '/guide', label: 'คู่มือ' },
-] as const
+import { usePathname } from '@/lib/i18n/routing'
+import { useTranslations, useLocale } from 'next-intl'
+import { LanguageSwitcher } from './LanguageSwitcher'
 
 /**
  * Header Component
@@ -31,15 +25,19 @@ const navLinks = [
  */
 export function Header() {
   const pathname = usePathname()
+  const locale = useLocale()
+  const t = useTranslations('nav')
 
   /**
    * Check if a link is active
    */
   const isActive = (href: string) => {
+    // Remove locale prefix from pathname for comparison
+    const pathWithoutLocale = pathname.replace(`/${locale}`, '') || '/'
     if (href === '/') {
-      return pathname === '/'
+      return pathWithoutLocale === '/'
     }
-    return pathname.startsWith(href)
+    return pathWithoutLocale.startsWith(href)
   }
 
   return (
@@ -65,25 +63,28 @@ export function Header() {
               </span>
             </Link>
 
-            {/* Navigation - 3 buttons: Market, Search, Guide */}
-            <div className="flex items-center gap-3">
-              {navLinks.map((link) => (
+            {/* Navigation - 3 buttons: Market, Search, Guide + Language Switcher */}
+            <div className="flex items-center gap-2">
+              {['market', 'search', 'guide'].map((key) => (
                 <Link
-                  key={link.href}
-                  href={link.href}
+                  key={key}
+                  href={key === 'market' ? '/' : `/${key}`}
                   className={`
                     text-xs font-medium transition-colors rounded px-2 py-1
                     focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-up-primary
-                    ${isActive(link.href)
+                    ${isActive(key === 'market' ? '/' : `/${key}`)
                       ? 'text-up-primary bg-up-soft/20'
                       : 'text-text-secondary hover:text-text-primary hover:bg-surface-2'
                     }
                   `}
-                  aria-current={isActive(link.href) ? 'page' : undefined}
+                  aria-current={isActive(key === 'market' ? '/' : `/${key}`) ? 'page' : undefined}
                 >
-                  {link.label}
+                  {t(key as any)}
                 </Link>
               ))}
+
+              {/* Language Switcher */}
+              <LanguageSwitcher />
             </div>
           </div>
         </nav>

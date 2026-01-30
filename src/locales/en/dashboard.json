@@ -1,0 +1,98 @@
+{
+  "home": {
+    "title": "fonPick",
+    "description": "Intelligent SET Stock Analysis Tool"
+  },
+  "section": {
+    "p0": {
+      "title": "Market Overview",
+      "subtitle": "Market Regime and Smart Money Analysis"
+    },
+    "p1": {
+      "title": "Sector Analysis",
+      "subtitle": "Sector Strength and Performance"
+    },
+    "p2": {
+      "title": "Market Movers",
+      "subtitle": "Active Stocks and Top Rankings"
+    }
+  },
+  "marketStatus": {
+    "title": "SET Index",
+    "marketOpen": "Market Open",
+    "marketClosed": "Market Closed",
+    "justNow": "Just now"
+  },
+  "time": {
+    "minutesAgo": "ago",
+    "hoursAgo": "ago",
+    "daysAgo": "ago"
+  },
+  "regime": {
+    "title": "Market Regime",
+    "riskOn": "Risk-On",
+    "riskOff": "Risk-Off",
+    "neutral": "Neutral",
+    "riskOnDescription": "Investors buying risk assets, high confidence",
+    "riskOffDescription": "Investors fleeing to safety, low confidence",
+    "strongBuy": "Strong Buy",
+    "buy": "Buy",
+    "sell": "Sell",
+    "strongSell": "Strong Sell",
+    "confidence": "Confidence",
+    "signal": "Signal"
+  },
+  "smartMoney": {
+    "title": "Smart Money",
+    "subtitle": "Institutional Money Flow",
+    "foreign": "Foreign",
+    "institution": "Institution",
+    "retail": "Retail",
+    "prop": "Proprietary",
+    "net": "Net",
+    "buy": "Buy",
+    "sell": "Sell",
+    "inflow": "Inflow",
+    "outflow": "Outflow",
+    "accumulation": "Accumulation",
+    "distribution": "Distribution",
+    "neutral": "Neutral"
+  },
+  "sectors": {
+    "title": "Sector Strength",
+    "topSectors": "Top Sectors",
+    "bottomSectors": "Bottom Sectors",
+    "strength": "Strength",
+    "change": "Change",
+    "marketCap": "Market Cap"
+  },
+  "movers": {
+    "title": "Market Movers",
+    "active": "Active Stocks",
+    "gainers": "Top Gainers",
+    "losers": "Top Losers",
+    "volume": "Top Volume",
+    "topByValue": "Top by Value",
+    "topGainers": "Top Gainers",
+    "topLosers": "Top Losers",
+    "topVolume": "Top Volume",
+    "value": "Value",
+    "change": "Change",
+    "volume": "Volume",
+    "rank": "Rank",
+    "concentration": "Concentration",
+    "crossRanked": "Cross-Ranked",
+    "observations": "Observations"
+  },
+  "dailyFocus": {
+    "title": "Daily Focus",
+    "subtitle": "Stocks appearing in multiple rankings",
+    "empty": "No data available"
+  },
+  "dataInsight": {
+    "title": "Data Insight",
+    "noConflict": "No conflict",
+    "conflict": "Conflict detected",
+    "highConviction": "High conviction"
+  }
+}

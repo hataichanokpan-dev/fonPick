@@ -1,0 +1,68 @@
+{
+  "appName": "fonPick",
+  "tagline": "Intelligent SET Stock Analysis Tool",
+  "nav": {
+    "market": "Market",
+    "search": "Search",
+    "guide": "Guide",
+    "watchlist": "Watchlist"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "lastUpdate": "Last updated",
+    "noData": "No data available",
+    "retry": "Retry",
+    "close": "Close",
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "remove": "Remove",
+    "search": "Search...",
+    "filter": "Filter",
+    "sort": "Sort",
+    "showMore": "Show more",
+    "showLess": "Show less"
+  },
+  "market": {
+    "setIndex": "SET Index",
+    "marketStatus": "Market Status",
+    "marketOpen": "Market Open",
+    "marketClosed": "Market Closed",
+    "value": "Value",
+    "volume": "Volume",
+    "change": "Change",
+    "changePercent": "Change(%)",
+    "topGainers": "Top Gainers",
+    "topLosers": "Top Losers",
+    "topVolume": "Top Volume",
+    "active": "Active Stocks"
+  },
+  "stock": {
+    "price": "Price",
+    "change": "Change",
+    "volume": "Volume",
+    "value": "Value",
+    "high": "High",
+    "low": "Low",
+    "open": "Open",
+    "previousClose": "Previous Close",
+    "pe": "P/E",
+    "pbv": "P/BV",
+    "marketCap": "Market Cap",
+    "beta": "Beta",
+    "shares": "shares",
+    "sector": "Sector"
+  },
+  "time": {
+    "justNow": "Just now",
+    "minutesAgo": "{minutes}m ago",
+    "hoursAgo": "{hours}h ago",
+    "daysAgo": "{days}d ago",
+    "today": "Today",
+    "yesterday": "Yesterday"
+  }
+}

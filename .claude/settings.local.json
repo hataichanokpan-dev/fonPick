@@ -50,7 +50,9 @@
       "Bash(cmd //c taskkill //PID 7124 //F)",
       "Bash(netstat:*)",
       "Bash(tasklist:*)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(npm run test:run:*)",
+      "Bash(npx next dev:*)"
     ]
   }
 }

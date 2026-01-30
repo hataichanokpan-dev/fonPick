@@ -1,16 +1,17 @@
 /**
  * Formatting utilities
+ * Now using locale-aware NumberFormatter
  */
+
+import { formatterTh } from '@/lib/i18n'
 
 /**
  * Format number with thousand separators
+ * @deprecated Use formatterTh.formatNumber() directly for locale awareness
  */
 export function formatNumber(value: number, decimals: number = 2): string {
   if (isNaN(value)) return 'N/A'
-  return value.toLocaleString('en-US', {
-    minimumFractionDigits: decimals,
-    maximumFractionDigits: decimals,
-  })
+  return formatterTh.formatNumber(value, decimals)
 }
 
 /**
@@ -28,48 +29,43 @@ export function formatDecimal(value: number, maxDecimals: number = 2): string {
 
 /**
  * Format percentage with sign
+ * @deprecated Use formatterTh.formatPercentage() directly for locale awareness
  */
 export function formatPercent(value: number, decimals: number = 2): string {
   if (isNaN(value)) return 'N/A'
-  const sign = value >= 0 ? '+' : ''
-  return `${sign}${formatDecimal(value, decimals)}%`
+  return formatterTh.formatPercentage(value, decimals)
 }
 
 /**
+ * Format percentage (alias for formatPercent)
+ */
+export const formatPercentage = formatPercent
+
+/**
  * Format market cap to readable string
+ * @deprecated Use formatterTh.formatShort() directly for locale awareness
  */
 export function formatMarketCap(value: number): string {
   if (isNaN(value)) return 'N/A'
-
-  const trillions = value / 1_000_000_000_000
-  const billions = value / 1_000_000_000
-  const millions = value / 1_000_000
-
-  if (trillions >= 1) {
-    return `${formatDecimal(trillions, 2)}T`
-  } else if (billions >= 1) {
-    return `${formatDecimal(billions, 2)}B`
-  } else if (millions >= 1) {
-    return `${formatDecimal(millions, 2)}M`
-  }
-  return formatNumber(value, 0)
+  return formatterTh.formatShort(value)
 }
 
 /**
  * Format volume to readable string
+ * @deprecated Use formatterTh.formatVolume() directly for locale awareness
  */
 export function formatVolume(value: number): string {
   if (isNaN(value)) return 'N/A'
+  return formatterTh.formatVolume(value)
+}
 
-  const millions = value / 1_000_000
-  const thousands = value / 1_000
-
-  if (millions >= 1) {
-    return `${formatDecimal(millions, 2)}M`
-  } else if (thousands >= 1) {
-    return `${formatDecimal(thousands, 2)}K`
-  }
-  return formatNumber(value, 0)
+/**
+ * Format trading value to readable string (in Thai Baht)
+ * @deprecated Use formatterTh.formatCurrency() directly for locale awareness
+ */
+export function formatTradingValue(value: number): string {
+  if (isNaN(value)) return 'N/A'
+  return formatterTh.formatCurrency(value)
 }
 
 /**
@@ -107,19 +103,6 @@ export function getValueArrow(value: number): string {
   return '▬'
 }
 
-/**
- * Format trading value to readable string (in Thai Baht)
- */
-export function formatTradingValue(value: number): string {
-  if (isNaN(value)) return 'N/A'
-
-  const billions = value / 1_000_000_000
-  const millions = value / 1_000_000
-
-  if (billions >= 1) {
-    return `฿${formatDecimal(billions, 2)}B`
-  } else if (millions >= 1) {
-    return `฿${formatDecimal(millions, 2)}M`
-  }
-  return `฿${formatNumber(value, 0)}`
-}
+// Re-export NumberFormatter for direct use
+export { formatterTh, formatterEn } from '@/lib/i18n'
+export type { NumberFormatter } from '@/lib/i18n'

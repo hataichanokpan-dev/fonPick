@@ -1,0 +1,47 @@
+{
+  "title": "หุ้น",
+  "search": {
+    "placeholder": "ค้นหาหุ้น...",
+    "noResults": "ไม่พบหุ้นที่ค้นหา",
+    "recent": "ค้นหาล่าสุด"
+  },
+  "info": {
+    "price": "ราคา",
+    "change": "เปลี่ยนแปลง",
+    "changePercent": "เปลี่ยนแปลง(%)",
+    "volume": "ปริมาณ",
+    "value": "มูลค่า",
+    "high": "ราคาสูงสุด",
+    "low": "ราคาต่ำสุด",
+    "open": "ราคาเปิด",
+    "previousClose": "ราคาปิดก่อนหน้า",
+    "pe": "P/E",
+    "pbv": "P/BV",
+    "marketCap": "มูลค่าตลาด",
+    "beta": "เบต้า",
+    "sector": "กลุ่มอุตสาหกรรม",
+    "name": "ชื่อบริษัท"
+  },
+  "action": {
+    "addToWatchlist": "เพิ่มในรายการเฝ้าดู",
+    "removeFromWatchlist": "ลบออกจากรายการเฝ้าดู",
+    "viewChart": "ดูกราฟ",
+    "viewNews": "ดูข่าว"
+  },
+  "technical": {
+    "title": "วิเคราะห์ทางเทคนิค",
+    "support": "แนวรับ",
+    "resistance": "แนวต้าน",
+    "trend": "แนวโน้ม",
+    "uptrend": "ขาขึ้น",
+    "downtrend": "ขาลง",
+    "sideways": "แนวนอน"
+  },
+  "fundamental": {
+    "title": "วิเคราะห์พื้นฐาน",
+    "dividend": "เงินปันผล",
+    "yield": "Yield",
+    "eps": "EPS",
+    "bvb": "B/VB"
+  }
+}
