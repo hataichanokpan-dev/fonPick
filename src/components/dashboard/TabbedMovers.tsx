@@ -536,12 +536,41 @@ export function TabbedMovers({
   // Use consolidated market intelligence hook
   const { data: activeStocksData, isLoading, error } = useActiveStocks()
 
-  // Handle loading state
+  // Calculate effective top count (handle edge cases) - MUST be before conditional returns
+  const effectiveCount = activeStocksData
+    ? Math.max(0, Math.min(topCount, activeStocksData.topByValue.length))
+    : topCount
+
+  // Prepare tab data with useMemo to prevent recalculation on every render
+  // MUST be before conditional returns to satisfy Rules of Hooks
+  const gainers = useMemo(
+    () =>
+      activeStocksData
+        ? extractGainers(activeStocksData.topByValue, effectiveCount)
+        : [],
+    [activeStocksData, effectiveCount]
+  )
+  const losers = useMemo(
+    () =>
+      activeStocksData
+        ? extractLosers(activeStocksData.topByValue, effectiveCount)
+        : [],
+    [activeStocksData, effectiveCount]
+  )
+  const volumeLeaders = useMemo(
+    () =>
+      activeStocksData
+        ? extractVolumeLeaders(activeStocksData.topByVolume, effectiveCount)
+        : [],
+    [activeStocksData, effectiveCount]
+  )
+
+  // Handle loading state (AFTER all hooks)
   if (isLoading) {
     return <TabbedMoversSkeleton />
   }
 
-  // Handle error state
+  // Handle error state (AFTER all hooks)
   if (error || !activeStocksData) {
     const CardComponent = useModernCard ? GlassCard : Card
 
@@ -561,23 +590,6 @@ export function TabbedMovers({
       </CardComponent>
     )
   }
-
-  // Calculate effective top count (handle edge cases)
-  const effectiveCount = Math.max(0, Math.min(topCount, activeStocksData.topByValue.length))
-
-  // Prepare tab data with useMemo to prevent recalculation on every render
-  const gainers = useMemo(
-    () => extractGainers(activeStocksData.topByValue, effectiveCount),
-    [activeStocksData.topByValue, effectiveCount]
-  )
-  const losers = useMemo(
-    () => extractLosers(activeStocksData.topByValue, effectiveCount),
-    [activeStocksData.topByValue, effectiveCount]
-  )
-  const volumeLeaders = useMemo(
-    () => extractVolumeLeaders(activeStocksData.topByVolume, effectiveCount),
-    [activeStocksData.topByVolume, effectiveCount]
-  )
 
   const CardComponent = useModernCard ? GlassCard : Card
 

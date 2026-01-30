@@ -46,6 +46,7 @@ export async function aggregateMarketIntelligence(
     smartMoney,
     sectorRotation,
     activeStocks,
+    marketOverview: input.marketOverview,
     timestamp: Date.now(),
     freshness,
   }

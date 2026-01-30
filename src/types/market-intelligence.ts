@@ -19,6 +19,14 @@ export interface MarketIntelligenceData {
   smartMoney: SmartMoneyAnalysis | null
   sectorRotation: SectorRotationAnalysis | null
   activeStocks: ActiveStocksAnalysis | null
+  marketOverview: {
+    setIndex: number
+    setChange: number
+    setChangePercent: number
+    totalValue: number
+    totalVolume: number
+    timestamp: number
+  } | null
   timestamp: number
   freshness: DataFreshness
 }

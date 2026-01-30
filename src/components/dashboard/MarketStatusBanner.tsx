@@ -175,16 +175,13 @@ export function MarketStatusBanner({
   isMarketOpen = true,
   lastUpdate: propsLastUpdate,
 }: MarketStatusBannerProps) {
-  // Try to use Context if props not provided (fallback for memory optimization)
-  // Note: MarketIntelligenceContext doesn't include marketOverview,
-  // so we rely on props being passed from parent component
+  // Get data from Context (now includes marketOverview)
   const contextData = useMarketIntelligenceContext();
 
-  // Use props if provided, otherwise use defaults
-  // In a full implementation, consider adding marketOverview to Context
-  const setIndex = propsSetIndex ?? 0;
-  const setChange = propsSetChange ?? 0;
-  const setChangePercent = propsSetChangePercent ?? 0;
+  // Use props if provided, otherwise use Context data
+  const setIndex = propsSetIndex ?? contextData.data?.marketOverview?.setIndex ?? 0;
+  const setChange = propsSetChange ?? contextData.data?.marketOverview?.setChange ?? 0;
+  const setChangePercent = propsSetChangePercent ?? contextData.data?.marketOverview?.setChangePercent ?? 0;
   const lastUpdate = propsLastUpdate ?? contextData.data?.timestamp;
 
   const colors = useMemo(() => COLORS["Neutral"], []);
