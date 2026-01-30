@@ -28,7 +28,6 @@ import {
   AlertCircle,
 } from 'lucide-react'
 import { formatTradingValue, formatPercentage } from '@/lib/utils'
-import { motion } from 'framer-motion'
 import type { AccumulationPattern } from '@/types/market-intelligence'
 import { useActiveStocks } from '@/hooks/useMarketIntelligence'
 
@@ -205,12 +204,13 @@ function ConcentrationBar({ metrics }: ConcentrationBarProps) {
             </span>
           </div>
           <div className="h-1.5 bg-surface rounded-full overflow-hidden">
-            <motion.div
-              initial={{ width: 0 }}
-              animate={{ width: `${Math.min(100, metrics.top5StockConcentration)}%` }}
-              transition={{ duration: 0.6, ease: 'easeOut' }}
-              className="h-full rounded-full"
-              style={{ backgroundColor: interpretationColor }}
+            <div
+              className="h-full rounded-full animate-width-grow"
+              style={{
+                width: `${Math.min(100, metrics.top5StockConcentration)}%`,
+                '--bar-width': `${Math.min(100, metrics.top5StockConcentration)}%`,
+                backgroundColor: interpretationColor,
+              } as React.CSSProperties}
             />
           </div>
         </div>
@@ -282,11 +282,8 @@ function StockRow({ stock, rank }: StockRowProps) {
   const accumulationTag = formatAccumulationTag(stock.accumulationPattern, stock.accumulationDays)
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
-      className="flex items-center gap-2 p-2 rounded hover:bg-surface-2 transition-colors"
+    <div
+      className="flex items-center gap-2 p-2 rounded hover:bg-surface-2 transition-colors animate-fade-in-up"
     >
       {/* Rank */}
       <span className="text-xs font-semibold w-6 text-text-muted">
@@ -338,7 +335,7 @@ function StockRow({ stock, rank }: StockRowProps) {
           {rankingBadges}
         </div>
       )}
-    </motion.div>
+    </div>
   )
 }
 
@@ -391,7 +388,7 @@ export function ActiveStocksCard({
     return <ActiveStocksSkeleton />
   }
 
-  if (error || !data?.success || !activeStocksData) {
+  if (error || !activeStocksData) {
     return (
       <Card padding="sm" className={className}>
         <div className="flex items-center justify-between mb-3">

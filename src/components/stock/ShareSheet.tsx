@@ -20,7 +20,6 @@
 'use client'
 
 import { useState, useCallback, useRef, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
 import {
   Share2,
   X,
@@ -231,36 +230,28 @@ export function ShareSheet({
       </Button>
 
       {/* Share Sheet Modal */}
-      <AnimatePresence>
-        {isOpen && (
-          <>
-            {/* Overlay */}
-            <motion.div
-              data-testid="share-sheet-overlay"
-              className="fixed inset-0 bg-black/50 z-40"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setIsOpen(false)}
-            />
+      {isOpen && (
+        <>
+          {/* Overlay */}
+          <div
+            data-testid="share-sheet-overlay"
+            className="fixed inset-0 bg-black/50 z-40 animate-fade-in"
+            onClick={() => setIsOpen(false)}
+          />
 
-            {/* Sheet Content */}
-            <motion.div
-              data-testid="share-sheet-content"
-              className={cn(
-                'fixed z-50 bg-bg-surface-1 rounded-t-2xl shadow-2xl',
-                'bottom-0 sm:bottom-auto sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2',
-                'w-full sm:w-96 max-h-[90vh] overflow-hidden',
-                'border border-border-subtle'
-              )}
-              initial={{ y: '100%', opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: '100%', opacity: 0 }}
-              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-              role="dialog"
-              aria-label="Share options"
-              onKeyDown={handleKeyDown}
-            >
+          {/* Sheet Content */}
+          <div
+            data-testid="share-sheet-content"
+            className={cn(
+              'fixed z-50 bg-bg-surface-1 rounded-t-2xl shadow-2xl animate-slide-in-up',
+              'bottom-0 sm:bottom-auto sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2',
+              'w-full sm:w-96 max-h-[90vh] overflow-hidden',
+              'border border-border-subtle'
+            )}
+            role="dialog"
+            aria-label="Share options"
+            onKeyDown={handleKeyDown}
+          >
               {/* Header */}
               <div className="flex items-center justify-between p-4 border-b border-border-subtle">
                 <h3 className="text-lg font-semibold text-text-primary">
@@ -385,29 +376,23 @@ export function ShareSheet({
                   </Button>
                 </div>
               </div>
-            </motion.div>
+            </div>
           </>
         )}
-      </AnimatePresence>
+      )
 
       {/* Toast Notification */}
-      <AnimatePresence>
-        {showToast && (
-          <motion.div
-            data-testid="share-success-toast"
-            className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            transition={{ duration: 0.2 }}
-          >
-            <div className="bg-bg-surface-1 border border-border-subtle rounded-lg shadow-lg px-4 py-2 flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-up-primary" />
-              <p className="text-sm text-text-primary">{toastMessage}</p>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {showToast && (
+        <div
+          data-testid="share-success-toast"
+          className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 animate-fade-in-up"
+        >
+          <div className="bg-bg-surface-1 border border-border-subtle rounded-lg shadow-lg px-4 py-2 flex items-center gap-2">
+            <div className="w-2 h-2 rounded-full bg-up-primary" />
+            <p className="text-sm text-text-primary">{toastMessage}</p>
+          </div>
+        </div>
+      )}
     </>
   )
 }

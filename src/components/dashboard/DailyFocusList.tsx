@@ -1,5 +1,5 @@
 /**
- * DailyFocusList Component
+ * DailyFocusList Component (Memory-Optimized)
  *
  * P0 component showing cross-ranked stocks that appear in multiple categories (high-conviction picks).
  *
@@ -7,12 +7,12 @@
  * - Displays top N cross-ranked stocks as badges
  * - Shows ranking count in badge (e.g., "PTT (3)")
  * - Color-coded by strength score (buy/watch/neutral)
- * - Staggered entrance animation
+ * - CSS-based animations (no Framer Motion memory overhead)
  * - Horizontal scroll for more stocks
  * - Empty state when no stocks
- * - Sector badges and change % display (Phase 2)
+ * - Fetches from Context if props not provided
  *
- * Data source: Cross-ranked stocks from market intelligence API
+ * Data source: Cross-ranked stocks from MarketIntelligenceContext
  */
 
 'use client'
@@ -21,16 +21,16 @@ import Link from 'next/link'
 import { Card, CardHeader } from '@/components/shared'
 import { Badge } from '@/components/shared/Badge'
 import { Award } from 'lucide-react'
-import { motion } from 'framer-motion'
 import type { CrossRankedStock } from '@/types/market-intelligence'
+import { useActiveStocks } from '@/hooks/useMarketIntelligence'
 
 // ==================================================================
 // TYPES
 // ==================================================================
 
 export interface DailyFocusListProps {
-  /** Cross-ranked stocks to display */
-  crossRankedStocks: CrossRankedStock[]
+  /** Cross-ranked stocks to display (optional - will fetch from Context if not provided) */
+  crossRankedStocks?: CrossRankedStock[]
   /** Number of top stocks to display (default: all) */
   topCount?: number
 }
@@ -46,32 +46,6 @@ const STRENGTH_THRESHOLDS = {
   BUY: 5,    // > 5 = buy (green)
   WATCH: 3,  // 3-5 = watch (yellow)
   // < 3 = neutral (gray)
-} as const
-
-// Animation variants for staggered entrance
-const ANIMATION_VARIANTS = {
-  container: {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.05,
-        delayChildren: 0.1,
-      },
-    },
-  },
-  item: {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        type: 'spring',
-        stiffness: 300,
-        damping: 20,
-      },
-    },
-  },
 } as const
 
 // ==================================================================
@@ -136,21 +110,16 @@ function StockBadge({ stock, index }: StockBadgeProps) {
 
   return (
     <Link href={`/stock/${stock.symbol}`}>
-      <motion.div
-        variants={ANIMATION_VARIANTS.item}
-        initial="hidden"
-        animate="visible"
-        custom={index}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        className="transition-transform duration-150"
+      <div
+        className="fade-in hover:scale-105 active:scale-95 transition-transform duration-150"
+        style={{ animationDelay: `${index * 50}ms` }}
       >
         <Badge size="sm" color={color} className="flex items-center gap-1.5 px-2.5 py-1">
           <Award className="w-3 h-3" />
           {stock.symbol}
           <span className="text-[9px] font-medium tabular-nums">({stock.rankingCount})</span>
         </Badge>
-      </motion.div>
+      </div>
     </Link>
   )
 }
@@ -176,9 +145,13 @@ function EmptyState({ stockCount }: EmptyStateProps) {
 // ==================================================================
 
 export function DailyFocusList({
-  crossRankedStocks,
+  crossRankedStocks: propsCrossRankedStocks,
   topCount,
 }: DailyFocusListProps) {
+  // Fetch from Context if props not provided (prevents duplication)
+  const { data: activeStocksData } = useActiveStocks()
+  const crossRankedStocks = propsCrossRankedStocks ?? activeStocksData?.crossRanked ?? []
+
   // Validate and filter stocks
   const validStocks = getValidStocks(crossRankedStocks)
 
@@ -239,23 +212,12 @@ export function DailyFocusList({
         </div>
       </CardHeader>
 
-      {/* Stock Badges */}
-      <motion.div
-        variants={ANIMATION_VARIANTS.container}
-        initial="hidden"
-        animate="visible"
-        className="flex flex-wrap gap-2"
-      >
+      {/* Stock Badges - CSS-based staggered animation */}
+      <div className="flex flex-wrap gap-2">
         {displayStocks.map((stock, index) => (
-          <StockBadge
-            key={stock.symbol}
-            stock={stock}
-            index={index}
-          />
+          <StockBadge key={stock.symbol} stock={stock} index={index} />
         ))}
-      </motion.div>
+      </div>
     </Card>
   )
 }
-
-export default DailyFocusList

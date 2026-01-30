@@ -1,10 +1,10 @@
 /**
- * AnimatedPrice Component
+ * AnimatedPrice Component (Memory-Optimized)
  *
- * An animated price display component with flash effect on value changes.
+ * A price display component with flash effect on value changes.
  * Features:
  * - Flash animation when value changes (green for up, red for down)
- * - Smooth number transition (counting animation with requestAnimationFrame)
+ * - CSS-based transitions (no RAF, minimal memory)
  * - Color-coded based on change direction
  * - Tabular numbers for alignment
  * - Change indicator with percentage and trend icon
@@ -15,10 +15,9 @@
 
 'use client'
 
-import { motion } from 'framer-motion'
 import { TrendingUp, TrendingDown } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { useEffect, useState, useRef, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 
 /**
  * Size variants for the component
@@ -82,7 +81,7 @@ const iconSizeClasses = {
 }
 
 /**
- * AnimatedPrice - Flash animation on price changes with counting animation
+ * AnimatedPrice - Flash animation on price changes (CSS-based, minimal memory)
  *
  * @example
  * ```tsx
@@ -107,18 +106,13 @@ export function AnimatedPrice({
   // STATE
   // ==================================================================
 
-  const [displayValue, setDisplayValue] = useState(value)
   const [flashDirection, setFlashDirection] = useState<'up' | 'down' | null>(null)
-
-  // Track value ref for comparison
+  const [showChangeIndicator, setShowChangeIndicator] = useState(false)
   const valueRef = useRef(value)
-  // Track animation target value to prevent redundant animations
-  const targetValueRef = useRef(value)
-  // Track RAF ID for reliable cleanup
-  const rafIdRef = useRef<number>()
+  const flashTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   // ==================================================================
-  // FLASH ANIMATION
+  // FLASH ANIMATION (CSS-based)
   // ==================================================================
 
   /**
@@ -132,88 +126,25 @@ export function AnimatedPrice({
     const direction = value > valueRef.current ? 'up' : 'down'
     setFlashDirection(direction)
 
-    // Clear flash after animation completes
-    const flashTimer = setTimeout(() => {
+    // Show change indicator with slide-in animation
+    setShowChangeIndicator(true)
+
+    // Clear flash after animation completes (600ms matches CSS duration)
+    if (flashTimeoutRef.current) {
+      clearTimeout(flashTimeoutRef.current)
+    }
+    flashTimeoutRef.current = setTimeout(() => {
       setFlashDirection(null)
     }, 600)
 
-    return () => clearTimeout(flashTimer)
-  }, [value])
-
-  // ==================================================================
-  // COUNTING ANIMATION
-  // ==================================================================
-
-  /**
-   * Animate number from old value to new value using requestAnimationFrame
-   * Uses cubic ease-out for smooth animation throttled to ~30fps for performance
-   */
-  useEffect(() => {
-    // Skip if value hasn't changed (compare with ref to avoid re-renders)
-    if (targetValueRef.current === value) return
-
-    const startValue = targetValueRef.current
-    const endValue = value
-    targetValueRef.current = value // Update ref immediately
-
-    const duration = 500 // 500ms duration
-    const startTime = performance.now()
-    const frameInterval = 1000 / 30 // Throttle to ~30fps
-    let lastFrameTime = 0
-
-    // Cubic ease-out function: 1 - (1 - t)^3
-    const easeOutCubic = (t: number): number => {
-      return 1 - Math.pow(1 - t, 3)
-    }
-
-    let cancelled = false
-
-    // Animation frame handler (throttled)
-    const animate = (currentTime: number) => {
-      if (cancelled) return
-
-      // Throttle frame updates
-      if (currentTime - lastFrameTime < frameInterval) {
-        rafIdRef.current = requestAnimationFrame(animate)
-        return
-      }
-
-      lastFrameTime = currentTime
-
-      const elapsed = currentTime - startTime
-      const progress = Math.min(elapsed / duration, 1)
-      const easedProgress = easeOutCubic(progress)
-
-      // Calculate interpolated value
-      const newValue = startValue + (endValue - startValue) * easedProgress
-      setDisplayValue(newValue)
-
-      // Continue animation if not complete
-      if (progress < 1) {
-        rafIdRef.current = requestAnimationFrame(animate)
-      } else {
-        // Ensure final value is exact
-        setDisplayValue(endValue)
-        rafIdRef.current = undefined // Clear ref when complete
-      }
-    }
-
-    // Start animation - store RAF ID in ref for reliable cleanup
-    rafIdRef.current = requestAnimationFrame(animate)
-
-    // Comprehensive cleanup function
-    return () => {
-      cancelled = true
-      if (rafIdRef.current) {
-        cancelAnimationFrame(rafIdRef.current)
-        rafIdRef.current = undefined
-      }
-    }
-  }, [value])
-
-  // Update ref when value changes
-  useEffect(() => {
+    // Update ref
     valueRef.current = value
+
+    return () => {
+      if (flashTimeoutRef.current) {
+        clearTimeout(flashTimeoutRef.current)
+      }
+    }
   }, [value])
 
   // ==================================================================
@@ -265,6 +196,16 @@ export function AnimatedPrice({
   const colorClasses = getColorClasses()
 
   // ==================================================================
+  // CSS ANIMATION CLASSES
+  // ==================================================================
+
+  const getFlashClass = () => {
+    if (flashDirection === 'up') return 'animate-price-up'
+    if (flashDirection === 'down') return 'animate-price-down'
+    return ''
+  }
+
+  // ==================================================================
   // ARIA LABEL
   // ==================================================================
 
@@ -291,47 +232,41 @@ export function AnimatedPrice({
 
   return (
     <div className={cn('inline-flex items-baseline gap-2', className)}>
-      {/* Main price value with flash animation */}
-      <motion.span
+      {/* Main price value with CSS flash animation */}
+      <span
         className={cn(
           'inline-flex items-center font-mono font-semibold tabular-nums',
+          'transition-all duration-300 ease-out',
           sizeClasses[size],
-          colorClasses.text
+          colorClasses.text,
+          getFlashClass()
         )}
-        animate={{
-          backgroundColor:
-            flashDirection === 'up'
-              ? ['transparent', 'rgba(74, 222, 128, 0.15)', 'transparent']
-              : flashDirection === 'down'
-                ? ['transparent', 'rgba(255, 107, 107, 0.15)', 'transparent']
-                : 'transparent',
+        style={{
+          borderRadius: '4px',
+          padding: '2px 4px',
         }}
-        transition={{ duration: 0.6, ease: 'easeInOut' }}
-        style={{ borderRadius: '4px', padding: '2px 4px' }}
         aria-label={generateAriaLabel()}
         role="status"
       >
         {prefix}
-        {displayValue.toFixed(decimals)}
+        {value.toFixed(decimals)}
         {suffix}
-      </motion.span>
+      </span>
 
-      {/* Change indicator with percentage and icon */}
-      {showChange && previousValue !== undefined && !isNeutral && (
-        <motion.span
+      {/* Change indicator with CSS slide-in animation */}
+      {showChange && previousValue !== undefined && !isNeutral && showChangeIndicator && (
+        <span
           className={cn(
             'inline-flex items-center gap-1 font-medium tabular-nums',
+            'fade-in',
             changeSizeClasses[size],
             isPositive ? 'text-up-primary' : 'text-down-primary'
           )}
-          initial={{ opacity: 0, x: -10 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.3, ease: 'easeOut' }}
         >
           {showIcon && (isPositive ? <TrendingUp className={iconSizeClasses[size]} /> : <TrendingDown className={iconSizeClasses[size]} />)}
           {isPositive ? '+' : ''}
           {changePercentValue.toFixed(decimals)}%
-        </motion.span>
+        </span>
       )}
     </div>
   )

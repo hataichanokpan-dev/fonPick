@@ -1,5 +1,5 @@
 /**
- * MarketRegimeCard Component
+ * MarketRegimeCard Component (Memory-Optimized)
  *
  * Displays market regime detection including:
  * - Current regime (Risk-On/Neutral/Risk-Off)
@@ -29,12 +29,11 @@ import {
   AlertTriangle,
   Activity,
 } from "lucide-react";
-import { motion } from "framer-motion";
 import { useMarketRegime } from "@/hooks/useMarketIntelligence";
 
-// ==================================================================
+// ============================================================================
 // TYPES
-// ==================================================================
+// ============================================================================
 
 export interface MarketRegimeData {
   regime: "Risk-On" | "Neutral" | "Risk-Off";
@@ -55,9 +54,9 @@ export interface MarketRegimeCardProps {
   useAccessibleSignal?: boolean;
 }
 
-// ==================================================================
+// ============================================================================
 // CONSTANTS
-// ==================================================================
+// ============================================================================
 
 const COLORS = {
   up: "#2ED8A7",
@@ -66,9 +65,9 @@ const COLORS = {
   neutral: "#AEB7B3",
 };
 
-// ==================================================================
+// ============================================================================
 // HELPER COMPONENTS
-// ==================================================================
+// ============================================================================
 
 interface RegimeIndicatorProps {
   regime: "Risk-On" | "Neutral" | "Risk-Off";
@@ -146,12 +145,9 @@ function RegimeIndicator({
 
   return (
     <div className="flex items-center gap-4">
-      {/* Icon with background */}
-      <motion.div
-        initial={{ scale: 0.8, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.3 }}
-        className={`${iconSize} rounded-full flex items-center justify-center`}
+      {/* Icon with background - CSS animation replaces Framer Motion */}
+      <div
+        className={`${iconSize} rounded-full flex items-center justify-center animate-scale-in`}
         style={{
           backgroundColor: regimeConfig.bgColor,
           // Phase 2: Add animated gradient for prominent variant
@@ -170,7 +166,7 @@ function RegimeIndicator({
         >
           {regimeConfig.icon}
         </div>
-      </motion.div>
+      </div>
 
       {/* Regime Label */}
       <div className="flex-1">
@@ -211,7 +207,7 @@ function RegimeIndicator({
           {regimeConfig.description}
         </span>
 
-        {/* Confidence Bar - Fixed: Moved outside of description span */}
+        {/* Confidence Bar - CSS animation replaces Framer Motion */}
         <div className="flex flex-col gap-1 mt-2">
           <span className="text-[9px] uppercase tracking-wide text-text-muted font-medium">
             Confidence
@@ -219,12 +215,12 @@ function RegimeIndicator({
           <div
             className={`h-1.5 bg-surface-2 rounded-full overflow-hidden ${isProminent ? "w-20" : "w-16"}`}
           >
-            <motion.div
-              initial={{ width: 0 }}
-              animate={{ width: confidenceConfig.width }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-              className="h-full rounded-full"
-              style={{ backgroundColor: confidenceConfig.color }}
+            <div
+              className={`h-full rounded-full animate-width-grow`}
+              style={{
+                backgroundColor: confidenceConfig.color,
+                width: confidenceConfig.width,
+              }}
             />
           </div>
         </div>
@@ -240,18 +236,16 @@ interface ReasonItemProps {
 
 function ReasonItem({ reason, index }: ReasonItemProps) {
   return (
-    <motion.div
-      initial={{ opacity: 0, x: -10 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.3, delay: index * 0.05 }}
-      className="flex items-start gap-2 text-xs text-text-muted"
+    <div
+      className={`flex items-start gap-2 text-xs text-text-muted animate-fade-in-up`}
+      style={{ animationDelay: `${index * 50}ms` }}
     >
       <div
         className="w-1 h-1 rounded-full mt-1.5 flex-shrink-0"
         style={{ backgroundColor: COLORS.neutral }}
       />
       <span className="leading-relaxed">{reason}</span>
-    </motion.div>
+    </div>
   );
 }
 
@@ -290,9 +284,9 @@ function MarketRegimeSkeleton({
   );
 }
 
-// ==================================================================
+// ============================================================================
 // MAIN COMPONENT
-// ==================================================================
+// ============================================================================
 
 export function MarketRegimeCard({
   className,

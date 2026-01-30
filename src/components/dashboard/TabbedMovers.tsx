@@ -40,8 +40,7 @@ import {
   AlertCircle,
 } from 'lucide-react'
 import { formatTradingValue, formatPercentage, formatVolume } from '@/lib/utils'
-import { motion, AnimatePresence } from 'framer-motion'
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import type {
   StockConcentration,
   CrossRankedStock,
@@ -243,12 +242,13 @@ function ConcentrationBar({ metrics }: ConcentrationBarProps) {
             <span className="text-xs font-medium text-text">{metrics.top5StockConcentration.toFixed(1)}%</span>
           </div>
           <div className="h-1.5 bg-surface rounded-full overflow-hidden">
-            <motion.div
-              initial={{ width: 0 }}
-              animate={{ width: `${Math.min(100, metrics.top5StockConcentration)}%` }}
-              transition={{ duration: 0.6, ease: 'easeOut' }}
-              className="h-full rounded-full"
-              style={{ backgroundColor: interpretationColor }}
+            <div
+              className="h-full rounded-full animate-width-grow"
+              style={{
+                width: `${Math.min(100, metrics.top5StockConcentration)}%`,
+                '--bar-width': `${Math.min(100, metrics.top5StockConcentration)}%`,
+                backgroundColor: interpretationColor,
+              } as React.CSSProperties}
             />
           </div>
         </div>
@@ -361,13 +361,9 @@ function ActiveStockRow({ stock, rank, enableSwipeable, onSwipeRight, onSwipeLef
   }
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
-    >
+    <div className="animate-fade-in-up">
       {stockContent}
-    </motion.div>
+    </div>
   )
 }
 
@@ -424,13 +420,9 @@ function GainerLoserRow({ stock, rank, type, enableSwipeable, onSwipeRight, onSw
   }
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
-    >
+    <div className="animate-fade-in-up">
       {stockContent}
-    </motion.div>
+    </div>
   )
 }
 
@@ -479,13 +471,9 @@ function VolumeRow({ stock, rank, enableSwipeable, onSwipeRight, onSwipeLeft }: 
   }
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
-    >
+    <div className="animate-fade-in-up">
       {stockContent}
-    </motion.div>
+    </div>
   )
 }
 
@@ -577,10 +565,19 @@ export function TabbedMovers({
   // Calculate effective top count (handle edge cases)
   const effectiveCount = Math.max(0, Math.min(topCount, activeStocksData.topByValue.length))
 
-  // Prepare tab data
-  const gainers = extractGainers(activeStocksData.topByValue, effectiveCount)
-  const losers = extractLosers(activeStocksData.topByValue, effectiveCount)
-  const volumeLeaders = extractVolumeLeaders(activeStocksData.topByVolume, effectiveCount)
+  // Prepare tab data with useMemo to prevent recalculation on every render
+  const gainers = useMemo(
+    () => extractGainers(activeStocksData.topByValue, effectiveCount),
+    [activeStocksData.topByValue, effectiveCount]
+  )
+  const losers = useMemo(
+    () => extractLosers(activeStocksData.topByValue, effectiveCount),
+    [activeStocksData.topByValue, effectiveCount]
+  )
+  const volumeLeaders = useMemo(
+    () => extractVolumeLeaders(activeStocksData.topByVolume, effectiveCount),
+    [activeStocksData.topByVolume, effectiveCount]
+  )
 
   const CardComponent = useModernCard ? GlassCard : Card
 
@@ -623,157 +620,40 @@ export function TabbedMovers({
         ))}
       </div>
 
-      {/* Tab Content */}
-      <AnimatePresence mode="wait">
-        {activeTab === 'active' && (
-          <motion.div
-            key="active"
-            initial={{ opacity: 0, x: -10 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 10 }}
-            transition={{ duration: 0.2 }}
-          >
-            {/* Concentration Metrics */}
-            <ConcentrationBar metrics={activeStocksData.metrics} />
+      {/* Tab Content - Conditional rendering for memory efficiency */}
+      {activeTab === 'active' && (
+        <div key="active" className="fade-in">
+          {/* Concentration Metrics */}
+          <ConcentrationBar metrics={activeStocksData.metrics} />
 
-            {/* Cross-Ranked Stocks Section */}
-            {activeStocksData.crossRanked.length > 0 && (
-              <div className="mt-3 p-2 rounded-lg bg-surface-2">
-                <div className="flex items-center gap-1 mb-2">
-                  <Award className="w-3 h-3 text-warn" />
-                  <span className="text-[10px] uppercase tracking-wide text-text-muted">
-                    Cross-Ranked ({activeStocksData.crossRanked.length})
-                  </span>
-                </div>
-                <div className="flex flex-wrap gap-1.5">
-                  {activeStocksData.crossRanked.slice(0, 8).map((stock) => (
-                    <CrossRankedBadge key={stock.symbol} stock={stock} />
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Top Stocks by Value */}
-            <div className="mt-3">
+          {/* Cross-Ranked Stocks Section */}
+          {activeStocksData.crossRanked.length > 0 && (
+            <div className="mt-3 p-2 rounded-lg bg-surface-2">
               <div className="flex items-center gap-1 mb-2">
-                <TrendingUp className="w-3 h-3 text-up" />
+                <Award className="w-3 h-3 text-warn" />
                 <span className="text-[10px] uppercase tracking-wide text-text-muted">
-                  Top {effectiveCount} by Value
+                  Cross-Ranked ({activeStocksData.crossRanked.length})
                 </span>
               </div>
-              <div className="space-y-1">
-                {activeStocksData.topByValue.slice(0, effectiveCount).map((stock, index) => (
-                  <ActiveStockRow
-                    key={stock.symbol}
-                    stock={stock}
-                    rank={index + 1}
-                    enableSwipeable={enableSwipeableCards}
-                    onSwipeRight={onSwipeRight}
-                    onSwipeLeft={onSwipeLeft}
-                  />
+              <div className="flex flex-wrap gap-1.5">
+                {activeStocksData.crossRanked.slice(0, 8).map((stock) => (
+                  <CrossRankedBadge key={stock.symbol} stock={stock} />
                 ))}
               </div>
             </div>
+          )}
 
-            {/* Key Observations */}
-            {activeStocksData.observations && activeStocksData.observations.length > 0 && (
-              <div className="mt-3 pt-3 border-t border-border">
-                <div className="flex items-start gap-2">
-                  <AlertCircle className="w-3 h-3 text-warn flex-shrink-0 mt-0.5" />
-                  <p className="text-xs text-text-muted leading-relaxed">
-                    {activeStocksData.observations[0]}
-                  </p>
-                </div>
-              </div>
-            )}
-          </motion.div>
-        )}
-
-        {activeTab === 'gainers' && (
-          <motion.div
-            key="gainers"
-            initial={{ opacity: 0, x: -10 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 10 }}
-            transition={{ duration: 0.2 }}
-          >
+          {/* Top Stocks by Value */}
+          <div className="mt-3">
             <div className="flex items-center gap-1 mb-2">
               <TrendingUp className="w-3 h-3 text-up" />
               <span className="text-[10px] uppercase tracking-wide text-text-muted">
-                Top {effectiveCount} Gainers
+                Top {effectiveCount} by Value
               </span>
             </div>
             <div className="space-y-1">
-              {gainers.length > 0 ? (
-                gainers.map((stock, index) => (
-                  <GainerLoserRow
-                    key={stock.symbol}
-                    stock={stock}
-                    rank={index + 1}
-                    type="gainer"
-                    enableSwipeable={enableSwipeableCards}
-                    onSwipeRight={onSwipeRight}
-                    onSwipeLeft={onSwipeLeft}
-                  />
-                ))
-              ) : (
-                <p className="text-xs text-text-muted">No gainers available</p>
-              )}
-            </div>
-          </motion.div>
-        )}
-
-        {activeTab === 'losers' && (
-          <motion.div
-            key="losers"
-            initial={{ opacity: 0, x: -10 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 10 }}
-            transition={{ duration: 0.2 }}
-          >
-            <div className="flex items-center gap-1 mb-2">
-              <TrendingDown className="w-3 h-3 text-down" />
-              <span className="text-[10px] uppercase tracking-wide text-text-muted">
-                Top {effectiveCount} Losers
-              </span>
-            </div>
-            <div className="space-y-1">
-              {losers.length > 0 ? (
-                losers.map((stock, index) => (
-                  <GainerLoserRow
-                    key={stock.symbol}
-                    stock={stock}
-                    rank={index + 1}
-                    type="loser"
-                    enableSwipeable={enableSwipeableCards}
-                    onSwipeRight={onSwipeRight}
-                    onSwipeLeft={onSwipeLeft}
-                  />
-                ))
-              ) : (
-                <p className="text-xs text-text-muted">No losers available</p>
-              )}
-            </div>
-          </motion.div>
-        )}
-
-        {activeTab === 'volume' && (
-          <motion.div
-            key="volume"
-            initial={{ opacity: 0, x: -10 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 10 }}
-            transition={{ duration: 0.2 }}
-          >
-            <div className="flex items-center gap-1 mb-2">
-              <Activity className="w-3 h-3 text-accent-blue" />
-              <span className="text-[10px] uppercase tracking-wide text-text-muted">
-                Top {effectiveCount} Volume
-              </span>
-            </div>
-            <div className="space-y-1">
-              {volumeLeaders.map((stock, index) => (
-                <VolumeRow
+              {activeStocksData.topByValue.slice(0, effectiveCount).map((stock, index) => (
+                <ActiveStockRow
                   key={stock.symbol}
                   stock={stock}
                   rank={index + 1}
@@ -783,9 +663,100 @@ export function TabbedMovers({
                 />
               ))}
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </div>
+
+          {/* Key Observations */}
+          {activeStocksData.observations && activeStocksData.observations.length > 0 && (
+            <div className="mt-3 pt-3 border-t border-border">
+              <div className="flex items-start gap-2">
+                <AlertCircle className="w-3 h-3 text-warn flex-shrink-0 mt-0.5" />
+                <p className="text-xs text-text-muted leading-relaxed">
+                  {activeStocksData.observations[0]}
+                </p>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
+      {activeTab === 'gainers' && (
+        <div key="gainers" className="fade-in">
+          <div className="flex items-center gap-1 mb-2">
+            <TrendingUp className="w-3 h-3 text-up" />
+            <span className="text-[10px] uppercase tracking-wide text-text-muted">
+              Top {effectiveCount} Gainers
+            </span>
+          </div>
+          <div className="space-y-1">
+            {gainers.length > 0 ? (
+              gainers.map((stock, index) => (
+                <GainerLoserRow
+                  key={stock.symbol}
+                  stock={stock}
+                  rank={index + 1}
+                  type="gainer"
+                  enableSwipeable={enableSwipeableCards}
+                  onSwipeRight={onSwipeRight}
+                  onSwipeLeft={onSwipeLeft}
+                />
+              ))
+            ) : (
+              <p className="text-xs text-text-muted">No gainers available</p>
+            )}
+          </div>
+        </div>
+      )}
+
+      {activeTab === 'losers' && (
+        <div key="losers" className="fade-in">
+          <div className="flex items-center gap-1 mb-2">
+            <TrendingDown className="w-3 h-3 text-down" />
+            <span className="text-[10px] uppercase tracking-wide text-text-muted">
+              Top {effectiveCount} Losers
+            </span>
+          </div>
+          <div className="space-y-1">
+            {losers.length > 0 ? (
+              losers.map((stock, index) => (
+                <GainerLoserRow
+                  key={stock.symbol}
+                  stock={stock}
+                  rank={index + 1}
+                  type="loser"
+                  enableSwipeable={enableSwipeableCards}
+                  onSwipeRight={onSwipeRight}
+                  onSwipeLeft={onSwipeLeft}
+                />
+              ))
+            ) : (
+              <p className="text-xs text-text-muted">No losers available</p>
+            )}
+          </div>
+        </div>
+      )}
+
+      {activeTab === 'volume' && (
+        <div key="volume" className="fade-in">
+          <div className="flex items-center gap-1 mb-2">
+            <Activity className="w-3 h-3 text-accent-blue" />
+            <span className="text-[10px] uppercase tracking-wide text-text-muted">
+              Top {effectiveCount} Volume
+            </span>
+          </div>
+          <div className="space-y-1">
+            {volumeLeaders.map((stock, index) => (
+              <VolumeRow
+                key={stock.symbol}
+                stock={stock}
+                rank={index + 1}
+                enableSwipeable={enableSwipeableCards}
+                onSwipeRight={onSwipeRight}
+                onSwipeLeft={onSwipeLeft}
+              />
+            ))}
+          </div>
+        </div>
+      )}
     </CardComponent>
   )
 }

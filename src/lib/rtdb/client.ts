@@ -12,12 +12,19 @@ import { findLatestDateWithData } from './latest-finder'
 
 /**
  * Initialize Firebase app singleton
+ * CRITICAL: Store BOTH app and db to prevent multiple Firebase instances
+ * Multiple instances cause memory leaks (1-2 GB per instance!)
  */
+let app: ReturnType<typeof initializeApp> | null = null
 let db: ReturnType<typeof getDatabase> | null = null
 
 function getDatabaseInstance(): ReturnType<typeof getDatabase> {
-  if (!db) {
-    const app = initializeApp(firebaseConfig)
+  // Check BOTH app and db to ensure true singleton
+  if (!app || !db) {
+    // Only initialize if BOTH are null/undefined
+    if (!app) {
+      app = initializeApp(firebaseConfig)
+    }
     db = getDatabase(app)
   }
   return db

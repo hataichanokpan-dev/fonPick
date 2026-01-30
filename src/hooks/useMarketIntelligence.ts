@@ -32,13 +32,11 @@
  */
 
 import { useMarketIntelligenceContext } from '@/contexts/MarketIntelligenceContext'
-import type {
-  MarketIntelligenceData,
-  MarketRegimeData,
-  SmartMoneyAnalysis,
-  SectorRotationAnalysis,
-  ActiveStocksAnalysis,
-} from '@/types/market-intelligence'
+import type { MarketIntelligenceData } from '@/types/market-intelligence'
+import type { RegimeResult } from '@/types/market'
+import type { SmartMoneyAnalysis } from '@/types/smart-money'
+import type { SectorRotationAnalysis } from '@/types/sector-rotation'
+import type { ActiveStocksAnalysis } from '@/types/market-intelligence'
 
 // ==================================================================
 // TYPES
@@ -46,7 +44,7 @@ import type {
 
 export interface UseMarketIntelligenceResult {
   data: MarketIntelligenceData | null
-  regime: MarketRegimeData | null
+  regime: RegimeResult | null
   smartMoney: SmartMoneyAnalysis | null
   sectorRotation: SectorRotationAnalysis | null
   activeStocks: ActiveStocksAnalysis | null

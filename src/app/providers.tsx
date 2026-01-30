@@ -34,7 +34,7 @@ interface ProvidersProps {
  */
 export function Providers({ children }: ProvidersProps) {
   // Minimal QueryClient for other features (watchlist, etc.)
-  // Reduced from 50 to 20 since market data now in Context
+  // Memory-optimized settings for 5GB+ issue
   const [queryClient] = useState(
     () =>
       new QueryClient({
@@ -50,8 +50,9 @@ export function Providers({ children }: ProvidersProps) {
             retry: 1,
             // Retry with exponential backoff
             retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
-            // Keep cache for 10 minutes (reduced from 24 hours)
-            gcTime: 10 * 60 * 1000, // 10 minutes
+            // Keep cache for 2 minutes only (reduced from 10 minutes)
+            // Faster GC = less memory bloat
+            gcTime: 2 * 60 * 1000, // 2 minutes
           },
           mutations: {
             // Retry mutations once on failure
@@ -59,8 +60,7 @@ export function Providers({ children }: ProvidersProps) {
           },
         },
         // CRITICAL: Limit cache size to prevent unbounded memory growth
-        // Reduced from 50 to 20 since market intelligence data is now in Context
-        maxSize: 20, // Maximum number of queries in cache
+        // Use gcTime (2 min) + staleTime (5 min) to naturally limit cache
       })
   )
 

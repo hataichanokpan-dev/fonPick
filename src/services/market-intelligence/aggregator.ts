@@ -179,7 +179,7 @@ async function analyzeSectorRotationComponent(input: MarketIntelligenceInput) {
 }
 
 /**
- * Analyze active stocks concentration
+ * Analyze active stocks concentration (Memory-optimized)
  */
 async function analyzeActiveStocksComponent(
   input: MarketIntelligenceInput,
@@ -205,11 +205,14 @@ async function analyzeActiveStocksComponent(
       0
     )
 
-    // Detect cross-rankings
-    const crossRanked = detectCrossRankings(rankings)
+    // Detect cross-rankings (limited results)
+    const crossRanked = detectCrossRankings(rankings, {
+      maxStocksPerCategory: 50,
+      maxResults: options.topStocksCount,
+    })
 
-    // Calculate concentration metrics
-    const metrics = calculateConcentrationMetrics(rankings, totalValue)
+    // Calculate concentration metrics - pass crossRankedCount to avoid recalculation
+    const metrics = calculateConcentrationMetrics(rankings, totalValue, crossRanked.length)
 
     // Generate observations
     const observations = generateObservations(topByValue, crossRanked, metrics)
@@ -262,10 +265,18 @@ export function buildStockConcentration(
 }
 
 /**
- * Detect cross-ranked stocks
+ * Detect cross-ranked stocks (Memory-optimized)
+ * Limits processing to prevent memory leaks from large datasets
  */
-export function detectCrossRankings(rankings: MarketIntelligenceInput['rankings']): CrossRankedStock[] {
+export function detectCrossRankings(
+  rankings: MarketIntelligenceInput['rankings'],
+  options?: { maxStocksPerCategory?: number; maxResults?: number }
+): CrossRankedStock[] {
   if (!rankings) return []
+
+  // Limits to prevent memory bloat
+  const MAX_STOCKS_PER_CATEGORY = options?.maxStocksPerCategory ?? 50
+  const MAX_RESULTS = options?.maxResults ?? 20
 
   const stockMap = new Map<string, CrossRankedStock>()
 
@@ -287,14 +298,30 @@ export function detectCrossRankings(rankings: MarketIntelligenceInput['rankings'
     stock.strengthScore = calculateStrengthScore(stock.rankings)
   }
 
-  // Process each category
-  rankings.topValue.forEach((s, i) => addStock(s.symbol, s.name, 'value', i + 1))
-  rankings.topVolume.forEach((s, i) => addStock(s.symbol, s.name, 'volume', i + 1))
-  rankings.topGainers.forEach((s, i) => addStock(s.symbol, s.name, 'gainer', i + 1))
-  rankings.topLosers.forEach((s, i) => addStock(s.symbol, s.name, 'loser', i + 1))
+  // Process only limited number of stocks per category to prevent memory bloat
+  rankings.topValue.slice(0, MAX_STOCKS_PER_CATEGORY).forEach((s, i) =>
+    addStock(s.symbol, s.name, 'value', i + 1)
+  )
+  rankings.topVolume.slice(0, MAX_STOCKS_PER_CATEGORY).forEach((s, i) =>
+    addStock(s.symbol, s.name, 'volume', i + 1)
+  )
+  rankings.topGainers.slice(0, MAX_STOCKS_PER_CATEGORY).forEach((s, i) =>
+    addStock(s.symbol, s.name, 'gainer', i + 1)
+  )
+  rankings.topLosers.slice(0, MAX_STOCKS_PER_CATEGORY).forEach((s, i) =>
+    addStock(s.symbol, s.name, 'loser', i + 1)
+  )
 
-  // Return only stocks appearing in multiple categories
-  return Array.from(stockMap.values()).filter(s => s.rankingCount >= 2)
+  // Return only stocks appearing in multiple categories, sorted by strength, limited results
+  const results = Array.from(stockMap.values())
+    .filter(s => s.rankingCount >= 2)
+    .sort((a, b) => b.strengthScore - a.strengthScore)
+    .slice(0, MAX_RESULTS)
+
+  // Clear map to free memory immediately
+  stockMap.clear()
+
+  return results
 }
 
 /**
@@ -310,11 +337,13 @@ function calculateStrengthScore(rankings: Record<string, number>): number {
 }
 
 /**
- * Calculate concentration metrics
+ * Calculate concentration metrics (Memory-optimized)
+ * Accepts optional crossRankedCount to avoid recalculating
  */
 export function calculateConcentrationMetrics(
   rankings: MarketIntelligenceInput['rankings'],
-  totalValue: number
+  totalValue: number,
+  crossRankedCount?: number // Optional: pass in to avoid recalculating
 ): ConcentrationMetrics {
   if (!rankings || totalValue === 0) {
     return {
@@ -337,9 +366,8 @@ export function calculateConcentrationMetrics(
   const top5Value = topValue.slice(0, 5).reduce((sum, s) => sum + (s.value || 0), 0)
   const top5Concentration = (top5Value / totalValue) * 100
 
-  // Cross-ranked count
-  const crossRanked = detectCrossRankings(rankings)
-  const crossRankedCount = crossRanked.length
+  // Cross-ranked count - use provided value or default to 0 (no duplicate calculation)
+  const calculatedCrossRankedCount = crossRankedCount ?? 0
 
   // HHI calculation
   const marketShares = topValue.map(s => (s.value || 0) / totalValue)
@@ -358,7 +386,7 @@ export function calculateConcentrationMetrics(
   return {
     top10ValueConcentration: Math.round(top10Concentration),
     top5StockConcentration: Math.round(top5Concentration),
-    crossRankedCount,
+    crossRankedCount: calculatedCrossRankedCount,
     hhi: Math.round(hhi),
     interpretation,
     totalValue,

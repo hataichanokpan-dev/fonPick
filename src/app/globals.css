@@ -568,6 +568,22 @@
   }
 }
 
+/* Pulse glow effect for high-score badges - combines opacity and scale */
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(1.05);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
 /* ==================================================================
    ACCESSIBILITY
    ================================================================== */
@@ -603,3 +619,150 @@
   clip: auto;
   white-space: normal;
 }
+
+/* ==================================================================
+   MODULE ANIMATIONS (Memory-efficient CSS animations)
+   ================================================================== */
+
+/* Gauge fill animation - replaces Framer Motion for static gauges */
+@keyframes gauge-fill {
+  from {
+    stroke-dashoffset: var(--gauge-circumference);
+  }
+  to {
+    stroke-dashoffset: var(--gauge-offset);
+  }
+}
+
+.gauge-animate {
+  animation: gauge-fill 0.6s ease-out forwards;
+}
+
+/* Bar fill animation - replaces Framer Motion for progress bars */
+@keyframes bar-fill {
+  from {
+    width: 0;
+  }
+  to {
+    width: var(--bar-width);
+  }
+}
+
+.bar-animate {
+  animation: bar-fill 0.6s ease-out forwards;
+}
+
+/* Fade in animation */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fade-in 0.3s ease-out forwards;
+}
+
+/* Slide in from left */
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.slide-in-left {
+  animation: slide-in-left 0.3s ease-out forwards;
+}
+
+/* Slide in from right */
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.slide-in-right {
+  animation: slide-in-right 0.3s ease-out forwards;
+}
+
+/* ==================================================================
+   DASHBOARD ANIMATIONS (Replaces Framer Motion - Memory Efficient)
+   ================================================================== */
+
+/* Fade in with Y translate (for cards) */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.3s ease-out forwards;
+}
+
+/* Scale in animation (for badges, icons) */
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-scale-in {
+  animation: scale-in 0.3s ease-out forwards;
+}
+
+/* Width grow animation (for progress bars, gauges) */
+@keyframes width-grow {
+  from {
+    width: 0;
+  }
+}
+
+.animate-width-grow {
+  animation: width-grow 0.6s ease-out forwards;
+}
+
+/* Stroke dashoffset animation (for SVG gauges) */
+@keyframes stroke-animate {
+  from {
+    stroke-dashoffset: var(--stroke-offset-start);
+  }
+  to {
+    stroke-dashoffset: var(--stroke-offset-end);
+  }
+}
+
+.animate-stroke {
+  animation: stroke-animate 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Stagger animation delays */
+.delay-50 { animation-delay: 0.05s; }
+.delay-100 { animation-delay: 0.1s; }
+.delay-150 { animation-delay: 0.15s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-250 { animation-delay: 0.25s; }
+.delay-300 { animation-delay: 0.3s; }

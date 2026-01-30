@@ -19,7 +19,6 @@
 'use client'
 
 import { useState, useEffect, useCallback, useRef } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
 import { Star, StarOff } from 'lucide-react'
 import { Button } from '@/components/shared'
 import { cn } from '@/lib/utils'
@@ -205,28 +204,25 @@ export function WatchlistButton({
         aria-label={ariaLabel}
         aria-pressed={isOnWatchlist}
       >
-        <motion.div
+        <div
           data-testid="watchlist-icon"
-          animate={{ scale: isOnWatchlist ? [1, 1.2, 1] : 1 }}
-          transition={{ duration: 0.3 }}
+          className={isOnWatchlist ? 'animate-scale-in' : ''}
         >
           {isOnWatchlist ? (
             <Star className="w-4 h-4 fill-current" />
           ) : (
             <StarOff className="w-4 h-4" />
           )}
-        </motion.div>
+        </div>
 
         {showCount && (
-          <motion.span
+          <span
             data-testid="watchlist-count"
             key={watchlist.length}
-            initial={{ scale: 1.2, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            className="text-xs font-medium"
+            className="text-xs font-medium animate-scale-in"
           >
             {watchlist.length}
-          </motion.span>
+          </span>
         )}
 
         <span
@@ -238,16 +234,11 @@ export function WatchlistButton({
       </Button>
 
       {/* Toast Notification */}
-      <AnimatePresence>
-        {showToast && (
-          <motion.div
-            data-testid="watchlist-toast"
-            className="fixed top-4 right-4 z-50"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.2 }}
-          >
+      {showToast && (
+        <div
+          data-testid="watchlist-toast"
+          className="fixed top-4 right-4 z-50 animate-fade-in-up"
+        >
             <div className="bg-bg-surface-1 border border-border-subtle rounded-lg shadow-lg px-4 py-2 flex items-center gap-2">
               <div
                 className={cn(
@@ -257,9 +248,8 @@ export function WatchlistButton({
               />
               <p className="text-sm text-text-primary">{toastMessage}</p>
             </div>
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
     </>
   )
 }

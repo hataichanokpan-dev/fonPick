@@ -18,7 +18,6 @@
 
 import { useState, useEffect } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { motion, AnimatePresence } from 'framer-motion'
 import { Card } from '@/components/shared/Card'
 import { Badge } from '@/components/shared/Badge'
 import {
@@ -91,18 +90,12 @@ function ConfidenceDots({ confidence, className }: ConfidenceDotsProps) {
     <div className={className}>
       <div className="flex items-center gap-1">
         {[0, 1, 2, 3, 4].map((index) => (
-          <motion.div
+          <div
             key={index}
-            className="w-2 h-2 rounded-full"
+            className="w-2 h-2 rounded-full animate-scale-in"
             style={{
               backgroundColor: index < filledDots ? '#60A5FA' : 'rgba(107, 114, 128, 0.3)',
-            }}
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{
-              delay: index * 0.05,
-              duration: 0.2,
-              ease: 'easeOut',
+              animationDelay: `${index * 0.05}s`,
             }}
           />
         ))}
@@ -234,6 +227,7 @@ export function DataInsightCard({ className, showOnLoad }: DataInsightCardProps)
     // RTDB updates once daily at 18:30 - no polling needed
     refetchInterval: false,
     staleTime: 12 * 60 * 60 * 1000, // 12 hours
+    gcTime: 30 * 60 * 1000, // Keep in cache for 30 minutes (memory optimization)
     refetchOnWindowFocus: false,
     refetchOnMount: false,
     refetchOnReconnect: false,
@@ -283,27 +277,8 @@ export function DataInsightCard({ className, showOnLoad }: DataInsightCardProps)
     return labels[driver] || driver
   }
 
-  // Animation variants
-  const cardVariants = {
-    hidden: { opacity: 0, y: -10 },
-    visible: { opacity: 1, y: 0 },
-    exit: { opacity: 0, height: 0, marginBottom: 0 },
-  }
-
-  const expandVariants = {
-    collapsed: { height: 0, opacity: 0 },
-    expanded: { height: 'auto', opacity: 1 },
-  }
-
   return (
-    <motion.div
-      variants={cardVariants}
-      initial="hidden"
-      animate="visible"
-      exit="exit"
-      transition={{ duration: 0.3, ease: 'easeOut' }}
-      className={className}
-    >
+    <div className={`animate-fade-in-up ${className || ''}`}>
       <div
         className="w-full relative rounded-lg border border-border bg-surface p-4 md:p-6"
         style={{
@@ -324,38 +299,30 @@ export function DataInsightCard({ className, showOnLoad }: DataInsightCardProps)
               </Badge>
             )}
             {/* Dismiss Button */}
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
+            <button
               onClick={handleDismiss}
-              className="flex items-center justify-center w-6 h-6 rounded-full hover:bg-surface-2 transition-colors"
+              className="flex items-center justify-center w-6 h-6 rounded-full hover:bg-surface-2 hover:scale-110 active:scale-95 transition-all duration-150"
               aria-label="Dismiss insight"
             >
               <X className="w-3.5 h-3.5 text-text-muted" />
-            </motion.button>
+            </button>
           </div>
         </div>
 
         {/* Conflict Alert (if present) */}
-        <AnimatePresence>
-          {insight.keyConflictAlert && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              className="mb-3 p-2.5 rounded-md flex items-start gap-2"
-              style={{
-                backgroundColor: 'rgba(245, 158, 11, 0.1)',
-                border: '1px solid rgba(245, 158, 11, 0.2)',
-              }}
-            >
-              <AlertTriangle className="w-4 h-4 text-warning flex-shrink-0 mt-0.5" />
-              <p className="text-xs text-text-secondary leading-relaxed">
-                {insight.keyConflictAlert}
-              </p>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {insight.keyConflictAlert && (
+          <div className="mb-3 p-2.5 rounded-md flex items-start gap-2 animate-fade-in-up"
+            style={{
+              backgroundColor: 'rgba(245, 158, 11, 0.1)',
+              border: '1px solid rgba(245, 158, 11, 0.2)',
+            }}
+          >
+            <AlertTriangle className="w-4 h-4 text-warning flex-shrink-0 mt-0.5" />
+            <p className="text-xs text-text-secondary leading-relaxed">
+              {insight.keyConflictAlert}
+            </p>
+          </div>
+        )}
 
         {/* Verdict Badge (Primary) */}
         <div className="flex items-center justify-center my-3">
@@ -384,13 +351,7 @@ export function DataInsightCard({ className, showOnLoad }: DataInsightCardProps)
         </div>
 
         {/* Expandable Details */}
-        <motion.div
-          variants={expandVariants}
-          initial="collapsed"
-          animate={isExpanded ? 'expanded' : 'collapsed'}
-          transition={{ duration: 0.2, ease: 'easeOut' }}
-          className="overflow-hidden"
-        >
+        <div className={`overflow-hidden transition-all duration-200 ease-out ${isExpanded ? 'opacity-100 max-h-96' : 'opacity-0 max-h-0'}`}>
           <div className="pt-2 space-y-1.5">
             {insight.conflictingSignals.regime && (
               <ConflictDetail
@@ -431,14 +392,12 @@ export function DataInsightCard({ className, showOnLoad }: DataInsightCardProps)
               </p>
             </div>
           )}
-        </motion.div>
+        </div>
 
         {/* Expand/Collapse Button */}
-        <motion.button
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
+        <button
           onClick={() => setIsExpanded(!isExpanded)}
-          className="w-full flex items-center justify-center gap-1.5 mt-2 py-1.5 text-xs text-text-muted hover:text-text-secondary transition-colors"
+          className="w-full flex items-center justify-center gap-1.5 mt-2 py-1.5 text-xs text-text-muted hover:text-text-secondary hover:scale-[1.02] active:scale-[0.98] transition-all duration-150"
         >
           <span>{isExpanded ? 'Hide Details' : 'Show Details'}</span>
           {isExpanded ? (
@@ -446,9 +405,9 @@ export function DataInsightCard({ className, showOnLoad }: DataInsightCardProps)
           ) : (
             <ChevronDown className="w-3.5 h-3.5" />
           )}
-        </motion.button>
+        </button>
       </div>
-    </motion.div>
+    </div>
   )
 }
 

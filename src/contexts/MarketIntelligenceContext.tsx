@@ -47,12 +47,14 @@ export function MarketIntelligenceProvider({ children }: MarketIntelligenceProvi
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<Error | null>(null)
 
-  const fetchData = async () => {
+  const fetchData = async (signal?: AbortSignal) => {
     setIsLoading(true)
     setError(null)
 
     try {
-      const res = await fetch('/api/market-intelligence?includeP0=true&includeP1=true&includeP2=true')
+      const res = await fetch('/api/market-intelligence?includeP0=true&includeP1=true&includeP2=true', {
+        signal,
+      })
       if (!res.ok) {
         throw new Error('Failed to fetch market intelligence data')
       }
@@ -66,7 +68,10 @@ export function MarketIntelligenceProvider({ children }: MarketIntelligenceProvi
         setData(null)
       }
     } catch (err) {
-      setError(err instanceof Error ? err : new Error('Unknown error'))
+      // Don't set error if request was aborted
+      if (err instanceof Error && err.name !== 'AbortError') {
+        setError(err)
+      }
     } finally {
       setIsLoading(false)
     }
@@ -74,7 +79,23 @@ export function MarketIntelligenceProvider({ children }: MarketIntelligenceProvi
 
   // Fetch ONCE on mount - never refetch automatically
   useEffect(() => {
-    fetchData()
+    const abortController = new AbortController()
+    fetchData(abortController.signal)
+
+    // Cleanup function to abort fetch on unmount
+    return () => {
+      abortController.abort()
+    }
+  }, [])
+
+  // CRITICAL: Clear data after 30 minutes to prevent memory accumulation
+  useEffect(() => {
+    const cleanupTimer = setTimeout(() => {
+      // Clear old data to free memory
+      setData(null)
+    }, 30 * 60 * 1000) // 30 minutes
+
+    return () => clearTimeout(cleanupTimer)
   }, [])
 
   const value: MarketIntelligenceContextValue = {

@@ -25,7 +25,6 @@ import {
   Layers,
 } from 'lucide-react'
 import { formatPercentage } from '@/lib/utils'
-import { motion } from 'framer-motion'
 import type { SectorPerformance } from '@/types/sector-rotation'
 import { useSectorRotation } from '@/hooks/useMarketIntelligence'
 
@@ -89,11 +88,8 @@ function SectorRow({ sector, showRank = true, variant }: SectorRowProps) {
   const sectorName = sector.sector.name || sector.sector.id
 
   return (
-    <motion.div
-      initial={{ opacity: 0, x: isLeader ? -10 : 10 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.3 }}
-      className="flex items-center gap-2 p-2 rounded"
+    <div
+      className={`flex items-center gap-2 p-2 rounded animate-fade-in-up ${isLeader ? 'slide-in-left' : 'slide-in-right'}`}
       style={{ backgroundColor: bgColor }}
     >
       {/* Rank */}
@@ -121,7 +117,7 @@ function SectorRow({ sector, showRank = true, variant }: SectorRowProps) {
       <Badge size="sm" color={getSignalColor()}>
         {sector.signal}
       </Badge>
-    </motion.div>
+    </div>
   )
 }
 
@@ -265,12 +261,13 @@ export function SectorStrengthCard({
           </span>
         </div>
         <div className="h-1.5 bg-surface-2 rounded-full overflow-hidden">
-          <motion.div
-            initial={{ width: 0 }}
-            animate={{ width: `${Math.min(100, concentration)}%` }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
-            className="h-full rounded-full"
-            style={{ backgroundColor: getConcentrationColor() }}
+          <div
+            className="h-full rounded-full animate-width-grow"
+            style={{
+              width: `${Math.min(100, concentration)}%`,
+              '--bar-width': `${Math.min(100, concentration)}%`,
+              backgroundColor: getConcentrationColor(),
+            } as React.CSSProperties}
           />
         </div>
 

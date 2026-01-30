@@ -49,7 +49,8 @@
       "Bash(done)",
       "Bash(cmd //c taskkill //PID 7124 //F)",
       "Bash(netstat:*)",
-      "Bash(tasklist:*)"
+      "Bash(tasklist:*)",
+      "Bash(find:*)"
     ]
   }
 }

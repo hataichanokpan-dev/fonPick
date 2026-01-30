@@ -17,7 +17,6 @@
 
 'use client'
 
-import { motion } from 'framer-motion'
 import { TrendingUp, TrendingDown, Minus } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useState, useEffect } from 'react'
@@ -129,35 +128,24 @@ export function DecisionBadge({ badge, className }: DecisionBadgeProps) {
   const isHighScore = clampedScore >= 80
 
   return (
-    <motion.div
+    <div
       data-testid="decision-badge"
       className={cn(
-        'relative overflow-hidden rounded-xl shadow-lg',
+        'relative overflow-hidden rounded-xl shadow-lg animate-scale-in',
         'bg-gradient-to-r',
         config.gradient,
         className
       )}
-      initial={{ opacity: 0, scale: 0.9 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.3, ease: 'easeOut' }}
       role="status"
       aria-label={ariaLabel}
     >
-      {/* Pulsing effect for high scores */}
+      {/* Pulsing effect for high scores - using CSS animation for memory efficiency */}
       {isHighScore && (
-        <motion.div
+        <div
           className={cn(
-            'absolute inset-0 bg-gradient-to-r from-white/20 to-transparent'
+            'absolute inset-0 bg-gradient-to-r from-white/20 to-transparent',
+            'animate-pulse-glow'
           )}
-          animate={{
-            opacity: [0, 0.3, 0],
-            scale: [1, 1.05, 1],
-          }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
         />
       )}
 
@@ -165,56 +153,50 @@ export function DecisionBadge({ badge, className }: DecisionBadgeProps) {
       <div className="relative p-6 md:p-8">
         <div className="flex flex-col items-center gap-4">
           {/* Label */}
-          <motion.div
+          <div
             data-testid="decision-badge-label"
             className={cn(
-              'inline-flex items-center gap-2 px-4 py-2 rounded-full',
+              'inline-flex items-center gap-2 px-4 py-2 rounded-full animate-fade-in-up',
               'bg-white/20 backdrop-blur-sm',
               config.textColor
             )}
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1, duration: 0.3 }}
+            style={{ animationDelay: '0.1s' }}
           >
             {config.icon}
             <span className="text-sm md:text-base font-bold tracking-wider">
               {formattedLabel}
             </span>
-          </motion.div>
+          </div>
 
           {/* Score */}
-          <motion.div
+          <div
             data-testid="decision-badge-score"
             className={cn(
-              'text-5xl md:text-6xl lg:text-7xl font-bold',
+              'text-5xl md:text-6xl lg:text-7xl font-bold animate-scale-in',
               config.textColor
             )}
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2, duration: 0.4, type: 'spring' }}
+            style={{ animationDelay: '0.2s' }}
             aria-live="polite"
           >
             {displayScore}
-          </motion.div>
+          </div>
 
           {/* Type indicator */}
-          <motion.div
+          <div
             data-testid="decision-badge-type"
             className={cn(
-              'text-xs md:text-sm uppercase tracking-widest opacity-80',
+              'text-xs md:text-sm uppercase tracking-widest opacity-80 animate-fade-in',
               config.textColor
             )}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.8 }}
-            transition={{ delay: 0.3, duration: 0.3 }}
+            style={{ animationDelay: '0.3s' }}
           >
             {badge.type}
-          </motion.div>
+          </div>
         </div>
       </div>
 
       {/* Tooltip */}
-      <motion.div
+      <div
         data-testid="decision-badge-tooltip"
         className={cn(
           'absolute bottom-2 right-2 px-2 py-1 rounded-md',
@@ -224,8 +206,8 @@ export function DecisionBadge({ badge, className }: DecisionBadgeProps) {
         )}
       >
         Score: {clampedScore} • {badge.type}
-      </motion.div>
-    </motion.div>
+      </div>
+    </div>
   )
 }
 

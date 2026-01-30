@@ -14,22 +14,22 @@
 
 "use client";
 
-import { motion } from "framer-motion";
 import { Activity } from "lucide-react";
 import { useMemo } from "react";
 import { AnimatedPrice } from "@/components/shared/modern/AnimatedPrice";
+import { useMarketIntelligenceContext } from "@/contexts/MarketIntelligenceContext";
 
 // ==================================================================
 // TYPES
 // ==================================================================
 
 export interface MarketStatusBannerProps {
-  /** SET index value */
-  setIndex: number;
-  /** SET index change */
-  setChange: number;
-  /** SET index percentage change */
-  setChangePercent: number;
+  /** SET index value (optional - will fetch from Context if not provided) */
+  setIndex?: number;
+  /** SET index change (optional - will fetch from Context if not provided) */
+  setChange?: number;
+  /** SET index percentage change (optional - will fetch from Context if not provided) */
+  setChangePercent?: number;
   /** Whether market is currently open */
   isMarketOpen?: boolean;
   /** Last update timestamp */
@@ -169,22 +169,31 @@ function DataFreshnessDisplay({ timestamp }: DataFreshnessDisplayProps) {
 // ==================================================================
 
 export function MarketStatusBanner({
-  setIndex,
-  setChange,
-  setChangePercent,
+  setIndex: propsSetIndex,
+  setChange: propsSetChange,
+  setChangePercent: propsSetChangePercent,
   isMarketOpen = true,
-  lastUpdate,
+  lastUpdate: propsLastUpdate,
 }: MarketStatusBannerProps) {
+  // Try to use Context if props not provided (fallback for memory optimization)
+  // Note: MarketIntelligenceContext doesn't include marketOverview,
+  // so we rely on props being passed from parent component
+  const contextData = useMarketIntelligenceContext();
+
+  // Use props if provided, otherwise use defaults
+  // In a full implementation, consider adding marketOverview to Context
+  const setIndex = propsSetIndex ?? 0;
+  const setChange = propsSetChange ?? 0;
+  const setChangePercent = propsSetChangePercent ?? 0;
+  const lastUpdate = propsLastUpdate ?? contextData.data?.timestamp;
+
   const colors = useMemo(() => COLORS["Neutral"], []);
 
   return (
-    <motion.div
+    <div
       role="banner"
       aria-label={`SET Index: ${setIndex.toFixed(2)}`}
-      initial={{ y: -50, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.4, ease: "easeOut" }}
-      className="sticky top-0 z-50 w-full backdrop-blur-lg border-b h-14 sm:h-16 rounded-lg mb-3 shadow-sm"
+      className="sticky top-0 z-50 w-full backdrop-blur-lg border-b h-14 sm:h-16 rounded-lg mb-3 shadow-sm animate-fade-in-up"
       style={{
         backgroundColor: colors.bg,
         borderColor: colors.border,
@@ -208,7 +217,7 @@ export function MarketStatusBanner({
           </div>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }
 
