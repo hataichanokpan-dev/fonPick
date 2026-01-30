@@ -52,7 +52,8 @@
       "Bash(tasklist:*)",
       "Bash(find:*)",
       "Bash(npm run test:run:*)",
-      "Bash(npx next dev:*)"
+      "Bash(npx next dev:*)",
+      "Bash(ls:*)"
     ]
   }
 }

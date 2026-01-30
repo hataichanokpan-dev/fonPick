@@ -185,6 +185,7 @@ export function MarketStatusBanner({
 
   // Get data from Context (now includes marketOverview)
   const contextData = useMarketIntelligenceContext();
+  console.log('MarketStatusBanner context data:', propsSetIndex);
 
   // Use props if provided, otherwise use Context data
   const setIndex = propsSetIndex ?? contextData.data?.marketOverview?.setIndex ?? 0;

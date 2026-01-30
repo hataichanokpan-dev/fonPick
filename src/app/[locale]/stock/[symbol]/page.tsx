@@ -123,10 +123,11 @@ async function fetchStockData(symbol: string): Promise<StockPageData | null> {
 export default async function StockPage({
   params,
 }: {
-  params: { symbol: string; locale: string }
+  params: Promise<{ symbol: string; locale: string }>
 }) {
+  const { symbol: symbolParam } = await params
   const t = await getTranslations('stock.page')
-  const symbol = decodeURIComponent(params.symbol).toUpperCase()
+  const symbol = decodeURIComponent(symbolParam).toUpperCase()
   const data = await fetchStockData(symbol)
 
   // Don't call notFound() - let the page render even if RTDB data is unavailable
@@ -243,7 +244,7 @@ export default async function StockPage({
 
           {/* Data Completeness Disclaimer - Compact */}
           <div className="text-[10px] text-center text-text-3">
-            {t('dataCompleteness', { completeness: data.verdict.dataCompleteness })}
+            {t.raw('dataCompleteness').replace('{{completeness}}', data.verdict.dataCompleteness.toString())}
           </div>
         </div>
       </StockPageClient>
