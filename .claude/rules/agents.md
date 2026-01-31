@@ -6,7 +6,7 @@ Located in `~/.claude/agents/`:
 
 | Agent | Purpose | When to Use |
 |-------|---------|-------------|
-| ui_ux_designer | design web application | design |
+| designer | design web application | design |
 | nextjs_frontend | front-end coding | coding |
 | nextjs_backend | back-end coding | coding |
 | investor | Base idea for project | Architectural decisions , idea |
@@ -27,6 +27,7 @@ No user prompt needed:
 2. Code just written/modified - Use **code-reviewer** agent
 3. Bug fix or new feature - Use **tdd-guide** agent
 4. Architectural decision - Use **architect** agent
+5. Design UX/UI - Use **designer** agent
 
 ## Parallel Task Execution
 

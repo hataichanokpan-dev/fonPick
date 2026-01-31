@@ -1,29 +1,33 @@
 'use client'
 
 /**
- * Stock Page Client Component
+ * Stock Page Client Component - Screening System
  *
- * Client-side component that fetches stock data from internal proxy APIs.
- *
- * APIs used:
- * - GET /api/stocks/{symbol}/overview - Basic stock information
- * - GET /api/stocks/{symbol}/statistics - Complete statistics
- *
+ * New implementation with Practical Screening Sheet framework.
  * Features:
- * - Uses useStockData hook for API data fetching
- * - Shows loading skeleton while fetching
- * - Displays error boundary on error
- * - Displays stock information with overview and statistics
- * - Professional card-based layout with proper visual hierarchy
- * - Bilingual support (Thai/English) via locale prop
+ * - 4-layer investment analysis (Universe, Quality, Value+Growth, Technical+Catalyst)
+ * - Total score display (27 max)
+ * - Investment decision (BUY/HOLD/PASS)
+ * - Entry plan with buy/stop/target
+ * - Bilingual support (Thai/English)
  */
 
-import { useStockData } from '@/hooks/useStockData'
+import { useState } from 'react'
+import { useStockScreening } from '@/hooks/useStockScreening'
 import { StockPageSkeleton, StockPageErrorBoundary, WatchlistButton } from '@/components/stock'
 import { useAnalytics } from '@/hooks/useAnalytics'
-import type { StockOverviewData, StockStatisticsData } from '@/types/stock-proxy-api'
-import { TrendingUp, TrendingDown, Minus, Building2, Calendar, DollarSign, BarChart3, Activity } from 'lucide-react'
-
+import {
+  TotalScoreCard,
+  LayerCard,
+  Layer1Universe,
+  Layer2Quality,
+  Layer3ValueGrowth,
+  Layer4Technical,
+  EntryPlanCard, 
+  calculateEntryPlan,
+} from '@/components/stock/screening'
+import { TrendingUp, TrendingDown, Minus, Building2,  } from 'lucide-react'
+ 
 export interface StockPageClientProps {
   symbol: string
   locale: string
@@ -33,22 +37,6 @@ export interface StockPageClientProps {
 // ============================================================================
 // UTILITY FUNCTIONS
 // ============================================================================
-
-/**
- * Format large numbers with suffixes (K, M, B)
- */
-function formatLargeNumber(num: number): string {
-  if (num >= 1_000_000_000) {
-    return `${(num / 1_000_000_000).toFixed(2)}B`
-  }
-  if (num >= 1_000_000) {
-    return `${(num / 1_000_000).toFixed(2)}M`
-  }
-  if (num >= 1_000) {
-    return `${(num / 1_000).toFixed(2)}K`
-  }
-  return num.toFixed(2)
-}
 
 /**
  * Get color classes and icon based on price change
@@ -76,21 +64,34 @@ function getPriceChangeColor(change: number) {
 }
 
 /**
- * Calculate price change percentage from overview data
+ * Format large numbers with suffixes (K, M, B)
  */
-function calculateChangePercent(data: StockOverviewData): number {
-  if (!data.previousClose || data.previousClose === 0) return 0
-  const change = data.price - data.previousClose
-  return (change / data.previousClose) * 100
+function formatLargeNumber(num: number): string {
+  if (num >= 1_000_000_000) {
+    return `${(num / 1_000_000_000).toFixed(2)}B`
+  }
+  if (num >= 1_000_000) {
+    return `${(num / 1_000_000).toFixed(2)}M`
+  }
+  if (num >= 1_000) {
+    return `${(num / 1_000).toFixed(2)}K`
+  }
+  return num.toFixed(2)
 }
 
 /**
- * Format currency value
+ * Parse market cap string to number
+ * Handles formats like "1.23B", "456.78M", "123.45K"
  */
-function formatCurrency(value: string | number): string {
-  const num = typeof value === 'string' ? parseFloat(value.replace(/[^0-9.-]+/g, '')) : value
-  if (isNaN(num)) return 'N/A'
-  return formatLargeNumber(num)
+function parseMarketCap(marketCap: string): number {
+  const str = marketCap.toUpperCase().trim()
+  const multiplier = str.endsWith('B') ? 1_000_000_000
+    : str.endsWith('M') ? 1_000_000
+    : str.endsWith('K') ? 1_000
+    : 1
+  const numStr = str.replace(/[BMK]$/, '').trim()
+  const num = parseFloat(numStr)
+  return isNaN(num) ? 0 : num * multiplier
 }
 
 // ============================================================================
@@ -99,82 +100,28 @@ function formatCurrency(value: string | number): string {
 
 const translations = {
   en: {
-    overview: 'Overview',
-    price: 'Price',
+    thaiStock: 'Thai Stock',
     marketCap: 'Market Cap',
     volume: 'Volume',
-    valuationMetrics: 'Valuation Metrics',
-    financialHealth: 'Financial Health',
-    profitability: 'Profitability',
-    dividendInfo: 'Dividend Info',
-    keyDates: 'Key Dates',
-    tradingInfo: 'Trading Info',
-    peRatio: 'P/E Ratio',
-    forwardPE: 'Forward P/E',
-    eps: 'EPS',
-    beta: 'Beta',
-    week52High: '52W High',
-    week52Low: '52W Low',
-    earnings: 'Earnings',
-    exDividend: 'Ex-Dividend',
-    psRatio: 'P/S',
-    pbRatio: 'P/B',
-    evEbitda: 'EV/EBITDA',
-    pegRatio: 'PEG Ratio',
-    currentRatio: 'Current Ratio',
-    quickRatio: 'Quick Ratio',
-    debtEquity: 'Debt/Equity',
-    interestCoverage: 'Interest Coverage',
-    roe: 'ROE',
-    roa: 'ROA',
-    roic: 'ROIC',
-    profitMargin: 'Profit Margin',
-    dividendYield: 'Dividend Yield',
-    payoutRatio: 'Payout Ratio',
-    dividendGrowth: 'Dividend Growth',
-    fcfYield: 'FCF Yield',
-    ttm: 'TTM',
-    thb: 'THB',
-    shares: 'Shares',
+    peRatio: 'P/E',
+    loading: 'Loading...',
+    error: 'Error loading data',
+    retry: 'Retry',
+    screening: 'Screening Analysis',
+    expandAll: 'Expand All',
+    collapseAll: 'Collapse All',
   },
   th: {
-    overview: 'ภาพรวม',
-    price: 'ราคา',
+    thaiStock: 'หุ้นไทย',
     marketCap: 'มูลค่าตลาด',
     volume: 'ปริมาณซื้อขาย',
-    valuationMetrics: 'อัตราส่วนการประเมินมูลค่า',
-    financialHealth: 'สุขภาพทางการเงิน',
-    profitability: 'ความสามารถในการทำกำไร',
-    dividendInfo: 'ข้อมูลปันผล',
-    keyDates: 'วันที่สำคัญ',
-    tradingInfo: 'ข้อมูลการซื้อขาย',
-    peRatio: 'P/E Ratio',
-    forwardPE: 'Forward P/E',
-    eps: 'EPS',
-    beta: 'Beta',
-    week52High: '52W สูงสุด',
-    week52Low: '52W ต่ำสุด',
-    earnings: 'วันรายงานผลประกอบการ',
-    exDividend: 'วันที่ไม่ได้รับปันผล',
-    psRatio: 'P/S',
-    pbRatio: 'P/B',
-    evEbitda: 'EV/EBITDA',
-    pegRatio: 'PEG Ratio',
-    currentRatio: 'Current Ratio',
-    quickRatio: 'Quick Ratio',
-    debtEquity: 'Debt/Equity',
-    interestCoverage: 'Interest Coverage',
-    roe: 'ROE',
-    roa: 'ROA',
-    roic: 'ROIC',
-    profitMargin: 'Profit Margin',
-    dividendYield: 'Dividend Yield',
-    payoutRatio: 'Payout Ratio',
-    dividendGrowth: 'Dividend Growth',
-    fcfYield: 'FCF Yield',
-    ttm: 'TTM',
-    thb: 'บาท',
-    shares: 'หุ้น',
+    peRatio: 'P/E',
+    loading: 'กำลังโหลด...',
+    error: 'ข้อผิดพลาดในการโหลดข้อมูล',
+    retry: 'ลองใหม่',
+    screening: 'การวิเคราะห์หุ้น',
+    expandAll: 'ขยายทั้งหมด',
+    collapseAll: 'ย่อทั้งหมด',
   },
 }
 
@@ -183,51 +130,32 @@ const translations = {
 // ============================================================================
 
 /**
- * Metric card component for displaying individual metrics
- */
-function MetricCard({
-  label,
-  value,
-  unit,
-  colorClass = 'text-text-primary',
-}: {
-  label: string
-  value: string | number
-  unit?: string
-  colorClass?: string
-}) {
-  return (
-    <div className="flex flex-col">
-      <span className="text-xs text-text-2 mb-1">{label}</span>
-      <div className="flex items-baseline gap-1">
-        <span className={`text-sm font-semibold font-mono tabular-nums ${colorClass}`}>
-          {value}
-        </span>
-        {unit && <span className="text-xs text-text-2">{unit}</span>}
-      </div>
-    </div>
-  )
-}
-
-/**
- * Stock header with name, symbol, and price
+ * Stock header with price and watchlist
  */
 function StockHeader({
   symbol,
-  data,
-  t,
+  price,
+  change,
+  changePercent,
+  marketCap,
+  volume,
+  peRatio,
+  locale,
 }: {
   symbol: string
-  data: StockOverviewData
-  t: typeof translations.en
+  price: number
+  change: number
+  changePercent: number
+  marketCap: number
+  volume: number
+  peRatio: number
+  locale: string
 }) {
-  const priceColor = getPriceChangeColor(data.price - data.previousClose)
-  const changePercent = calculateChangePercent(data)
-  const priceChange = data.price - data.previousClose
+  const t = translations[locale as keyof typeof translations] || translations.th
+  const priceColor = getPriceChangeColor(change)
 
   return (
     <div className="rounded-xl bg-surface border border-border p-4 md:p-6 animate-fade-in">
-      {/* Symbol and Actions */}
       <div className="flex items-start justify-between mb-4">
         <div>
           <h1 className="text-2xl md:text-3xl font-bold text-text-primary mb-1">
@@ -235,229 +163,48 @@ function StockHeader({
           </h1>
           <div className="flex items-center gap-2 text-sm text-text-2">
             <Building2 className="w-3.5 h-3.5" />
-            <span>Thai Stock</span>
+            <span>{t.thaiStock}</span>
           </div>
         </div>
       </div>
 
-      {/* Price Section */}
       <div className="mb-4">
         <div className="flex items-baseline gap-4 flex-wrap">
           <span className="text-4xl md:text-5xl font-bold font-mono tabular-nums text-text-primary">
-            {data.price.toFixed(2)}
+            {price.toFixed(2)}
           </span>
           <div className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg ${priceColor.bg} ${priceColor.text}`}>
             {priceColor.icon}
             <span className="font-semibold tabular-nums">
-              {priceChange > 0 ? '+' : ''}{priceChange.toFixed(2)}
+              {change > 0 ? '+' : ''}{change.toFixed(2)}
             </span>
             <span className="text-xs tabular-nums">
               ({changePercent > 0 ? '+' : ''}{changePercent.toFixed(2)}%)
             </span>
           </div>
         </div>
-        {data.daysRange && (
-          <div className="text-xs text-text-2 mt-2">
-            Day Range: <span className="font-mono">{data.daysRange}</span>
-          </div>
-        )}
       </div>
 
-      {/* Quick Stats */}
       <div className="grid grid-cols-3 gap-4 pt-4 border-t border-border">
-        <MetricCard
-          label={t.marketCap}
-          value={formatCurrency(data.marketCap)}
-          unit={t.thb}
-        />
-        <MetricCard
-          label={t.volume}
-          value={formatLargeNumber(data.volume)}
-        />
-        <MetricCard
-          label={t.peRatio}
-          value={data.peRatio.toFixed(2)}
-          unit={t.ttm}
-        />
-      </div>
-    </div>
-  )
-}
-
-/**
- * Section card component with header
- */
-function SectionCard({
-  title,
-  icon: Icon,
-  children,
-  className = '',
-}: {
-  title: string
-  icon: React.ComponentType<{ className?: string }>
-  children: React.ReactNode
-  className?: string
-}) {
-  return (
-    <div className={`rounded-xl bg-surface border border-border overflow-hidden ${className} animate-slide-up`}>
-      <div className="flex items-center gap-2 px-4 py-3 border-b border-border bg-surface-2/50">
-        <Icon className="w-4 h-4 text-accent-teal" />
-        <h2 className="text-sm font-semibold text-text-primary">{title}</h2>
-      </div>
-      <div className="p-4">
-        {children}
-      </div>
-    </div>
-  )
-}
-
-/**
- * Metrics grid component
- */
-function MetricsGrid({
-  children,
-  columns = 2,
-}: {
-  children: React.ReactNode
-  columns?: 2 | 3 | 4
-}) {
-  const gridClass = {
-    2: 'grid-cols-2',
-    3: 'grid-cols-2 sm:grid-cols-3',
-    4: 'grid-cols-2 sm:grid-cols-4',
-  }[columns]
-
-  return (
-    <div className={`grid ${gridClass} gap-4`}>
-      {children}
-    </div>
-  )
-}
-
-/**
- * Stock overview section
- */
-function StockOverviewSection({
-  data,
-  t,
-}: {
-  data: StockOverviewData
-  t: typeof translations.en
-}) {
-  return (
-    <div className="space-y-4">
-      {/* Valuation Metrics */}
-      <SectionCard title={t.valuationMetrics} icon={BarChart3}>
-        <MetricsGrid columns={3}>
-          <MetricCard label={t.peRatio} value={data.peRatio.toFixed(2)} />
-          <MetricCard label={t.forwardPE} value={data.forwardPERatio.toFixed(2)} />
-          <MetricCard label={t.eps} value={data.eps.toFixed(2)} />
-          <MetricCard label={t.beta} value={data.beta?.toFixed(2) || 'N/A'} />
-          <MetricCard label={t.week52High} value={data.high52Week?.toFixed(2) || 'N/A'} />
-          <MetricCard label={t.week52Low} value={data.low52Week?.toFixed(2) || 'N/A'} />
-        </MetricsGrid>
-      </SectionCard>
-
-      {/* Key Dates */}
-      <SectionCard title={t.keyDates} icon={Calendar}>
-        <div className="space-y-3">
-          <div className="flex items-center justify-between py-2 border-b border-border/50">
-            <span className="text-sm text-text-2">{t.earnings}</span>
-            <span className="text-sm font-medium font-mono text-text-primary">
-              {data.earningsDate || 'N/A'}
-            </span>
-          </div>
-          <div className="flex items-center justify-between py-2">
-            <span className="text-sm text-text-2">{t.exDividend}</span>
-            <span className="text-sm font-medium font-mono text-text-primary">
-              {data.exDividendDate || 'N/A'}
-            </span>
-          </div>
+        <div className="flex flex-col">
+          <span className="text-xs text-text-2 mb-1">{t.marketCap}</span>
+          <span className="text-sm font-semibold tabular-nums text-text-primary">
+            {formatLargeNumber(marketCap)}
+          </span>
         </div>
-      </SectionCard>
-
-      {/* Trading Info */}
-      <SectionCard title={t.tradingInfo} icon={Activity}>
-        <MetricsGrid columns={2}>
-          <MetricCard label="Open" value={data.open?.toFixed(2) || 'N/A'} />
-          <MetricCard label="Previous Close" value={data.previousClose?.toFixed(2) || 'N/A'} />
-          {data.sharesOutstanding && (
-            <MetricCard label={t.shares} value={formatCurrency(data.sharesOutstanding)} />
-          )}
-          {data.dividend && (
-            <MetricCard label="Dividend" value={formatCurrency(data.dividend)} />
-          )}
-        </MetricsGrid>
-      </SectionCard>
-    </div>
-  )
-}
-
-/**
- * Stock statistics section
- */
-function StockStatisticsSection({
-  data,
-  t,
-}: {
-  data: StockStatisticsData
-  t: typeof translations.en
-}) {
-  return (
-    <div className="space-y-4">
-      {/* Valuation Metrics */}
-      <SectionCard title={t.valuationMetrics} icon={BarChart3}>
-        <MetricsGrid columns={3}>
-          <MetricCard label={t.peRatio} value={data.peRatio.toFixed(2)} />
-          <MetricCard label={t.forwardPE} value={data.forwardPERatio.toFixed(2)} />
-          <MetricCard label={t.psRatio} value={data.psRatio.toFixed(2)} />
-          <MetricCard label={t.pbRatio} value={data.pbRatio.toFixed(2)} />
-          <MetricCard label={t.evEbitda} value={data.evEbitda.toFixed(2)} />
-          <MetricCard label={t.pegRatio} value={data.pegRatio?.toFixed(2) || 'N/A'} />
-        </MetricsGrid>
-      </SectionCard>
-
-      {/* Financial Health */}
-      <SectionCard title={t.financialHealth} icon={Activity}>
-        <MetricsGrid columns={2}>
-          <MetricCard label={t.currentRatio} value={data.currentRatio.toFixed(2)} />
-          <MetricCard label={t.quickRatio} value={data.quickRatio.toFixed(2)} />
-          <MetricCard label={t.debtEquity} value={data.debtToEquity.toFixed(2)} />
-          <MetricCard label={t.interestCoverage} value={data.interestCoverage.toFixed(2)} />
-        </MetricsGrid>
-      </SectionCard>
-
-      {/* Profitability */}
-      <SectionCard title={t.profitability} icon={TrendingUp}>
-        <MetricsGrid columns={2}>
-          <MetricCard label={t.roe} value={`${(data.returnOnEquity * 100).toFixed(2)}%`} />
-          <MetricCard label={t.roa} value={`${(data.returnOnAssets * 100).toFixed(2)}%`} />
-          <MetricCard label={t.roic} value={`${(data.returnOnInvestedCapital * 100).toFixed(2)}%`} />
-          <MetricCard label={t.profitMargin} value={`${(data.profitMargin * 100).toFixed(2)}%`} />
-        </MetricsGrid>
-      </SectionCard>
-
-      {/* Dividend Info */}
-      <SectionCard title={t.dividendInfo} icon={DollarSign}>
-        <MetricsGrid columns={2}>
-          <MetricCard label={t.dividendYield} value={`${(data.dividendYield * 100).toFixed(2)}%`} />
-          <MetricCard label={t.payoutRatio} value={`${(data.payoutRatio * 100).toFixed(2)}%`} />
-          <MetricCard label={t.dividendGrowth} value={`${(data.dividendGrowth * 100).toFixed(2)}%`} />
-          <MetricCard label={t.fcfYield} value={`${(data.fcfYield * 100).toFixed(2)}%`} />
-        </MetricsGrid>
-      </SectionCard>
-
-      {/* Additional Financial Metrics */}
-      <SectionCard title="Financial Statements" icon={BarChart3}>
-        <MetricsGrid columns={3}>
-          <MetricCard label="Revenue" value={formatLargeNumber(data.revenue)} unit={t.thb} />
-          <MetricCard label="Net Income" value={formatLargeNumber(data.netIncome)} unit={t.thb} />
-          <MetricCard label="EBITDA" value={formatLargeNumber(data.ebitda)} unit={t.thb} />
-          <MetricCard label="Free Cash Flow" value={formatLargeNumber(data.freeCashFlow)} unit={t.thb} />
-          <MetricCard label="Cash" value={formatLargeNumber(data.cash)} unit={t.thb} />
-          <MetricCard label="Total Debt" value={formatLargeNumber(data.totalDebt)} unit={t.thb} />
-        </MetricsGrid>
-      </SectionCard>
+        <div className="flex flex-col">
+          <span className="text-xs text-text-2 mb-1">{t.volume}</span>
+          <span className="text-sm font-semibold tabular-nums text-text-primary">
+            {formatLargeNumber(volume)}
+          </span>
+        </div>
+        <div className="flex flex-col">
+          <span className="text-xs text-text-2 mb-1">{t.peRatio}</span>
+          <span className="text-sm font-semibold tabular-nums text-text-primary">
+            {peRatio.toFixed(2)}
+          </span>
+        </div>
+      </div>
     </div>
   )
 }
@@ -466,22 +213,37 @@ function StockStatisticsSection({
 // MAIN COMPONENT
 // ============================================================================
 
-/**
- * Stock page client wrapper component
- */
 export function StockPageClient({ symbol, locale, children }: StockPageClientProps) {
-  const { data, isLoading, error, refetch } = useStockData(symbol)
+  const { data, isLoading, error, refetch } = useStockScreening(symbol)
   const { trackEvent } = useAnalytics()
+  const t = translations[locale as keyof typeof translations] || translations.th
 
-  // Get translations based on locale
-  const t = translations[locale as keyof typeof translations] || translations.en
+  // Expand/collapse state for layers
+  const [expandedLayers, setExpandedLayers] = useState<Record<number, boolean>>({
+    1: true,
+    2: true,
+    3: false,
+    4: false,
+  })
 
-  // Show loading skeleton while fetching
+  const toggleLayer = (layer: number) => {
+    setExpandedLayers(prev => ({ ...prev, [layer]: !prev[layer] }))
+  }
+
+  const expandAll = () => {
+    setExpandedLayers({ 1: true, 2: true, 3: true, 4: true })
+  }
+
+  const collapseAll = () => {
+    setExpandedLayers({ 1: false, 2: false, 3: false, 4: false })
+  }
+
+  // Loading state
   if (isLoading) {
     return <StockPageSkeleton />
   }
 
-  // Show error boundary on error
+  // Error state
   if (error) {
     return (
       <div className="space-y-4">
@@ -490,55 +252,253 @@ export function StockPageClient({ symbol, locale, children }: StockPageClientPro
           symbol={symbol}
           onRetry={refetch}
         />
-        {/* Fallback to server-rendered content */}
         {children}
       </div>
     )
   }
 
-  // Display API data
-  if (data) {
-    // Track watchlist events
-    const handleWatchlistChange = (state: { symbol: string; isOnWatchlist: boolean }) => {
-      trackEvent('watchlist_toggle', {
-        symbol,
-        action: state.isOnWatchlist ? 'add' : 'remove',
-      })
-    }
-
+  // No data
+  if (!data || !data.screening) {
     return (
-      <div className="space-y-6">
-        {/* Header with Watchlist */}
-        <div className="flex items-start justify-between gap-4">
-          <div className="flex-1">
-            {/* Header with price */}
-            {data.overview.success && data.overview.data && (
-              <StockHeader data={data.overview.data} symbol={symbol} t={t} />
-            )}
-          </div>
-          <WatchlistButton
-            symbol={symbol}
-            onChange={handleWatchlistChange}
-            className="shrink-0"
-          />
+      <div className="space-y-4">
+        <div className="rounded-xl bg-surface border border-border p-8 text-center">
+          <p className="text-text-2">{t.error}</p>
+          <button
+            onClick={() => refetch()}
+            className="mt-4 px-4 py-2 rounded-lg bg-accent-teal text-white font-medium"
+          >
+            {t.retry}
+          </button>
         </div>
-
-        {/* Overview data */}
-        {data.overview.success && data.overview.data && (
-          <StockOverviewSection data={data.overview.data} t={t} />
-        )}
-
-        {/* Statistics data */}
-        {data.statistics.success && data.statistics.data && (
-          <StockStatisticsSection data={data.statistics.data} t={t} />
-        )}
-
-        {/* Fallback to server-rendered content for additional data */}
         {children}
       </div>
     )
   }
 
-  // Show children (server-rendered fallback) if API data is not available
-  return <>{children}</>
+  const { overview, statistics, alpha, screening } = data
+
+  // Track watchlist events
+  const handleWatchlistChange = (state: { symbol: string; isOnWatchlist: boolean }) => {
+    trackEvent('watchlist_toggle', {
+      symbol,
+      action: state.isOnWatchlist ? 'add' : 'remove',
+    })
+  }
+
+  // Calculate entry plan
+  const entryPlan = screening && overview && statistics
+    ? calculateEntryPlan(
+        overview.price,
+        overview.low52Week || overview.price * 0.95,
+        alpha?.AvgForecast || overview.price * 1.15,
+        screening.decision
+      )
+    : null
+
+  return (
+    <div className="space-y-6">
+      {/* Header with Watchlist */}
+      <div className="flex items-start justify-between gap-4">
+        <div className="flex-1">
+          {overview && (
+            <StockHeader
+              symbol={symbol}
+              price={overview.price}
+              change={overview.price - overview.previousClose}
+              changePercent={(overview.price - overview.previousClose) / overview.previousClose * 100}
+              marketCap={parseMarketCap(overview.marketCap)}
+              volume={overview.volume}
+              peRatio={overview.peRatio}
+              locale={locale}
+            />
+          )}
+        </div>
+        <WatchlistButton
+          symbol={symbol}
+          onChange={handleWatchlistChange}
+          className="shrink-0"
+        />
+      </div>
+
+      {/* Screening Analysis */}
+      {screening && (
+        <div className="space-y-4">
+          {/* Section header */}
+          <div className="flex items-center justify-between">
+            <h2 className="text-lg font-semibold text-text-primary">
+              {t.screening}
+            </h2>
+            <div className="flex gap-2">
+              <button
+                onClick={expandAll}
+                className="text-xs px-3 py-1.5 rounded-lg bg-surface-2 border border-border hover:bg-surface-3 transition-colors"
+              >
+                {t.expandAll}
+              </button>
+              <button
+                onClick={collapseAll}
+                className="text-xs px-3 py-1.5 rounded-lg bg-surface-2 border border-border hover:bg-surface-3 transition-colors"
+              >
+                {t.collapseAll}
+              </button>
+            </div>
+          </div>
+
+          {/* Desktop: Two-column layout */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            {/* Left column: Total score + Universe */}
+            <div className="space-y-4">
+              {/* Total Score Card (Sticky) */}
+              <div className="lg:sticky lg:top-4">
+                <TotalScoreCard
+                  totalScore={screening.totalScore}
+                  maxScore={screening.maxScore}
+                  decision={screening.decision}
+                  confidence={screening.confidence}
+                  confidencePercent={screening.confidencePercent}
+                  layers={{
+                    universe: {
+                      score: screening.layers.universe.totalScore,
+                      passed: screening.layers.universe.allPassed,
+                    },
+                    quality: { score: screening.layers.quality.totalScore },
+                    valueGrowth: { score: screening.layers.valueGrowth.totalScore },
+                    technical: { score: screening.layers.technical.totalScore },
+                  }}
+                  summary={screening.summary}
+                  rationale={screening.rationale}
+                  locale={locale as "en" | "th"}
+                />
+              </div>
+
+              {/* Layer 1: Universe */}
+              <LayerCard
+                layer={1}
+                title="UNIVERSE"
+                thaiTitle="กรองพื้นฐาน"
+                description="Basic eligibility filters"
+                thaiDescription="เกณฑ์การคัดเลือกพื้นฐาน"
+                score={screening.layers.universe.totalScore}
+                maxScore={screening.layers.universe.maxScore}
+                color="universe"
+                expanded={expandedLayers[1]}
+                onToggle={() => toggleLayer(1)}
+              >
+                {overview && statistics && (
+                  <Layer1Universe
+                    marketCap={statistics.marketCap}
+                    volume={overview.volume}
+                    locale={locale as "en" | "th"}
+                  />
+                )}
+              </LayerCard>
+            </div>
+
+            {/* Right column: Quality, Value+Growth, Technical */}
+            <div className="lg:col-span-2 space-y-4">
+              {/* Layer 2: Quality */}
+              <LayerCard
+                layer={2}
+                title="QUALITY"
+                thaiTitle="คุณภาพ"
+                description="Financial quality metrics"
+                thaiDescription="ตัวชี้วัดคุณภาพทางการเงิน"
+                score={screening.layers.quality.totalScore}
+                maxScore={screening.layers.quality.maxScore}
+                color="quality"
+                expanded={expandedLayers[2]}
+                onToggle={() => toggleLayer(2)}
+              >
+                {statistics && (
+                  <Layer2Quality
+                    data={{
+                      pegRatio: statistics.pegRatio,
+                      profitMargin: statistics.profitMargin,
+                      returnOnEquity: statistics.returnOnEquity,
+                      returnOnInvestedCapital: statistics.returnOnInvestedCapital,
+                      debtToEquity: statistics.debtToEquity,
+                      fcfYield: statistics.fcfYield,
+                      operatingCashFlow: statistics.operatingCashFlow,
+                      netIncome: statistics.netIncome,
+                    }}
+                    locale={locale as "en" | "th"}
+                  />
+                )}
+              </LayerCard>
+
+              {/* Layer 3: Value + Growth */}
+              <LayerCard
+                layer={3}
+                title="VALUE + GROWTH"
+                thaiTitle="มูลค่าและการเติบโต"
+                description="Valuation and growth metrics"
+                thaiDescription="ตัวชี้วัดมูลค่าและการเติบโต"
+                score={screening.layers.valueGrowth.totalScore}
+                maxScore={screening.layers.valueGrowth.maxScore}
+                color="value"
+                expanded={expandedLayers[3]}
+                onToggle={() => toggleLayer(3)}
+              >
+                {statistics && overview && (
+                  <Layer3ValueGrowth
+                    data={{
+                      peRatio: statistics.peRatio,
+                      pbRatio: statistics.pbRatio,
+                      returnOnEquity: statistics.returnOnEquity,
+                      dividendYield: statistics.dividendYield,
+                      pfcfRatio: statistics.pfcfRatio,
+                      epsGrowthYoY: 0.05, // TODO: From yearly data
+                      epsAcceleration: 0.02, // TODO: From quarterly data
+                    }}
+                    locale={locale as "en" | "th"}
+                  />
+                )}
+              </LayerCard>
+
+              {/* Layer 4: Technical + Catalyst */}
+              <LayerCard
+                layer={4}
+                title="TECHNICAL + CATALYST"
+                thaiTitle="เทคนิคและเหตุการณ์"
+                description="Technical analysis and catalysts"
+                thaiDescription="การวิเคราะห์เทคนิคและเหตุการณ์สำคัญ"
+                score={screening.layers.technical.totalScore}
+                maxScore={screening.layers.technical.maxScore}
+                color="technical"
+                expanded={expandedLayers[4]}
+                onToggle={() => toggleLayer(4)}
+              >
+                {statistics && overview && (
+                  <Layer4Technical
+                    data={{
+                      currentPrice: overview.price,
+                      ma50: statistics.movingAverage50D,
+                      rsi: statistics.rsi,
+                      macdPositive: null, // TODO: From API
+                      supportLevel: overview.low52Week || null,
+                      catalystEvents: [], // TODO: From AI API
+                      sectorMomentum: undefined, // TODO: From sector data
+                    }}
+                    locale={locale as "en" | "th"}
+                  />
+                )}
+              </LayerCard>
+
+              {/* Entry Plan */}
+              {entryPlan && overview && screening.decision !== 'PASS' && (
+                <EntryPlanCard
+                  entryPlan={entryPlan}
+                  currentPrice={overview.price}
+                  locale={locale as "en" | "th"}
+                />
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Fallback to server-rendered content */}
+      {children}
+    </div>
+  )
 }
