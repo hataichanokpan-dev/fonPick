@@ -13,38 +13,42 @@ import {
   VerdictBullets,
   EvidenceCards,
   LensScores,
-} from '@/components/stock'
-import { StockPageClient } from './stock-page-client'
-import { ArrowLeft } from 'lucide-react'
-import Link from 'next/link'
-import { fetchStockWithPeers, createMockStock } from '@/lib/rtdb'
-import { generateVerdict } from '@/services/verdict'
-import { analyzeMarketRegime } from '@/services/market-regime'
-import { cn } from '@/lib/utils'
-import type { StockVerdict } from '@/services/verdict'
-import type { MarketRegime } from '@/types/market'
-import { getTranslations } from 'next-intl/server'
+} from "@/components/stock";
+import { StockPageClient } from "./stock-page-client";
+import { ArrowLeft } from "lucide-react";
+import Link from "next/link";
+import { fetchStockWithPeers, createMockStock } from "@/lib/rtdb";
+import { generateVerdict } from "@/services/verdict";
+import { analyzeMarketRegime } from "@/services/market-regime";
+import { cn } from "@/lib/utils";
+import type { StockVerdict } from "@/services/verdict";
+import type { MarketRegime } from "@/types/market";
+import { getTranslations } from "next-intl/server";
 
 interface StockPageData {
   stock: {
-    symbol: string
-    name: string
-    price: number
-    change: number
-    changePct: number
-    volume?: number
-    marketCap?: number
-    pe?: number
-    pbv?: number
-    dividendYield?: number
-    sector?: string
-  }
-  verdict: StockVerdict
-  peers: Array<{ symbol: string; name: string; verdict: 'Buy' | 'Watch' | 'Avoid' }>
+    symbol: string;
+    name: string;
+    price: number;
+    change: number;
+    changePct: number;
+    volume?: number;
+    marketCap?: number;
+    pe?: number;
+    pbv?: number;
+    dividendYield?: number;
+    sector?: string;
+  };
+  verdict: StockVerdict;
+  peers: Array<{
+    symbol: string;
+    name: string;
+    verdict: "Buy" | "Watch" | "Avoid";
+  }>;
   sectorAverages: {
-    pe?: number
-    pbv?: number
-  }
+    pe?: number;
+    pbv?: number;
+  };
 }
 
 /**
@@ -53,13 +57,13 @@ interface StockPageData {
 async function fetchStockData(symbol: string): Promise<StockPageData | null> {
   try {
     // Fetch stock data from RTDB
-    const stockData = await fetchStockWithPeers(symbol, 5)
+    const stockData = await fetchStockWithPeers(symbol, 5);
 
     // If no data from RTDB, create mock data for development
-    const stock = stockData.stock || await createMockStock(symbol)
+    const stock = stockData.stock || (await createMockStock(symbol));
 
     if (!stock) {
-      return null
+      return null;
     }
 
     // Get market regime for timing analysis
@@ -67,31 +71,35 @@ async function fetchStockData(symbol: string): Promise<StockPageData | null> {
       overview: null,
       investor: null,
       sector: null,
-    })
+    });
 
     // Extract just the regime string for the verdict engine
-    const marketRegime: MarketRegime | null = regimeResult?.regime || null
+    const marketRegime: MarketRegime | null = regimeResult?.regime || null;
 
     // Generate verdict using the verdict engine
     const verdict = generateVerdict({
       stock,
       marketRegime,
       avgVolume: stock.volume || 0,
-    })
+    });
 
     // Get peer data
-    const peers = stockData.peers || []
+    const peers = stockData.peers || [];
 
     // Calculate sector averages from peers
-    const sectorPeers = peers.filter((p) => p.sectorId === stock.sectorId)
+    const sectorPeers = peers.filter((p) => p.sectorId === stock.sectorId);
     const sectorAverages = {
-      pe: sectorPeers.length > 0
-        ? sectorPeers.reduce((sum, p) => sum + (p.pe || 0), 0) / sectorPeers.length
-        : undefined,
-      pbv: sectorPeers.length > 0
-        ? sectorPeers.reduce((sum, p) => sum + (p.pbv || 0), 0) / sectorPeers.length
-        : undefined,
-    }
+      pe:
+        sectorPeers.length > 0
+          ? sectorPeers.reduce((sum, p) => sum + (p.pe || 0), 0) /
+            sectorPeers.length
+          : undefined,
+      pbv:
+        sectorPeers.length > 0
+          ? sectorPeers.reduce((sum, p) => sum + (p.pbv || 0), 0) /
+            sectorPeers.length
+          : undefined,
+    };
 
     return {
       stock: {
@@ -111,25 +119,25 @@ async function fetchStockData(symbol: string): Promise<StockPageData | null> {
       peers: peers.map((p) => ({
         symbol: p.symbol,
         name: p.name,
-        verdict: 'Watch' as const,
+        verdict: "Watch" as const,
       })),
       sectorAverages,
-    }
+    };
   } catch (error) {
-    console.error(`Error fetching stock data for ${symbol}:`, error)
-    return null
+    console.error(`Error fetching stock data for ${symbol}:`, error);
+    return null;
   }
 }
 
 export default async function StockPage({
   params,
 }: {
-  params: Promise<{ symbol: string; locale: string }>
+  params: Promise<{ symbol: string; locale: string }>;
 }) {
-  const { symbol: symbolParam, locale } = await params
-  const t = await getTranslations('stock.page')
-  const symbol = decodeURIComponent(symbolParam).toUpperCase()
-  const data = await fetchStockData(symbol)
+  const { symbol: symbolParam, locale } = await params;
+  const t = await getTranslations("stock.page");
+  const symbol = decodeURIComponent(symbolParam).toUpperCase();
+  const data = await fetchStockData(symbol);
 
   return (
     <div className="space-y-4">
@@ -137,10 +145,10 @@ export default async function StockPage({
       <Link
         href={`/${locale}`}
         className="inline-flex items-center text-xs transition-all duration-200 hover:text-text active:opacity-70"
-        style={{ color: '#B8C1BD' }}
+        style={{ color: "#B8C1BD" }}
       >
         <ArrowLeft className="w-3 h-3 mr-1" />
-        {t('backToMarket')}
+        {t("backToMarket")}
       </Link>
 
       {/* StockPageClient handles proxy API fetching with RTDB fallback */}
@@ -152,27 +160,41 @@ export default async function StockPage({
             <div className="rounded-lg p-3 bg-surface border border-border">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                 <div>
-                  <h1 className="text-lg font-bold text-text">{data.stock.name}</h1>
+                  <h1 className="text-lg font-bold text-text">
+                    {data.stock.name}
+                  </h1>
                   <div className="flex items-center gap-3 mt-2">
                     <span className="text-2xl font-bold text-text">
-                      {data.stock.price.toFixed(2)}
+                      {data.stock.price ? data.stock.price.toFixed(2) : ""}
                     </span>
                     <span
                       className={cn(
-                        'text-sm font-semibold transition-colors duration-200',
-                        data.stock.changePct >= 0 ? 'text-up' : 'text-down'
+                        "text-sm font-semibold transition-colors duration-200",
+                        data.stock.changePct >= 0 ? "text-up" : "text-down",
                       )}
                     >
-                      {data.stock.changePct >= 0 ? '+' : ''}
-                      {data.stock.changePct.toFixed(2)}%
+                      {data.stock.changePct >= 0 ? "+" : ""}
+                      {data.stock.changePct
+                        ? data.stock.changePct.toFixed(2)
+                        : ""}
+                      %
                     </span>
                   </div>
                 </div>
 
                 <div className="text-xs text-text-2">
-                  <div>{t('sector')}: {data.stock.sector || t('notAvailable')}</div>
+                  <div>
+                    {t("sector")}: {data.stock.sector || t("notAvailable")}
+                  </div>
                   {data.stock.marketCap && (
-                    <div>{t('marketCap')}: {(data.stock.marketCap / 1_000_000_000).toFixed(0)}{t('billionTHB')}</div>
+                    <div>
+                      {t("marketCap")}:{" "}
+                      {(
+                        (data.stock.marketCap ? data.stock.marketCap : 0) /
+                        1_000_000_000
+                      ).toFixed(0)}
+                      {t("billionTHB")}
+                    </div>
                   )}
                 </div>
               </div>
@@ -210,11 +232,9 @@ export default async function StockPage({
                   <span className="text-sm text-info">➜</span>
                   <div>
                     <h3 className="font-semibold mb-1 text-xs text-info">
-                      {t('nextStep')}
+                      {t("nextStep")}
                     </h3>
-                    <p className="text-xs text-text">
-                      {data.verdict.nextStep}
-                    </p>
+                    <p className="text-xs text-text">{data.verdict.nextStep}</p>
                   </div>
                 </div>
               </div>
@@ -222,15 +242,20 @@ export default async function StockPage({
 
             {/* Data Completeness Disclaimer - Compact */}
             <div className="text-[10px] text-center text-text-3">
-              {t.raw('dataCompleteness').replace('{{completeness}}', data.verdict.dataCompleteness.toString())}
+              {t
+                .raw("dataCompleteness")
+                .replace(
+                  "{{completeness}}",
+                  data.verdict.dataCompleteness.toString(),
+                )}
             </div>
           </div>
         ) : (
           <div className="rounded-lg p-8 bg-surface border border-border text-center">
-            <p className="text-text-2">{t('loading')}</p>
+            <p className="text-text-2">{t("loading")}</p>
           </div>
         )}
       </StockPageClient>
     </div>
-  )
+  );
 }
