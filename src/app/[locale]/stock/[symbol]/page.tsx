@@ -3,7 +3,9 @@
  * Detailed stock analysis with verdict engine results
  * Theme: Green-tinted dark with teal up / soft red down
  *
- * Phase 2: Enhanced with API data fetching using useStockData hook
+ * Now using internal proxy APIs as primary data source
+ * - GET /api/stocks/{symbol}/overview
+ * - GET /api/stocks/{symbol}/statistics
  */
 
 import {
@@ -11,7 +13,6 @@ import {
   VerdictBullets,
   EvidenceCards,
   LensScores,
-  WatchlistButton,
 } from '@/components/stock'
 import { StockPageClient } from './stock-page-client'
 import { ArrowLeft } from 'lucide-react'
@@ -47,7 +48,7 @@ interface StockPageData {
 }
 
 /**
- * Fetch stock data and generate verdict
+ * Fetch stock data and generate verdict (from RTDB as fallback)
  */
 async function fetchStockData(symbol: string): Promise<StockPageData | null> {
   try {
@@ -110,7 +111,7 @@ async function fetchStockData(symbol: string): Promise<StockPageData | null> {
       peers: peers.map((p) => ({
         symbol: p.symbol,
         name: p.name,
-        verdict: 'Watch' as const, // Default to Watch for peers
+        verdict: 'Watch' as const,
       })),
       sectorAverages,
     }
@@ -125,40 +126,16 @@ export default async function StockPage({
 }: {
   params: Promise<{ symbol: string; locale: string }>
 }) {
-  const { symbol: symbolParam } = await params
+  const { symbol: symbolParam, locale } = await params
   const t = await getTranslations('stock.page')
   const symbol = decodeURIComponent(symbolParam).toUpperCase()
   const data = await fetchStockData(symbol)
-
-  // Don't call notFound() - let the page render even if RTDB data is unavailable
-  // The StockPageClient will fetch from external API
-  if (!data) {
-    return (
-      <div className="space-y-4">
-        <div className="flex items-center justify-between">
-          <Link
-            href="/"
-            className="inline-flex items-center text-xs transition-all duration-200 hover:text-text active:opacity-70"
-            style={{ color: '#B8C1BD' }}
-          >
-            <ArrowLeft className="w-3 h-3 mr-1" />
-            {t('backToMarket')}
-          </Link>
-          <WatchlistButton symbol={symbol} />
-        </div>
-        {/* Show loading state while client fetches from external API */}
-        <div className="rounded-lg p-8 bg-surface border border-border text-center">
-          <p className="text-text-2">{t('loading')}</p>
-        </div>
-      </div>
-    )
-  }
 
   return (
     <div className="space-y-4">
       {/* Back Button */}
       <Link
-        href="/"
+        href={`/${locale}`}
         className="inline-flex items-center text-xs transition-all duration-200 hover:text-text active:opacity-70"
         style={{ color: '#B8C1BD' }}
       >
@@ -166,87 +143,93 @@ export default async function StockPage({
         {t('backToMarket')}
       </Link>
 
-      {/* StockPageClient handles external API fetching with RTDB fallback */}
-      <StockPageClient symbol={symbol}>
-        {/* RTDB Fallback Content */}
-        <div className="space-y-3">
-          {/* Stock Name and Price - Compact */}
-          <div className="rounded-lg p-3 bg-surface border border-border">
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-              <div>
-                <h1 className="text-lg font-bold text-text">{data.stock.name}</h1>
-                <div className="flex items-center gap-3 mt-2">
-                  <span className="text-2xl font-bold text-text">
-                    {data.stock.price.toFixed(2)}
-                  </span>
-                  <span
-                    className={cn(
-                      'text-sm font-semibold transition-colors duration-200',
-                      data.stock.changePct >= 0 ? 'text-up' : 'text-down'
-                    )}
-                  >
-                    {data.stock.changePct >= 0 ? '+' : ''}
-                    {data.stock.changePct.toFixed(2)}%
-                  </span>
-                </div>
-              </div>
-
-              <div className="text-xs text-text-2">
-                <div>{t('sector')}: {data.stock.sector || t('notAvailable')}</div>
-                {data.stock.marketCap && (
-                  <div>{t('marketCap')}: {(data.stock.marketCap / 1_000_000_000).toFixed(0)}{t('billionTHB')}</div>
-                )}
-              </div>
-            </div>
-          </div>
-
-          {/* Decision Header - Compact */}
-          <DecisionHeader
-            verdict={data.verdict.verdict}
-            confidence={data.verdict.confidence}
-            symbol={symbol}
-          />
-
-          {/* Verdict Bullets - Compact */}
-          <VerdictBullets bullets={data.verdict.bullets} />
-
-          {/* Lens Scores and Evidence Cards - Compact */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
-            <LensScores lenses={data.verdict.lenses} />
-            <EvidenceCards
-              metrics={{
-                pe: data.stock.pe,
-                pbv: data.stock.pbv,
-                dividendYield: data.stock.dividendYield,
-              }}
-              sector={data.stock.sector}
-              sectorAverages={data.sectorAverages}
-              peers={data.peers}
-            />
-          </div>
-
-          {/* Next Step - Compact */}
-          {data.verdict.nextStep && (
-            <div className="rounded-lg p-3 bg-info/10 border border-info/30">
-              <div className="flex items-start gap-2">
-                <span className="text-sm text-info">➜</span>
+      {/* StockPageClient handles proxy API fetching with RTDB fallback */}
+      <StockPageClient symbol={symbol} locale={locale}>
+        {/* RTDB Fallback Content (if API fails) */}
+        {data ? (
+          <div className="space-y-3">
+            {/* Stock Name and Price - Compact */}
+            <div className="rounded-lg p-3 bg-surface border border-border">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                 <div>
-                  <h3 className="font-semibold mb-1 text-xs text-info">
-                    {t('nextStep')}
-                  </h3>
-                  <p className="text-xs text-text">
-                    {data.verdict.nextStep}
-                  </p>
+                  <h1 className="text-lg font-bold text-text">{data.stock.name}</h1>
+                  <div className="flex items-center gap-3 mt-2">
+                    <span className="text-2xl font-bold text-text">
+                      {data.stock.price.toFixed(2)}
+                    </span>
+                    <span
+                      className={cn(
+                        'text-sm font-semibold transition-colors duration-200',
+                        data.stock.changePct >= 0 ? 'text-up' : 'text-down'
+                      )}
+                    >
+                      {data.stock.changePct >= 0 ? '+' : ''}
+                      {data.stock.changePct.toFixed(2)}%
+                    </span>
+                  </div>
+                </div>
+
+                <div className="text-xs text-text-2">
+                  <div>{t('sector')}: {data.stock.sector || t('notAvailable')}</div>
+                  {data.stock.marketCap && (
+                    <div>{t('marketCap')}: {(data.stock.marketCap / 1_000_000_000).toFixed(0)}{t('billionTHB')}</div>
+                  )}
                 </div>
               </div>
             </div>
-          )}
 
-          {/* Data Completeness Disclaimer - Compact */}
-          <div className="text-[10px] text-center text-text-3">
-            {t.raw('dataCompleteness').replace('{{completeness}}', data.verdict.dataCompleteness.toString())}
+            {/* Decision Header - Compact */}
+            <DecisionHeader
+              verdict={data.verdict.verdict}
+              confidence={data.verdict.confidence}
+              symbol={symbol}
+            />
+
+            {/* Verdict Bullets - Compact */}
+            <VerdictBullets bullets={data.verdict.bullets} />
+
+            {/* Lens Scores and Evidence Cards - Compact */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+              <LensScores lenses={data.verdict.lenses} />
+              <EvidenceCards
+                metrics={{
+                  pe: data.stock.pe,
+                  pbv: data.stock.pbv,
+                  dividendYield: data.stock.dividendYield,
+                }}
+                sector={data.stock.sector}
+                sectorAverages={data.sectorAverages}
+                peers={data.peers}
+              />
+            </div>
+
+            {/* Next Step - Compact */}
+            {data.verdict.nextStep && (
+              <div className="rounded-lg p-3 bg-info/10 border border-info/30">
+                <div className="flex items-start gap-2">
+                  <span className="text-sm text-info">➜</span>
+                  <div>
+                    <h3 className="font-semibold mb-1 text-xs text-info">
+                      {t('nextStep')}
+                    </h3>
+                    <p className="text-xs text-text">
+                      {data.verdict.nextStep}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Data Completeness Disclaimer - Compact */}
+            <div className="text-[10px] text-center text-text-3">
+              {t.raw('dataCompleteness').replace('{{completeness}}', data.verdict.dataCompleteness.toString())}
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className="rounded-lg p-8 bg-surface border border-border text-center">
+            <p className="text-text-2">{t('loading')}</p>
+          </div>
+        )}
       </StockPageClient>
     </div>
   )

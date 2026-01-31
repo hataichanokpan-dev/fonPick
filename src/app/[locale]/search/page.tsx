@@ -13,6 +13,7 @@ import { searchStocksByPrefix } from '@/lib/rtdb'
 import { Badge } from '@/components/shared/Badge'
 import { TrendingUp, TrendingDown, Award } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
+import { redirect } from 'next/navigation'
 
 // Mock stock data for fallback when RTDB stock list is not available
 // Enhanced with more detailed information
@@ -76,12 +77,27 @@ async function searchStocks(query: string): Promise<
 }
 
 export default async function SearchPage({
+  params,
   searchParams,
 }: {
-  searchParams: { q?: string }
+  params: Promise<{ locale: string }>
+  searchParams: Promise<{ q?: string }>
 }) {
+  const { locale } = await params
   const t = await getTranslations('stock')
-  const query = searchParams.q || ''
+
+  // Await searchParams for Next.js 15+
+  const resolvedSearchParams = await searchParams
+  const query = resolvedSearchParams?.q || ''
+
+  // If query is a valid stock symbol (2-4 uppercase letters), redirect directly
+  const trimmedQuery = query.trim().toUpperCase()
+  const symbolPattern = /^[A-Z]{2,4}$/
+  if (trimmedQuery && symbolPattern.test(trimmedQuery)) {
+    // Redirect to stock page directly
+    redirect(`/${locale}/stock/${trimmedQuery}`)
+  }
+
   const results = query ? await searchStocks(query) : []
 
   return (
@@ -110,7 +126,7 @@ export default async function SearchPage({
                 return (
                   <Link
                     key={stock.symbol}
-                    href={`/stock/${stock.symbol}`}
+                    href={`/${locale}/stock/${stock.symbol}`}
                     className="block transition-all duration-200 hover:bg-surface-1"
                   >
                     <div className="p-4">

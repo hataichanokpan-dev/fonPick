@@ -1,32 +1,25 @@
 /**
  * Stock API Service
  *
- * Service for fetching Thai stock market data from external API.
- * Uses Next.js fetch with caching for optimal performance.
+ * Service for fetching Thai stock market data from internal proxy APIs.
+ * Uses Next.js proxy APIs with caching and rate limiting.
  *
- * API Base URL: https://my-fon-stock-api.vercel.app
- *
- * Endpoints:
- * - GET /api/th/stocks/{symbol}/overview
- * - GET /api/th/stocks/{symbol}/statistics
+ * Proxy APIs:
+ * - GET /api/stocks/{symbol}/overview
+ * - GET /api/stocks/{symbol}/statistics
  */
 
-import { ApiError, ApiErrorType } from '@/types/stock-api'
-import {
-  validateStockOverviewResponse,
-  validateStockStatisticsResponse,
-} from '@/utils/validation'
-import { fetchJson } from './fetch-wrapper'
 import type {
-  StockOverviewResponse,
-  StockStatisticsResponse,
-} from '@/types/stock-api'
+  ApiResponse,
+  StockOverviewData,
+  StockStatisticsData,
+} from '@/types/stock-proxy-api'
 
 /**
- * Base URL for the stock API
- * Can be overridden with NEXT_PUBLIC_STOCK_API_BASE_URL environment variable
+ * Base URL for internal proxy APIs
+ * Uses relative path since we're calling our own API routes
  */
-const BASE_URL = process.env.NEXT_PUBLIC_STOCK_API_BASE_URL || 'https://my-fon-stock-api.vercel.app'
+const BASE_URL = '/api/stocks'
 
 /**
  * Sanitize stock symbol
@@ -38,156 +31,128 @@ function sanitizeSymbol(symbol: string): string {
 
 /**
  * Validate symbol format
- * Throws error if symbol is invalid
+ * Returns true if valid, false otherwise
  */
-function validateSymbol(symbol: string): void {
+function validateSymbol(symbol: string): boolean {
   const sanitized = sanitizeSymbol(symbol)
 
   if (!sanitized) {
-    throw new ApiError(
-      ApiErrorType.VALIDATION_ERROR,
-      400,
-      'Stock symbol cannot be empty',
-      false
-    )
+    return false
   }
 
   if (sanitized.length > 10) {
-    throw new ApiError(
-      ApiErrorType.VALIDATION_ERROR,
-      400,
-      'Stock symbol must be at most 10 characters',
-      false
-    )
+    return false
   }
 
   // Allow alphanumeric and common symbols
-  if (!/^[A-Z0-9.-]+$/.test(sanitized)) {
-    throw new ApiError(
-      ApiErrorType.VALIDATION_ERROR,
-      400,
-      'Stock symbol contains invalid characters',
-      false
-    )
-  }
+  return /^[A-Z0-9.-]+$/.test(sanitized)
 }
 
 /**
- * Fetch stock overview data
+ * Fetch stock overview data from proxy API
  *
  * @param symbol - Stock symbol (e.g., 'PTT', 'AOT', 'KBANK')
+ * @param options - Fetch options
  * @returns Promise resolving to stock overview data
- * @throws ApiError with appropriate type and details
  *
  * @example
  * ```typescript
  * const overview = await fetchStockOverview('PTT')
- * console.log(overview.data.price.current)
- * console.log(overview.data.decisionBadge.label)
+ * if (overview.data) {
+ *   console.log(overview.data.price)
+ * }
  * ```
  */
 export async function fetchStockOverview(
-  symbol: string
-): Promise<StockOverviewResponse> {
+  symbol: string,
+  options?: { bypassCache?: boolean }
+): Promise<ApiResponse<StockOverviewData>> {
   // Validate and sanitize input
-  validateSymbol(symbol)
-  const sanitizedSymbol = sanitizeSymbol(symbol)
+  if (!validateSymbol(symbol)) {
+    return {
+      success: false,
+      error: 'Invalid stock symbol format',
+    }
+  }
 
-  const url = `${BASE_URL}/api/th/stocks/${sanitizedSymbol}/overview`
+  const sanitizedSymbol = sanitizeSymbol(symbol)
+  const queryParams = options?.bypassCache ? '?nocache=true' : ''
+  const url = `${BASE_URL}/${sanitizedSymbol}/overview${queryParams}`
 
   try {
-    // Use Next.js fetch with caching (5 minute revalidation)
-    const response = await fetchJson<unknown>(url, {
-      next: { revalidate: 300 },
+    const response = await fetch(url, {
+      // Add timeout
+      signal: AbortSignal.timeout(15000),
     })
 
-    // Validate response structure
-    const validated = validateStockOverviewResponse(response)
+    if (!response.ok) {
+      return {
+        success: false,
+        error: `API returned ${response.status}`,
+      }
+    }
 
-    return validated
+    const data = (await response.json()) as ApiResponse<StockOverviewData>
+    return data
   } catch (error) {
-    // Re-throw ApiError as-is
-    if (error instanceof ApiError) {
-      throw error
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error',
     }
-
-    // Wrap validation errors
-    if (error instanceof Error && error.name === 'ZodError') {
-      throw new ApiError(
-        ApiErrorType.VALIDATION_ERROR,
-        0,
-        `Invalid API response structure for ${sanitizedSymbol} overview`,
-        false
-      )
-    }
-
-    // Wrap unknown errors
-    throw new ApiError(
-      ApiErrorType.UNKNOWN,
-      0,
-      error instanceof Error ? error.message : 'Unknown error fetching stock overview',
-      false
-    )
   }
 }
 
 /**
- * Fetch stock statistics data
+ * Fetch stock statistics data from proxy API
  *
  * @param symbol - Stock symbol (e.g., 'PTT', 'AOT', 'KBANK')
+ * @param options - Fetch options
  * @returns Promise resolving to stock statistics data
- * @throws ApiError with appropriate type and details
  *
  * @example
  * ```typescript
  * const statistics = await fetchStockStatistics('PTT')
- * console.log(statistics.data.financial.eps)
- * console.log(statistics.data.valuation.pe)
- * console.log(statistics.data.analyst.rating)
+ * if (statistics.data) {
+ *   console.log(statistics.data.peRatio)
+ * }
  * ```
  */
 export async function fetchStockStatistics(
-  symbol: string
-): Promise<StockStatisticsResponse> {
+  symbol: string,
+  options?: { bypassCache?: boolean }
+): Promise<ApiResponse<StockStatisticsData>> {
   // Validate and sanitize input
-  validateSymbol(symbol)
-  const sanitizedSymbol = sanitizeSymbol(symbol)
+  if (!validateSymbol(symbol)) {
+    return {
+      success: false,
+      error: 'Invalid stock symbol format',
+    }
+  }
 
-  const url = `${BASE_URL}/api/th/stocks/${sanitizedSymbol}/statistics`
+  const sanitizedSymbol = sanitizeSymbol(symbol)
+  const queryParams = options?.bypassCache ? '?nocache=true' : ''
+  const url = `${BASE_URL}/${sanitizedSymbol}/statistics${queryParams}`
 
   try {
-    // Use Next.js fetch with caching (5 minute revalidation)
-    const response = await fetchJson<unknown>(url, {
-      next: { revalidate: 300 },
+    const response = await fetch(url, {
+      // Add timeout
+      signal: AbortSignal.timeout(15000),
     })
 
-    // Validate response structure
-    const validated = validateStockStatisticsResponse(response)
+    if (!response.ok) {
+      return {
+        success: false,
+        error: `API returned ${response.status}`,
+      }
+    }
 
-    return validated
+    const data = (await response.json()) as ApiResponse<StockStatisticsData>
+    return data
   } catch (error) {
-    // Re-throw ApiError as-is
-    if (error instanceof ApiError) {
-      throw error
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error',
     }
-
-    // Wrap validation errors
-    if (error instanceof Error && error.name === 'ZodError') {
-      throw new ApiError(
-        ApiErrorType.VALIDATION_ERROR,
-        0,
-        `Invalid API response structure for ${sanitizedSymbol} statistics`,
-        false
-      )
-    }
-
-    // Wrap unknown errors
-    throw new ApiError(
-      ApiErrorType.UNKNOWN,
-      0,
-      error instanceof Error ? error.message : 'Unknown error fetching stock statistics',
-      false
-    )
   }
 }
 
@@ -195,27 +160,29 @@ export async function fetchStockStatistics(
  * Fetch both overview and statistics in parallel
  *
  * @param symbol - Stock symbol
+ * @param options - Fetch options
  * @returns Promise resolving to both overview and statistics
- * @throws ApiError if either request fails
  *
  * @example
  * ```typescript
- * const [overview, statistics] = await fetchStockData('PTT')
- * console.log(overview.data.price.current)
- * console.log(statistics.data.valuation.pe)
+ * const result = await fetchStockData('PTT')
+ * if (result.overview.data) {
+ *   console.log(result.overview.data.price)
+ * }
  * ```
  */
 export async function fetchStockData(
-  symbol: string
-): Promise<[StockOverviewResponse, StockStatisticsResponse]> {
-  // Validate symbol once
-  validateSymbol(symbol)
-
+  symbol: string,
+  options?: { bypassCache?: boolean }
+): Promise<{
+  overview: ApiResponse<StockOverviewData>
+  statistics: ApiResponse<StockStatisticsData>
+}> {
   // Fetch in parallel for better performance
   const [overview, statistics] = await Promise.all([
-    fetchStockOverview(symbol),
-    fetchStockStatistics(symbol),
+    fetchStockOverview(symbol, options),
+    fetchStockStatistics(symbol, options),
   ])
 
-  return [overview, statistics]
+  return { overview, statistics }
 }

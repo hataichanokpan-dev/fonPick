@@ -2,7 +2,7 @@
  * useStockData Hook
  *
  * Custom hook for fetching stock data using React Query.
- * Fetches both overview and statistics in parallel.
+ * Fetches both overview and statistics in parallel from internal proxy APIs.
  *
  * Features:
  * - Parallel data fetching with Promise.all
@@ -25,18 +25,19 @@
  */
 
 import { useQuery } from '@tanstack/react-query'
-import { fetchStockData } from '@/lib/api'
+import { fetchStockData } from '@/lib/api/stock-api'
 import type {
-  StockOverviewResponse,
-  StockStatisticsResponse,
-} from '@/types/stock-api'
+  ApiResponse,
+  StockOverviewData,
+  StockStatisticsData,
+} from '@/types/stock-proxy-api'
 
 /**
  * Combined stock data return type
  */
 export interface StockDataResult {
-  overview: StockOverviewResponse
-  statistics: StockStatisticsResponse
+  overview: ApiResponse<StockOverviewData>
+  statistics: ApiResponse<StockStatisticsData>
 }
 
 /**
@@ -54,22 +55,41 @@ export const stockQueryKeys = {
 const STALE_TIME = 5 * 60 * 1000 // 5 minutes in milliseconds
 
 /**
+ * Custom error class for stock data failures
+ */
+export class StockDataError extends Error {
+  constructor(
+    message: string,
+    public code?: string
+  ) {
+    super(message)
+    this.name = 'StockDataError'
+  }
+}
+
+/**
  * Custom hook for fetching stock data
  *
  * @param symbol - Stock symbol (e.g., 'PTT', 'AOT', 'KBANK')
  * @returns React Query result with data, loading state, error, and refetch function
  *
- * @throws ApiError with appropriate type for various failure scenarios
+ * @throws StockDataError for various failure scenarios
  */
 export function useStockData(symbol: string) {
   return useQuery({
     queryKey: stockQueryKeys.detail(symbol),
     queryFn: async (): Promise<StockDataResult> => {
-      const [overview, statistics] = await fetchStockData(symbol)
-      return {
-        overview,
-        statistics,
+      const result = await fetchStockData(symbol)
+
+      // Check if both requests failed
+      if (!result.overview.success && !result.statistics.success) {
+        throw new StockDataError(
+          result.overview.error || result.statistics.error || 'Failed to fetch stock data',
+          'FETCH_FAILED'
+        )
       }
+
+      return result
     },
     staleTime: STALE_TIME,
     // Prevent refetch on window focus to avoid unwanted re-fetches
@@ -79,13 +99,9 @@ export function useStockData(symbol: string) {
     // Prevent automatic refetch on reconnect
     refetchOnReconnect: false,
     retry: (failureCount, error) => {
-      // Don't retry on validation errors or not found
-      if (error instanceof Error) {
-        const errorType = (error as { type?: string }).type
-        if (
-          errorType === 'VALIDATION_ERROR' ||
-          errorType === 'NOT_FOUND'
-        ) {
+      // Don't retry on validation errors
+      if (error instanceof StockDataError) {
+        if (error.code === 'VALIDATION_ERROR') {
           return false
         }
       }
