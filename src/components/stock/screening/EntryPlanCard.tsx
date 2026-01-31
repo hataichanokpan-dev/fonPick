@@ -1,3 +1,5 @@
+'use client'
+
 /**
  * Entry Plan Card Component
  *

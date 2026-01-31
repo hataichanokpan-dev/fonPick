@@ -1,3 +1,5 @@
+'use client'
+
 /**
  * Mini Radar Indicator Component
  *

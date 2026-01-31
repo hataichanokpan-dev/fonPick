@@ -1,3 +1,5 @@
+'use client'
+
 /**
  * Layer 3: Value + Growth Metrics Component
  *

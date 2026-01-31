@@ -1,3 +1,5 @@
+'use client'
+
 /**
  * Total Score Card Component
  *

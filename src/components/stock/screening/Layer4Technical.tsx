@@ -1,3 +1,5 @@
+'use client'
+
 /**
  * Layer 4: Technical + Catalyst Component
  *

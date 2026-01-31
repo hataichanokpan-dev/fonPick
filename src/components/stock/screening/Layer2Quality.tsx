@@ -1,3 +1,5 @@
+'use client'
+
 /**
  * Layer 2: Quality Metrics Component
  *

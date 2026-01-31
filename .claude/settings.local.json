@@ -54,7 +54,9 @@
       "Bash(npm run test:run:*)",
       "Bash(npx next dev:*)",
       "Bash(ls:*)",
-      "Bash(pnpm install:*)"
+      "Bash(pnpm install:*)",
+      "Bash(pnpm run dev)",
+      "Bash(tail:*)"
     ]
   }
 }

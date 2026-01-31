@@ -23,7 +23,7 @@ import {
   Layer2Quality,
   Layer3ValueGrowth,
   Layer4Technical,
-  EntryPlanCard, 
+  EntryPlanCard,
   calculateEntryPlan,
 } from '@/components/stock/screening'
 import { TrendingUp, TrendingDown, Minus, Building2,  } from 'lucide-react'

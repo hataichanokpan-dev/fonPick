@@ -1,3 +1,5 @@
+'use client'
+
 /**
  * Score Badge Component
  *

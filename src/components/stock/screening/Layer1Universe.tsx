@@ -1,3 +1,5 @@
+'use client'
+
 /**
  * Layer 1: Universe Filters Component
  *

@@ -1,3 +1,5 @@
+'use client'
+
 /**
  * Metric Progress Bar Component
  *
