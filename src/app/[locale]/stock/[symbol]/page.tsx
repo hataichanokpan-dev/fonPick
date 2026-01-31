@@ -17,7 +17,7 @@ import {
 import { StockPageClient } from "./stock-page-client";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
-import { fetchStockWithPeers, createMockStock } from "@/lib/rtdb";
+import { fetchStockWithPeers } from "@/lib/rtdb";
 import { generateVerdict } from "@/services/verdict";
 import { analyzeMarketRegime } from "@/services/market-regime";
 import { cn } from "@/lib/utils";
@@ -59,8 +59,8 @@ async function fetchStockData(symbol: string): Promise<StockPageData | null> {
     // Fetch stock data from RTDB
     const stockData = await fetchStockWithPeers(symbol, 5);
 
-    // If no data from RTDB, create mock data for development
-    const stock = stockData.stock || (await createMockStock(symbol));
+    // Get stock data (no mock data fallback)
+    const stock = stockData.stock;
 
     if (!stock) {
       return null;

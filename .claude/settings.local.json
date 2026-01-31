@@ -53,7 +53,8 @@
       "Bash(find:*)",
       "Bash(npm run test:run:*)",
       "Bash(npx next dev:*)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(pnpm install:*)"
     ]
   }
 }

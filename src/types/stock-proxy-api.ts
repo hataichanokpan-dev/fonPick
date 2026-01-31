@@ -14,8 +14,28 @@ import type { StockStatisticsData } from '@/app/api/stocks/[symbol]/statistics/r
 // Import and re-export ApiResponse wrapper
 import type { ApiResponse } from '@/lib/api/stock-api-utils'
 
+// Import and re-export price API types
+import type {
+  StockPriceData,
+  PriceHistoryPoint,
+  PriceHistoryParams,
+  YearlyMetrics,
+  QuarterlyMetrics,
+  QuarterlyPeriod,
+} from '@/types/stock-price-api'
+
 // Re-export types
-export type { StockOverviewData, StockStatisticsData, ApiResponse }
+export type {
+  StockOverviewData,
+  StockStatisticsData,
+  ApiResponse,
+  StockPriceData,
+  PriceHistoryPoint,
+  PriceHistoryParams,
+  YearlyMetrics,
+  QuarterlyMetrics,
+  QuarterlyPeriod,
+}
 
 /**
  * Combined stock data from proxy APIs
