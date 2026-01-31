@@ -2,16 +2,15 @@
  * Stock Price History API Route
  *
  * GET /api/stocks/[symbol]/price/history
- * Proxies requests to external stock API and caches responses.
+ * Proxies requests to external stock API without caching.
  *
  * External API: https://my-fon-stock-api.vercel.app/api/th/stocks/{symbol}/price
  * Query params: period1, period2, interval
  */
 
 import { NextRequest, NextResponse } from 'next/server'
-import { cachedJson, MARKET_DATA_CACHE, NO_CACHE } from '@/lib/api-cache'
+import { cachedJson, NO_CACHE } from '@/lib/api-cache'
 import {
-  BoundedCache,
   getCorsHeaders,
   validateSymbol,
   StockApiError,
@@ -30,9 +29,6 @@ const EXTERNAL_API_CONFIG = {
   maxRetries: 2,
   retryDelay: 500,
 } as const
-
-// Bounded cache for price history data (50 entries, 15 min TTL)
-const historyCache = new BoundedCache<PriceHistoryResponse>(50, 15 * 60 * 1000)
 
 // ============================================================================
 // LOGGING
@@ -84,19 +80,6 @@ function isValidInterval(value: string | null): boolean {
 // ============================================================================
 
 /**
- * Build cache key from symbol and query parameters
- */
-function buildCacheKey(symbol: string, params: PriceHistoryParams): string {
-  const parts = [
-    symbol,
-    params.period1 || 'default',
-    params.period2 || 'default',
-    params.interval || '1d',
-  ]
-  return parts.join(':')
-}
-
-/**
  * Build query string for external API
  */
 function buildQueryString(params: PriceHistoryParams): string {
@@ -133,7 +116,7 @@ async function fetchPriceHistory(
         'Accept': 'application/json',
         'User-Agent': 'FonPick/1.0',
       },
-      next: { revalidate: 900 }, // 15 minutes
+      cache: 'no-store', // Never cache
     })
 
     clearTimeout(timeoutId)
@@ -207,7 +190,6 @@ export async function GET(
 ) {
   const { symbol } = await params
   const searchParams = request.nextUrl.searchParams
-  const bypassCache = searchParams.get('nocache') === 'true'
 
   // Validate symbol format
   if (!symbol || !validateSymbol(symbol)) {
@@ -287,39 +269,8 @@ export async function GET(
   }
 
   try {
-    const cacheKey = buildCacheKey(uppercaseSymbol, queryParams)
-
-    // Check cache first (unless bypass is requested)
-    if (!bypassCache) {
-      const cached = historyCache.get(cacheKey)
-      if (cached) {
-        const response = cachedJson(
-          {
-            success: true,
-            data: cached.data,
-            meta: {
-              symbol: uppercaseSymbol,
-              fetchedAt: Date.now(),
-              cached: true,
-            },
-          },
-          MARKET_DATA_CACHE
-        )
-
-        const corsHeaders = getCorsHeaders(request)
-        Object.entries(corsHeaders).forEach(([key, value]) => {
-          response.headers.set(key, value)
-        })
-
-        return response
-      }
-    }
-
-    // Fetch from external API with retry
+    // Fetch from external API with retry (no cache)
     const externalData = await fetchWithRetry(uppercaseSymbol, queryParams)
-
-    // Cache the result
-    historyCache.set(cacheKey, externalData)
 
     // Build response with CORS headers
     const corsHeaders = getCorsHeaders(request)
@@ -333,7 +284,7 @@ export async function GET(
           cached: false,
         },
       },
-      MARKET_DATA_CACHE
+      NO_CACHE
     )
 
     Object.entries(corsHeaders).forEach(([key, value]) => {

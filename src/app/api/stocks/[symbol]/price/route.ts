@@ -2,15 +2,14 @@
  * Stock Price API Route
  *
  * GET /api/stocks/[symbol]/price
- * Proxies requests to external stock API and caches responses.
+ * Proxies requests to external stock API without caching.
  *
  * External API: https://my-fon-stock-api.vercel.app/api/th/stocks/{symbol}/price
  */
 
 import { NextRequest, NextResponse } from 'next/server'
-import { cachedJson, MARKET_DATA_CACHE, NO_CACHE } from '@/lib/api-cache'
+import { cachedJson, NO_CACHE } from '@/lib/api-cache'
 import {
-  BoundedCache,
   getCorsHeaders,
   validateSymbol,
   StockApiError,
@@ -29,9 +28,6 @@ const EXTERNAL_API_CONFIG = {
   maxRetries: 2,
   retryDelay: 500, // milliseconds
 } as const
-
-// Bounded cache for stock price data (100 entries, 5 min TTL)
-const stockCache = new BoundedCache<StockPriceResponse>(100, 5 * 60 * 1000)
 
 // ============================================================================
 // LOGGING
@@ -63,7 +59,7 @@ async function fetchStockPrice(symbol: string): Promise<StockPriceResponse> {
         'Accept': 'application/json',
         'User-Agent': 'FonPick/1.0',
       },
-      next: { revalidate: 300 }, // 5 minutes
+      cache: 'no-store', // Never cache
     })
 
     clearTimeout(timeoutId)
@@ -135,8 +131,6 @@ export async function GET(
   { params }: { params: Promise<{ symbol: string }> }
 ) {
   const { symbol } = await params
-  const searchParams = request.nextUrl.searchParams
-  const bypassCache = searchParams.get('nocache') === 'true'
 
   // Validate symbol format
   if (!symbol || !validateSymbol(symbol)) {
@@ -175,37 +169,8 @@ export async function GET(
   }
 
   try {
-    // Check cache first (unless bypass is requested)
-    if (!bypassCache) {
-      const cached = stockCache.get(uppercaseSymbol)
-      if (cached) {
-        const response = cachedJson(
-          {
-            success: true,
-            data: cached.data,
-            meta: {
-              symbol: uppercaseSymbol,
-              fetchedAt: Date.now(),
-              cached: true,
-            },
-          },
-          MARKET_DATA_CACHE
-        )
-
-        const corsHeaders = getCorsHeaders(request)
-        Object.entries(corsHeaders).forEach(([key, value]) => {
-          response.headers.set(key, value)
-        })
-
-        return response
-      }
-    }
-
-    // Fetch from external API with retry
+    // Fetch from external API with retry (no cache)
     const externalData = await fetchWithRetry(uppercaseSymbol)
-
-    // Cache the result
-    stockCache.set(uppercaseSymbol, externalData)
 
     // Build response with CORS headers
     const corsHeaders = getCorsHeaders(request)
@@ -219,7 +184,7 @@ export async function GET(
           cached: false,
         },
       },
-      MARKET_DATA_CACHE
+      NO_CACHE
     )
 
     Object.entries(corsHeaders).forEach(([key, value]) => {
