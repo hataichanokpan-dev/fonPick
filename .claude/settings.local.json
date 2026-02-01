@@ -57,7 +57,8 @@
       "Bash(pnpm install:*)",
       "Bash(pnpm run dev)",
       "Bash(tail:*)",
-      "Bash(wc:*)"
+      "Bash(wc:*)",
+      "Bash(Remove-Item:*)"
     ]
   }
 }

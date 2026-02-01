@@ -11,7 +11,6 @@ export { WatchlistButton } from './WatchlistButton'
 export { StockPageSkeleton } from './StockPageSkeleton'
 export { StockPageErrorBoundary } from './StockPageErrorBoundary'
 export { StockHero } from './StockHero'
-export { DecisionBadge } from './DecisionBadge'
 
 // Phase 5: Analysis Sections
 export { AnalysisSection } from './AnalysisSection'

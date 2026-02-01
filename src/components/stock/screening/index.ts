@@ -150,14 +150,6 @@ export {
 } from './TotalScoreCard'
 
 export {
-  MiniRadarIndicator,
-  LayerScoreBars,
-  RadialScoreDisplay,
-  LayerScoreGrid,
-  type MiniRadarData,
-} from './MiniRadarIndicator'
-
-export {
   EntryPlanCard,
   calculateEntryPlan,
 } from './EntryPlanCard'
