@@ -39,6 +39,7 @@ import {
   EyeIcon,
 } from "lucide-react";
 import { safeToFixed } from "@/lib/utils";
+import { is, tr } from "date-fns/locale";
 
 export interface StockPageClientProps {
   symbol: string;
@@ -267,6 +268,8 @@ export function StockPageClient({
   const t =
     translations[locale as keyof typeof translations] || translations.th;
 
+  const compact = true; // TODO: Determine based on screen size
+
   // Expand/collapse state for layers
   const [expandedLayers, setExpandedLayers] = useState<Record<number, boolean>>(
     {
@@ -431,12 +434,14 @@ export function StockPageClient({
                 color="universe"
                 expanded={expandedLayers[1]}
                 onToggle={() => toggleLayer(1)}
+                
               >
                 {overview && statistics && (
                   <Layer1Universe
                     marketCap={statistics.marketCap}
                     volume={overview.volume}
                     locale={locale as "en" | "th"}
+                    compact={compact}
                   />
                 )}
               </LayerCard>
@@ -471,6 +476,7 @@ export function StockPageClient({
                       netIncome: statistics.netIncome,
                     }}
                     locale={locale as "en" | "th"}
+                    compact={compact}
                   />
                 )}
               </LayerCard>
@@ -500,6 +506,7 @@ export function StockPageClient({
                       epsAcceleration: 0.02, // TODO: From quarterly data
                     }}
                     locale={locale as "en" | "th"}
+                    compact={compact}
                   />
                 )}
               </LayerCard>
@@ -529,6 +536,7 @@ export function StockPageClient({
                       sectorMomentum: undefined, // TODO: From sector data
                     }}
                     locale={locale as "en" | "th"}
+                    compact={compact}
                   />
                 )}
               </LayerCard>
@@ -539,6 +547,7 @@ export function StockPageClient({
                   entryPlan={entryPlan}
                   currentPrice={overview.price}
                   locale={locale as "en" | "th"}
+                  
                 />
               )}
             </div>

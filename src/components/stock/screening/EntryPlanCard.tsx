@@ -86,7 +86,7 @@ export function EntryPlanCard({
 
         {/* Price levels */}
         <div className="p-4">
-          <div className="grid grid-cols-3 gap-3 mb-4">
+          <div className="grid lg:grid-cols-3 gap-3 mb-4">
             {/* Buy at */}
             <PriceLevelCard
               label={t.buyAt}
@@ -122,18 +122,18 @@ export function EntryPlanCard({
           </div>
 
           {/* Position size and R/R */}
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid lg:grid-cols-2 gap-3">
             {/* Position size */}
             <div className="p-3 rounded-lg bg-surface-2 border border-border">
-              <div className="flex items-center gap-2 mb-2">
-                <Wallet className="w-4 h-4 text-text-3" />
-                <span className="text-xs text-text-3">{t.positionSize}</span>
+              <div className="flex items-center gap-2 mb-2 ">
+                <Wallet className="w-4 h-4 text-white" />
+                <span className="text-xs text-white">{t.positionSize}</span>
               </div>
               <div className="flex items-baseline gap-1">
                 <span className="text-lg font-bold text-text-primary">
                   {entryPlan.positionSize.percentage * 100}
                 </span>
-                <span className="text-xs text-text-3">%{t.portfolio}</span>
+                <span className="text-xs text-white">%{t.portfolio}</span>
               </div>
               {entryPlan.positionSize.rationale && (
                 <p className="text-xs text-text-3 mt-1 line-clamp-1">
@@ -145,8 +145,8 @@ export function EntryPlanCard({
             {/* Risk/Reward */}
             <div className="p-3 rounded-lg bg-surface-2 border border-border">
               <div className="flex items-center gap-2 mb-2">
-                <Target className="w-4 h-4 text-text-3" />
-                <span className="text-xs text-text-3">{t.riskReward}</span>
+                <Target className="w-4 h-4 text-white" />
+                <span className="text-xs text-white">{t.riskReward}</span>
               </div>
               <div className="flex items-center gap-2">
                 <span className="text-2xl font-bold tabular-nums text-text-primary">
@@ -159,27 +159,12 @@ export function EntryPlanCard({
             </div>
           </div>
 
-          {/* Time horizon */}
-          {entryPlan.timeHorizon && (
-            <div className="mt-3 p-3 rounded-lg bg-surface-2 border border-border">
-              <span className="text-xs text-text-3">{t.timeHorizon}:</span>
-              <span className="text-sm font-medium text-text-primary ml-2">
-                {entryPlan.timeHorizon}
-              </span>
-            </div>
-          )}
+          
         </div>
 
-        {/* Visual representation */}
-        <div className="px-4 pb-4">
-          <PriceRangeVisualizer
-            currentPrice={currentPrice}
-            buyAt={entryPlan.buyAt.price}
-            stopLoss={entryPlan.stopLoss.price}
-            target={entryPlan.target.price}
-          />
-        </div>
+       
       </div>
+      <div className='mb-5'></div>
     </div>
   )
 }
@@ -216,7 +201,7 @@ function PriceLevelCard({
 
   return (
     <div className="p-3 rounded-lg bg-surface-2 border border-border">
-      <div className="flex items-center gap-2 text-xs text-text-3 mb-2">
+      <div className="flex items-center gap-2 text-xs text-3 text-white mb-2">
         {icon}
         <span>{label}</span>
       </div>

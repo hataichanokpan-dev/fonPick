@@ -1,5 +1,6 @@
 'use client'
 
+import { tr } from 'date-fns/locale'
 /**
  * Metric Progress Bar Component
  *
@@ -21,12 +22,13 @@ export function MetricProgressBar({
   maxPoints,
   status,
   showValue = true,
-  compact = false,
+  compact = true,
   className = '',
 }: MetricProgressBarProps) {
   const colors = getScoreColorClasses(score)
   const percentage = (score / maxScore) * 100
 
+   
   // Status icon
   const StatusIcon = () => {
     if (status === 'pass') {
@@ -75,7 +77,6 @@ export function MetricProgressBar({
             style={{ width: `${percentage}%` }}
           />
         </div>
-
         {/* Value display */}
         {showValue && value && (
           <div className="mt-1 text-xs text-text-3 tabular-nums">
