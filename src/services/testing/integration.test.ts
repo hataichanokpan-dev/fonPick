@@ -94,7 +94,7 @@ describe('Integration Tests: Insights Generation Pipeline', () => {
     it('should generate risk-on smart money signal', () => {
       expect(smartMoney).toBeDefined()
       expect(smartMoney.riskSignal).toMatch(/Risk-On/i)
-      expect(smartMoney.score).toBeGreaterThan(50)
+      expect(parseFloat(smartMoney.score.toFixed(2))).toBeGreaterThan(50)
     })
 
     it('should generate actionable insights', () => {
@@ -202,7 +202,7 @@ describe('Integration Tests: Insights Generation Pipeline', () => {
     it('should have strong risk-on signal', () => {
       expect(smartMoney).toBeDefined()
       expect(smartMoney.riskSignal).toBe('Risk-On')
-      expect(smartMoney.score).toBeGreaterThan(60)
+      expect(parseFloat(smartMoney.score.toFixed(2))).toBeGreaterThan(60)
     })
   })
 

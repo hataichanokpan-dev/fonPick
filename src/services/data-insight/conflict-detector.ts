@@ -68,7 +68,7 @@ function detectRegimeSmartMoneyConflict(input: DataInsightInput): Conflict | nul
     return {
       type: 'Regime-SmartMoney Mismatch',
       severity: 'High',
-      description: `Market regime is ${regime.type} but smart money score is low (${smartMoney.score}/100)`,
+      description: `Market regime is ${regime.type} but smart money score is low (${smartMoney.score.toFixed(2)}/100)`,
       signals: ['regime', 'smartMoney'],
       impact: 'Regime may be lagging; smart money suggests caution',
     }
@@ -79,7 +79,7 @@ function detectRegimeSmartMoneyConflict(input: DataInsightInput): Conflict | nul
     return {
       type: 'Regime-SmartMoney Mismatch',
       severity: 'Medium',
-      description: `Market regime is ${regime.type} but smart money score is high (${smartMoney.score}/100)`,
+      description: `Market regime is ${regime.type} but smart money score is high (${smartMoney.score.toFixed(2)}/100)`,
       signals: ['regime', 'smartMoney'],
       impact: 'Smart money may be detecting bottoming opportunity',
     }

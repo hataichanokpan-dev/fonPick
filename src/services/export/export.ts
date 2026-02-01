@@ -583,7 +583,7 @@ function exportCompleteAnalysisAsMarkdown(
   lines.push('')
   lines.push(`**Signal:** ${analysis.smartMoney.combinedSignal}`)
   lines.push(`**Risk Mode:** ${analysis.smartMoney.riskSignal}`)
-  lines.push(`**Score:** ${analysis.smartMoney.score}/100`)
+  lines.push(`**Score:** ${analysis.smartMoney.score.toFixed(2)}/100`)
   lines.push('')
   if (analysis.smartMoney.observations.length > 0) {
     lines.push('**Observations:**')

@@ -520,7 +520,7 @@ function generateExplanation(
 
   // Add smart money context
   parts.push(
-    `Smart money score is ${input.smartMoney.score}/100 with signal: ${input.smartMoney.combinedSignal}.`
+    `Smart money score is ${input.smartMoney.score.toFixed(2)}/100 with signal: ${input.smartMoney.combinedSignal}.`
   )
 
   // Add sector context
