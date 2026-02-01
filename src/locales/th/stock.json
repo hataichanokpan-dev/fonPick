@@ -1,5 +1,6 @@
 {
   "title": "หุ้น",
+  "thaiStock": "หุ้นไทย",
   "search": {
     "placeholder": "ค้นหาหุ้น...",
     "noResults": "ไม่พบหุ้นที่ค้นหา",
@@ -17,6 +18,7 @@
     "watch": "เฝ้าดู",
     "avoid": "หลีกเลี่ยง",
     "hold": "ถือ",
+    "pass": "ผ่าน",
     "strongBuy": "สัญญาณซื้อมาก",
     "watchClosely": "เฝ้าดูใกล้ๆ",
     "highRisk": "ความเสี่ยงสูง",
@@ -48,13 +50,18 @@
   "page": {
     "backToMarket": "กลับหน้าหลัก",
     "loading": "กำลังโหลดข้อมูลหุ้น...",
+    "error": "ข้อผิดพลาดในการโหลดข้อมูล",
+    "retry": "ลองใหม่",
     "sector": "กลุ่มอุตสาหกรรม",
     "marketCap": "มูลค่าตลาด",
     "nextStep": "ขั้นตอนถัดไป",
     "dataCompleteness": "การวิเคราะห์อิงจากข้อมูลครบ {completeness}% ควรตรวจสอบข้อมูลเพิ่มเติมก่อนตัดสินใจลงทุน",
     "billionTHB": "พันล้านบาท",
     "millionTHB": "ล้านบาท",
-    "notAvailable": "ไม่ระบุ"
+    "notAvailable": "ไม่ระบุ",
+    "screening": "การวิเคราะห์หุ้น",
+    "expandAll": "ขยายทั้งหมด",
+    "collapseAll": "ย่อทั้งหมด"
   },
   "technical": {
     "title": "วิเคราะห์ทางเทคนิค",

@@ -1,5 +1,6 @@
 {
   "title": "Stock",
+  "thaiStock": "Thai Stock",
   "search": {
     "placeholder": "Search stocks...",
     "noResults": "No stocks found",
@@ -17,6 +18,7 @@
     "watch": "WATCH",
     "avoid": "AVOID",
     "hold": "HOLD",
+    "pass": "PASS",
     "strongBuy": "Strong Buy Signal",
     "watchClosely": "Watch Closely",
     "highRisk": "High Risk",
@@ -48,13 +50,18 @@
   "page": {
     "backToMarket": "Back to Market",
     "loading": "Loading stock data...",
+    "error": "Error loading data",
+    "retry": "Retry",
     "sector": "Sector",
     "marketCap": "Market Cap",
     "nextStep": "Next Step",
     "dataCompleteness": "Analysis based on {completeness}% data completeness. Always verify with additional research before making investment decisions.",
     "billionTHB": "B THB",
     "millionTHB": "M THB",
-    "notAvailable": "N/A"
+    "notAvailable": "N/A",
+    "screening": "Screening Analysis",
+    "expandAll": "Expand All",
+    "collapseAll": "Collapse All"
   },
   "technical": {
     "title": "Technical Analysis",
