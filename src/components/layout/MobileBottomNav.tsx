@@ -12,37 +12,44 @@
  * - Hidden on desktop (lg breakpoint and above)
  */
 
-'use client'
+"use client";
 
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import { motion, AnimatePresence } from 'framer-motion'
-import { cn } from '@/lib/utils'
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
+import { cn } from "@/lib/utils";
 
 /**
  * Spring animation config for navigation
  */
 const springTransition = {
-  type: 'spring' as const,
+  type: "spring" as const,
   stiffness: 400,
   damping: 25,
-}
+};
 
 /**
  * Bottom navigation config
  */
 const bottomNavItems = [
-  { href: '/', label: 'Market', icon: 'home' },
-  { href: '/search', label: 'Search', icon: 'search' },
-   
-] as const
+  { href: "/", label: "Market", icon: "home" },
+  { href: "/search", label: "Search", icon: "search" },
+] as const;
 
-type IconName = typeof bottomNavItems[number]['icon']
+type IconName = (typeof bottomNavItems)[number]["icon"];
 
 /**
  * Icon component for navigation items
  */
-function NavIcon({ name, className, strokeWidth = 2 }: { name: IconName; className?: string; strokeWidth?: number }) {
+function NavIcon({
+  name,
+  className,
+  strokeWidth = 2,
+}: {
+  name: IconName;
+  className?: string;
+  strokeWidth?: number;
+}) {
   const icons = {
     home: (
       <path
@@ -60,8 +67,7 @@ function NavIcon({ name, className, strokeWidth = 2 }: { name: IconName; classNa
         d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
       />
     ),
-
-  }
+  };
 
   return (
     <svg
@@ -73,7 +79,7 @@ function NavIcon({ name, className, strokeWidth = 2 }: { name: IconName; classNa
     >
       {icons[name]}
     </svg>
-  )
+  );
 }
 
 /**
@@ -84,35 +90,39 @@ function NavItem({
   label,
   icon,
   isActive,
+  currentPath,
 }: {
-  href: string
-  label: string
-  icon: IconName
-  isActive: boolean
+  href: string;
+  label: string;
+  icon: IconName;
+  isActive: boolean;
+  currentPath: string;
 }) {
   const handleTap = () => {
     // Haptic feedback for supported devices
-    if (typeof navigator !== 'undefined' && 'vibrate' in navigator) {
-      navigator.vibrate(10)
+    if (typeof navigator !== "undefined" && "vibrate" in navigator) {
+      navigator.vibrate(10);
     }
-  }
+  };
+
+  const isActiveLink = (href == "/" && (currentPath.endsWith("/th") || currentPath.endsWith("/en"))) || (currentPath.endsWith(href))
 
   return (
     <Link
       href={href}
       className="relative flex flex-col items-center justify-center gap-0.5 min-w-[64px]"
-      aria-current={isActive ? 'page' : undefined}
+      aria-current={isActive ? "page" : undefined}
       aria-label={label}
       onClick={handleTap}
     >
       <motion.div
         className="relative flex items-center justify-center"
         whileTap={{ scale: 0.9 }}
-        transition={{ type: 'spring', stiffness: 500, damping: 20 }}
+        transition={{ type: "spring", stiffness: 500, damping: 20 }}
       >
         {/* Active glow effect */}
         <AnimatePresence>
-          {isActive && (
+          {isActiveLink && (
             <motion.div
               className="absolute inset-0 bg-accent-blue/20 rounded-xl blur-lg -z-10"
               initial={{ scale: 0, opacity: 0 }}
@@ -125,7 +135,7 @@ function NavItem({
 
         {/* Animated icon with scale and stroke width change */}
         <AnimatePresence mode="wait">
-          {isActive ? (
+          {isActiveLink ? (
             <motion.div
               key="active"
               initial={{ scale: 0.8, opacity: 0.7 }}
@@ -149,10 +159,11 @@ function NavItem({
 
         {/* Active indicator line */}
         <AnimatePresence>
-          {isActive && (
+          {isActiveLink && (
             <motion.div
               layoutId="activeIndicator"
-              className="absolute -top-3 left-1/2 -translate-x-1/2 w-12 h-1 bg-accent-blue rounded-full"
+              className="absolute -bottom-6 -translate-x-1/2 w-12 h-1 
+              bg-accent-blue rounded-full"
               initial={{ opacity: 0, scaleX: 0 }}
               animate={{ opacity: 1, scaleX: 1 }}
               exit={{ opacity: 0, scaleX: 0 }}
@@ -165,16 +176,16 @@ function NavItem({
       {/* Label with animated color */}
       <motion.span
         className={cn(
-          'text-[10px] font-medium transition-colors duration-200',
-          isActive ? 'text-accent-blue' : 'text-text-tertiary'
+          "text-[10px] font-medium transition-colors duration-200",
+          isActiveLink ? "text-accent-blue" : "text-text-tertiary",
         )}
-        animate={{ opacity: isActive ? 1 : 0.7 }}
+        animate={{ opacity: isActiveLink ? 1 : 0.7 }}
         transition={springTransition}
       >
         {label}
       </motion.span>
     </Link>
-  )
+  );
 }
 
 /**
@@ -188,28 +199,28 @@ function NavItem({
  * - Haptic feedback on tap
  */
 export function MobileBottomNav() {
-  const pathname = usePathname()
+  const pathname = usePathname();
 
   /**
    * Check if a link is active
    */
   const isActive = (href: string) => {
-    if (href === '/') {
-      return pathname === '/'
+    if (href === "/") {
+      return pathname === "/";
     }
-    return pathname.startsWith(href)
-  }
+    return pathname.startsWith(href);
+  };
 
   return (
     <nav
       className={cn(
-        'lg:hidden fixed bottom-0 left-0 right-0 z-50',
+        "lg:hidden fixed bottom-0 left-0 right-0 z-50",
         // Glassmorphism effect
-        'bg-bg-surface/80 backdrop-blur-xl',
+        "bg-bg-surface/80 backdrop-blur-xl",
         // Border
-        'border-t border-border-subtle/50',
+        "border-t border-border-subtle/50",
         // Safe area for mobile home indicator
-        'pb-safe-bottom'
+        "pb-safe-bottom",
       )}
       aria-label="Mobile navigation"
     >
@@ -224,11 +235,12 @@ export function MobileBottomNav() {
                 label={item.label}
                 icon={item.icon}
                 isActive={isActive(item.href)}
+                currentPath={pathname}
               />
             ))}
           </div>
         </div>
       </div>
     </nav>
-  )
+  );
 }
