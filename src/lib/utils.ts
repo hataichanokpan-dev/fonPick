@@ -48,6 +48,49 @@ export function formatPercentage(value: number, decimals = 2): string {
   return value > 0 ? `+${formatted}%` : `${formatted}%`
 }
 
+/**
+ * Safe toFixed - Prevents "Cannot read properties of null (reading 'toFixed')" error
+ * Returns 'N/A' for null/undefined/NaN values (user-friendly display)
+ *
+ * @example
+ * ```ts
+ * safeToFixed(1234.56)  // '1234.56'
+ * safeToFixed(null)     // 'N/A'
+ * safeToFixed(NaN)      // 'N/A'
+ * safeToFixed(1234, 1)  // '1234.0'
+ * ```
+ */
+export function safeToFixed(
+  value: number | null | undefined,
+  decimals: number = 2
+): string {
+  if (value === null || value === undefined || Number.isNaN(value)) {
+    return 'N/A'
+  }
+  return value.toFixed(decimals)
+}
+
+/**
+ * Safe number conversion - Returns safe number or default value
+ *
+ * @example
+ * ```ts
+ * safeNumber(1234)      // 1234
+ * safeNumber(null)      // 0
+ * safeNumber(NaN)       // 0
+ * safeNumber(null, 1)   // 1
+ * ```
+ */
+export function safeNumber(
+  value: number | null | undefined,
+  defaultValue: number = 0
+): number {
+  if (value === null || value === undefined || Number.isNaN(value)) {
+    return defaultValue
+  }
+  return value
+}
+
 // Re-export formatting utilities from utils/format.ts for convenience
 // This allows imports from '@/lib/utils' to access all formatting functions
 export {
@@ -59,6 +102,10 @@ export {
   formatTimestamp,
   getValueColor,
   getValueArrow,
+  // Safe formatting utilities (TDD fix for toFixed errors)
+  // Note: safeToFixed and safeNumber are defined above in this file
+  safePercentage,
+  safeRatio,
 } from './utils/format'
 
 // Alias formatPercent from format.ts as formatPercentage to avoid duplication

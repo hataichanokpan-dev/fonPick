@@ -38,6 +38,7 @@ import {
   EyeClosed,
   EyeIcon,
 } from "lucide-react";
+import { safeToFixed } from "@/lib/utils";
 
 export interface StockPageClientProps {
   symbol: string;
@@ -76,8 +77,10 @@ function getPriceChangeColor(change: number) {
 
 /**
  * Format large numbers with suffixes (K, M, B)
+ * Safe version - handles null/undefined/NaN
  */
-function formatLargeNumber(num: number): string {
+function formatLargeNumber(num: number | null | undefined): string {
+  if (num === null || num === undefined || Number.isNaN(num)) return 'N/A'
   if (num >= 1_000_000_000) {
     return `${(num / 1_000_000_000).toFixed(2)}B`;
   }
@@ -206,7 +209,7 @@ function StockHeader({
       <div className="mb-4">
         <div className="flex items-baseline gap-4 flex-wrap">
           <span className="text-4xl md:text-5xl font-bold font-mono tabular-nums text-text-primary">
-            {price ? price.toFixed(2) : "N/A"}
+            {safeToFixed(price)}
           </span>
           <div
             className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg ${priceColor.bg} ${priceColor.text}`}
@@ -214,11 +217,11 @@ function StockHeader({
             {priceColor.icon}
             <span className="font-semibold tabular-nums">
               {change > 0 ? "+" : ""}
-              {change ? change.toFixed(2) : "N/A"}
+              {safeToFixed(change)}
             </span>
             <span className="text-xs tabular-nums">
               ({changePercent > 0 ? "+" : ""}
-              {changePercent ? changePercent.toFixed(2) : "N/A"}%)
+              {safeToFixed(changePercent)}%)
             </span>
           </div>
         </div>
@@ -242,7 +245,7 @@ function StockHeader({
         <div className="flex flex-col">
           <span className="text-xs text-text-2 mb-1">{t.peRatio}</span>
           <span className="text-sm font-semibold tabular-nums text-text-primary">
-            {peRatio ? peRatio.toFixed(2) : "N/A"}
+            {safeToFixed(peRatio)}
           </span>
         </div>
       </div>
@@ -542,9 +545,7 @@ export function StockPageClient({
           </div>
         </div>
       )}
-
-      {/* Fallback to server-rendered content */}
-      {children}
+ 
     </div>
   );
 }

@@ -25,7 +25,7 @@
 
 import { motion } from 'framer-motion'
 import { TrendingUp, TrendingDown, Minus, Building2, Activity } from 'lucide-react'
-import { cn } from '@/lib/utils'
+import { cn, safeToFixed } from '@/lib/utils'
 import { format } from 'date-fns'
 import type { StockOverviewData } from '@/types/stock-api'
 
@@ -38,18 +38,19 @@ export interface StockHeroProps {
 
 /**
  * Format large numbers with suffixes (K, M, B)
+ * Uses safeToFixed to prevent null toFixed errors
  */
 function formatLargeNumber(num: number): string {
   if (num >= 1_000_000_000) {
-    return `${(num / 1_000_000_000).toFixed(2)}B`
+    return `${safeToFixed(num / 1_000_000_000)}B`
   }
   if (num >= 1_000_000) {
-    return `${(num / 1_000_000).toFixed(2)}M`
+    return `${safeToFixed(num / 1_000_000)}M`
   }
   if (num >= 1_000) {
-    return `${(num / 1_000).toFixed(2)}K`
+    return `${safeToFixed(num / 1_000)}K`
   }
-  return num.toFixed(2)
+  return safeToFixed(num)
 }
 
 /**
@@ -122,6 +123,20 @@ export function StockHero({ data, className }: StockHeroProps) {
   const safeSector = getSafeValue(data.sector, 'N/A')
   const safeMarket = getSafeValue(data.market, 'N/A')
 
+  // Safe numeric values using safeToFixed
+  const currentPrice = safeToFixed(data.price.current)
+  const priceChange = safeToFixed(data.price.change)
+  const priceChangePercent = safeToFixed(data.price.changePercent)
+  const dayLow = safeToFixed(data.price.dayLow)
+  const dayHigh = safeToFixed(data.price.dayHigh)
+  const volumeRatio = safeToFixed(data.volume.ratio)
+  const peRatio = safeToFixed(data.peRatio)
+  const dividendYield = safeToFixed(data.dividendYield)
+
+  // 52-week values (if available)
+  const week52Low = 'week52Low' in data ? safeToFixed((data as any).week52Low) : null
+  const week52High = 'week52High' in data ? safeToFixed((data as any).week52High) : null
+
   // ==================================================================
   // RENDER
   // ==================================================================
@@ -186,9 +201,9 @@ export function StockHero({ data, className }: StockHeroProps) {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3 }}
             role="status"
-            aria-label={`Current price: ${data.price.current.toFixed(2)}`}
+            aria-label={`Current price: ${currentPrice}`}
           >
-            {data.price.current.toFixed(2)}
+            {currentPrice}
           </motion.span>
 
           {/* Price Change */}
@@ -209,14 +224,14 @@ export function StockHero({ data, className }: StockHeroProps) {
               className="font-semibold tabular-nums"
             >
               {data.price.change > 0 ? '+' : ''}
-              {data.price.change.toFixed(2)}
+              {priceChange}
             </span>
             <span
               data-testid="price-change-percent"
               className="text-xs tabular-nums"
             >
               ({data.price.changePercent > 0 ? '+' : ''}
-              {data.price.changePercent.toFixed(2)}%)
+              {priceChangePercent}%)
             </span>
           </motion.div>
         </div>
@@ -225,7 +240,7 @@ export function StockHero({ data, className }: StockHeroProps) {
         <div className="text-xs text-text-2 mt-1">
           Day Range:{' '}
           <span className="font-mono tabular-nums">
-            {data.price.dayLow.toFixed(2)} - {data.price.dayHigh.toFixed(2)}
+            {dayLow} - {dayHigh}
           </span>
         </div>
       </div>
@@ -250,7 +265,7 @@ export function StockHero({ data, className }: StockHeroProps) {
             )}
           >
             <Activity className="w-3 h-3" />
-            {data.volume.ratio.toFixed(2)}x avg
+            {volumeRatio}x avg
           </div>
         </div>
 
@@ -273,9 +288,9 @@ export function StockHero({ data, className }: StockHeroProps) {
           <div
             data-testid="pe-ratio"
             className="text-base md:text-lg font-semibold font-mono tabular-nums text-text-primary"
-            aria-label={`P/E ratio: ${data.peRatio.toFixed(2)}`}
+            aria-label={`P/E ratio: ${peRatio}`}
           >
-            {data.peRatio.toFixed(2)}
+            {peRatio}
           </div>
           <div className="text-xs text-text-2">TTM</div>
         </div>
@@ -286,24 +301,24 @@ export function StockHero({ data, className }: StockHeroProps) {
           <div
             data-testid="dividend-yield"
             className="text-base md:text-lg font-semibold font-mono tabular-nums text-text-primary"
-            aria-label={`Dividend yield: ${data.dividendYield.toFixed(2)}%`}
+            aria-label={`Dividend yield: ${dividendYield}%`}
           >
-            {data.dividendYield.toFixed(2)}%
+            {dividendYield}%
           </div>
           <div className="text-xs text-text-2">Annual</div>
         </div>
       </div>
 
       {/* 52-Week Range (if available) */}
-      {'week52High' in data && 'week52Low' in data && data.week52High && data.week52Low && (
+      {week52Low && week52High && (
         <div className="mt-4 pt-4 border-t border-border/50">
           <div className="text-xs text-text-2 mb-1">52-Week Range</div>
           <div
             data-testid="week-52-range"
             className="text-sm font-mono tabular-nums text-text-primary"
-            aria-label={`52-week range: ${(data as any).week52Low.toFixed(2)} - ${(data as any).week52High.toFixed(2)}`}
+            aria-label={`52-week range: ${week52Low} - ${week52High}`}
           >
-            {(data as any).week52Low.toFixed(2)} - {(data as any).week52High.toFixed(2)}
+            {week52Low} - {week52High}
           </div>
         </div>
       )}

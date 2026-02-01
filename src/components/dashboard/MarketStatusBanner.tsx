@@ -18,6 +18,7 @@ import { useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { AnimatedPrice } from "@/components/shared/modern/AnimatedPrice";
 import { useMarketIntelligenceContext } from "@/contexts/MarketIntelligenceContext";
+import { safeToFixed } from "@/lib/utils";
 
 // ==================================================================
 // TYPES
@@ -108,23 +109,35 @@ export function MarketStatusBanner({
   // Get data from Context (now includes marketOverview)
   const contextData = useMarketIntelligenceContext();
   // Use props if provided, otherwise use Context data
-  const setIndex =
-    propsSetIndex ?? contextData.data?.marketOverview?.setIndex ?? 0;
-  const setChange =
-    propsSetChange ?? contextData.data?.marketOverview?.setChange ?? 0;
-  const setChangePercent =
+  // Safe: Handle NaN from API responses
+  const setIndex = Number.isNaN(
+    propsSetIndex ?? contextData.data?.marketOverview?.setIndex ?? 0
+  )
+    ? 0
+    : (propsSetIndex ?? contextData.data?.marketOverview?.setIndex ?? 0);
+  const setChange = Number.isNaN(
+    propsSetChange ?? contextData.data?.marketOverview?.setChange ?? 0
+  )
+    ? 0
+    : (propsSetChange ?? contextData.data?.marketOverview?.setChange ?? 0);
+  const setChangePercent = Number.isNaN(
     propsSetChangePercent ??
-    contextData.data?.marketOverview?.setChangePercent ??
-    0;
+      contextData.data?.marketOverview?.setChangePercent ??
+      0
+  )
+    ? 0
+    : (propsSetChangePercent ??
+        contextData.data?.marketOverview?.setChangePercent ??
+        0);
 
   const colors = useMemo(() => COLORS["Neutral"], []);
 
   return (
     <div
       role="banner"
-      aria-label={`${t("marketStatus.title")}: ${setIndex.toFixed(2)}`}
-      className="sticky top-0 z-50 w-full backdrop-blur-lg 
-      border-b h-14 sm:h-16 rounded-lg mb-3 
+      aria-label={`${t("marketStatus.title")}: ${safeToFixed(setIndex)}`}
+      className="sticky top-0 z-50 w-full backdrop-blur-lg
+      border-b h-14 sm:h-16 rounded-lg mb-3
       shadow-sm animate-fade-in-up"
       style={{
         backgroundColor: setChangePercent > 0 ? "#4ade8026" : "#ff6b6b26",

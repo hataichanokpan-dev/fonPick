@@ -22,6 +22,7 @@ import { Card, Badge } from '@/components/shared'
 import { Activity } from 'lucide-react'
 import { useMemo } from 'react'
 import { useTranslations } from 'next-intl'
+import { safeToFixed } from '@/lib/utils'
 
 // ==================================================================
 // TYPES
@@ -70,20 +71,22 @@ const DEFAULT_TOP_COUNT = 10
 
 /**
  * Format net flow value for display
+ * Safe version - handles null/undefined/NaN
  */
-function formatNetFlow(value: number): string {
+function formatNetFlow(value: number | null | undefined): string {
+  if (value === null || value === undefined || Number.isNaN(value)) return 'N/A'
   const absValue = Math.abs(value)
 
   if (absValue >= 1_000_000_000) {
-    return `${value >= 0 ? '+' : '-'}${(absValue / 1_000_000_000).toFixed(1)}B`
+    return `${value >= 0 ? '+' : '-'}${safeToFixed(absValue / 1_000_000_000, 1)}B`
   }
 
   if (absValue >= 1_000_000) {
-    return `${value >= 0 ? '+' : '-'}${(absValue / 1_000_000).toFixed(0)}M`
+    return `${value >= 0 ? '+' : '-'}${safeToFixed(absValue / 1_000_000, 0)}M`
   }
 
   if (absValue >= 1_000) {
-    return `${value >= 0 ? '+' : '-'}${(absValue / 1_000).toFixed(1)}K`
+    return `${value >= 0 ? '+' : '-'}${safeToFixed(absValue / 1_000, 1)}K`
   }
 
   return `${value >= 0 ? '+' : '-'}${absValue}`

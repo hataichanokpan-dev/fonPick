@@ -25,7 +25,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
-import { cn } from '@/lib/utils'
+import { cn, safeToFixed } from '@/lib/utils'
 import type { StockStatisticsData } from '@/types/stock-api'
 
 export interface FundamentalAnalysisProps {
@@ -42,8 +42,10 @@ export interface FundamentalAnalysisProps {
 
 /**
  * Format large numbers with suffixes (K, M, B, T)
+ * Safe version - handles null/undefined/NaN
  */
-function formatLargeNumber(num: number): string {
+function formatLargeNumber(num: number | null | undefined): string {
+  if (num === null || num === undefined || Number.isNaN(num)) return 'N/A'
   if (num >= 1_000_000_000_000) {
     return `${(num / 1_000_000_000_000).toFixed(2)}T`
   }
@@ -61,8 +63,10 @@ function formatLargeNumber(num: number): string {
 
 /**
  * Format percentage value
+ * Safe version - handles null/undefined/NaN
  */
-function formatPercentage(value: number): string {
+function formatPercentage(value: number | null | undefined): string {
+  if (value === null || value === undefined || Number.isNaN(value)) return 'N/A'
   return `${value.toFixed(2)}%`
 }
 
@@ -233,7 +237,7 @@ export function FundamentalAnalysis({
                     label="EPS"
                     thaiLabel="กำไรต่อหุ้น"
                     value={financial.eps}
-                    format={(v) => (v > 0 ? v.toFixed(2) : 'N/A')}
+                    format={(v) => (v != null && !Number.isNaN(v) && v > 0 ? safeToFixed(v) : 'N/A')}
                     testId="financial-eps"
                   />
 
@@ -262,7 +266,7 @@ export function FundamentalAnalysis({
                     label="D/E Ratio"
                     thaiLabel="อัตราหนี้สินต่อทุน"
                     value={financial.debtToEquity}
-                    format={(v) => v.toFixed(2)}
+                    format={(v) => safeToFixed(v)}
                     testId="financial-debt-to-equity"
                     color={getMetricColor('debtToEquity', financial.debtToEquity)}
                   />
@@ -272,7 +276,7 @@ export function FundamentalAnalysis({
                     label="Current Ratio"
                     thaiLabel="อัตราส่วนทรัพย์สินหมุนเวียน"
                     value={financial.currentRatio}
-                    format={(v) => v.toFixed(2)}
+                    format={(v) => safeToFixed(v)}
                     testId="financial-current-ratio"
                     color={getMetricColor('currentRatio', financial.currentRatio)}
                   />
@@ -282,7 +286,7 @@ export function FundamentalAnalysis({
                     label="Quick Ratio"
                     thaiLabel="อัตราส่วนสินทรัพย์สภาพคล่องด่วน"
                     value={financial.quickRatio}
-                    format={(v) => v.toFixed(2)}
+                    format={(v) => safeToFixed(v)}
                     testId="financial-quick-ratio"
                   />
                 </div>
@@ -348,7 +352,7 @@ export function FundamentalAnalysis({
                     label="P/E Ratio"
                     thaiLabel="อัตราส่วนราคาต่อกำไร"
                     value={valuation.pe}
-                    format={(v) => v.toFixed(2)}
+                    format={(v) => safeToFixed(v)}
                     testId="valuation-pe"
                     color={getMetricColor('pe', valuation.pe)}
                     comparison={
@@ -363,7 +367,7 @@ export function FundamentalAnalysis({
                     label="P/BV Ratio"
                     thaiLabel="อัตราส่วนราคาต่อมูลค่าตามบัญชี"
                     value={valuation.pbv}
-                    format={(v) => v.toFixed(2)}
+                    format={(v) => safeToFixed(v)}
                     testId="valuation-pbv"
                     color={getMetricColor('pbv', valuation.pbv)}
                     comparison={
@@ -378,7 +382,7 @@ export function FundamentalAnalysis({
                     label="EV/EBITDA"
                     thaiLabel="มูลค่าวิสาหกิจต่อกำไรก่อนดอกเบี้ยและภาษี"
                     value={valuation.evEbitda}
-                    format={(v) => v.toFixed(2)}
+                    format={(v) => safeToFixed(v)}
                     testId="valuation-ev-ebitda"
                   />
 
@@ -387,7 +391,7 @@ export function FundamentalAnalysis({
                     label="P/S Ratio"
                     thaiLabel="อัตราส่วนราคาต่อยอดขาย"
                     value={valuation.priceToSales}
-                    format={(v) => v.toFixed(2)}
+                    format={(v) => safeToFixed(v)}
                     testId="valuation-price-to-sales"
                   />
 
@@ -396,7 +400,7 @@ export function FundamentalAnalysis({
                     label="PEG Ratio"
                     thaiLabel="อัตราส่วน P/E ต่ออัตราการเติบโต"
                     value={valuation.pegRatio}
-                    format={(v) => v.toFixed(2)}
+                    format={(v) => safeToFixed(v)}
                     testId="valuation-peg-ratio"
                   />
 
@@ -479,7 +483,7 @@ function MetricCard({
             className="text-xs text-text-3 flex items-center gap-1"
           >
             <span className="text-text-2">{comparison.label}:</span>
-            <span className="font-mono">{comparison.value.toFixed(2)}</span>
+            <span className="font-mono">{safeToFixed(comparison.value)}</span>
           </div>
         )}
       </div>

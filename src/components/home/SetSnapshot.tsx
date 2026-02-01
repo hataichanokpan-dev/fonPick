@@ -13,8 +13,9 @@ import {
   formatMarketCap,
   getValueArrow,
 } from '@/lib/utils'
-import type { TrendValue } from '@/lib/trends/types'
 import { cn } from '@/lib/utils'
+import { safeToFixed } from '@/lib/utils'
+import type { TrendValue } from '@/lib/trends/types'
 
 interface SetSnapshotProps {
   data: {
@@ -82,13 +83,13 @@ export function SetSnapshot({
   const mainBadgeStyle = getMainBadgeStyle()
   const arrow = getValueArrow(data.changePercent)
 
-  // Compact volume formatting
+  // Compact volume formatting (safe version)
   const formatVolumeCompact = (volume?: number) => {
-    if (!volume) return '—'
+    if (!volume || Number.isNaN(volume)) return '—'
     const billions = volume / 1_000_000_000
     const millions = volume / 1_000_000
-    if (billions >= 1) return `${billions.toFixed(1)}B`
-    if (millions >= 1) return `${millions.toFixed(1)}M`
+    if (billions >= 1) return `${safeToFixed(billions, 1)}B`
+    if (millions >= 1) return `${safeToFixed(millions, 1)}M`
     return `${volume.toLocaleString()}`
   }
 

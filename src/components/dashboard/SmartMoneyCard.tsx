@@ -30,7 +30,7 @@ import {
   Briefcase,
   Gauge,
 } from "lucide-react";
-import { formatTradingValue } from "@/lib/utils";
+import { formatTradingValue, safeToFixed } from "@/lib/utils";
 import { useSmartMoney } from "@/hooks/useMarketIntelligence";
 
 // ==================================================================
@@ -117,7 +117,7 @@ function ScoreGauge({ score, size = 56 }: ScoreGaugeProps) {
       {/* Center text */}
       <div className="absolute inset-0 flex flex-col items-center justify-center">
         <span className="text-base font-bold tabular-nums" style={{ color: colors.fill }}>
-          {score.toFixed(1)}
+          {safeToFixed(score, 1)}
         </span>
       </div>
     </div>

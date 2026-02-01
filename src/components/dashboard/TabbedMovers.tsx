@@ -39,7 +39,7 @@ import {
   Award,
   AlertCircle,
 } from 'lucide-react'
-import { formatTradingValue, formatPercentage, formatVolume } from '@/lib/utils'
+import { formatTradingValue, formatPercentage, formatVolume, safeToFixed } from '@/lib/utils'
 import { useState, useMemo } from 'react'
 import type {
   StockConcentration,
@@ -270,7 +270,7 @@ function ConcentrationBar({ metrics, t }: ConcentrationBarProps) {
         <div>
           <div className="flex items-center justify-between mb-1">
             <span className="text-[9px] text-text-muted uppercase">{t('top5Concentration')}</span>
-            <span className="text-xs font-medium text-text">{metrics.top5StockConcentration.toFixed(1)}%</span>
+            <span className="text-xs font-medium text-text">{safeToFixed(metrics.top5StockConcentration, 1)}%</span>
           </div>
           <div className="h-1.5 bg-surface rounded-full overflow-hidden">
             <div
@@ -286,7 +286,7 @@ function ConcentrationBar({ metrics, t }: ConcentrationBarProps) {
 
         <div className="flex items-center justify-between">
           <span className="text-[9px] text-text-muted uppercase">{t('hhiScore')}</span>
-          <span className="text-xs font-medium text-text">{metrics.hhi.toFixed(0)}</span>
+          <span className="text-xs font-medium text-text">{safeToFixed(metrics.hhi, 0)}</span>
         </div>
       </div>
     </div>

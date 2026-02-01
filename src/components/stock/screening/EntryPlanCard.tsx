@@ -15,6 +15,7 @@ import { ENTRY_PLAN_DEFAULTS } from './constants'
 import { formatCurrency } from './utils/formatters'
 import type { EntryPlanCardProps } from './types'
 import { ArrowDownRight, Target, Shield, Wallet } from 'lucide-react'
+import { safeToFixed } from '@/lib/utils'
 
 // ============================================================================
 // LABELS
@@ -223,7 +224,7 @@ function PriceLevelCard({
         {formatCurrency(price)}
       </div>
       <div className={`text-xs mt-1 ${percentageColor}`}>
-        {percentage > 0 ? '+' : ''}{percentage.toFixed(1)}% {percentageLabel}
+        {percentage > 0 ? '+' : ''}{safeToFixed(percentage, 1)}% {percentageLabel}
       </div>
       {rationale && (
         <p className="text-xs text-text-3 mt-1 line-clamp-2">{rationale}</p>
@@ -239,7 +240,7 @@ interface PriceRangeVisualizerProps {
   target: number
 }
 
-function PriceRangeVisualizer({
+export function PriceRangeVisualizer({
   currentPrice,
   buyAt,
   stopLoss,
@@ -371,7 +372,7 @@ export function calculateEntryPlan(
       rationale: positionSize > 0 ? `Based on entry discount and risk profile` : 'Not recommended',
     },
     riskReward: {
-      ratio: `1:${rrRatio.toFixed(1)}`,
+      ratio: `1:${safeToFixed(rrRatio, 1)}`,
       calculation: `Risk ${formatCurrency(risk)} / Reward ${formatCurrency(reward)}`,
     },
     timeHorizon: decision === 'BUY' ? '3-6 เดือน' : 'N/A',

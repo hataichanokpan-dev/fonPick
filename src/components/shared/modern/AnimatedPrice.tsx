@@ -16,7 +16,7 @@
 "use client";
 
 import { TrendingUp, TrendingDown } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn, safeToFixed } from "@/lib/utils";
 import { useState, useEffect, useCallback, useRef } from "react";
 
 /**
@@ -93,6 +93,19 @@ export function AnimatedPrice({
   ariaLabel,
 }: AnimatedPriceProps) {
   // ==================================================================
+  // SAFETY GUARDS - Prevent toFixed on NaN/null/undefined
+  // ==================================================================
+
+  const safeValue = Number.isNaN(value) || value === null || value === undefined
+    ? 0
+    : value;
+  const safePreviousValue = previousValue === null || previousValue === undefined
+    ? undefined
+    : Number.isNaN(previousValue)
+      ? 0
+      : previousValue;
+
+  // ==================================================================
   // STATE
   // ==================================================================
 
@@ -100,7 +113,7 @@ export function AnimatedPrice({
     null,
   );
   const [showChangeIndicator, setShowChangeIndicator] = useState(false);
-  const valueRef = useRef(value);
+  const valueRef = useRef(safeValue);
   const flashTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // ==================================================================
@@ -112,10 +125,10 @@ export function AnimatedPrice({
    */
   useEffect(() => {
     // Skip initial render
-    if (valueRef.current === value) return;
+    if (valueRef.current === safeValue) return;
 
     // Determine flash direction based on change
-    const direction = value > valueRef.current ? "up" : "down";
+    const direction = safeValue > valueRef.current ? "up" : "down";
     setFlashDirection(direction);
 
     // Show change indicator with slide-in animation
@@ -130,14 +143,14 @@ export function AnimatedPrice({
     }, 600);
 
     // Update ref
-    valueRef.current = value;
+    valueRef.current = safeValue;
 
     return () => {
       if (flashTimeoutRef.current) {
         clearTimeout(flashTimeoutRef.current);
       }
     };
-  }, [value]);
+  }, [safeValue]);
 
   // ==================================================================
   // CALCULATIONS
@@ -147,14 +160,14 @@ export function AnimatedPrice({
    * Calculate absolute change and percentage change
    */
   const change = useCallback((): number => {
-    if (previousValue === undefined) return 0;
-    return value - previousValue;
-  }, [value, previousValue]);
+    if (safePreviousValue === undefined) return 0;
+    return safeValue - safePreviousValue;
+  }, [safeValue, safePreviousValue]);
 
   const changePercent = useCallback((): number => {
-    if (previousValue === undefined || previousValue === 0) return 0;
-    return ((value - previousValue) / previousValue) * 100;
-  }, [value, previousValue]);
+    if (safePreviousValue === undefined || safePreviousValue === 0) return 0;
+    return ((safeValue - safePreviousValue) / safePreviousValue) * 100;
+  }, [safeValue, safePreviousValue]);
 
   const changeValue = change();
   const changePercentValue = changePercent();
@@ -207,13 +220,13 @@ export function AnimatedPrice({
     const parts = [];
 
     if (prefix) parts.push(prefix);
-    parts.push(value.toFixed(decimals));
+    parts.push(safeToFixed(safeValue, decimals));
     if (suffix) parts.push(suffix);
 
-    if (showChange && previousValue !== undefined) {
+    if (showChange && safePreviousValue !== undefined) {
       const direction = isPositive ? "up" : isNegative ? "down" : "no change";
       parts.push(
-        `${direction} ${Math.abs(changePercentValue).toFixed(decimals)} percent`,
+        `${direction} ${safeToFixed(Math.abs(changePercentValue), decimals)} percent`,
       );
     }
 
@@ -222,10 +235,10 @@ export function AnimatedPrice({
     ariaLabel,
     prefix,
     suffix,
-    value,
+    safeValue,
     decimals,
     showChange,
-    previousValue,
+    safePreviousValue,
     isPositive,
     isNegative,
     changePercentValue,
@@ -253,13 +266,13 @@ export function AnimatedPrice({
         role="status"
       >
         {prefix}
-        <strong>{value.toFixed(decimals)}</strong>
+        <strong>{safeToFixed(safeValue, decimals)}</strong>
         {suffix}
       </span>
 
       {/* Change indicator with CSS slide-in animation */}
       {showChange &&
-        previousValue !== undefined &&
+        safePreviousValue !== undefined &&
         !isNeutral &&
         showChangeIndicator && (
           <span
@@ -277,8 +290,8 @@ export function AnimatedPrice({
                 ) : (
                   <TrendingDown className={iconSizeClasses[size]} />
                 ))}
-              ({changeValue.toFixed(decimals)})
-              {changePercentValue.toFixed(decimals)}%
+              ({safeToFixed(changeValue, decimals)})
+              {safeToFixed(changePercentValue, decimals)}%
             </span>
           </span>
         )}

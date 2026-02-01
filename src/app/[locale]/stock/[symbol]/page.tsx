@@ -20,7 +20,7 @@ import Link from "next/link";
 import { fetchStockWithPeers } from "@/lib/rtdb";
 import { generateVerdict } from "@/services/verdict";
 import { analyzeMarketRegime } from "@/services/market-regime";
-import { cn } from "@/lib/utils";
+import { cn, safeToFixed } from "@/lib/utils";
 import type { StockVerdict } from "@/services/verdict";
 import type { MarketRegime } from "@/types/market";
 import { getTranslations } from "next-intl/server";
@@ -165,7 +165,7 @@ export default async function StockPage({
                   </h1>
                   <div className="flex items-center gap-3 mt-2">
                     <span className="text-2xl font-bold text-text">
-                      {data.stock.price ? data.stock.price.toFixed(2) : ""}
+                      {safeToFixed(data.stock.price)}
                     </span>
                     <span
                       className={cn(
@@ -174,9 +174,7 @@ export default async function StockPage({
                       )}
                     >
                       {data.stock.changePct >= 0 ? "+" : ""}
-                      {data.stock.changePct
-                        ? data.stock.changePct.toFixed(2)
-                        : ""}
+                      {safeToFixed(data.stock.changePct)}
                       %
                     </span>
                   </div>
@@ -189,10 +187,7 @@ export default async function StockPage({
                   {data.stock.marketCap && (
                     <div>
                       {t("marketCap")}:{" "}
-                      {(
-                        (data.stock.marketCap ? data.stock.marketCap : 0) /
-                        1_000_000_000
-                      ).toFixed(0)}
+                      {safeToFixed((data.stock.marketCap ?? 0) / 1_000_000_000, 0)}
                       {t("billionTHB")}
                     </div>
                   )}

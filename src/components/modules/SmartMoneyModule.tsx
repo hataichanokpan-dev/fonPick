@@ -29,7 +29,7 @@ import {
   Briefcase,
   Gauge,
 } from "lucide-react";
-import { formatTradingValue } from "@/lib/utils";
+import { formatTradingValue, safeToFixed } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 
@@ -151,7 +151,7 @@ function ScoreGauge({ score, size = 56 }: ScoreGaugeProps) {
       {/* Center text */}
       <div className="absolute inset-0 flex flex-col items-center justify-center">
         <span className="text-sm font-bold" style={{ color: colors.fill }}>
-          {score.toFixed(2)}
+          {safeToFixed(score)}
         </span>
       </div>
     </div>

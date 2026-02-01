@@ -27,7 +27,7 @@ import {
   Activity,
   AlertCircle,
 } from 'lucide-react'
-import { formatTradingValue, formatPercentage } from '@/lib/utils'
+import { formatTradingValue, formatPercentage, safeToFixed } from '@/lib/utils'
 import type { AccumulationPattern } from '@/types/market-intelligence'
 import { useActiveStocks } from '@/hooks/useMarketIntelligence'
 
@@ -200,7 +200,7 @@ function ConcentrationBar({ metrics }: ConcentrationBarProps) {
               Top 5 Concentration
             </span>
             <span className="text-xs font-medium text-text">
-              {metrics.top5StockConcentration.toFixed(1)}%
+              {safeToFixed(metrics.top5StockConcentration, 1)}%
             </span>
           </div>
           <div className="h-1.5 bg-surface rounded-full overflow-hidden">
@@ -219,7 +219,7 @@ function ConcentrationBar({ metrics }: ConcentrationBarProps) {
         <div className="flex items-center justify-between">
           <span className="text-[9px] text-text-muted uppercase">HHI Score</span>
           <span className="text-xs font-medium text-text">
-            {metrics.hhi.toFixed(0)}
+            {safeToFixed(metrics.hhi, 0)}
           </span>
         </div>
 

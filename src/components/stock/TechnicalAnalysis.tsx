@@ -26,7 +26,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
-import { cn } from '@/lib/utils'
+import { cn, safeToFixed } from '@/lib/utils'
 import type { StockStatisticsData } from '@/types/stock-api'
 
 export interface TechnicalAnalysisProps {
@@ -44,8 +44,10 @@ export interface TechnicalAnalysisProps {
 
 /**
  * Format percentage with sign
+ * Safe version - handles null/undefined/NaN
  */
-function formatPercentage(value: number): string {
+function formatPercentage(value: number | null | undefined): string {
+  if (value === null || value === undefined || Number.isNaN(value)) return 'N/A'
   const sign = value > 0 ? '+' : ''
   return `${sign}${value.toFixed(2)}%`
 }
@@ -361,7 +363,7 @@ export function TechnicalAnalysis({
                         trading.volatility > 1 ? 'text-red-500' : 'text-green-500'
                       )}
                     >
-                      {trading.volatility.toFixed(2)}
+                      {safeToFixed(trading.volatility)}
                     </div>
                   </div>
                 </div>
@@ -486,8 +488,10 @@ export function TechnicalAnalysis({
 
 /**
  * Format large numbers with suffixes
+ * Safe version - handles null/undefined/NaN
  */
-function formatLargeNumber(num: number): string {
+function formatLargeNumber(num: number | null | undefined): string {
+  if (num === null || num === undefined || Number.isNaN(num)) return 'N/A'
   if (num >= 1_000_000_000) {
     return `${(num / 1_000_000_000).toFixed(2)}B`
   }

@@ -8,8 +8,10 @@ import { NUMBER_SUFFIXES, NUMBER_THRESHOLDS } from '../constants'
 
 /**
  * Format large numbers with suffixes (K, M, B)
+ * Safe version - handles null/undefined/NaN
  */
-export function formatLargeNumber(num: number): string {
+export function formatLargeNumber(num: number | null | undefined): string {
+  if (num === null || num === undefined || Number.isNaN(num)) return 'N/A'
   if (num >= NUMBER_THRESHOLDS.BILLION) {
     return `${(num / NUMBER_THRESHOLDS.BILLION).toFixed(2)}${NUMBER_SUFFIXES.BILLION}`
   }
@@ -24,8 +26,10 @@ export function formatLargeNumber(num: number): string {
 
 /**
  * Format currency value (THB)
+ * Safe version - handles null/undefined/NaN
  */
-export function formatCurrency(value: number, decimals: number = 2): string {
+export function formatCurrency(value: number | null | undefined, decimals: number = 2): string {
+  if (value === null || value === undefined || Number.isNaN(value)) return 'N/A'
   return new Intl.NumberFormat('th-TH', {
     style: 'currency',
     currency: 'THB',
@@ -36,8 +40,10 @@ export function formatCurrency(value: number, decimals: number = 2): string {
 
 /**
  * Format percentage value
+ * Safe version - handles null/undefined/NaN
  */
-export function formatPercentage(value: number, decimals: number = 1): string {
+export function formatPercentage(value: number | null | undefined, decimals: number = 1): string {
+  if (value === null || value === undefined || Number.isNaN(value)) return 'N/A'
   return new Intl.NumberFormat('th-TH', {
     style: 'percent',
     minimumFractionDigits: decimals,
@@ -47,8 +53,10 @@ export function formatPercentage(value: number, decimals: number = 1): string {
 
 /**
  * Format percentage from decimal (e.g., 0.15 -> "15.0%")
+ * Safe version - handles null/undefined/NaN
  */
-export function formatPercentageFromDecimal(value: number, decimals: number = 1): string {
+export function formatPercentageFromDecimal(value: number | null | undefined, decimals: number = 1): string {
+  if (value === null || value === undefined || Number.isNaN(value)) return 'N/A'
   return new Intl.NumberFormat('th-TH', {
     style: 'percent',
     minimumFractionDigits: decimals,
@@ -58,15 +66,19 @@ export function formatPercentageFromDecimal(value: number, decimals: number = 1)
 
 /**
  * Format ratio value (e.g., PE, PB, ROE)
+ * Safe version - handles null/undefined/NaN
  */
-export function formatRatio(value: number, decimals: number = 2): string {
+export function formatRatio(value: number | null | undefined, decimals: number = 2): string {
+  if (value === null || value === undefined || Number.isNaN(value)) return 'N/A'
   return value.toFixed(decimals)
 }
 
 /**
  * Format decimal number
+ * Safe version - handles null/undefined/NaN
  */
-export function formatNumber(value: number, decimals: number = 2): string {
+export function formatNumber(value: number | null | undefined, decimals: number = 2): string {
+  if (value === null || value === undefined || Number.isNaN(value)) return 'N/A'
   return new Intl.NumberFormat('th-TH', {
     minimumFractionDigits: decimals,
     maximumFractionDigits: decimals,
@@ -157,12 +169,16 @@ export function formatScore(score: number, maxScore: number): {
 
 /**
  * Format change percentage with sign and color
+ * Safe version - handles null/undefined/NaN
  */
-export function formatChange(value: number): {
+export function formatChange(value: number | null | undefined): {
   display: string
   colorClass: string
   icon: 'up' | 'down' | 'flat'
 } {
+  if (value === null || value === undefined || Number.isNaN(value)) {
+    return { display: 'N/A', colorClass: 'text-flat', icon: 'flat' }
+  }
   const display = `${value > 0 ? '+' : ''}${value.toFixed(2)}%`
 
   let colorClass = 'text-flat'
@@ -181,23 +197,29 @@ export function formatChange(value: number): {
 
 /**
  * Format Thai Baht amount with "บาท" suffix
+ * Safe version - handles null/undefined/NaN
  */
-export function formatBaht(amount: number, decimals: number = 2): string {
+export function formatBaht(amount: number | null | undefined, decimals: number = 2): string {
+  if (amount === null || amount === undefined || Number.isNaN(amount)) return 'N/A'
   const formatted = formatNumber(amount, decimals)
   return `${formatted} บาท`
 }
 
 /**
  * Format millions (for market cap, etc.)
+ * Safe version - handles null/undefined/NaN
  */
-export function formatMillions(value: number, decimals: number = 2): string {
+export function formatMillions(value: number | null | undefined, decimals: number = 2): string {
+  if (value === null || value === undefined || Number.isNaN(value)) return 'N/A'
   return `${(value / 1_000_000).toFixed(decimals)}M`
 }
 
 /**
  * Format billions (for market cap, etc.)
+ * Safe version - handles null/undefined/NaN
  */
-export function formatBillions(value: number, decimals: number = 2): string {
+export function formatBillions(value: number | null | undefined, decimals: number = 2): string {
+  if (value === null || value === undefined || Number.isNaN(value)) return 'N/A'
   return `${(value / 1_000_000_000).toFixed(decimals)}B`
 }
 
@@ -211,7 +233,9 @@ export function truncateText(text: string, maxLength: number): string {
 
 /**
  * Format number with commas (Thai style)
+ * Safe version - handles null/undefined/NaN
  */
-export function formatWithCommas(num: number): string {
+export function formatWithCommas(num: number | null | undefined): string {
+  if (num === null || num === undefined || Number.isNaN(num)) return 'N/A'
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 }

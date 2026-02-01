@@ -22,6 +22,7 @@ import { MetricProgressBar } from './MetricProgressBar'
 import type { TechnicalScoreData, CatalystEvent, MetricStatus } from './types'
 import { formatRatio, formatCountdown } from './utils/formatters'
 import { Calendar, TrendingUp, TrendingDown, Minus } from 'lucide-react'
+import { safeToFixed } from '@/lib/utils'
 
 // ============================================================================
 // LABELS
@@ -271,7 +272,7 @@ export function calculateTechnicalScore(data: TechnicalInputData): TechnicalScor
         currentValue: data.supportLevel || 0,
         status: techResult.supportStatus,
         detail: data.supportLevel
-          ? `${techResult.distanceToSupport >= 0 ? '+' : ''}${(techResult.distanceToSupport * 100).toFixed(1)}%`
+          ? `${techResult.distanceToSupport >= 0 ? '+' : ''}${safeToFixed(techResult.distanceToSupport * 100, 1)}%`
           : LABELS.th.neutral,
       },
     },

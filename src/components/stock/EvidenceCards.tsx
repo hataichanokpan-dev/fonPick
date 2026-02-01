@@ -10,7 +10,7 @@
 
 import { Card, Badge } from '@/components/shared'
 import Link from 'next/link'
-import { cn } from '@/lib/utils'
+import { cn, safeToFixed } from '@/lib/utils'
 
 interface EvidenceCardsProps {
   metrics: {
@@ -49,20 +49,20 @@ export function EvidenceCards({
       label: 'P/E',
       value: metrics.pe,
       average: sectorAverages?.pe,
-      format: (v: number) => v.toFixed(1),
+      format: (v: number) => safeToFixed(v, 1),
       better: 'lower',
     },
     {
       label: 'P/BV',
       value: metrics.pbv,
       average: sectorAverages?.pbv,
-      format: (v: number) => v.toFixed(2),
+      format: (v: number) => safeToFixed(v, 2),
       better: 'lower',
     },
     {
       label: 'Dividend',
       value: metrics.dividendYield,
-      format: (v: number) => `${v.toFixed(1)}%`,
+      format: (v: number) => `${safeToFixed(v, 1)}%`,
       better: 'higher',
     },
   ]

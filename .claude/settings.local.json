@@ -59,7 +59,9 @@
       "Bash(tail:*)",
       "Bash(wc:*)",
       "Bash(Remove-Item:*)",
-      "Bash(npm run test)"
+      "Bash(npm run test)",
+      "Bash(npx prettier:*)",
+      "Bash(git checkout:*)"
     ]
   }
 }

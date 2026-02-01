@@ -24,7 +24,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronDown, Calendar, TrendingUp, Activity, AlertCircle } from 'lucide-react'
-import { cn } from '@/lib/utils'
+import { cn, safeToFixed } from '@/lib/utils'
 import { format, formatDistanceToNow } from 'date-fns'
 import type { StockStatisticsData } from '@/types/stock-api'
 
@@ -315,7 +315,7 @@ export function CatalystSection({
                           data-testid="signal-support"
                           className="text-lg font-semibold font-mono tabular-nums text-green-500"
                         >
-                          {technicalSignals.supportLevel.toFixed(2)}
+                          {safeToFixed(technicalSignals.supportLevel)}
                         </div>
                       </div>
                     )}
@@ -328,7 +328,7 @@ export function CatalystSection({
                           data-testid="signal-resistance"
                           className="text-lg font-semibold font-mono tabular-nums text-red-500"
                         >
-                          {technicalSignals.resistanceLevel.toFixed(2)}
+                          {safeToFixed(technicalSignals.resistanceLevel)}
                         </div>
                       </div>
                     )}
