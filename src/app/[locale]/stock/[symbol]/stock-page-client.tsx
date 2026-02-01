@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 /**
  * Stock Page Client Component - Screening System
@@ -12,10 +12,14 @@
  * - Bilingual support (Thai/English)
  */
 
-import { useState } from 'react'
-import { useStockScreening } from '@/hooks/useStockScreening'
-import { StockPageSkeleton, StockPageErrorBoundary, WatchlistButton } from '@/components/stock'
-import { useAnalytics } from '@/hooks/useAnalytics'
+import { useState } from "react";
+import { useStockScreening } from "@/hooks/useStockScreening";
+import {
+  StockPageSkeleton,
+  StockPageErrorBoundary,
+  WatchlistButton,
+} from "@/components/stock";
+import { useAnalytics } from "@/hooks/useAnalytics";
 import {
   TotalScoreCard,
   LayerCard,
@@ -25,13 +29,20 @@ import {
   Layer4Technical,
   EntryPlanCard,
   calculateEntryPlan,
-} from '@/components/stock/screening'
-import { TrendingUp, TrendingDown, Minus, Building2,  } from 'lucide-react'
- 
+} from "@/components/stock/screening";
+import {
+  TrendingUp,
+  TrendingDown,
+  Minus,
+  Building2,
+  EyeClosed,
+  EyeIcon,
+} from "lucide-react";
+
 export interface StockPageClientProps {
-  symbol: string
-  locale: string
-  children?: React.ReactNode
+  symbol: string;
+  locale: string;
+  children?: React.ReactNode;
 }
 
 // ============================================================================
@@ -44,23 +55,23 @@ export interface StockPageClientProps {
 function getPriceChangeColor(change: number) {
   if (change > 0) {
     return {
-      text: 'text-up-primary',
-      bg: 'bg-up-soft',
+      text: "text-up-primary",
+      bg: "bg-up-soft",
       icon: <TrendingUp className="w-4 h-4" />,
-    }
+    };
   }
   if (change < 0) {
     return {
-      text: 'text-down-primary',
-      bg: 'bg-down-soft',
+      text: "text-down-primary",
+      bg: "bg-down-soft",
       icon: <TrendingDown className="w-4 h-4" />,
-    }
+    };
   }
   return {
-    text: 'text-flat',
-    bg: 'bg-surface-2',
+    text: "text-flat",
+    bg: "bg-surface-2",
     icon: <Minus className="w-4 h-4" />,
-  }
+  };
 }
 
 /**
@@ -68,15 +79,15 @@ function getPriceChangeColor(change: number) {
  */
 function formatLargeNumber(num: number): string {
   if (num >= 1_000_000_000) {
-    return `${(num / 1_000_000_000).toFixed(2)}B`
+    return `${(num / 1_000_000_000).toFixed(2)}B`;
   }
   if (num >= 1_000_000) {
-    return `${(num / 1_000_000).toFixed(2)}M`
+    return `${(num / 1_000_000).toFixed(2)}M`;
   }
   if (num >= 1_000) {
-    return `${(num / 1_000).toFixed(2)}K`
+    return `${(num / 1_000).toFixed(2)}K`;
   }
-  return num.toFixed(2)
+  return num.toFixed(2);
 }
 
 /**
@@ -84,14 +95,18 @@ function formatLargeNumber(num: number): string {
  * Handles formats like "1.23B", "456.78M", "123.45K"
  */
 function parseMarketCap(marketCap: string): number {
-  const str = marketCap.toUpperCase().trim()
-  const multiplier = str.endsWith('B') ? 1_000_000_000
-    : str.endsWith('M') ? 1_000_000
-    : str.endsWith('K') ? 1_000
-    : 1
-  const numStr = str.replace(/[BMK]$/, '').trim()
-  const num = parseFloat(numStr)
-  return isNaN(num) ? 0 : num * multiplier
+  const str = marketCap.toUpperCase().trim();
+  const multiplier = str.endsWith("B")
+    ? 1_000_000_000
+    : str.endsWith("M")
+      ? 1_000_000
+      : str.endsWith("K")
+        ? 1_000
+        : 1;
+  const numStr = str.replace(/[BMK]$/, "").trim();
+  const num = parseFloat(numStr);
+  //console.log("Parsed market cap:", marketCap, "->", num * multiplier);
+  return isNaN(num) ? 0 : num * multiplier;
 }
 
 // ============================================================================
@@ -100,30 +115,30 @@ function parseMarketCap(marketCap: string): number {
 
 const translations = {
   en: {
-    thaiStock: 'Thai Stock',
-    marketCap: 'Market Cap',
-    volume: 'Volume',
-    peRatio: 'P/E',
-    loading: 'Loading...',
-    error: 'Error loading data',
-    retry: 'Retry',
-    screening: 'Screening Analysis',
-    expandAll: 'Expand All',
-    collapseAll: 'Collapse All',
+    thaiStock: "Thai Stock",
+    marketCap: "Market Cap",
+    volume: "Volume",
+    peRatio: "P/E",
+    loading: "Loading...",
+    error: "Error loading data",
+    retry: "Retry",
+    screening: "Screening Analysis",
+    expandAll: "Expand All",
+    collapseAll: "Collapse All",
   },
   th: {
-    thaiStock: 'หุ้นไทย',
-    marketCap: 'มูลค่าตลาด',
-    volume: 'ปริมาณซื้อขาย',
-    peRatio: 'P/E',
-    loading: 'กำลังโหลด...',
-    error: 'ข้อผิดพลาดในการโหลดข้อมูล',
-    retry: 'ลองใหม่',
-    screening: 'การวิเคราะห์หุ้น',
-    expandAll: 'ขยายทั้งหมด',
-    collapseAll: 'ย่อทั้งหมด',
+    thaiStock: "หุ้นไทย",
+    marketCap: "มูลค่าตลาด",
+    volume: "ปริมาณซื้อขาย",
+    peRatio: "P/E",
+    loading: "กำลังโหลด...",
+    error: "ข้อผิดพลาดในการโหลดข้อมูล",
+    retry: "ลองใหม่",
+    screening: "การวิเคราะห์หุ้น",
+    expandAll: "ขยายทั้งหมด",
+    collapseAll: "ย่อทั้งหมด",
   },
-}
+};
 
 // ============================================================================
 // SUB-COMPONENTS
@@ -138,21 +153,36 @@ function StockHeader({
   change,
   changePercent,
   marketCap,
+  marketCapString,
   volume,
   peRatio,
   locale,
 }: {
-  symbol: string
-  price: number
-  change: number
-  changePercent: number
-  marketCap: number
-  volume: number
-  peRatio: number
-  locale: string
+  symbol: string;
+  price: number;
+  change: number;
+  changePercent: number;
+  marketCap: number;
+  marketCapString?: string;
+  volume: number;
+  peRatio: number;
+  locale: string;
 }) {
-  const t = translations[locale as keyof typeof translations] || translations.th
-  const priceColor = getPriceChangeColor(change)
+  const t =
+    translations[locale as keyof typeof translations] || translations.th;
+  const priceColor = getPriceChangeColor(change);
+
+  const { trackEvent } = useAnalytics();
+  // Track watchlist events
+  const handleWatchlistChange = (state: {
+    symbol: string;
+    isOnWatchlist: boolean;
+  }) => {
+    trackEvent("watchlist_toggle", {
+      symbol,
+      action: state.isOnWatchlist ? "add" : "remove",
+    });
+  };
 
   return (
     <div className="rounded-xl bg-surface border border-border p-4 md:p-6 animate-fade-in">
@@ -166,20 +196,29 @@ function StockHeader({
             <span>{t.thaiStock}</span>
           </div>
         </div>
+        <WatchlistButton
+          symbol={symbol}
+          className="shrink-0"
+          onChange={handleWatchlistChange}
+        />
       </div>
 
       <div className="mb-4">
         <div className="flex items-baseline gap-4 flex-wrap">
           <span className="text-4xl md:text-5xl font-bold font-mono tabular-nums text-text-primary">
-            {price.toFixed(2)}
+            {price ? price.toFixed(2) : "N/A"}
           </span>
-          <div className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg ${priceColor.bg} ${priceColor.text}`}>
+          <div
+            className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg ${priceColor.bg} ${priceColor.text}`}
+          >
             {priceColor.icon}
             <span className="font-semibold tabular-nums">
-              {change > 0 ? '+' : ''}{change.toFixed(2)}
+              {change > 0 ? "+" : ""}
+              {change ? change.toFixed(2) : "N/A"}
             </span>
             <span className="text-xs tabular-nums">
-              ({changePercent > 0 ? '+' : ''}{changePercent.toFixed(2)}%)
+              ({changePercent > 0 ? "+" : ""}
+              {changePercent ? changePercent.toFixed(2) : "N/A"}%)
             </span>
           </div>
         </div>
@@ -189,7 +228,9 @@ function StockHeader({
         <div className="flex flex-col">
           <span className="text-xs text-text-2 mb-1">{t.marketCap}</span>
           <span className="text-sm font-semibold tabular-nums text-text-primary">
-            {formatLargeNumber(marketCap)}
+            {marketCapString
+              ? marketCapString.split("+")[0].split("-")[0]
+              : formatLargeNumber(marketCap)}
           </span>
         </div>
         <div className="flex flex-col">
@@ -201,46 +242,53 @@ function StockHeader({
         <div className="flex flex-col">
           <span className="text-xs text-text-2 mb-1">{t.peRatio}</span>
           <span className="text-sm font-semibold tabular-nums text-text-primary">
-            {peRatio.toFixed(2)}
+            {peRatio ? peRatio.toFixed(2) : "N/A"}
           </span>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 // ============================================================================
 // MAIN COMPONENT
 // ============================================================================
 
-export function StockPageClient({ symbol, locale, children }: StockPageClientProps) {
-  const { data, isLoading, error, refetch } = useStockScreening(symbol)
-  const { trackEvent } = useAnalytics()
-  const t = translations[locale as keyof typeof translations] || translations.th
+export function StockPageClient({
+  symbol,
+  locale,
+  children,
+}: StockPageClientProps) {
+  const { data, isLoading, error, refetch } = useStockScreening(symbol);
+
+  const t =
+    translations[locale as keyof typeof translations] || translations.th;
 
   // Expand/collapse state for layers
-  const [expandedLayers, setExpandedLayers] = useState<Record<number, boolean>>({
-    1: true,
-    2: true,
-    3: false,
-    4: false,
-  })
+  const [expandedLayers, setExpandedLayers] = useState<Record<number, boolean>>(
+    {
+      1: true,
+      2: true,
+      3: false,
+      4: false,
+    },
+  );
 
   const toggleLayer = (layer: number) => {
-    setExpandedLayers(prev => ({ ...prev, [layer]: !prev[layer] }))
-  }
+    setExpandedLayers((prev) => ({ ...prev, [layer]: !prev[layer] }));
+  };
 
   const expandAll = () => {
-    setExpandedLayers({ 1: true, 2: true, 3: true, 4: true })
-  }
+    setExpandedLayers({ 1: true, 2: true, 3: true, 4: true });
+  };
 
   const collapseAll = () => {
-    setExpandedLayers({ 1: false, 2: false, 3: false, 4: false })
-  }
+    setExpandedLayers({ 1: false, 2: false, 3: false, 4: false });
+  };
 
   // Loading state
   if (isLoading) {
-    return <StockPageSkeleton />
+    return <StockPageSkeleton />;
   }
 
   // Error state
@@ -254,7 +302,7 @@ export function StockPageClient({ symbol, locale, children }: StockPageClientPro
         />
         {children}
       </div>
-    )
+    );
   }
 
   // No data
@@ -272,28 +320,21 @@ export function StockPageClient({ symbol, locale, children }: StockPageClientPro
         </div>
         {children}
       </div>
-    )
+    );
   }
 
-  const { overview, statistics, alpha, screening } = data
-
-  // Track watchlist events
-  const handleWatchlistChange = (state: { symbol: string; isOnWatchlist: boolean }) => {
-    trackEvent('watchlist_toggle', {
-      symbol,
-      action: state.isOnWatchlist ? 'add' : 'remove',
-    })
-  }
+  const { overview, statistics, alpha, screening } = data;
 
   // Calculate entry plan
-  const entryPlan = screening && overview && statistics
-    ? calculateEntryPlan(
-        overview.price,
-        overview.low52Week || overview.price * 0.95,
-        alpha?.AvgForecast || overview.price * 1.15,
-        screening.decision
-      )
-    : null
+  const entryPlan =
+    screening && overview && statistics
+      ? calculateEntryPlan(
+          overview.price,
+          overview.low52Week || overview.price * 0.95,
+          alpha?.AvgForecast || overview.price * 1.15,
+          screening.decision,
+        )
+      : null;
 
   return (
     <div className="space-y-6">
@@ -305,7 +346,12 @@ export function StockPageClient({ symbol, locale, children }: StockPageClientPro
               symbol={symbol}
               price={overview.price}
               change={overview.price - overview.previousClose}
-              changePercent={(overview.price - overview.previousClose) / overview.previousClose * 100}
+              changePercent={
+                ((overview.price - overview.previousClose) /
+                  overview.previousClose) *
+                100
+              }
+              marketCapString={overview.marketCap}
               marketCap={parseMarketCap(overview.marketCap)}
               volume={overview.volume}
               peRatio={overview.peRatio}
@@ -313,11 +359,6 @@ export function StockPageClient({ symbol, locale, children }: StockPageClientPro
             />
           )}
         </div>
-        <WatchlistButton
-          symbol={symbol}
-          onChange={handleWatchlistChange}
-          className="shrink-0"
-        />
       </div>
 
       {/* Screening Analysis */}
@@ -331,15 +372,17 @@ export function StockPageClient({ symbol, locale, children }: StockPageClientPro
             <div className="flex gap-2">
               <button
                 onClick={expandAll}
-                className="text-xs px-3 py-1.5 rounded-lg bg-surface-2 border border-border hover:bg-surface-3 transition-colors"
+                className="text-xs px-2 py-1.5 rounded-lg 
+                bg-surface-2 border border-border hover:bg-surface-3 transition-colors"
               >
-                {t.expandAll}
+                <EyeIcon className="w-4 h-4 hover:text-accent-blue" />
               </button>
               <button
                 onClick={collapseAll}
-                className="text-xs px-3 py-1.5 rounded-lg bg-surface-2 border border-border hover:bg-surface-3 transition-colors"
+                className="text-xs px-2 py-1.5 rounded-lg 
+                bg-surface-2 border border-border hover:bg-surface-3 transition-colors"
               >
-                {t.collapseAll}
+                <EyeClosed className="w-4 h-4 hover:text-accent-blue" />
               </button>
             </div>
           </div>
@@ -362,7 +405,9 @@ export function StockPageClient({ symbol, locale, children }: StockPageClientPro
                       passed: screening.layers.universe.allPassed,
                     },
                     quality: { score: screening.layers.quality.totalScore },
-                    valueGrowth: { score: screening.layers.valueGrowth.totalScore },
+                    valueGrowth: {
+                      score: screening.layers.valueGrowth.totalScore,
+                    },
                     technical: { score: screening.layers.technical.totalScore },
                   }}
                   summary={screening.summary}
@@ -415,7 +460,8 @@ export function StockPageClient({ symbol, locale, children }: StockPageClientPro
                       pegRatio: statistics.pegRatio,
                       profitMargin: statistics.profitMargin,
                       returnOnEquity: statistics.returnOnEquity,
-                      returnOnInvestedCapital: statistics.returnOnInvestedCapital,
+                      returnOnInvestedCapital:
+                        statistics.returnOnInvestedCapital,
                       debtToEquity: statistics.debtToEquity,
                       fcfYield: statistics.fcfYield,
                       operatingCashFlow: statistics.operatingCashFlow,
@@ -485,7 +531,7 @@ export function StockPageClient({ symbol, locale, children }: StockPageClientPro
               </LayerCard>
 
               {/* Entry Plan */}
-              {entryPlan && overview && screening.decision !== 'PASS' && (
+              {entryPlan && overview && screening.decision !== "PASS" && (
                 <EntryPlanCard
                   entryPlan={entryPlan}
                   currentPrice={overview.price}
@@ -500,5 +546,5 @@ export function StockPageClient({ symbol, locale, children }: StockPageClientPro
       {/* Fallback to server-rendered content */}
       {children}
     </div>
-  )
+  );
 }

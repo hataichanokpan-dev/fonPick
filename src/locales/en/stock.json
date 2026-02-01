@@ -51,7 +51,7 @@
     "sector": "Sector",
     "marketCap": "Market Cap",
     "nextStep": "Next Step",
-    "dataCompleteness": "Analysis based on {{completeness}}% data completeness. Always verify with additional research before making investment decisions.",
+    "dataCompleteness": "Analysis based on {completeness}% data completeness. Always verify with additional research before making investment decisions.",
     "billionTHB": "B THB",
     "millionTHB": "M THB",
     "notAvailable": "N/A"
