@@ -1,697 +1,641 @@
 # fonPick Services Architecture
 
-## Overview
-
-fonPick is a Next.js 16 application with Firebase Realtime Database backend, providing comprehensive market analysis for the Thai stock market (SET). The architecture follows a modular, service-oriented design with clear separation of concerns.
-
-## Technology Stack
-
-| Component | Technology | Version |
-|-----------|-----------|---------|
-| Frontend Framework | Next.js | 16.0 (App Router) |
-| UI Library | React | 19.0 |
-| Database | Firebase Realtime Database | 11.0 |
-| Styling | Tailwind CSS | 3.4 |
-| Validation | Zod | 3.23 |
-| Data Visualization | Recharts | 2.12 |
-| Finance Data | yahoo-finance2 | 3.12 |
-| Icons | lucide-react | 0.344 |
-| Testing | Vitest | 2.1 |
+Detailed documentation of fonPick's service-oriented architecture.
 
 ---
 
-## Architecture Diagram
+## 📋 Table of Contents
+
+- [Overview](#overview)
+- [Architecture Principles](#architecture-principles)
+- [Core Services](#core-services)
+- [Integration Layer](#integration-layer)
+- [Data Flow](#data-flow)
+- [Service Communication](#service-communication)
+- [Error Handling](#error-handling)
+- [Performance Optimization](#performance-optimization)
+
+---
+
+## 🎯 Overview
+
+fonPick uses a **service-oriented architecture** where each analysis domain is encapsulated in its own service. This promotes:
+
+- **Separation of Concerns** - Each service has a single responsibility
+- **Testability** - Services can be tested independently
+- **Maintainability** - Changes are isolated to specific services
+- **Scalability** - Services can be optimized independently
 
 ```
-fonPick Application
-============================================================
-
 ┌─────────────────────────────────────────────────────────────┐
-│                         Frontend Layer                       │
-│  ┌────────────┐  ┌────────────┐  ┌────────────┐            │
-│  │   Home     │  │  Search    │  │   Stock    │            │
-│  │   Page     │  │   Page     │  │  Details   │            │
-│  └────────────┘  └────────────┘  └────────────┘            │
-└─────────────────────────────────────────────────────────────┘
-                            │
-                            ▼
+│                      API Layer                               │
+│                  (Next.js API Routes)                        │
+└────────────────────────┬────────────────────────────────────┘
+                         │
+                         ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                      API Layer (Next.js)                     │
-│  ┌────────────┐  ┌────────────┐  ┌────────────┐            │
-│  │ /analysis  │  │ /insights  │  │ /health    │            │
-│  ├────────────┤  ├────────────┤  ├────────────┤            │
-│  │ /breadth   │  │ /sector    │  │ /export    │            │
-│  ├────────────┤  ├────────────┤  ├────────────┤            │
-│  │ /smart-mny │  │ /correlate │  │            │            │
-│  └────────────┘  └────────────┘  └────────────┘            │
-└─────────────────────────────────────────────────────────────┘
-                            │
-                            ▼
+│                  Integration Layer                           │
+│              (Service Orchestrator)                          │
+└────────────────────────┬────────────────────────────────────┘
+                         │
+         ┌───────────────┼───────────────┐
+         │               │               │
+         ▼               ▼               ▼
+┌──────────────┐ ┌──────────────┐ ┌──────────────┐
+│   Market     │ │   Sector     │ │   Smart      │
+│  Breadth     │ │  Rotation    │ │   Money      │
+└──────────────┘ └──────────────┘ └──────────────┘
+         │               │               │
+         └───────────────┼───────────────┘
+                         │
+                         ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                   Service Layer (Business Logic)             │
-│  ┌───────────────────────────────────────────────────────┐ │
-│  │           Integration Service (Combined Analysis)       │ │
-│  │  - Orchestrates all services                           │ │
-│  │  - Combines results into complete picture              │ │
-│  └───────────────────────────────────────────────────────┘ │
-│                            │                                │
-│         ┌──────────────────┼──────────────────┐            │
-│         ▼                  ▼                  ▼            │
-│  ┌────────────┐    ┌────────────┐    ┌────────────┐      │
-│  │  Market    │    │  Sector    │    │  Smart     │      │
-│  │  Breadth   │    │ Rotation   │    │  Money     │      │
-│  │  Service   │    │  Service   │    │  Service   │      │
-│  └────────────┘    └────────────┘    └────────────┘      │
-│         │                  │                  │            │
-│         └──────────────────┼──────────────────┘            │
-│                            ▼                                │
-│  ┌────────────┐    ┌────────────┐    ┌────────────┐      │
-│  │Correlation │    │ Insights   │    │  Export    │      │
-│  │  Service   │    │ Generator  │    │  Service   │      │
-│  └────────────┘    └────────────┘    └────────────┘      │
-│                            │                                │
-│  ┌───────────────────────────────────────────────────────┐ │
-│  │              Support Services                          │ │
-│  │  - Health Check  - Validation  - Monitoring            │ │
-│  └───────────────────────────────────────────────────────┘ │
-└─────────────────────────────────────────────────────────────┘
-                            │
-                            ▼
-┌─────────────────────────────────────────────────────────────┐
-│                   Data Access Layer                          │
-│  ┌───────────────────────────────────────────────────────┐ │
-│  │            RTDB Client (lib/rtdb/client.ts)            │ │
-│  │  - rtdbGet()         - fetchWithFallback()             │ │
-│  │  - Error handling  - Data freshness checks             │ │
-│  └───────────────────────────────────────────────────────┘ │
-└─────────────────────────────────────────────────────────────┘
-                            │
-                            ▼
-┌─────────────────────────────────────────────────────────────┐
-│              Firebase Realtime Database                      │
-│  /marketOverview/{date}    /industrySector/{date}           │
-│  /investorType/{date}      /topRankings/{date}              │
+│                     Data Layer                               │
+│              (Firebase RTDB + Yahoo Finance)                 │
 └─────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## Directory Structure
+## 🏗 Architecture Principles
 
-```
-fonPick/
-├── src/
-│   ├── app/                          # Next.js App Router
-│   │   ├── api/                      # API Routes
-│   │   │   ├── analysis/             # Combined analysis endpoint
-│   │   │   ├── insights/             # Actionable insights endpoint
-│   │   │   ├── market-breadth/       # Market breadth endpoint
-│   │   │   ├── sector-rotation/      # Sector rotation endpoint
-│   │   │   ├── smart-money/          # Smart money endpoint
-│   │   │   ├── correlations/         # Correlations endpoint
-│   │   │   ├── health/               # Health check endpoint
-│   │   │   └── export/               # Export endpoint
-│   │   ├── layout.tsx                # Root layout
-│   │   ├── page.tsx                  # Home page
-│   │   ├── search/                   # Search page
-│   │   └── stock/[symbol]/           # Stock details page
-│   │
-│   ├── components/                   # React Components
-│   │   ├── home/                     # Home page components
-│   │   ├── stock/                    # Stock page components
-│   │   ├── shared/                   # Shared components
-│   │   └── analysis/                 # Analysis components
-│   │
-│   ├── services/                     # Business Logic Services
-│   │   ├── market-regime/            # Market regime detection
-│   │   ├── verdict/                  # Verdict engine
-│   │   ├── market-breadth/           # Market breadth analysis
-│   │   ├── sector-rotation/          # Sector rotation analysis
-│   │   ├── smart-money/              # Smart money analysis
-│   │   ├── correlations/             # Correlation analysis
-│   │   ├── insights/                 # Insights generation
-│   │   ├── integration/              # Service integration
-│   │   ├── validation/               # Schema validation
-│   │   ├── testing/                  # Test utilities
-│   │   ├── monitoring/               # Performance monitoring
-│   │   ├── health-check.ts           # Health check service
-│   │   └── export/                   # Export utilities
-│   │
-│   ├── lib/                          # Library Code
-│   │   ├── api-cache.ts              # API caching utilities
-│   │   ├── design/                   # Design system
-│   │   ├── firebase/                 # Firebase configuration
-│   │   ├── performance.ts            # Performance tracking
-│   │   ├── rtdb/                     # RTDB client and helpers
-│   │   ├── services/                 # Legacy service stubs
-│   │   └── yahoo-finance/            # Yahoo Finance integration
-│   │
-│   └── types/                        # TypeScript Type Definitions
-│       ├── market.ts                 # Market types
-│       ├── stock.ts                  # Stock types
-│       ├── verdict.ts                # Verdict types
-│       ├── market-breadth.ts         # Breadth types
-│       ├── sector-rotation.ts        # Sector types
-│       ├── smart-money.ts            # Smart money types
-│       ├── insights.ts               # Insights types
-│       ├── correlation.ts            # Correlation types
-│       └── rtdb.ts                   # RTDB data types
-│
-├── docs/                             # Documentation
-├── public/                           # Static assets
-└── tests/                            # Test files
-```
+### 1. Single Responsibility
 
----
+Each service handles **one specific analysis domain**:
 
-## Service Layer Architecture
-
-### Core Analysis Services
-
-#### 1. Market Breadth Service (`src/services/market-breadth/`)
-
-**Purpose**: Analyze market breadth using advance/decline ratios and volatility metrics.
-
-**Files**:
-- `analyzer.ts` - Main analysis logic
-- `calculator.ts` - Metrics calculation
-
-**Key Functions**:
 ```typescript
-analyzeMarketBreadth(input: {
-  current: RTDBMarketOverview
-  historical?: RTDBMarketOverview[]
-}): MarketBreadthAnalysis
+// ✅ GOOD: Single responsibility
+class MarketBreadthService {
+  analyze(data: MarketData): MarketBreadthResult { ... }
+}
+
+// ❌ BAD: Multiple responsibilities
+class AnalysisService {
+  analyzeMarket() { ... }
+  analyzeSector() { ... }
+  analyzeSmartMoney() { ... }
+}
 ```
 
-**Output**:
-- `status`: Bullish/Bearish/Neutral
-- `volatility`: Aggressive/Moderate/Calm
-- `metrics`: AD ratio, advances, declines, new highs/lows
-- `trend`: Up/Down/Sideways
-- `confidence`: 0-100 score
+### 2. Immutable Data
 
----
+All services return **new objects**, never mutate inputs:
 
-#### 2. Sector Rotation Service (`src/services/sector-rotation/`)
-
-**Purpose**: Detect sector rotation patterns and identify leading/lagging sectors.
-
-**Files**:
-- `analyzer.ts` - Main analysis logic
-- `detector.ts` - Rotation pattern detection
-- `mapper.ts` - Sector mapping utilities
-
-**Key Functions**:
 ```typescript
-analyzeSectorRotation(input: {
-  sectors: RTDBIndustrySector
-  rankings?: RTDBTopRankings
-  historical?: RTDBIndustrySector[]
-}): SectorRotationAnalysis
+// ✅ GOOD: Immutable
+function processSector(sector: Sector): ProcessedSector {
+  return {
+    ...sector,
+    processed: true,
+    timestamp: Date.now()
+  }
+}
+
+// ❌ BAD: Mutation
+function processSector(sector: Sector): ProcessedSector {
+  sector.processed = true  // Mutation!
+  return sector
+}
 ```
 
-**Output**:
-- `leadership`: Leaders, laggards, market driver
-- `pattern`: Rotation pattern type
-- `regimeContext`: Current market regime
-- `focusSectors`: Sectors to focus on
-- `avoidSectors`: Sectors to avoid
-- `entrySignals`/`exitSignals`: Trading signals
+### 3. Error Isolation
 
----
+Each service handles its own errors independently:
 
-#### 3. Smart Money Service (`src/services/smart-money/`)
-
-**Purpose**: Track foreign and institutional investor flows for risk-on/off detection.
-
-**Files**:
-- `signal.ts` - Signal generation logic
-- `scorer.ts` - Smart money scoring
-
-**Key Functions**:
 ```typescript
-analyzeSmartMoney(input: {
-  current: RTDBInvestorType
-  historical?: RTDBInvestorType[]
-  options?: { includePropTrading: boolean }
-}): SmartMoneyAnalysis
+// ✅ GOOD: Error isolation
+async function getMarketBreadth(): Promise<MarketBreadthResult> {
+  try {
+    return await analyzeBreadth()
+  } catch (error) {
+    return getDefaultBreadthResult()  // Graceful fallback
+  }
+}
 ```
 
-**Output**:
-- `combinedSignal`: Bullish/Bearish/Neutral
-- `riskSignal`: Risk-On/Risk-Off
-- `score`: -10 to +10 score
-- `investors`: Foreign, institution, retail, prop analysis
-- `primaryDriver`: Which investor type is driving
+### 4. Type Safety
 
----
+All services use **strict TypeScript types**:
 
-#### 4. Correlations Service (`src/services/correlations/`)
-
-**Purpose**: Analyze relationship between top rankings and sector performance.
-
-**Files**:
-- `analyzer.ts` - Correlation analysis logic
-
-**Key Functions**:
 ```typescript
-analyzeRankingsSectorCorrelation(input: {
-  rankings: RTDBTopRankings
-  sectors: RTDBIndustrySector
-}): RankingsVsSectorAnalysis
-
-analyzeRankingsImpact(input: {
-  rankings: RTDBTopRankings
-  sectors: RTDBIndustrySector
-}): RankingsImpactAnalysis
+export interface MarketBreadthService {
+  analyze(data: MarketData): MarketBreadthResult
+  validate(data: unknown): data is MarketData
+  getDefaultResult(): MarketBreadthResult
+}
 ```
-
-**Output**:
-- Rankings vs sector correlation
-- Rankings concentration analysis
-- Anomaly detection
-- Impact assessment
 
 ---
 
-#### 5. Insights Service (`src/services/insights/`)
+## 🔧 Core Services
 
-**Purpose**: Generate actionable insights from all analysis results.
+### 1. Market Breadth Service
 
-**Files**:
-- `generator.ts` - Insights generation logic
-- `qna-engine.ts` - Question answering engine
+**Location**: [`src/services/market-breadth/`](../src/services/market-breadth/)
 
-**Key Functions**:
+**Purpose**: Analyze market breadth through advance/decline ratios and volatility
+
+#### Responsibilities
+
+- Calculate advance/decline ratio
+- Assess volatility level
+- Determine market trend
+- Generate breadth strength score
+
+#### Interface
+
 ```typescript
-generateActionableInsights(input: InsightInputs): ActionableInsights
+interface MarketBreadthService {
+  /**
+   * Analyze market breadth from market overview data
+   */
+  analyze(data: MarketOverview): MarketBreadthResult
+
+  /**
+   * Validate input data
+   */
+  validate(data: unknown): data is MarketOverview
+}
 ```
 
-**Output**:
-- `trading`: Trading recommendation (Buy/Sell/Hold)
-- `answers`: All 6 investment question answers
-- `themes`: Key investment themes
-- `warnings`: Risk warnings
-- `sectorFocus`: Sector-specific recommendations
+#### Output Schema
 
----
-
-### Integration Service
-
-#### Combined Analysis Service (`src/services/integration/`)
-
-**Purpose**: Orchestrate all services and provide complete market analysis.
-
-**Key Functions**:
 ```typescript
-getCompleteMarketAnalysis(options?: {
-  date?: string
-  historicalDays?: number
-  includeRankings?: boolean
-  measurePerformance?: boolean
-}): Promise<CompleteMarketAnalysis>
-
-getQuickMarketSnapshot(date?: string): Promise<QuickSnapshot>
-
-getSectorFocus(date?: string): Promise<SectorFocusData>
+interface MarketBreadthResult {
+  advanceDeclineRatio: number
+  advances: number
+  declines: number
+  unchanged: number
+  volatility: 'low' | 'medium' | 'high'
+  trend: 'bullish' | 'bearish' | 'neutral'
+  strength: number  // 0-100
+}
 ```
-
-**Output**:
-- `breadth`: Market breadth analysis
-- `sectorRotation`: Sector rotation analysis
-- `smartMoney`: Smart money analysis
-- `correlation`: Rankings vs sector correlation
-- `rankingsImpact`: Rankings impact analysis
-- `insights`: Combined actionable insights
-- `meta`: Analysis metadata
 
 ---
 
-### Support Services
+### 2. Sector Rotation Service
 
-#### Health Check Service (`src/services/health-check.ts`)
+**Location**: [`src/services/sector-rotation/`](../src/services/sector-rotation/)
 
-**Purpose**: Monitor system health and data availability.
+**Purpose**: Detect sector rotation patterns and identify leading/lagging sectors
 
-**Key Functions**:
+#### Responsibilities
+
+- Identify leading and lagging sectors
+- Detect rotation patterns
+- Generate entry/exit signals
+- Calculate sector strength
+
+#### Interface
+
 ```typescript
-performHealthCheck(options?: {
-  maxDataAge?: number
-  timeout?: number
-  includeResponseTimes?: boolean
-  date?: string
-}): Promise<HealthCheckResult>
-
-quickHealthCheck(date?: string): Promise<QuickHealthResult>
-
-checkDataFreshness(maxAge?: number): Promise<FreshnessResult>
+interface SectorRotationService {
+  analyze(data: IndustrySectorData): SectorRotationResult
+  getLeadingSectors(sector: IndustrySectorData[]): Sector[]
+  getLaggingSectors(sector: IndustrySectorData[]): Sector[]
+}
 ```
 
-**Output**:
-- Data source health (freshness, availability)
-- Service health (response times)
-- System metrics
-- Warnings and recommendations
+#### Output Schema
 
----
-
-#### Export Service (`src/services/export/`)
-
-**Purpose**: Export insights and analysis data in various formats.
-
-**Key Functions**:
 ```typescript
-exportInsights(data: ActionableInsights, options: {
-  format: ExportFormat
-  filename: string
-}): ExportResult
-
-exportCompleteAnalysis(data: CompleteMarketAnalysis, options: {
-  format: ExportFormat
-  filename: string
-}): ExportResult
+interface SectorRotationResult {
+  leadingSectors: Sector[]
+  laggingSectors: Sector[]
+  rotationPattern: 'rotating' | 'concentrated' | 'divergent'
+  entrySignals: SectorSignal[]
+  exitSignals: SectorSignal[]
+}
 ```
 
-**Supported Formats**:
-- JSON
-- CSV
-- Markdown
-- Plain text
+---
+
+### 3. Smart Money Service
+
+**Location**: [`src/services/smart-money/`](../src/services/smart-money/)
+
+**Purpose**: Track foreign and institutional investor flows
+
+#### Responsibilities
+
+- Calculate foreign investor net flow
+- Calculate institutional net flow
+- Detect risk-on/off signals
+- Identify primary market driver
+
+#### Interface
+
+```typescript
+interface SmartMoneyService {
+  analyze(data: InvestorTypeData): SmartMoneyResult
+  detectRiskSignal(flows: MoneyFlows): RiskSignal
+  identifyPrimaryDriver(flows: MoneyFlows): string
+}
+```
+
+#### Output Schema
+
+```typescript
+interface SmartMoneyResult {
+  foreignFlow: MoneyFlow
+  institutionalFlow: MoneyFlow
+  riskSignal: 'risk-on' | 'risk-off' | 'neutral'
+  primaryDriver: 'foreign' | 'institutional' | 'balanced'
+  trend: 'bullish' | 'bearish' | 'neutral'
+}
+```
 
 ---
 
-#### Validation Service (`src/services/validation/`)
+### 4. Correlations Service
 
-**Purpose**: Validate data schemas and signals.
+**Location**: [`src/services/correlations/`](../src/services/correlations/)
 
-**Files**:
-- `schema-validator.ts` - Schema validation using Zod
-- `signal-validator.ts` - Signal validation
+**Purpose**: Analyze correlation between rankings and sector performance
+
+#### Responsibilities
+
+- Calculate alignment score
+- Detect anomalies
+- Measure concentration impact
+- Identify market drivers
+
+#### Interface
+
+```typescript
+interface CorrelationsService {
+  analyze(
+    rankings: TopRankingsData,
+    sectors: IndustrySectorData
+  ): CorrelationResult
+  detectAnomalies(rankings: TopRankingsData[]): Anomaly[]
+  calculateAlignment(
+    rankings: TopRankingsData[],
+    sectors: IndustrySectorData[]
+  ): number
+}
+```
+
+#### Output Schema
+
+```typescript
+interface CorrelationResult {
+  alignment: number  // 0-100
+  anomalies: Anomaly[]
+  concentration: {
+    topSector: string
+    impact: number
+    explanation: string
+  }
+  marketDrivers: string[]
+}
+```
 
 ---
 
-#### Monitoring Service (`src/services/monitoring/`)
+### 5. Insights Service
 
-**Purpose**: Track performance metrics and operation timings.
+**Location**: [`src/services/insights/`](../src/services/insights/)
 
-**Files**:
-- `performance.ts` - Performance tracking utilities
+**Purpose**: Generate actionable insights from all analysis results
+
+#### Responsibilities
+
+- Answer the 6 investment questions
+- Generate trading recommendations
+- Detect conflicts between signals
+- Calculate confidence levels
+
+#### Interface
+
+```typescript
+interface InsightsService {
+  generate(results: AnalysisResults): InsightsResult
+  answerQuestions(results: AnalysisResults): QuestionAnswers
+  generateRecommendations(results: AnalysisResults): Recommendation[]
+  detectConflicts(results: AnalysisResults): Conflict[]
+}
+```
+
+#### The 6 Investment Questions
+
+1. **How about market now?** - Market breadth and trend
+2. **What sector is heavy market up or down?** - Sector rotation
+3. **Risk on because Foreign Investor is strong buy?** - Smart money
+4. **What sector or stock should I focus/trade?** - Trading focus
+5. **Top rankings heavy sector market impact?** - Rankings impact
+6. **Compare rankings vs sector performance?** - Correlation
 
 ---
 
-## Data Flow
+## 🔗 Integration Layer
 
-### 1. Analysis Request Flow
+**Location**: [`src/services/integration/`](../src/services/integration/)
+
+The **Combined Analysis Service** orchestrates all core services and provides a unified API.
+
+### Responsibilities
+
+- Fetch data from Firebase RTDB
+- Call all analysis services in parallel
+- Combine results into single response
+- Handle service failures gracefully
+- Cache results for performance
+
+### Implementation
+
+```typescript
+class CombinedAnalysisService {
+  async analyze(date: string): Promise<CombinedAnalysisResult> {
+    // 1. Fetch data from RTDB
+    const [marketData, sectorData, investorData, rankingsData] =
+      await Promise.all([
+        fetchMarketOverview(date),
+        fetchIndustrySector(date),
+        fetchInvestorType(date),
+        fetchTopRankings(date)
+      ])
+
+    // 2. Run all services in parallel
+    const [breadth, rotation, smartMoney, correlations] =
+      await Promise.all([
+        marketBreadthService.analyze(marketData),
+        sectorRotationService.analyze(sectorData),
+        smartMoneyService.analyze(investorData),
+        correlationsService.analyze(rankingsData, sectorData)
+      ])
+
+    // 3. Generate insights
+    const insights = insightsService.generate({
+      breadth,
+      rotation,
+      smartMoney,
+      correlations
+    })
+
+    // 4. Return combined result
+    return { breadth, rotation, smartMoney, correlations, insights }
+  }
+}
+```
+
+---
+
+## 📊 Data Flow
+
+### Request Flow
 
 ```
 Client Request
-      │
-      ▼
-┌─────────────┐
-│ API Route   │ - Validates parameters
-└─────────────┘
-      │
-      ▼
-┌─────────────────────────────────────┐
-│  Combined Analysis Service          │
-│  - Orchestrates all services        │
-│  - Fetches data from RTDB           │
-└─────────────────────────────────────┘
-      │
-      ├──► Market Breadth ──────┐
-      ├──► Sector Rotation ─────┤
-      ├──► Smart Money ─────────┤
-      ├──► Correlations ────────┤
-      └──► Insights ────────────┤
-                               │
-                               ▼
-                    ┌──────────────────┐
-                    │  Combine Results │
-                    └──────────────────┘
-                               │
-                               ▼
-                    ┌──────────────────┐
-                    │  Return Response │
-                    └──────────────────┘
+     │
+     ▼
+API Route Handler
+     │
+     ├─► Cache Check ──► Hit? ──► Return Cached
+     │
+     └─► Miss ──► CombinedAnalysisService
+                     │
+                     ├─► Fetch Data (Firebase RTDB)
+                     │       │
+                     │       ├─► marketOverview
+                     │       ├─► industrySector
+                     │       ├─► investorType
+                     │       └─► topRankings
+                     │
+                     ├─► Parallel Analysis
+                     │       │
+                     │       ├─► MarketBreadthService
+                     │       ├─► SectorRotationService
+                     │       ├─► SmartMoneyService
+                     │       └─► CorrelationsService
+                     │
+                     ├─► InsightsService
+                     │
+                     └─► Combine & Cache
+                             │
+                             └─► Return Response
 ```
 
-### 2. Data Fetching Flow
+### Data Transformation
 
 ```
-Service Request
-      │
-      ▼
-┌─────────────────────────────────────┐
-│  RTDB Client (lib/rtdb/client.ts)   │
-└─────────────────────────────────────┘
-      │
-      ├──► rtdbGet(path)
-      │    │
-      │    ├──► Fetch from RTDB
-      │    ├──► Handle errors
-      │    └──► Return data or null
-      │
-      └──► fetchWithFallback(primary, fallback)
-           │
-           ├──► Try primary path
-           ├──► Fall back to previous data
-           └──► Return best available data
+Firebase RTDB (Raw)
+     │
+     ▼
+Validation & Sanitization
+     │
+     ▼
+Service Analysis (Domain Logic)
+     │
+     ▼
+Result Aggregation
+     │
+     ▼
+Insights Generation
+     │
+     ▼
+API Response (Formatted)
 ```
 
 ---
 
-## Firebase Realtime Database Structure
+## 🔄 Service Communication
 
-```
-fonPick-rtdb/
-├── marketOverview/
-│   └── {YYYY-MM-DD}/           # Date-partitioned market data
-│       ├── index: number
-│       ├── change: number
-│       ├── volume: number
-│       ├── advance: number
-│       ├── decline: number
-│       └── timestamp: number
-│
-├── industrySector/
-│   └── {YYYY-MM-DD}/
-│       ├── sectors: Sector[]
-│       └── timestamp: number
-│
-├── investorType/
-│   └── {YYYY-MM-DD}/
-│       ├── foreign: InvestorData
-│       ├── institution: InvestorData
-│       ├── retail: InvestorData
-│       ├── prop: InvestorData
-│       └── timestamp: number
-│
-└── topRankings/
-    └── {YYYY-MM-DD}/
-        ├── top5Volume: RankedStock[]
-        ├── top5Value: RankedStock[]
-        └── timestamp: number
-```
+### Synchronous Communication
 
----
-
-## API Caching Strategy
-
-### Cache Headers
+Services communicate **synchronously** through function calls:
 
 ```typescript
-// Standard analysis endpoints
-'Cache-Control: public, s-maxage=60, stale-while-revalidate=120'
-
-// Health check (no cache)
-'Cache-Control: no-store'
-
-// Export endpoints
-'Cache-Control: public, max-age=300, stale-while-revalidate=600'
+// Integration layer calling services
+const breadth = await marketBreadthService.analyze(marketData)
+const rotation = await sectorRotationService.analyze(sectorData)
 ```
 
-### Cache Implementation (`lib/api-cache.ts`)
+### Parallel Execution
+
+Independent services are executed **in parallel**:
 
 ```typescript
-// Cache configurations
-export const INSIGHTS_CACHE: CacheConfig = {
-  maxAge: 60,
-  swr: 120,
+// Execute all services concurrently
+const results = await Promise.all([
+  marketBreadthService.analyze(marketData),
+  sectorRotationService.analyze(sectorData),
+  smartMoneyService.analyze(investorData),
+  correlationsService.analyze(rankingsData, sectorData)
+])
+```
+
+### Data Sharing
+
+Services share data through **typed interfaces**:
+
+```typescript
+interface AnalysisResults {
+  breadth: MarketBreadthResult
+  rotation: SectorRotationResult
+  smartMoney: SmartMoneyResult
+  correlations: CorrelationResult
 }
-
-export const NO_CACHE: CacheConfig = {
-  maxAge: 0,
-  swr: 0,
-}
-
-// Helper function
-export function cachedJson<T>(
-  data: T,
-  config: CacheConfig,
-  status?: number
-): NextResponse
 ```
 
 ---
 
-## Error Handling Strategy
+## ⚠️ Error Handling
 
-### RTDB Error Handling
+### Service-Level Error Handling
+
+Each service implements **graceful degradation**:
 
 ```typescript
-// Graceful degradation for optional data
-try {
-  const data = await rtdbGet(path)
-  // Use data if available
-} catch (error) {
-  if (isPermissionDenied(error)) {
-    // Silently fail for optional data
-    return null
+async function analyze(data: MarketData): Promise<Result> {
+  try {
+    return await performAnalysis(data)
+  } catch (error) {
+    console.error('Analysis failed:', error)
+    return getDefaultResult()  // Fallback to default
   }
-  throw error
 }
 ```
 
-### API Error Responses
+### Integration-Level Error Handling
+
+The integration layer handles **partial failures**:
 
 ```typescript
-// Consistent error format
-{
-  error: 'Error type',
-  message: 'Detailed error message',
-  timestamp: 1737758400000
+const results = await Promise.allSettled([
+  service1.analyze(data1),
+  service2.analyze(data2),
+  service3.analyze(data3)
+])
+
+// Process successful results, use defaults for failures
+const [result1, result2, result3] = results.map(r =>
+  r.status === 'fulfilled' ? r.value : getDefaultResult()
+)
+```
+
+### Error Propagation
+
+```typescript
+interface ServiceError {
+  service: string
+  error: string
+  fallbackUsed: boolean
 }
 ```
 
-### HTTP Status Codes
-
-- `200` - Success
-- `400` - Bad Request (invalid parameters)
-- `404` - Data Not Found
-- `500` - Internal Server Error
-
 ---
 
-## Security Considerations
+## ⚡ Performance Optimization
 
-### Firebase Security Rules
-
-1. **Read-only access** for public data
-2. **No write access** from client
-3. **Data validation** at the edge
-
-### Environment Variables
-
-Required environment variables (`.env.local`):
-
-```bash
-NEXT_PUBLIC_FIREBASE_API_KEY=...
-NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=...
-NEXT_PUBLIC_FIREBASE_DATABASE_URL=...
-NEXT_PUBLIC_FIREBASE_PROJECT_ID=...
-```
-
-### Best Practices
-
-1. No hardcoded secrets
-2. All user input validation
-3. Rate limiting considerations
-4. HTTPS only in production
-
----
-
-## Performance Optimization
-
-### Strategies Implemented
-
-1. **Parallel Data Fetching**: All RTDB calls run in parallel
-2. **Response Caching**: CDN-level caching with SWR
-3. **Lazy Loading**: Components load data only when needed
-4. **Code Splitting**: Service modules loaded on demand
-5. **Tree Shaking**: Unused code eliminated
-
-### Monitoring
+### 1. Parallel Execution
 
 ```typescript
-// Performance tracking (lib/performance.ts)
-measurePerformance('operation-name', async () => {
-  // Operation to measure
+// ✅ GOOD: Parallel
+const [breadth, rotation] = await Promise.all([
+  getMarketBreadth(),
+  getSectorRotation()
+])
+
+// ❌ BAD: Sequential
+const breadth = await getMarketBreadth()
+const rotation = await getSectorRotation()
+```
+
+### 2. Strategic Caching
+
+```typescript
+// Service-level caching
+const cache = new Map<string, Result>()
+
+async function getCachedResult(key: string): Promise<Result> {
+  if (cache.has(key)) {
+    return cache.get(key)!
+  }
+  const result = await computeResult()
+  cache.set(key, result)
+  return result
+}
+```
+
+### 3. Response Optimization
+
+```typescript
+// Selective field projection
+interface AnalysisSnapshot {
+  summary: string
+  sentiment: 'bullish' | 'bearish' | 'neutral'
+  // Exclude detailed data for snapshot
+}
+```
+
+---
+
+## 📈 Service Metrics
+
+Each service should track:
+
+| Metric | Description |
+|--------|-------------|
+| **Execution Time** | Time to complete analysis |
+| **Cache Hit Rate** | Percentage of cache hits |
+| **Error Rate** | Percentage of failed requests |
+| **Fallback Rate** | Percentage of fallback usage |
+
+---
+
+## 🧪 Testing Services
+
+### Unit Testing
+
+```typescript
+describe('MarketBreadthService', () => {
+  it('should calculate A/D ratio correctly', () => {
+    const result = service.analyze(mockData)
+    expect(result.advanceDeclineRatio).toBeCloseTo(1.5)
+  })
+
+  it('should handle empty data gracefully', () => {
+    const result = service.analyze({})
+    expect(result).toBeDefined()
+  })
+})
+```
+
+### Integration Testing
+
+```typescript
+describe('CombinedAnalysisService', () => {
+  it('should combine all service results', async () => {
+    const result = await combinedService.analyze('2025-01-15')
+    expect(result.breadth).toBeDefined()
+    expect(result.rotation).toBeDefined()
+    expect(result.smartMoney).toBeDefined()
+    expect(result.correlations).toBeDefined()
+    expect(result.insights).toBeDefined()
+  })
 })
 ```
 
 ---
 
-## Testing Strategy
+## 🔄 Future Enhancements
 
-### Test Files
+### Planned Improvements
 
-- `src/services/smart-money/scorer.test.ts`
-- `src/services/sector-rotation/detector.test.ts`
-- `src/services/correlations/analyzer.test.ts`
-
-### Test Commands
-
-```bash
-npm test              # Run tests in watch mode
-npm run test:run      # Run tests once
-npm run test:coverage # Run tests with coverage
-```
+- [ ] **Event-Driven Architecture** - Services emit events for real-time updates
+- [ ] **Service Mesh** - Advanced service communication
+- [ ] **Distributed Tracing** - Track requests across services
+- [ ] **Circuit Breakers** - Prevent cascade failures
+- [ ] **Service Discovery** - Dynamic service registration
 
 ---
 
-## Deployment
+<div align="center">
 
-### Build Process
+**Last Updated: 2025-01-15**
 
-```bash
-npm run build         # Production build
-npm start             # Start production server
-```
+[Back to README](../README.md) | [API Documentation](./api-documentation.md)
 
-### Environment Setup
-
-1. Copy `.env.example` to `.env.local`
-2. Fill in Firebase credentials
-3. Run `npm install`
-4. Run `npm run dev` for development
-
-### Production Checklist
-
-- [ ] Environment variables configured
-- [ ] Firebase security rules deployed
-- [ ] CDN caching configured
-- [ ] Error monitoring set up
-- [ ] Performance monitoring enabled
-
----
-
-## Future Enhancements
-
-### Phase 6 Potential Features
-
-1. WebSocket support for real-time updates
-2. User authentication for personalized views
-3. Advanced charting capabilities
-4. Historical trend analysis
-5. Backtesting framework
-6. Alert system for significant signals
-7. Mobile app (React Native)
-
----
-
-## Appendix: Service Dependencies
-
-```
-Combined Analysis Service
-├── Market Breadth Service (independent)
-├── Sector Rotation Service (independent)
-├── Smart Money Service (independent)
-├── Correlations Service (requires: Sector + Rankings)
-└── Insights Service (requires: all above)
-
-Health Check Service (independent)
-Export Service (requires: Combined Analysis)
-Validation Service (utility for all services)
-Monitoring Service (utility for all services)
-```
+</div>

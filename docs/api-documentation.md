@@ -1,768 +1,556 @@
 # fonPick API Documentation
 
-## Overview
-
-fonPick provides a comprehensive REST API for market analysis, combining multiple analysis services into actionable investment insights. All endpoints are built with Next.js 16 App Router and Firebase Realtime Database.
-
-**Base URL**: `https://your-domain.com/api`
-
-**Content Type**: `application/json`
+Complete reference for fonPick REST API endpoints.
 
 ---
 
-## Quick Start
+## 📋 Table of Contents
 
-```bash
-# Get complete market analysis
-curl https://your-domain.com/api/analysis
+- [Base URL](#base-url)
+- [Authentication](#authentication)
+- [Response Format](#response-format)
+- [Endpoints](#endpoints)
+- [Error Handling](#error-handling)
+- [Rate Limiting](#rate-limiting)
+- [Examples](#examples)
 
-# Get health status
-curl https://your-domain.com/api/health
+---
 
-# Get actionable insights
-curl https://your-domain.com/api/insights
+## 🔗 Base URL
+
+```
+Production: https://fonpick.vercel.app/api
+Development: http://localhost:3000/api
 ```
 
 ---
 
-## Response Format
+## 🔐 Authentication
 
-All API responses follow a consistent format:
+Currently, all endpoints are **public** and do not require authentication.
+
+Future versions will include API key authentication for premium features.
+
+---
+
+## 📦 Response Format
+
+All API responses follow this standard format:
 
 ```typescript
 interface ApiResponse<T> {
-  success: boolean
-  data?: T
-  error?: string
+  success: boolean          // Request success status
+  data?: T                  // Response payload (on success)
+  error?: string            // Error message (on failure)
   meta?: {
-    date: string      // Analysis date (YYYY-MM-DD)
-    timestamp: number // Unix timestamp
+    timestamp: string       // ISO 8601 timestamp
+    cached: boolean         // Whether response was cached
+    version: string         // API version
+    processingTime?: number // Processing time in ms
   }
 }
 ```
 
----
-
-## API Endpoints
-
-### 1. Health Check
-
-Check system health and data availability.
-
-**Endpoint**: `GET /api/health`
-
-**Query Parameters**:
-
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `quick` | boolean | false | Set to 'true' for quick health check (data availability only) |
-| `format` | string | 'full' | Response format: 'full', 'summary', or 'json' |
-
-**Response** (Full format):
-
-```json
-{
-  "status": "healthy",
-  "timestamp": 1737758400000,
-  "dataSources": {
-    "marketOverview": {
-      "name": "Market Overview",
-      "status": "healthy",
-      "lastDataTimestamp": 1737758400000,
-      "dataAge": 300000,
-      "isFresh": true
-    },
-    "industrySector": { ... },
-    "investorType": { ... },
-    "topRankings": { ... }
-  },
-  "services": {
-    "breadthAnalysis": { ... },
-    "sectorRotation": { ... },
-    "smartMoney": { ... },
-    "insights": { ... }
-  },
-  "metrics": {
-    "totalDataSources": 4,
-    "healthyDataSources": 4,
-    "healthPercentage": 100,
-    "averageDataAge": 300000
-  },
-  "warnings": [],
-  "recommendations": []
-}
-```
-
-**Example**:
-
-```bash
-# Full health check
-GET /api/health
-
-# Quick health check
-GET /api/health?quick=true
-
-# Summary format
-GET /api/health?format=summary
-```
-
----
-
-### 2. Combined Analysis
-
-Complete market analysis combining all services. This is the main entry point for comprehensive market analysis.
-
-**Endpoint**: `GET /api/analysis`
-
-**Query Parameters**:
-
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `date` | string | today | Date in YYYY-MM-DD format |
-| `type` | string | 'full' | Analysis type: 'full', 'snapshot', or 'sector' |
-| `historicalDays` | number | 5 | Number of historical days to include |
-| `includeRankings` | boolean | true | Include rankings cross-analysis |
-
-**Response Types**:
-
-#### Full Analysis (`type=full`)
+### Success Response
 
 ```json
 {
   "success": true,
-  "type": "full",
-  "data": {
-    "breadth": { "status": "Bullish", "volatility": "Moderate", ... },
-    "sectorRotation": { "pattern": "Rotation", "leadership": {...}, ... },
-    "smartMoney": { "combinedSignal": "Bullish", "riskSignal": "Risk-On", ... },
-    "correlation": { ... },
-    "rankingsImpact": { ... },
-    "insights": {
-      "trading": { "action": "Buy", "sectors": ["Financial", "Energy"], ... },
-      "answers": { ... },
-      "warnings": [...]
-    },
-    "meta": { "date": "2025-01-24", "timestamp": 1737758400000, ... }
-  },
+  "data": { ... },
   "meta": {
-    "date": "2025-01-24",
-    "timestamp": 1737758400000,
-    "performanceMs": 250
+    "timestamp": "2025-01-15T10:30:00Z",
+    "cached": true,
+    "version": "0.1.0",
+    "processingTime": 150
   }
 }
 ```
 
-#### Snapshot (`type=snapshot`)
-
-Quick market snapshot with essential data only:
+### Error Response
 
 ```json
 {
-  "success": true,
-  "type": "snapshot",
-  "data": {
-    "verdict": "Buy",
-    "confidence": 75,
-    "breadthStatus": "Bullish",
-    "volatility": "Moderate",
-    "topSectors": ["Financial", "Energy", "Technology"],
-    "smartMoneySignal": "Bullish",
-    "riskSignal": "Risk-On",
-    "timestamp": 1737758400000
+  "success": false,
+  "error": "Market data unavailable for the specified date",
+  "meta": {
+    "timestamp": "2025-01-15T10:30:00Z",
+    "version": "0.1.0"
   }
 }
 ```
 
-#### Sector Focus (`type=sector`)
+---
 
-Sector-focused analysis:
+## 🛠 Endpoints
 
-```json
-{
-  "success": true,
-  "type": "sector",
-  "data": {
-    "pattern": "Defensive Rotation",
-    "regime": "Bearish",
-    "focusSectors": ["Financial", "Energy"],
-    "avoidSectors": ["Technology", "Consumer"],
-    "entrySignals": [...],
-    "exitSignals": [...],
-    "timestamp": 1737758400000
-  }
+### 1. Complete Analysis
+
+Get a complete market analysis combining all services.
+
+```http
+GET /api/analysis
+```
+
+#### Query Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `date` | string | No | Date in YYYY-MM-DD format (default: today) |
+| `type` | string | No | `full` or `snapshot` (default: `full`) |
+
+#### Response
+
+```typescript
+interface AnalysisResponse {
+  marketBreadth: MarketBreadthResult
+  sectorRotation: SectorRotationResult
+  smartMoney: SmartMoneyResult
+  correlations: CorrelationResult
+  insights: InsightsResult
+  timestamp: string
 }
 ```
 
-**Examples**:
+#### Example
 
 ```bash
-# Full analysis for today
-GET /api/analysis
+curl "https://fonpick.vercel.app/api/analysis?date=2025-01-15"
+```
 
-# Full analysis for specific date
-GET /api/analysis?date=2025-01-15
+---
 
-# Quick snapshot
-GET /api/analysis?type=snapshot
+### 2. Actionable Insights
 
-# Sector focus
-GET /api/analysis?type=sector
+Get trading recommendations and market insights.
 
-# Without rankings data
-GET /api/analysis?includeRankings=false
+```http
+GET /api/insights
+```
+
+#### Query Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `date` | string | No | Date in YYYY-MM-DD format |
+
+#### Response
+
+```typescript
+interface InsightsResponse {
+  summary: {
+    overallSentiment: 'bullish' | 'bearish' | 'neutral'
+    confidence: number  // 0-100
+    primaryFocus: string
+  }
+  questions: {
+    howAboutMarket: string
+    whatSectorHeavy: string
+    riskOnOff: string
+    whatToTrade: string
+    rankingsImpact: string
+    compareRankings: string
+  }
+  recommendations: TradingRecommendation[]
+  conflicts: ConflictAlert[]
+  timestamp: string
+}
+```
+
+#### Example
+
+```bash
+curl "https://fonpick.vercel.app/api/insights"
 ```
 
 ---
 
 ### 3. Market Breadth
 
-Market breadth analysis including A/D ratio, volatility, and breadth status. Answers Question #1: "How about market now?"
+Get market breadth analysis data.
 
-**Endpoint**: `GET /api/market-breadth`
+```http
+GET /api/market-breadth
+```
 
-**Query Parameters**:
+#### Query Parameters
 
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `date` | string | today | Date in YYYY-MM-DD format |
-| `includeHistorical` | boolean | true | Include historical data for trend analysis |
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `date` | string | No | Date in YYYY-MM-DD format |
 
-**Response**:
+#### Response
 
-```json
-{
-  "adRatio": 1.33,
-  "advances": 400,
-  "declines": 300,
-  "newHighs": 15,
-  "newLows": 5,
-  "status": "Bullish",
-  "volatility": "Moderate",
-  "trend": "Up",
-  "confidence": 75,
-  "observations": [
-    "Strong breadth with 1.33 A/D ratio",
-    "New highs outnumbering new lows 3:1"
-  ],
-  "timestamp": 1737758400000
+```typescript
+interface MarketBreadthResponse {
+  advanceDeclineRatio: number
+  advances: number
+  declines: number
+  unchanged: number
+  volatility: 'low' | 'medium' | 'high'
+  trend: 'bullish' | 'bearish' | 'neutral'
+  strength: number  // 0-100
 }
 ```
 
-**Example**:
+#### Example
 
 ```bash
-GET /api/market-breadth
-GET /api/market-breadth?date=2025-01-15
+curl "https://fonpick.vercel.app/api/market-breadth"
 ```
 
 ---
 
 ### 4. Sector Rotation
 
-Sector rotation analysis including leadership, rotation patterns, and regime context. Answers Question #2: "What sector is heavy market up or down?"
+Get sector rotation analysis.
 
-**Endpoint**: `GET /api/sector-rotation`
+```http
+GET /api/sector-rotation
+```
 
-**Query Parameters**:
+#### Query Parameters
 
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `date` | string | today | Date in YYYY-MM-DD format |
-| `includeRankings` | boolean | true | Include rankings cross-analysis |
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `date` | string | No | Date in YYYY-MM-DD format |
 
-**Response**:
+#### Response
 
-```json
-{
-  "leaders": [
-    {
-      "sector": "Financial",
-      "name": "Financial",
-      "change": 2.5,
-      "signal": "Strong Buy",
-      "rank": 1,
-      "value": 150000
-    }
-  ],
-  "laggards": [
-    {
-      "sector": "Technology",
-      "name": "Technology",
-      "change": -1.2,
-      "signal": "Sell",
-      "rank": 10,
-      "value": 80000
-    }
-  ],
-  "pattern": "Defensive Rotation",
-  "marketDriver": {
-    "sector": "Financial",
-    "name": "Financial",
-    "change": 2.5,
-    "signal": "Strong Buy",
-    "rank": 1
-  },
-  "concentration": 0.35,
-  "observations": [
-    "Financial sector leading with 2.5% gain",
-    "Rotation from Technology to Defensive sectors"
-  ],
-  "timestamp": 1737758400000
+```typescript
+interface SectorRotationResponse {
+  leadingSectors: Sector[]
+  laggingSectors: Sector[]
+  rotationPattern: 'rotating' | 'concentrated' | 'divergent'
+  entrySignals: SectorSignal[]
+  exitSignals: SectorSignal[]
+  timestamp: string
+}
+
+interface Sector {
+  name: string
+  change: number
+  volume: number
+  strength: number
 }
 ```
 
-**Example**:
+#### Example
 
 ```bash
-GET /api/sector-rotation
-GET /api/sector-rotation?includeRankings=false
+curl "https://fonpick.vercel.app/api/sector-rotation"
 ```
 
 ---
 
 ### 5. Smart Money
 
-Smart money analysis tracking foreign and institutional investor flows. Answers Question #3: "Risk on because Foreign Investor is strong buy or Prop reduce sell vol?"
+Get smart money flow analysis.
 
-**Endpoint**: `GET /api/smart-money`
+```http
+GET /api/smart-money
+```
 
-**Query Parameters**:
+#### Query Parameters
 
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `date` | string | today | Date in YYYY-MM-DD format |
-| `includeHistorical` | boolean | true | Include historical data for trend analysis |
-| `includePropTrading` | boolean | true | Include prop trading analysis |
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `date` | string | No | Date in YYYY-MM-DD format |
 
-**Response**:
+#### Response
 
-```json
-{
-  "foreign": {
-    "todayNet": 50000000,
-    "trend": "Accumulating",
-    "trend5Day": "Strong Accumulation",
-    "avg5Day": 30000000,
-    "vsAverage": "+66.7%",
-    "strength": "Strong"
-  },
-  "institution": {
-    "todayNet": 20000000,
-    "trend": "Accumulating",
-    "trend5Day": "Accumulation",
-    "avg5Day": 15000000,
-    "vsAverage": "+33.3%",
-    "strength": "Moderate"
-  },
-  "combinedSignal": "Bullish",
-  "riskSignal": "Risk-On",
-  "score": 7.5,
-  "confidence": 80,
-  "primaryDriver": "Foreign Investor Accumulation",
-  "observations": [
-    "Foreign investors accumulated 50M THB",
-    "Institutional investors accumulated 20M THB",
-    "Strong buying pressure from smart money"
-  ],
-  "timestamp": 1737758400000
+```typescript
+interface SmartMoneyResponse {
+  foreignFlow: {
+    buy: number
+    sell: number
+    net: number
+  }
+  institutionalFlow: {
+    buy: number
+    sell: number
+    net: number
+  }
+  riskSignal: 'risk-on' | 'risk-off' | 'neutral'
+  primaryDriver: string
+  trend: 'bullish' | 'bearish' | 'neutral'
+  timestamp: string
 }
 ```
 
-**Example**:
+#### Example
 
 ```bash
-GET /api/smart-money
-GET /api/smart-money?includePropTrading=false
+curl "https://fonpick.vercel.app/api/smart-money"
 ```
 
 ---
 
 ### 6. Correlations
 
-Correlation analysis between Top Rankings and Sector performance. Answers Questions #5 and #6: Rankings impact and Rankings vs Sector comparison.
+Get rankings vs sector correlation analysis.
 
-**Endpoint**: `GET /api/correlations`
-
-**Query Parameters**:
-
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `type` | string | 'vs-sector' | Analysis type: 'impact' or 'vs-sector' |
-| `date` | string | today | Date in YYYY-MM-DD format |
-
-#### Rankings Impact (`type=impact`)
-
-Answers Question #5: "Top rankings heavy sector market impact?"
-
-```json
-{
-  "impact": "High",
-  "distribution": [
-    {
-      "sector": "Financial",
-      "name": "Financial",
-      "count": 5,
-      "percentage": 50,
-      "change": 2.5
-    }
-  ],
-  "concentration": 0.45,
-  "concentrationLevel": "High",
-  "top3Percent": 70,
-  "dominantSectors": ["Financial", "Energy"],
-  "breadthStatus": "Concentrated",
-  "observations": [
-    "Top 3 sectors represent 70% of rankings",
-    "Financial sector dominates with 5 stocks"
-  ],
-  "timestamp": 1737758400000
-}
-```
-
-#### Rankings vs Sector (`type=vs-sector`)
-
-Answers Question #6: "Compare rankings vs sector performance?"
-
-```json
-{
-  "overallCorrelation": "Positive",
-  "correlationScore": 0.75,
-  "sectors": [
-    {
-      "sector": "Financial",
-      "name": "Financial",
-      "sectorChange": 2.5,
-      "rankingsCount": 5,
-      "expectedCount": 3,
-      "correlation": "High Positive",
-      "correlationScore": 0.9,
-      "isAnomaly": false
-    }
-  ],
-  "anomalies": [
-    {
-      "sector": "Technology",
-      "name": "Technology",
-      "type": "Underperforming",
-      "explanation": "Technology sector down 1.5% but has 2 stocks in rankings"
-    }
-  ],
-  "sectorCount": 10,
-  "aligned": true,
-  "insights": [
-    "Rankings broadly aligned with sector performance",
-    "Financial sector showing strong alignment"
-  ],
-  "timestamp": 1737758400000
-}
-```
-
-**Examples**:
-
-```bash
-# Rankings vs sector comparison
+```http
 GET /api/correlations
+```
 
-# Rankings impact analysis
-GET /api/correlations?type=impact
+#### Query Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `date` | string | No | Date in YYYY-MM-DD format |
+
+#### Response
+
+```typescript
+interface CorrelationsResponse {
+  alignment: number  // 0-100
+  anomalies: Anomaly[]
+  concentration: {
+    topSector: string
+    impact: number
+    explanation: string
+  }
+  marketDrivers: string[]
+  timestamp: string
+}
+```
+
+#### Example
+
+```bash
+curl "https://fonpick.vercel.app/api/correlations"
 ```
 
 ---
 
-### 7. Insights
+### 7. Health Check
 
-Actionable insights combining all market analyses. Answers all 6 investment questions with trading recommendations.
+Check system health and data availability.
 
-**Endpoint**: `GET /api/insights`
+```http
+GET /api/health
+```
 
-**Query Parameters**:
+#### Response
 
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `date` | string | today | Date in YYYY-MM-DD format |
-| `format` | string | 'module' | Response format: 'module' or 'full' |
-
-#### Module Format (`format=module`)
-
-Frontend module-friendly format:
-
-```json
-{
-  "answers": [
-    {
-      "id": "q1_volatility",
-      "title": "Market Volatility",
-      "summary": "Moderate volatility. Breadth is Bullish with 1.33 A/D ratio.",
-      "explanation": "...",
-      "evidence": ["Strong breadth with 1.33 A/D ratio"],
-      "confidence": 75,
-      "recommendation": "Normal trading conditions"
-    },
-    {
-      "id": "q2_sector",
-      "title": "Sector Leadership",
-      "summary": "Financial leading. Defensive Rotation detected.",
-      "explanation": "...",
-      "evidence": [...],
-      "confidence": 70,
-      "recommendation": "Focus on Financial, Energy"
-    },
-    {
-      "id": "q3_risk",
-      "title": "Risk-On/Off",
-      "summary": "Risk-On mode. Foreign Investor Accumulation driver.",
-      "explanation": "...",
-      "evidence": [...],
-      "confidence": 80,
-      "recommendation": "Increase equity exposure"
-    },
-    {
-      "id": "q4_focus",
-      "title": "Trading Focus",
-      "summary": "Focus on Financial, Energy.",
-      "explanation": "...",
-      "evidence": [...],
-      "confidence": 75,
-      "recommendation": "Buy"
-    },
-    {
-      "id": "q5_rankings",
-      "title": "Rankings Impact",
-      "summary": "Sector concentration driving market moves.",
-      "explanation": "...",
-      "confidence": 65
-    },
-    {
-      "id": "q6_correlation",
-      "title": "Rankings vs Sector",
-      "summary": "Rankings broadly aligned with sector performance.",
-      "explanation": "...",
-      "confidence": 60
-    }
-  ],
-  "verdict": {
-    "verdict": "Buy",
-    "confidence": 75,
-    "rationale": "Strong breadth, positive sector rotation, and smart money accumulation."
-  },
-  "trading": {
-    "action": "Buy",
-    "sectors": ["Financial", "Energy"],
-    "rationale": "Multiple indicators confirm bullish setup."
-  },
-  "sectorFocus": [
-    {
-      "sector": "Financial",
-      "action": "Buy",
-      "confidence": 85,
-      "reasons": ["Leading sector", "Strong smart money flow"]
-    }
-  ],
-  "warnings": [
-    "Technology sector showing weakness",
-    "Monitor foreign investor flows for reversal"
-  ],
-  "timestamp": 1737758400000
+```typescript
+interface HealthResponse {
+  status: 'healthy' | 'degraded' | 'unhealthy'
+  services: {
+    firebase: 'up' | 'down'
+    yahooFinance: 'up' | 'down'
+    cache: 'up' | 'down'
+  }
+  dataAvailability: {
+    marketOverview: boolean
+    industrySector: boolean
+    investorType: boolean
+    topRankings: boolean
+  }
+  lastUpdate: string
+  version: string
 }
 ```
 
-#### Full Format (`format=full`)
-
-Complete actionable insights object:
-
-```json
-{
-  "trading": {
-    "action": "Buy",
-    "sectors": ["Financial", "Energy"],
-    "rationale": "...",
-    " conviction": "High"
-  },
-  "answers": {
-    "verdict": { ... },
-    "volatility": { ... },
-    "sector": { ... },
-    "risk": { ... },
-    "focus": { ... },
-    "rankings": { ... },
-    "correlation": { ... }
-  },
-  "themes": [...],
-  "warnings": [...],
-  "timestamp": 1737758400000
-}
-```
-
-**Examples**:
+#### Example
 
 ```bash
-# Module format (default)
-GET /api/insights
-
-# Full format
-GET /api/insights?format=full
+curl "https://fonpick.vercel.app/api/health"
 ```
 
 ---
 
-### 8. Export
+### 8. Export Data
 
-Export insights and analysis data in various formats.
+Export data in various formats.
 
-**Endpoint**: `GET /api/export`
-
-**Query Parameters**:
-
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `date` | string | today | Date in YYYY-MM-DD format |
-| `format` | string | 'json' | Export format: 'json', 'csv', 'markdown', 'txt' |
-| `type` | string | 'insights' | Export type: 'insights' or 'full' |
-| `download` | boolean | false | Set to 'true' to trigger file download |
-
-**Response Types**:
-
-The response format depends on the requested format:
-
-| Format | Content-Type | Description |
-|--------|--------------|-------------|
-| `json` | application/json | JSON formatted data |
-| `csv` | text/csv | CSV formatted data |
-| `markdown` | text/markdown | Markdown formatted report |
-| `txt` | text/plain | Plain text report |
-
-**Examples**:
-
-```bash
-# Export insights as JSON
+```http
 GET /api/export
+```
 
-# Export full analysis as CSV
-GET /api/export?format=csv&type=full
+#### Query Parameters
 
-# Download markdown report
-GET /api/export?format=markdown&download=true
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `format` | string | No | `json`, `csv`, `markdown`, `txt` (default: `json`) |
+| `type` | string | No | `analysis`, `insights`, `all` (default: `all`) |
+| `date` | string | No | Date in YYYY-MM-DD format |
 
-# Export for specific date
-GET /api/export?date=2025-01-15&format=markdown
+#### Response
+
+Returns the exported data in the specified format.
+
+#### Example
+
+```bash
+# Export as JSON
+curl "https://fonpick.vercel.app/api/export?format=json&type=analysis"
+
+# Export as CSV
+curl "https://fonpick.vercel.app/api/export?format=csv"
+
+# Export as Markdown
+curl "https://fonpick.vercel.app/api/export?format=markdown&type=insights"
 ```
 
 ---
 
-## Error Handling
+## ❌ Error Handling
 
-All endpoints return consistent error responses:
-
-```json
-{
-  "error": "Error type",
-  "message": "Detailed error message"
-}
-```
-
-**HTTP Status Codes**:
+### HTTP Status Codes
 
 | Code | Description |
 |------|-------------|
-| 200 | Success |
-| 400 | Bad Request (invalid parameters) |
-| 404 | Data Not Found |
-| 500 | Internal Server Error |
+| `200` | Success |
+| `400` | Bad Request (invalid parameters) |
+| `404` | Not Found (invalid endpoint) |
+| `500` | Internal Server Error |
+| `503` | Service Unavailable (data source down) |
 
----
+### Error Response Format
 
-## Caching
-
-API responses include cache control headers:
-
+```json
+{
+  "success": false,
+  "error": "Error message describing what went wrong",
+  "meta": {
+    "timestamp": "2025-01-15T10:30:00Z",
+    "version": "0.1.0"
+  }
+}
 ```
-Cache-Control: public, s-maxage=60, stale-while-revalidate=120
+
+### Common Errors
+
+| Error | Cause | Solution |
+|-------|-------|----------|
+| `Invalid date format` | Date parameter not in YYYY-MM-DD | Use correct date format |
+| `Market data unavailable` | No data for specified date | Try a different date |
+| `Service temporarily unavailable` | External API is down | Try again later |
+| `Rate limit exceeded` | Too many requests | Wait before retrying |
+
+---
+
+## ⏱️ Rate Limiting
+
+### Current Limits
+
+| Type | Limit |
+|------|-------|
+| Public API | 60 requests/minute/IP |
+| Health Check | No limit |
+| Cached responses | No limit |
+
+### Rate Limit Headers
+
+All responses include rate limit headers:
+
+```http
+X-RateLimit-Limit: 60
+X-RateLimit-Remaining: 45
+X-RateLimit-Reset: 1705305600
 ```
 
-This means:
-- Browser can cache for 60 seconds
-- CDN can serve stale content for up to 120 seconds while revalidating
-
 ---
 
-## Rate Limiting
-
-Currently, no rate limiting is implemented. For production use, consider implementing rate limiting based on:
-- IP address
-- API key (if authentication is added)
-- Endpoint type (analysis endpoints may need stricter limits)
-
----
-
-## Authentication
-
-Currently, all endpoints are public. For production use, consider adding:
-- API key authentication
-- OAuth2 for user-specific data
-- Role-based access control
-
----
-
-## TypeScript Types
-
-See `src/types/` for complete type definitions:
-
-- `src/types/market-breadth.ts` - Market breadth types
-- `src/types/sector-rotation.ts` - Sector rotation types
-- `src/types/smart-money.ts` - Smart money types
-- `src/types/insights.ts` - Insights types
-- `src/types/correlation.ts` - Correlation types
-- `src/types/rtdb.ts` - RTDB data types
-
----
-
-## Examples
+## 📝 Examples
 
 ### JavaScript/TypeScript
 
 ```typescript
-// Fetch complete market analysis
-const response = await fetch('https://your-domain.com/api/analysis')
-const data = await response.json()
+async function getMarketInsights() {
+  const response = await fetch('https://fonpick.vercel.app/api/insights')
+  const data = await response.json()
 
-console.log(data.data.insights.trading.action) // 'Buy' | 'Sell' | 'Hold'
-
-// Fetch health status
-const health = await fetch('https://your-domain.com/api/health?quick=true')
-  .then(r => r.json())
-
-if (health.status !== 'healthy') {
-  console.warn('System not healthy:', health.data.missingSources)
+  if (data.success) {
+    console.log('Market sentiment:', data.data.summary.overallSentiment)
+    console.log('Confidence:', data.data.summary.confidence)
+  } else {
+    console.error('Error:', data.error)
+  }
 }
+```
 
-// Export insights as markdown
-const report = await fetch('https://your-domain.com/api/export?format=markdown&download=true')
-const markdown = await report.text()
+### Python
+
+```python
+import requests
+
+def get_market_breadth():
+    response = requests.get('https://fonpick.vercel.app/api/market-breadth')
+    data = response.json()
+
+    if data['success']:
+        print(f"A/D Ratio: {data['data']['advanceDeclineRatio']}")
+        print(f"Volatility: {data['data']['volatility']}")
+    else:
+        print(f"Error: {data['error']}")
+
+get_market_breadth()
 ```
 
 ### cURL
 
 ```bash
-# Complete analysis
-curl https://your-domain.com/api/analysis
+# Get complete analysis
+curl https://fonpick.vercel.app/api/analysis
 
-# Quick health check
-curl https://your-domain.com/api/health?quick=true
+# Get specific date
+curl "https://fonpick.vercel.app/api/analysis?date=2025-01-15"
 
-# Export as CSV
-curl https://your-domain.com/api/export?format=csv -o report.csv
+# Export as markdown
+curl "https://fonpick.vercel.app/api/export?format=markdown" -o insights.md
 
-# Historical analysis
-curl "https://your-domain.com/api/analysis?date=2025-01-15"
+# Check health status
+curl https://fonpick.vercel.app/api/health
 ```
 
 ---
 
-## Changelog
+## 🔄 Caching
 
-### Version 1.0.0 (Current)
-- Initial API release
-- 8 endpoints for market analysis
-- Health monitoring
-- Export functionality
-- Comprehensive error handling
+### Cache Durations
+
+| Endpoint | Cache Duration |
+|----------|----------------|
+| `/api/analysis` | 60 seconds |
+| `/api/insights` | 60 seconds |
+| `/api/market-breadth` | 60 seconds |
+| `/api/sector-rotation` | 60 seconds |
+| `/api/smart-money` | 60 seconds |
+| `/api/correlations` | 60 seconds |
+| `/api/health` | No cache |
+| `/api/export` | 300 seconds |
+
+### Cache Headers
+
+```http
+Cache-Control: public, s-maxage=60, stale-while-revalidate=120
+```
+
+---
+
+## 📈 Versioning
+
+The API is currently at version **0.1.0**.
+
+Future versions will be URL-versioned (e.g., `/api/v1/...`).
+
+---
+
+## 🆘 Support
+
+For issues and questions:
+
+- [GitHub Issues](https://github.com/your-org/fonPick/issues)
+- [Documentation](../README.md)
+
+---
+
+<div align="center">
+
+**Last Updated: 2025-01-15**
+
+[Back to README](../README.md)
+
+</div>
