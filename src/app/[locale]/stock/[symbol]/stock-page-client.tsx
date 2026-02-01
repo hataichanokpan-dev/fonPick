@@ -9,15 +9,17 @@
  * - Total score display (27 max)
  * - Investment decision (BUY/HOLD/PASS)
  * - Entry plan with buy/stop/target
- * - Bilingual support (Thai/English)
+ * - Bilingual support (Thai/English) via next-intl
  */
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { useStockScreening } from "@/hooks/useStockScreening";
 import {
   StockPageSkeleton,
   StockPageErrorBoundary,
   WatchlistButton,
+  PriceHistoryCard,
 } from "@/components/stock";
 import { useAnalytics } from "@/hooks/useAnalytics";
 import {
@@ -39,11 +41,9 @@ import {
   EyeIcon,
 } from "lucide-react";
 import { safeToFixed } from "@/lib/utils";
-import { is, tr } from "date-fns/locale";
 
 export interface StockPageClientProps {
   symbol: string;
-  locale: string;
   children?: React.ReactNode;
 }
 
@@ -81,7 +81,7 @@ function getPriceChangeColor(change: number) {
  * Safe version - handles null/undefined/NaN
  */
 function formatLargeNumber(num: number | null | undefined): string {
-  if (num === null || num === undefined || Number.isNaN(num)) return 'N/A'
+  if (num === null || num === undefined || Number.isNaN(num)) return "N/A";
   if (num >= 1_000_000_000) {
     return `${(num / 1_000_000_000).toFixed(2)}B`;
   }
@@ -114,37 +114,6 @@ function parseMarketCap(marketCap: string): number {
 }
 
 // ============================================================================
-// TRANSLATIONS
-// ============================================================================
-
-const translations = {
-  en: {
-    thaiStock: "Thai Stock",
-    marketCap: "Market Cap",
-    volume: "Volume",
-    peRatio: "P/E",
-    loading: "Loading...",
-    error: "Error loading data",
-    retry: "Retry",
-    screening: "Screening Analysis",
-    expandAll: "Expand All",
-    collapseAll: "Collapse All",
-  },
-  th: {
-    thaiStock: "หุ้นไทย",
-    marketCap: "มูลค่าตลาด",
-    volume: "ปริมาณซื้อขาย",
-    peRatio: "P/E",
-    loading: "กำลังโหลด...",
-    error: "ข้อผิดพลาดในการโหลดข้อมูล",
-    retry: "ลองใหม่",
-    screening: "การวิเคราะห์หุ้น",
-    expandAll: "ขยายทั้งหมด",
-    collapseAll: "ย่อทั้งหมด",
-  },
-};
-
-// ============================================================================
 // SUB-COMPONENTS
 // ============================================================================
 
@@ -160,7 +129,6 @@ function StockHeader({
   marketCapString,
   volume,
   peRatio,
-  locale,
 }: {
   symbol: string;
   price: number;
@@ -170,10 +138,8 @@ function StockHeader({
   marketCapString?: string;
   volume: number;
   peRatio: number;
-  locale: string;
 }) {
-  const t =
-    translations[locale as keyof typeof translations] || translations.th;
+  const t = useTranslations("stock");
   const priceColor = getPriceChangeColor(change);
 
   const { trackEvent } = useAnalytics();
@@ -197,7 +163,7 @@ function StockHeader({
           </h1>
           <div className="flex items-center gap-2 text-sm text-text-2">
             <Building2 className="w-3.5 h-3.5" />
-            <span>{t.thaiStock}</span>
+            <span>{t("thaiStock")}</span>
           </div>
         </div>
         <WatchlistButton
@@ -230,7 +196,9 @@ function StockHeader({
 
       <div className="grid grid-cols-3 gap-4 pt-4 border-t border-border">
         <div className="flex flex-col">
-          <span className="text-xs text-text-2 mb-1">{t.marketCap}</span>
+          <span className="text-xs text-text-2 mb-1">
+            {t("info.marketCap")}
+          </span>
           <span className="text-sm font-semibold tabular-nums text-text-primary">
             {marketCapString
               ? marketCapString.split("+")[0].split("-")[0]
@@ -238,13 +206,13 @@ function StockHeader({
           </span>
         </div>
         <div className="flex flex-col">
-          <span className="text-xs text-text-2 mb-1">{t.volume}</span>
+          <span className="text-xs text-text-2 mb-1">{t("info.volume")}</span>
           <span className="text-sm font-semibold tabular-nums text-text-primary">
             {formatLargeNumber(volume)}
           </span>
         </div>
         <div className="flex flex-col">
-          <span className="text-xs text-text-2 mb-1">{t.peRatio}</span>
+          <span className="text-xs text-text-2 mb-1">{t("info.pe")}</span>
           <span className="text-sm font-semibold tabular-nums text-text-primary">
             {safeToFixed(peRatio)}
           </span>
@@ -258,15 +226,10 @@ function StockHeader({
 // MAIN COMPONENT
 // ============================================================================
 
-export function StockPageClient({
-  symbol,
-  locale,
-  children,
-}: StockPageClientProps) {
+export function StockPageClient({ symbol, children }: StockPageClientProps) {
   const { data, isLoading, error, refetch } = useStockScreening(symbol);
 
-  const t =
-    translations[locale as keyof typeof translations] || translations.th;
+  const t = useTranslations("stock");
 
   const compact = true; // TODO: Determine based on screen size
 
@@ -316,12 +279,12 @@ export function StockPageClient({
     return (
       <div className="space-y-4">
         <div className="rounded-xl bg-surface border border-border p-8 text-center">
-          <p className="text-text-2">{t.error}</p>
+          <p className="text-text-2">{t("page.error")}</p>
           <button
             onClick={() => refetch()}
             className="mt-4 px-4 py-2 rounded-lg bg-accent-teal text-white font-medium"
           >
-            {t.retry}
+            {t("page.retry")}
           </button>
         </div>
         {children}
@@ -341,8 +304,8 @@ export function StockPageClient({
           screening.decision,
         )
       : null;
-  
-  console.log('statistics:', statistics);
+
+  console.log("statistics:", statistics);
 
   return (
     <div className="space-y-6">
@@ -363,7 +326,6 @@ export function StockPageClient({
               marketCap={parseMarketCap(overview.marketCap)}
               volume={overview.volume}
               peRatio={overview.peRatio}
-              locale={locale}
             />
           )}
         </div>
@@ -375,7 +337,7 @@ export function StockPageClient({
           {/* Section header */}
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-semibold text-text-primary">
-              {t.screening}
+              {t("page.screening")}
             </h2>
             <div className="flex gap-2">
               <button
@@ -420,7 +382,6 @@ export function StockPageClient({
                   }}
                   summary={screening.summary}
                   rationale={screening.rationale}
-                  locale={locale as "en" | "th"}
                 />
               </div>
 
@@ -436,13 +397,11 @@ export function StockPageClient({
                 color="universe"
                 expanded={expandedLayers[1]}
                 onToggle={() => toggleLayer(1)}
-                
               >
                 {overview && statistics && (
                   <Layer1Universe
                     marketCap={statistics.marketCap}
                     volume={overview.volume}
-                    locale={locale as "en" | "th"}
                     compact={compact}
                   />
                 )}
@@ -477,7 +436,6 @@ export function StockPageClient({
                       operatingCashFlow: statistics.operatingCashFlow,
                       netIncome: statistics.netIncome,
                     }}
-                    locale={locale as "en" | "th"}
                     compact={compact}
                   />
                 )}
@@ -507,7 +465,6 @@ export function StockPageClient({
                       epsGrowthYoY: 0.05, // TODO: From yearly data
                       epsAcceleration: 0.02, // TODO: From quarterly data
                     }}
-                    locale={locale as "en" | "th"}
                     compact={compact}
                   />
                 )}
@@ -537,7 +494,6 @@ export function StockPageClient({
                       catalystEvents: [], // TODO: From AI API
                       sectorMomentum: undefined, // TODO: From sector data
                     }}
-                    locale={locale as "en" | "th"}
                     compact={compact}
                   />
                 )}
@@ -548,15 +504,19 @@ export function StockPageClient({
                 <EntryPlanCard
                   entryPlan={entryPlan}
                   currentPrice={overview.price}
-                  locale={locale as "en" | "th"}
-                  
                 />
               )}
             </div>
           </div>
         </div>
       )}
- 
+      <hr className="border-border" />
+      {/* Price History Chart */}
+      <div className="rounded-xl bg-surface border border-border p-4 md:p-6">
+        <PriceHistoryCard symbol={symbol} years={3} interval="1d" />
+      </div>
+
+      <div className="mb-4"></div>
     </div>
   );
 }

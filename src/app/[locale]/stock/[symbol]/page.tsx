@@ -152,7 +152,7 @@ export default async function StockPage({
       </Link>
 
       {/* StockPageClient handles proxy API fetching with RTDB fallback */}
-      <StockPageClient symbol={symbol} locale={locale}>
+      <StockPageClient symbol={symbol}>
         {/* RTDB Fallback Content (if API fails) */}
         {data ? (
           <div className="space-y-3">

@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 /**
  * Layer 2: Quality Metrics Component
@@ -13,10 +13,14 @@
  * - OCF/Net Income (1 pt)
  */
 
-import { QUALITY_THRESHOLDS, QUALITY_POINTS, getScoreColorClasses } from './constants'
-import { MetricProgressBar } from './MetricProgressBar'
-import type { QualityScoreData, MetricStatus } from './types'
-import { formatPercentageFromDecimal, formatRatio } from './utils/formatters'
+import {
+  QUALITY_THRESHOLDS,
+  QUALITY_POINTS,
+  getScoreColorClasses,
+} from "./constants";
+import { MetricProgressBar } from "./MetricProgressBar";
+import type { QualityScoreData, MetricStatus } from "./types";
+import { formatPercentageFromDecimal, formatRatio } from "./utils/formatters";
 
 // ============================================================================
 // LABELS
@@ -24,66 +28,66 @@ import { formatPercentageFromDecimal, formatRatio } from './utils/formatters'
 
 const LABELS = {
   en: {
-    title: 'QUALITY',
-    description: 'Financial quality metrics',
-    peg: 'PEG Ratio',
-    pegThai: 'อัตราส่วน PEG',
-    npm: 'Net Profit Margin',
-    npmThai: 'อัตรากำไรสุทธิ',
-    roe: 'Return on Equity',
-    roeThai: 'อัตราผลตอบแทนต่อผู้ถือหุ้น',
-    roicWacc: 'ROIC / WACC',
-    roicWaccThai: 'อัตราผลตอบแทนต่อทุน / ต้นทุนทุน',
-    debtEquity: 'Debt to Equity',
-    debtEquityThai: 'หนี้สินต่อส่วนของผู้ถือหุ้น',
-    fcfYield: 'FCF Yield',
-    fcfYieldThai: 'อัตราผลตอบแทนเงินสดไหลเสรี',
-    ocfNi: 'OCF / Net Income',
-    ocfNiThai: 'กระแสเงินสดจากดำเนินงาน / กำไรสุทธิ',
-    vsSector: 'vs Sector',
-    lessThan: '<',
-    greaterThan: '>',
+    title: "QUALITY",
+    description: "Financial quality metrics",
+    peg: "PEG Ratio",
+    pegThai: "อัตราส่วน PEG",
+    npm: "Net Profit Margin",
+    npmThai: "NPM",
+    roe: "Return on Equity",
+    roeThai: "ROE",
+    roicWacc: "ROIC / WACC",
+    roicWaccThai: "ROIC / WACC",
+    debtEquity: "Debt to Equity",
+    debtEquityThai: "D/E ",
+    fcfYield: "FCF Yield",
+    fcfYieldThai: "FCF Yield ",
+    ocfNi: "OCF / Net Income",
+    ocfNiThai: "OCF/NI ",
+    vsSector: "vs Sector",
+    lessThan: "<",
+    greaterThan: ">",
   },
   th: {
-    title: 'คุณภาพ',
-    description: 'ตัวชี้วัดคุณภาพทางการเงิน',
-    peg: 'PEG Ratio',
-    pegThai: 'อัตราส่วน PEG',
-    npm: 'Net Profit Margin',
-    npmThai: 'อัตรากำไรสุทธิ',
-    roe: 'Return on Equity',
-    roeThai: 'อัตราผลตอบแทนต่อผู้ถือหุ้น',
-    roicWacc: 'ROIC / WACC',
-    roicWaccThai: 'อัตราผลตอบแทนต่อทุน / ต้นทุนทุน',
-    debtEquity: 'Debt to Equity',
-    debtEquityThai: 'หนี้สินต่อส่วนของผู้ถือหุ้น',
-    fcfYield: 'FCF Yield',
-    fcfYieldThai: 'อัตราผลตอบแทนเงินสดไหลเสรี',
-    ocfNi: 'OCF / Net Income',
-    ocfNiThai: 'กระแสเงินสดจากดำเนินงาน / กำไรสุทธิ',
-    vsSector: 'เทียบภาค',
-    lessThan: '<',
-    greaterThan: '>',
+    title: "คุณภาพ",
+    description: "ตัวชี้วัดคุณภาพทางการเงิน",
+    peg: "PEG Ratio",
+    pegThai: "อัตราส่วน PEG",
+    npm: "Net Profit Margin",
+    npmThai: "NPM : อัตรากำไรสุทธิ",
+    roe: "Return on Equity",
+    roeThai: "ROE",
+    roicWacc: "ROIC / WACC",
+    roicWaccThai: "ROIC / WACC",
+    debtEquity: "Debt to Equity",
+    debtEquityThai: "D/E : หนี้สินต่อส่วนของผู้ถือหุ้น",
+    fcfYield: "FCF Yield",
+    fcfYieldThai: "FCF Yield : อัตราผลตอบแทนเงินสด",
+    ocfNi: "OCF / Net Income",
+    ocfNiThai: "OCF/NI : กระแสเงินสด / กำไรสุทธิ",
+    vsSector: "เทียบภาค",
+    lessThan: "<",
+    greaterThan: ">",
   },
-} as const
+} as const;
 
 // ============================================================================
 // INPUT DATA
 // ============================================================================
 
 export interface QualityInputData {
-  pegRatio: number | null
-  profitMargin: number  // Decimal (e.g., 0.15 for 15%)
-  returnOnEquity: number  // Decimal
-  returnOnInvestedCapital: number  // Decimal
-  debtToEquity: number
-  fcfYield: number  // Decimal
-  operatingCashFlow: number
-  netIncome: number
+  pegRatio: number | null;
+  profitMargin: number; // Decimal (e.g., 0.15 for 15%)
+  returnOnEquity: number; // Decimal
+  returnOnInvestedCapital: number; // Decimal
+  debtToEquity: number;
+  fcfYield: number; // Decimal
+  operatingCashFlow: number;
+  netIncome: number;
   sectorAverages?: {
-    profitMargin?: number
-    returnOnEquity?: number
-  }
+    profitMargin?: number;
+    returnOnEquity?: number;
+  };
 }
 
 // ============================================================================
@@ -96,95 +100,90 @@ export interface QualityInputData {
 function calculateMetricScore(
   value: number,
   threshold: number,
-  isLessThan: boolean
+  isLessThan: boolean,
 ): { score: number; status: MetricStatus } {
-  const passes = isLessThan ? value <= threshold : value >= threshold
+  const passes = isLessThan ? value <= threshold : value >= threshold;
 
   if (passes) {
     // Base score of 7, up to 10 based on how much it exceeds threshold
-    const margin = isLessThan ? threshold - value : value - threshold
-    const bonus = Math.min(3, Math.round(margin * 10))
-    return { score: 7 + bonus, status: 'pass' }
+    const margin = isLessThan ? threshold - value : value - threshold;
+    const bonus = Math.min(3, Math.round(margin * 10));
+    return { score: 7 + bonus, status: "pass" };
   }
 
   // Failed: score based on proximity
-  const margin = isLessThan ? value - threshold : threshold - value
+  const margin = isLessThan ? value - threshold : threshold - value;
   if (margin <= 0.1) {
-    return { score: 5, status: 'partial' }
+    return { score: 5, status: "partial" };
   }
   if (margin <= 0.3) {
-    return { score: 3, status: 'fail' }
+    return { score: 3, status: "fail" };
   }
-  return { score: 1, status: 'fail' }
+  return { score: 1, status: "fail" };
 }
 
 /**
  * Calculate quality layer score
  */
-export function calculateQualityScore(data: QualityInputData): QualityScoreData {
-  let totalScore = 0
+export function calculateQualityScore(
+  data: QualityInputData,
+): QualityScoreData {
+  let totalScore = 0;
 
   // PEG Ratio (2 pts) - lower is better
   const pegScore = calculateMetricScore(
     data.pegRatio ?? 0,
     QUALITY_THRESHOLDS.PEG_MAX,
-    true
-  )
-  totalScore += pegScore.score >= 7 ? QUALITY_POINTS.PEG : 0
+    true,
+  );
+  totalScore += pegScore.score >= 7 ? QUALITY_POINTS.PEG : 0;
 
   // Net Profit Margin (2 pts) - compare to sector
-  const sectorNpm = data.sectorAverages?.profitMargin || 0.10
-  const npmScore = calculateMetricScore(
-    data.profitMargin,
-    sectorNpm,
-    false
-  )
-  totalScore += npmScore.score >= 7 ? QUALITY_POINTS.NPM : 0
+  const sectorNpm = data.sectorAverages?.profitMargin || 0.1;
+  const npmScore = calculateMetricScore(data.profitMargin, sectorNpm, false);
+  totalScore += npmScore.score >= 7 ? QUALITY_POINTS.NPM : 0;
 
   // ROE (1 pt) - compare to sector
-  const sectorRoe = data.sectorAverages?.returnOnEquity || 0.10
-  const roeScore = calculateMetricScore(
-    data.returnOnEquity,
-    sectorRoe,
-    false
-  )
-  totalScore += roeScore.score >= 7 ? QUALITY_POINTS.ROE : 0
+  const sectorRoe = data.sectorAverages?.returnOnEquity || 0.1;
+  const roeScore = calculateMetricScore(data.returnOnEquity, sectorRoe, false);
+  totalScore += roeScore.score >= 7 ? QUALITY_POINTS.ROE : 0;
 
   // ROIC/WACC (2 pts) - higher is better
   const roicScore = calculateMetricScore(
     data.returnOnInvestedCapital,
-    0.10, // Assuming 10% WACC if not provided
-    false
-  )
-  totalScore += roicScore.score >= 7 ? QUALITY_POINTS.ROIC_WACC : 0
+    0.1, // Assuming 10% WACC if not provided
+    false,
+  );
+  totalScore += roicScore.score >= 7 ? QUALITY_POINTS.ROIC_WACC : 0;
 
   // Debt/Equity (1 pt) - lower is better
   const deScore = calculateMetricScore(
     data.debtToEquity,
     QUALITY_THRESHOLDS.DEBT_EQUITY_MAX,
-    true
-  )
-  totalScore += deScore.score >= 7 ? QUALITY_POINTS.DEBT_EQUITY : 0
+    true,
+  );
+  totalScore += deScore.score >= 7 ? QUALITY_POINTS.DEBT_EQUITY : 0;
 
   // FCF Yield (1 pt) - higher is better
   const fcfScore = calculateMetricScore(
     data.fcfYield,
     QUALITY_THRESHOLDS.FCF_YIELD_MIN,
-    false
-  )
-  totalScore += fcfScore.score >= 7 ? QUALITY_POINTS.FCF_YIELD : 0
+    false,
+  );
+  totalScore += fcfScore.score >= 7 ? QUALITY_POINTS.FCF_YIELD : 0;
 
   // OCF/NI (1 pt) - higher is better
-  const ocfNiRatio = data.netIncome !== 0 ? data.operatingCashFlow / data.netIncome : 0
+  const ocfNiRatio =
+    data.netIncome !== 0 ? data.operatingCashFlow / data.netIncome : 0;
   const ocfScore = calculateMetricScore(
     ocfNiRatio,
     QUALITY_THRESHOLDS.OCF_NI_MIN,
-    false
-  )
-  totalScore += ocfScore.score >= 7 ? QUALITY_POINTS.OCF_NI : 0
+    false,
+  );
+  totalScore += ocfScore.score >= 7 ? QUALITY_POINTS.OCF_NI : 0;
 
   return {
-    totalScore: totalScore as QualityScoreData['totalScore'],
+    totalScore: totalScore as QualityScoreData["totalScore"],
     maxScore: 10,
     metrics: {
       peg: {
@@ -260,7 +259,7 @@ export function calculateQualityScore(data: QualityInputData): QualityScoreData 
         description: `${LABELS.th.greaterThan} ${QUALITY_THRESHOLDS.OCF_NI_MIN}x`,
       },
     },
-  }
+  };
 }
 
 // ============================================================================
@@ -268,35 +267,33 @@ export function calculateQualityScore(data: QualityInputData): QualityScoreData 
 // ============================================================================
 
 interface Layer2QualityProps {
-  data: QualityInputData
-  locale?: 'en' | 'th'
-  compact?: boolean
-  className?: string
+  data: QualityInputData;
+  locale?: "en" | "th";
+  compact?: boolean;
+  className?: string;
 }
 
 export function Layer2Quality({
   data,
-  locale = 'th',
+  locale = "th",
   compact = false,
-  className = '',
+  className = "",
 }: Layer2QualityProps) {
-  const scoreData = calculateQualityScore(data)
-  const t = LABELS[locale]
-  const colors = getScoreColorClasses(scoreData.totalScore)
+  const scoreData = calculateQualityScore(data);
+  const t = LABELS[locale];
+  const colors = getScoreColorClasses(scoreData.totalScore);
 
   return (
     <div className={`layer2-quality ${className}`}>
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div>
-          <h3 className="text-lg font-semibold text-text-primary">
-            {t.title}
-          </h3>
-          <p className="text-sm text-text-3">
-            {t.description}
-          </p>
+          <h3 className="text-lg font-semibold text-text-primary">{t.title}</h3>
+          <p className="text-sm text-text-3">{t.description}</p>
         </div>
-        <div className={`px-3 py-1.5 rounded-lg ${colors.bg} ${colors.border} border`}>
+        <div
+          className={`px-3 py-1.5 rounded-lg ${colors.bg} ${colors.border} border`}
+        >
           <span className={`text-lg font-bold tabular-nums ${colors.text}`}>
             {scoreData.totalScore}
           </span>
@@ -307,7 +304,7 @@ export function Layer2Quality({
       </div>
 
       {/* Metrics */}
-      <div className="space-y-3">
+      <div className="space-y-3 ">
         {/* PEG Ratio */}
         <MetricProgressBar
           score={Math.min(10, scoreData.metrics.peg.points * 5)}
@@ -325,7 +322,7 @@ export function Layer2Quality({
           score={Math.min(10, scoreData.metrics.npm.points * 5)}
           label={t.npm}
           thaiLabel={t.npmThai}
-          value={`${(scoreData.metrics.npm.currentValue)}% ${t.vsSector} ${formatPercentageFromDecimal(scoreData.metrics.npm.comparison!)}`}
+          value={`${scoreData.metrics.npm.currentValue}% ${t.vsSector} ${formatPercentageFromDecimal(scoreData.metrics.npm.comparison!)}`}
           points={scoreData.metrics.npm.points}
           maxPoints={scoreData.metrics.npm.maxPoints}
           status={scoreData.metrics.npm.status}
@@ -337,7 +334,7 @@ export function Layer2Quality({
           score={Math.min(10, scoreData.metrics.roe.points * 10)}
           label={t.roe}
           thaiLabel={t.roeThai}
-          value={`${(scoreData.metrics.roe.currentValue)}% ${t.vsSector} ${formatPercentageFromDecimal(scoreData.metrics.roe.comparison!)}`}
+          value={`${scoreData.metrics.roe.currentValue}% ${t.vsSector} ${formatPercentageFromDecimal(scoreData.metrics.roe.comparison!)}`}
           points={scoreData.metrics.roe.points}
           maxPoints={scoreData.metrics.roe.maxPoints}
           status={scoreData.metrics.roe.status}
@@ -373,7 +370,7 @@ export function Layer2Quality({
           score={Math.min(10, scoreData.metrics.fcfYield.points * 10)}
           label={t.fcfYield}
           thaiLabel={t.fcfYieldThai}
-          value={formatPercentageFromDecimal(scoreData.metrics.fcfYield.currentValue)}
+          value={scoreData.metrics.fcfYield.currentValue.toString() + '%'}
           points={scoreData.metrics.fcfYield.points}
           maxPoints={scoreData.metrics.fcfYield.maxPoints}
           status={scoreData.metrics.fcfYield.status}
@@ -393,5 +390,5 @@ export function Layer2Quality({
         />
       </div>
     </div>
-  )
+  );
 }

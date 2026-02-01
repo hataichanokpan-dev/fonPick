@@ -1,6 +1,5 @@
 'use client'
 
-import { tr } from 'date-fns/locale'
 /**
  * Metric Progress Bar Component
  *

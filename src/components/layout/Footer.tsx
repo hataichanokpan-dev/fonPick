@@ -26,7 +26,7 @@ export function Footer() {
           <div className="flex items-center gap-3 text-xs text-text-tertiary">
             <span>Data from SET</span>
             <span className="text-border-subtle">•</span>
-            <span>Delay: 15 minutes</span>
+            <span className="text-primary">fonPick</span>
           </div>
         </div>
       </div>

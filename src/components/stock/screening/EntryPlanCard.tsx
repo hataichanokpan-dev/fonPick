@@ -164,7 +164,7 @@ export function EntryPlanCard({
 
        
       </div>
-      <div className='mb-5'></div>
+      
     </div>
   )
 }

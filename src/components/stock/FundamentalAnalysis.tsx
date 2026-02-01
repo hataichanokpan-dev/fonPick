@@ -244,7 +244,7 @@ export function FundamentalAnalysis({
                   {/* ROE */}
                   <MetricCard
                     label="ROE"
-                    thaiLabel="อัตราผลตอบแทนต่อผู้ถือหุ้น"
+                    thaiLabel="ROE : อัตราผลตอบแทนต่อผู้ถือหุ้น"
                     value={financial.roe}
                     format={formatPercentage}
                     testId="financial-roe"
