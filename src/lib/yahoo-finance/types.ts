@@ -89,3 +89,24 @@ export interface SetIndexHistory {
   week52High: number | null
   week52Low: number | null
 }
+
+/**
+ * Raw Yahoo Finance API response for historical data
+ */
+export interface YahooFinanceHistoricalResponse {
+  quotes: Array<{
+    date: Date | string | number
+    open?: number
+    high?: number
+    low?: number
+    close?: number
+    adjClose?: number
+    volume?: number
+  }>
+  meta?: {
+    currency?: string
+    instrumentType?: string
+    firstTradeDate?: number
+    timezone?: string
+  }
+}

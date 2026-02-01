@@ -11,6 +11,7 @@ import type {
   YahooSetIndexData,
   YahooSetIndexSnapshot,
   RTDBSetIndexEntry,
+  YahooFinanceHistoricalResponse,
 } from './types'
 
 const SET_SYMBOL = '^SET'
@@ -26,24 +27,16 @@ export async function fetchYahooSetIndexHistorical(
   endDate: Date
 ): Promise<YahooSetIndexData | null> {
   try {
-    const result: any = await yahooFinance.historical(SET_SYMBOL, {
+    const result = await yahooFinance.historical(SET_SYMBOL, {
       from: startDate.toISOString().split('T')[0],
       to: endDate.toISOString().split('T')[0],
-    })
+    }) as unknown as YahooFinanceHistoricalResponse
 
     if (!result) {
       return null
     }
 
-    const quotes = result.quotes as unknown as Array<{
-      date: Date | string | number
-      open?: number
-      high?: number
-      low?: number
-      close?: number
-      adjClose?: number
-      volume?: number
-    }>
+    const quotes = result.quotes
 
     if (!quotes || quotes.length === 0) {
       return null
@@ -65,10 +58,10 @@ export async function fetchYahooSetIndexHistorical(
         }
       }),
       meta: {
-        currency: (result as any).meta?.currency || 'THB',
-        instrumentType: (result as any).meta?.instrumentType || 'INDEX',
-        firstTradeDate: (result as any).meta?.firstTradeDate || 0,
-        timezone: (result as any).meta?.timezone || 'Asia/Bangkok',
+        currency: result.meta?.currency ?? 'THB',
+        instrumentType: result.meta?.instrumentType ?? 'INDEX',
+        firstTradeDate: result.meta?.firstTradeDate ?? 0,
+        timezone: result.meta?.timezone ?? 'Asia/Bangkok',
       },
     }
 
@@ -88,11 +81,12 @@ export async function fetchYahooSetIndexByDate(
   date: Date
 ): Promise<YahooSetIndexSnapshot | null> {
   // Fetch 3 days around the target date to handle weekends/holidays
-  const startDate = new Date(date)
-  startDate.setDate(startDate.getDate() - 2)
+  // Use timestamp arithmetic instead of mutating Date objects
+  const TWO_DAYS = 2 * 24 * 60 * 60 * 1000
+  const ONE_DAY = 24 * 60 * 60 * 1000
 
-  const endDate = new Date(date)
-  endDate.setDate(endDate.getDate() + 1)
+  const startDate = new Date(date.getTime() - TWO_DAYS)
+  const endDate = new Date(date.getTime() + ONE_DAY)
 
   const data = await fetchYahooSetIndexHistorical(startDate, endDate)
 
@@ -179,18 +173,23 @@ export function getMissingDates(
 ): Date[] {
   const missing: Date[] = []
   const existingSet = new Set(existingDates)
+  const ONE_DAY = 24 * 60 * 60 * 1000
 
-  const current = new Date(startDate)
-  while (current <= endDate) {
-    const day = current.getDay()
+  // Calculate total days between dates (inclusive)
+  // Use Math.round to handle partial days correctly
+  const dayCount = Math.round((endDate.getTime() - startDate.getTime()) / ONE_DAY)
+
+  for (let i = 0; i <= dayCount; i++) {
+    const currentDate = new Date(startDate.getTime() + i * ONE_DAY)
+    const day = currentDate.getDay()
+
     // Skip weekends
     if (day !== 0 && day !== 6) {
-      const dateStr = current.toISOString().split('T')[0]
+      const dateStr = currentDate.toISOString().split('T')[0]
       if (!existingSet.has(dateStr)) {
-        missing.push(new Date(current))
+        missing.push(currentDate)
       }
     }
-    current.setDate(current.getDate() + 1)
   }
 
   return missing

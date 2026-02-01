@@ -72,6 +72,7 @@ function calculateDateRange(options: DateRangeOptions): string[] {
   } = options
 
   const dates: string[] = []
+  const ONE_DAY = 24 * 60 * 60 * 1000
 
   // Determine end date
   const end = endDate || getTodayDate()
@@ -81,33 +82,34 @@ function calculateDateRange(options: DateRangeOptions): string[] {
   if (startDate) {
     start = startDate
   } else {
+    // Use timestamp arithmetic instead of Date mutation
     const endDateObj = new Date(end)
-    endDateObj.setDate(endDateObj.getDate() - days + 1)
-    start = endDateObj.toISOString().split('T')[0]
+    const daysBefore = (days - 1) * ONE_DAY
+    const startDateObj = new Date(endDateObj.getTime() - daysBefore)
+    start = startDateObj.toISOString().split('T')[0]
   }
 
   // Generate date range
-  const current = new Date(start)
-  const endObj = new Date(end)
+  const startDateObj = new Date(start)
+  const endDateObj = new Date(end)
+  const dayCount = Math.round((endDateObj.getTime() - startDateObj.getTime()) / ONE_DAY)
 
-  while (current <= endObj) {
-    const dateStr = current.toISOString().split('T')[0]
-    const dayOfWeek = current.getDay()
+  for (let i = 0; i <= dayCount; i++) {
+    const currentDate = new Date(startDateObj.getTime() + i * ONE_DAY)
+    const dateStr = currentDate.toISOString().split('T')[0]
+    const dayOfWeek = currentDate.getDay()
 
     // Skip weekends if configured
     if (excludeWeekends && (dayOfWeek === 0 || dayOfWeek === 6)) {
-      current.setDate(current.getDate() + 1)
       continue
     }
 
     // Include only specific weekdays if configured
     if (includeOnlyWeekdays && !includeOnlyWeekdays.includes(dayOfWeek)) {
-      current.setDate(current.getDate() + 1)
       continue
     }
 
     dates.push(dateStr)
-    current.setDate(current.getDate() + 1)
   }
 
   return dates
@@ -362,13 +364,13 @@ async function getHistoricalDataByType(
  * @param dataType Type of data to fetch
  * @returns Array of data points for the last 60 trading days
  */
-export async function get60DayLookback(
+export async function get60DayLookback<T>(
   dataType: keyof typeof DATA_TYPE_FETCHERS
-): Promise<BatchQueryResult<any>> {
+): Promise<BatchQueryResult<T>> {
   return getHistoricalDataByType(dataType, {
     days: 60,
     excludeWeekends: true,
-  })
+  }) as Promise<BatchQueryResult<T>>
 }
 
 /**
@@ -377,13 +379,13 @@ export async function get60DayLookback(
  * @param dataType Type of data to fetch
  * @returns Array of data points for the last 30 trading days
  */
-export async function get30DayLookback(
+export async function get30DayLookback<T>(
   dataType: keyof typeof DATA_TYPE_FETCHERS
-): Promise<BatchQueryResult<any>> {
+): Promise<BatchQueryResult<T>> {
   return getHistoricalDataByType(dataType, {
     days: 30,
     excludeWeekends: true,
-  })
+  }) as Promise<BatchQueryResult<T>>
 }
 
 /**
@@ -392,13 +394,13 @@ export async function get30DayLookback(
  * @param dataType Type of data to fetch
  * @returns Array of data points for the last 7 trading days
  */
-export async function get7DayLookback(
+export async function get7DayLookback<T>(
   dataType: keyof typeof DATA_TYPE_FETCHERS
-): Promise<BatchQueryResult<any>> {
+): Promise<BatchQueryResult<T>> {
   return getHistoricalDataByType(dataType, {
     days: 7,
     excludeWeekends: true,
-  })
+  }) as Promise<BatchQueryResult<T>>
 }
 
 // ============================================================================
