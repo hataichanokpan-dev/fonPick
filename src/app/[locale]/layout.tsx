@@ -88,7 +88,7 @@ export default async function LocaleLayout({ children, params }: Props) {
                 <Header />
 
                 {/* Main content - 16px padding */}
-                <main className="flex-1 container mx-auto px-4 py-4 pb-safe-bottom lg:pb-4">
+                <main className="flex-1 container mx-auto px-2 py-4 pb-safe-bottom lg:pb-4">
                   {children}
                 </main>
 

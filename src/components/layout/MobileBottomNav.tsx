@@ -34,7 +34,7 @@ const springTransition = {
 const bottomNavItems = [
   { href: '/', label: 'Market', icon: 'home' },
   { href: '/search', label: 'Search', icon: 'search' },
-  { href: '/guide', label: 'คู่มือ', icon: 'guide' },
+   
 ] as const
 
 type IconName = typeof bottomNavItems[number]['icon']
@@ -60,14 +60,7 @@ function NavIcon({ name, className, strokeWidth = 2 }: { name: IconName; classNa
         d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
       />
     ),
-    guide: (
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={strokeWidth}
-        d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332-.477 4.5-1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-      />
-    ),
+
   }
 
   return (

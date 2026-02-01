@@ -5,48 +5,51 @@
  * Displays current language with flag icon
  */
 
-'use client'
+"use client";
 
-import { useLocale } from 'next-intl'
-import { useRouter, usePathname } from '@/lib/i18n/routing'
-import { locales, localeNames, localeFlags, type Locale } from '@/lib/i18n/config'
-import { useState, useTransition } from 'react'
+import { useLocale } from "next-intl";
+import { useRouter, usePathname } from "@/lib/i18n/routing";
+import {
+  locales,
+  localeNames,
+  localeFlags,
+  type Locale,
+} from "@/lib/i18n/config";
+import { useState, useTransition } from "react";
 
 export function LanguageSwitcher() {
-  const locale = useLocale() as Locale
-  const router = useRouter()
-  const pathname = usePathname()
-  const [isPending, startTransition] = useTransition()
-  const [isOpen, setIsOpen] = useState(false)
+  const locale = useLocale() as Locale;
+  const router = useRouter();
+  const pathname = usePathname();
+  const [isPending, startTransition] = useTransition();
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleLocaleChange = (newLocale: Locale) => {
     startTransition(() => {
-      router.replace(pathname, { locale: newLocale })
-    })
-    setIsOpen(false)
-  }
-
-  const currentLocale = localeNames[locale]
-  const currentFlag = localeFlags[locale]
+      router.replace(pathname, { locale: newLocale });
+    });
+    setIsOpen(false);
+  };
+ 
+  const currentFlag = localeFlags[locale];
 
   return (
     <div className="relative">
       {/* Trigger Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-2 hover:bg-surface-3 transition-colors"
+        className="flex items-center gap-2 px-3 py-1
+        rounded-lg bg-surface-2 hover:bg-surface-3 transition-colors"
         aria-label="Switch language"
         aria-expanded={isOpen}
       >
         <span className="text-lg" role="img" aria-label="Current language">
           {currentFlag}
         </span>
-        <span className="text-sm font-medium text-text-2 hidden xs:inline">
-          {currentLocale}
-        </span>
+        
         <svg
           className={`w-4 h-4 text-text-muted transition-transform ${
-            isOpen ? 'rotate-180' : ''
+            isOpen ? "rotate-180" : ""
           }`}
           fill="none"
           stroke="currentColor"
@@ -80,9 +83,9 @@ export function LanguageSwitcher() {
           >
             <div className="p-1">
               {locales.map((loc) => {
-                const isSelected = loc === locale
-                const flag = localeFlags[loc]
-                const name = localeNames[loc]
+                const isSelected = loc === locale;
+                const flag = localeFlags[loc];
+                const name = localeNames[loc];
 
                 return (
                   <button
@@ -91,11 +94,11 @@ export function LanguageSwitcher() {
                     disabled={isPending}
                     className={`w-full flex items-center gap-2 px-3 py-2 rounded-md text-sm transition-colors ${
                       isSelected
-                        ? 'bg-accent-blue/10 text-accent-blue'
-                        : 'text-text-2 hover:bg-surface-3'
-                    } ${isPending ? 'opacity-50 cursor-not-allowed' : ''}`}
+                        ? "bg-accent-blue/10 text-accent-blue"
+                        : "text-text-2 hover:bg-surface-3"
+                    } ${isPending ? "opacity-50 cursor-not-allowed" : ""}`}
                     role="menuitem"
-                    aria-current={isSelected ? 'true' : undefined}
+                    aria-current={isSelected ? "true" : undefined}
                   >
                     <span className="text-base" role="img">
                       {flag}
@@ -115,12 +118,12 @@ export function LanguageSwitcher() {
                       </svg>
                     )}
                   </button>
-                )
+                );
               })}
             </div>
           </div>
         </>
       )}
     </div>
-  )
+  );
 }

@@ -47,7 +47,7 @@ export function Header() {
 
       {/* Main header - 48px height */}
       <div className="h-12">
-        <nav className="container mx-auto px-4 h-full">
+        <nav className="container mx-auto px-2 h-full">
           <div className="flex items-center justify-between h-full">
             {/* Logo */}
             <Link
@@ -69,7 +69,7 @@ export function Header() {
                 <Link
                   key={key}
                   href={key === 'market' ? '/' : `/${key}`}
-                  className={`
+                  className={`xs:hidden
                     text-xs font-medium transition-colors rounded px-2 py-1
                     focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-up-primary
                     ${isActive(key === 'market' ? '/' : `/${key}`)
