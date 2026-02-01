@@ -771,18 +771,20 @@
    STOCK PAGE ANIMATIONS (Memory-efficient CSS animations)
    ================================================================== */
 
-/* Fade in animation for stock page */
-@keyframes fade-in {
+/* Fade in + Slide up combined animation */
+@keyframes fade-in-slide-up {
   from {
     opacity: 0;
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
+    transform: translateY(0);
   }
 }
 
-.animate-fade-in {
-  animation: fade-in 0.3s ease-out forwards;
+.fade-in-slide-up {
+  animation: fade-in-slide-up 0.3s ease-out forwards;
 }
 
 /* Slide up animation for cards */
@@ -799,4 +801,13 @@
 
 .animate-slide-up {
   animation: slide-up 0.3s ease-out forwards;
+}
+
+/* Hover scale effect for cards */
+.hover-scale {
+  transition: transform 0.2s ease;
+}
+
+.hover-scale:hover {
+  transform: scale(1.02);
 }

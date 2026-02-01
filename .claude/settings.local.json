@@ -58,7 +58,8 @@
       "Bash(pnpm run dev)",
       "Bash(tail:*)",
       "Bash(wc:*)",
-      "Bash(Remove-Item:*)"
+      "Bash(Remove-Item:*)",
+      "Bash(npm run test)"
     ]
   }
 }

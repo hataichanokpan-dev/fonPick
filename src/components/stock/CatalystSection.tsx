@@ -161,12 +161,9 @@ export function CatalystSection({
     <div data-testid="catalyst-section" className={cn('space-y-4', className)}>
       {/* Upcoming Events Section */}
       {hasEvents && (
-        <motion.div
+        <div
           data-testid="upcoming-events-section"
-          className="w-full rounded-lg bg-surface border border-border/50 overflow-hidden"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
+          className="w-full rounded-lg bg-surface border border-border/50 overflow-hidden fade-in-slide-up"
         >
           {/* Header */}
           <button
@@ -231,17 +228,14 @@ export function CatalystSection({
               </motion.div>
             )}
           </AnimatePresence>
-        </motion.div>
+        </div>
       )}
 
       {/* Technical Signals Section */}
       {hasSignals && (
-        <motion.div
+        <div
           data-testid="technical-signals-section"
-          className="w-full rounded-lg bg-surface border border-border/50 overflow-hidden"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3, delay: 0.1 }}
+          className="w-full rounded-lg bg-surface border border-border/50 overflow-hidden fade-in-slide-up delay-100"
         >
           {/* Header */}
           <button
@@ -343,19 +337,17 @@ export function CatalystSection({
               </motion.div>
             )}
           </AnimatePresence>
-        </motion.div>
+        </div>
       )}
 
       {/* Empty State */}
       {!hasEvents && !hasSignals && (
-        <motion.div
+        <div
           data-testid="no-catalyst-data"
-          className="w-full rounded-lg bg-surface border border-border/50 p-8 text-center"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          className="w-full rounded-lg bg-surface border border-border/50 p-8 text-center fade-in"
         >
           <p className="text-text-2">No catalyst or signal data available</p>
-        </motion.div>
+        </div>
       )}
     </div>
   )
@@ -376,14 +368,12 @@ function EventCard({ event, index, isSelected, onClick }: EventCardProps) {
     <motion.div
       data-testid={`timeline-item-${event.id}`}
       className={cn(
-        'p-4 rounded-lg border-l-4 cursor-pointer transition-all hover:bg-surface-2',
+        'p-4 rounded-lg border-l-4 cursor-pointer transition-all hover:bg-surface-2 fade-in-slide-up',
         getImportanceColor(event.importance),
         getImportanceBgColor(event.importance),
         `event-type-${event.type}`
       )}
-      initial={{ opacity: 0, x: -20 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.3, delay: index * 0.1 }}
+      style={{ animationDelay: `${index * 0.1}s` }}
       onClick={onClick}
       role="button"
       tabIndex={0}

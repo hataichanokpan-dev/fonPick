@@ -121,11 +121,8 @@ export function TechnicalAnalysis({
   return (
     <div data-testid="technical-analysis" className={cn('space-y-4', className)}>
       {/* Price Performance Section */}
-      <motion.div
-        className="w-full rounded-lg bg-surface border border-border/50 overflow-hidden"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.3 }}
+      <div
+        className="w-full rounded-lg bg-surface border border-border/50 overflow-hidden fade-in-slide-up"
       >
         {/* Header */}
         <button
@@ -257,15 +254,12 @@ export function TechnicalAnalysis({
             </motion.div>
           )}
         </AnimatePresence>
-      </motion.div>
+      </div>
 
       {/* Trading Statistics Section */}
-      <motion.div
+      <div
         data-testid="trading-statistics-section"
-        className="w-full rounded-lg bg-surface border border-border/50 overflow-hidden"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.3, delay: 0.1 }}
+        className="w-full rounded-lg bg-surface border border-border/50 overflow-hidden fade-in-slide-up delay-100"
       >
         {/* Header */}
         <button
@@ -375,16 +369,13 @@ export function TechnicalAnalysis({
             </motion.div>
           )}
         </AnimatePresence>
-      </motion.div>
+      </div>
 
       {/* Price Range Section (if data available) */}
       {week52High && week52Low && (
-        <motion.div
+        <div
           data-testid="price-range-section"
-          className="w-full rounded-lg bg-surface border border-border/50 overflow-hidden"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3, delay: 0.2 }}
+          className="w-full rounded-lg bg-surface border border-border/50 overflow-hidden fade-in-slide-up delay-200"
         >
           {/* Header */}
           <button
@@ -487,7 +478,7 @@ export function TechnicalAnalysis({
               </motion.div>
             )}
           </AnimatePresence>
-        </motion.div>
+        </div>
       )}
     </div>
   )

@@ -142,11 +142,8 @@ export function FundamentalAnalysis({
   return (
     <div data-testid="fundamental-analysis" className={cn('space-y-4', className)}>
       {/* Financial Health Section */}
-      <motion.div
-        className="w-full rounded-lg bg-surface border border-border/50 overflow-hidden"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.3 }}
+      <div
+        className="w-full rounded-lg bg-surface border border-border/50 overflow-hidden fade-in-slide-up"
       >
         {/* Header */}
         <button
@@ -293,15 +290,12 @@ export function FundamentalAnalysis({
             </motion.div>
           )}
         </AnimatePresence>
-      </motion.div>
+      </div>
 
       {/* Valuation Metrics Section */}
-      <motion.div
+      <div
         data-testid="valuation-metrics-section"
-        className="w-full rounded-lg bg-surface border border-border/50 overflow-hidden"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.3, delay: 0.1 }}
+        className="w-full rounded-lg bg-surface border border-border/50 overflow-hidden fade-in-slide-up delay-100"
       >
         {/* Header */}
         <button
@@ -438,7 +432,7 @@ export function FundamentalAnalysis({
             </motion.div>
           )}
         </AnimatePresence>
-      </motion.div>
+      </div>
     </div>
   )
 }

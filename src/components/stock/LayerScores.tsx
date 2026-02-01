@@ -179,13 +179,11 @@ function LayerCard({
   circumference,
 }: LayerCardProps) {
   return (
-    <motion.div
+    <div
       data-testid={`layer-${id}`}
-      className={`relative rounded-xl border-2 p-4 ${bgColorClass} transition-all hover:scale-105`}
+      className={`relative rounded-xl border-2 p-4 ${bgColorClass} transition-all hover-scale`}
       aria-label={`${englishLabel} score: ${score}`}
       tabIndex={0}
-      whileHover={{ scale: 1.02 }}
-      transition={{ duration: 0.2 }}
     >
       {/* Header */}
       <div className="mb-3 text-center">
@@ -256,6 +254,6 @@ function LayerCard({
           </ul>
         </div>
       </div>
-    </motion.div>
+    </div>
   )
 }

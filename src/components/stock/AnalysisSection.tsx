@@ -68,15 +68,12 @@ export function AnalysisSection({
   // ==================================================================
 
   return (
-    <motion.div
+    <div
       data-testid="analysis-section"
       className={cn(
-        'w-full rounded-lg bg-surface border border-border/50 p-4',
+        'w-full rounded-lg bg-surface border border-border/50 p-4 fade-in-slide-up',
         className
       )}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
     >
       {/* Header */}
       <button
@@ -148,7 +145,7 @@ export function AnalysisSection({
           </motion.div>
         ) : null}
       </AnimatePresence>
-    </motion.div>
+    </div>
   )
 }
 
