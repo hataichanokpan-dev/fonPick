@@ -325,7 +325,7 @@ export function Layer2Quality({
           score={Math.min(10, scoreData.metrics.npm.points * 5)}
           label={t.npm}
           thaiLabel={t.npmThai}
-          value={`${formatPercentageFromDecimal(scoreData.metrics.npm.currentValue)} ${t.vsSector} ${formatPercentageFromDecimal(scoreData.metrics.npm.comparison!)}`}
+          value={`${(scoreData.metrics.npm.currentValue)}% ${t.vsSector} ${formatPercentageFromDecimal(scoreData.metrics.npm.comparison!)}`}
           points={scoreData.metrics.npm.points}
           maxPoints={scoreData.metrics.npm.maxPoints}
           status={scoreData.metrics.npm.status}
@@ -337,7 +337,7 @@ export function Layer2Quality({
           score={Math.min(10, scoreData.metrics.roe.points * 10)}
           label={t.roe}
           thaiLabel={t.roeThai}
-          value={`${formatPercentageFromDecimal(scoreData.metrics.roe.currentValue)} ${t.vsSector} ${formatPercentageFromDecimal(scoreData.metrics.roe.comparison!)}`}
+          value={`${(scoreData.metrics.roe.currentValue)}% ${t.vsSector} ${formatPercentageFromDecimal(scoreData.metrics.roe.comparison!)}`}
           points={scoreData.metrics.roe.points}
           maxPoints={scoreData.metrics.roe.maxPoints}
           status={scoreData.metrics.roe.status}

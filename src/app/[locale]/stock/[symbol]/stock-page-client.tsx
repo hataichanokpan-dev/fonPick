@@ -341,6 +341,8 @@ export function StockPageClient({
           screening.decision,
         )
       : null;
+  
+  console.log('statistics:', statistics);
 
   return (
     <div className="space-y-6">

@@ -209,7 +209,7 @@ function PriceLevelCard({
         {formatCurrency(price)}
       </div>
       <div className={`text-xs mt-1 ${percentageColor}`}>
-        {percentage > 0 ? '+' : ''}{safeToFixed(percentage, 1)}% {percentageLabel}
+        {color === 'up' ? '+' : ''}{safeToFixed(percentage, 1)}% {percentageLabel}
       </div>
       {rationale && (
         <p className="text-xs text-text-3 mt-1 line-clamp-2">{rationale}</p>
