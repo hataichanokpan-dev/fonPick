@@ -56,7 +56,8 @@
       "Bash(ls:*)",
       "Bash(pnpm install:*)",
       "Bash(pnpm run dev)",
-      "Bash(tail:*)"
+      "Bash(tail:*)",
+      "Bash(wc:*)"
     ]
   }
 }

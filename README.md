@@ -752,16 +752,6 @@ When reporting bugs, please include:
 - [ ] Advanced charting library
 - [ ] Backtesting framework
 
-### 📋 Planned
-
-- [ ] WebSocket support for real-time updates
-- [ ] User authentication
-- [ ] Custom watchlists
-- [ ] Alert system
-- [ ] Mobile app (React Native)
-- [ ] Portfolio tracking
-- [ ] Machine learning predictions
-
 ---
 
 ## 🙏 Acknowledgments
@@ -791,7 +781,7 @@ Built with amazing open-source tools:
 
   <sub>
 
-  © 2025 fonPick. All rights reserved.
+  © 2026 fonPick. All rights reserved.
 
   [GitHub](https://github.com/your-org/fonPick) •
   [Twitter](https://twitter.com/fonpick) •
