@@ -350,7 +350,7 @@ export function Layer3ValueGrowth({
             score={Math.min(10, (scoreData.valueMetrics.divYield.points / VALUE_POINTS.DIV_YIELD) * 10)}
             label={t.divYield}
             thaiLabel={t.divYieldThai}
-            value={`${formatPercentageFromDecimal(scoreData.valueMetrics.divYield.currentValue)} ${t.vsSector} ${formatPercentageFromDecimal(scoreData.valueMetrics.divYield.targetValue!)}`}
+            value={`${(scoreData.valueMetrics.divYield.currentValue)} ${t.vsSector} ${formatPercentageFromDecimal(scoreData.valueMetrics.divYield.targetValue!)}`}
             points={scoreData.valueMetrics.divYield.points}
             maxPoints={scoreData.valueMetrics.divYield.maxPoints}
             status={scoreData.valueMetrics.divYield.status}

@@ -284,7 +284,7 @@ export function calculateTechnicalScore(data: TechnicalInputData): TechnicalScor
         currentValue: data.supportLevel || 0,
         status: techResult.supportStatus,
         detail: data.supportLevel
-          ? `${techResult.distanceToSupport >= 0 ? '+' : ''}${safeToFixed(techResult.distanceToSupport * 100, 1)}%`
+          ? `฿${safeToFixed(data.supportLevel, 2)} (${techResult.distanceToSupport >= 0 ? '+' : ''}${safeToFixed(techResult.distanceToSupport * 100, 1)}%)`
           : LABELS.th.neutral,
       },
     },
