@@ -102,6 +102,12 @@ export interface ValueGrowthInputData {
   epsAcceleration: number  // QoQ change (positive = accelerating)
   epsCurrent?: number  // Current year EPS for CAGR formula display
   eps5YearsAgo?: number  // EPS 5 years ago for CAGR formula display
+
+  // EPS history for stability check (5 years)
+  epsHistory?: {
+    year: number
+    eps: number
+  }[]
 }
 
 // ============================================================================
@@ -429,13 +435,77 @@ export function Layer3ValueGrowth({
             compact={compact}
           />
 
-          {/* Trend indicator */}
-          <div className="flex items-center gap-2 mt-4 p-3 rounded-lg bg-surface-2">
-            <TrendIcon trend={scoreData.growthMetrics.epsAccel.trend} />
-            <span className="text-sm text-text-secondary">
-              {getTrendDescription(scoreData.growthMetrics.epsAccel.trend, locale)}
-            </span>
-          </div>
+          {/* EPS History Table with Stability Check */}
+          {data.epsHistory && data.epsHistory.length > 0 && (
+            <div className="mt-4 p-3 rounded-lg bg-surface-2 border border-border">
+              {/* Stability Analysis */}
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-xs font-semibold text-text-3">EPS 5 YEAR HISTORY</span>
+                {(() => {
+                  // Check stability conditions
+                  const hasNegative = data.epsHistory.some(y => y.eps < 0)
+                  const years = [...data.epsHistory].sort((a, b) => a.year - b.year)
+                  const isAccelerating = years.length >= 2 && years.every((y, i) => {
+                    if (i === 0) return true
+                    return y.eps > years[i - 1].eps
+                  })
+                  const isStable = years.length >= 2 && years.every((y, i) => {
+                    if (i === 0) return true
+                    const decline = (years[i - 1].eps - y.eps) / years[i - 1].eps
+                    return decline <= 0.10 // Not decline more than 10%
+                  })
+
+                  let statusText: string
+                  let statusColor: string
+
+                  if (hasNegative) {
+                    statusText = locale === 'th' ? 'ไม่คงที่ (มีปีขาดทุน)' : 'Not Stable (Has Loss Year)'
+                    statusColor = 'text-risk bg-risk/10 border-risk'
+                  } else if (isAccelerating) {
+                    statusText = locale === 'th' ? 'เร่งขึ้น (กำไรเพิ่มทุกปี)' : 'Accelerating (Growing Every Year)'
+                    statusColor = 'text-up-primary bg-up-soft border-up-primary'
+                  } else if (isStable) {
+                    statusText = locale === 'th' ? 'คงที่ (ลดลงไม่เกิน 10%)' : 'Stable (Decline < 10%)'
+                    statusColor = 'text-insight bg-insight/20 border-insight'
+                  } else {
+                    statusText = locale === 'th' ? 'ชะลอลง (กำไรลดลง)' : 'Decelerating (Declining)'
+                    statusColor = 'text-risk bg-risk/10 border-risk'
+                  }
+
+                  return (
+                    <span className={`text-xs px-2 py-1 rounded border ${statusColor}`}>
+                      {statusText}
+                    </span>
+                  )
+                })()}
+              </div>
+
+              {/* EPS Table */}
+              <div className="space-y-1.5">
+                {[...data.epsHistory].sort((a, b) => b.year - a.year).map((item, index) => {
+                  const isNegative = item.eps < 0
+                  const isLatest = index === 0
+                  return (
+                    <div key={item.year} className="flex items-center justify-between py-1.5 px-2 rounded text-xs">
+                      <span className={`font-medium ${isLatest ? 'text-accent-blue' : 'text-text-secondary'}`}>
+                        {item.year}
+                      </span>
+                      <span className={`font-semibold tabular-nums ${isNegative ? 'text-risk' : 'text-text-primary'}`}>
+                        {isNegative ? '(' : ''}{safeToFixed(item.eps, 2)}{isNegative ? ')' : ''}
+                      </span>
+                    </div>
+                  )
+                })}
+              </div>
+
+              {/* Stability Formula */}
+              <div className="mt-3 pt-2 border-t border-border text-xs text-text-3 space-y-1">
+                <div>• Accelerating: กำไรเพิ่มขึ้นทุกปี</div>
+                <div>• Stable: ลดลงไม่เกิน 10% จากปีก่อน</div>
+                <div>• Unstable: มีปีขาดทุน (ติดลบ)</div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -449,46 +519,4 @@ function getTrendLabel(trend: 'up' | 'down' | 'flat', locale: 'en' | 'th'): stri
   if (trend === 'up') return locale === 'th' ? LABELS.th.accelerating : LABELS.en.accelerating
   if (trend === 'down') return locale === 'th' ? LABELS.th.decelerating : LABELS.en.decelerating
   return locale === 'th' ? LABELS.th.stable : LABELS.en.stable
-}
-
-/**
- * Get trend description
- */
-function getTrendDescription(trend: 'up' | 'down' | 'flat', locale: 'en' | 'th'): string {
-  if (trend === 'up') return locale === 'th' ? 'กำไรเติบโตเร็วขึ้น' : 'Earnings accelerating'
-  if (trend === 'down') return locale === 'th' ? 'กำไรชะลอลง' : 'Earnings decelerating'
-  return locale === 'th' ? 'กำไรคงที่' : 'Earnings stable'
-}
-
-/**
- * Trend icon component
- */
-function TrendIcon({ trend }: { trend: 'up' | 'down' | 'flat' }) {
-  if (trend === 'up') {
-    return (
-      <div className="w-8 h-8 rounded-full bg-up-soft flex items-center justify-center">
-        <svg className="w-4 h-4 text-up-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-        </svg>
-      </div>
-    )
-  }
-
-  if (trend === 'down') {
-    return (
-      <div className="w-8 h-8 rounded-full bg-risk/10 flex items-center justify-center">
-        <svg className="w-4 h-4 text-risk" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6" />
-        </svg>
-      </div>
-    )
-  }
-
-  return (
-    <div className="w-8 h-8 rounded-full bg-surface-3 flex items-center justify-center">
-      <svg className="w-4 h-4 text-text-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 12h14" />
-      </svg>
-    </div>
-  )
 }

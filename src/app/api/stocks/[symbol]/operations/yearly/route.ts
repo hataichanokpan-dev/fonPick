@@ -1,14 +1,12 @@
 /**
- * Stock Statistics API Route
+ * Yearly Operations API Proxy Route
  *
- * GET /api/stocks/[symbol]/statistics
- * Proxies requests to external stock API and caches responses.
- *
- * Part of Stock Data API implementation.
+ * Proxy for https://my-fon-stock-api.vercel.app/api/th/stocks/{symbol}/operations/yearly
+ * Returns yearly financial data including EPS history for stability analysis.
  */
 
 import { NextRequest, NextResponse } from 'next/server'
-import { cachedJson, MARKET_DATA_CACHE, NO_CACHE } from '@/lib/api-cache'
+import { cachedJson, MARKET_DATA_CACHE } from '@/lib/api-cache'
 import {
   BoundedCache,
   getCorsHeaders,
@@ -23,154 +21,145 @@ import {
 // ============================================================================
 
 /**
- * External API response structure
+ * Single year of financial data
  */
-interface ExternalStockStatistics {
-  success: boolean
-  data: StockStatisticsData
-  cached: boolean
+interface YearlyFinancialData {
+  asset: string
+  book_value_per_share: string
+  cash: string
+  cash_cycle: string
+  close: string
+  da: string
+  debt_to_equity: string
+  dividend_yield: string
+  earning_per_share: string
+  earning_per_share_yoy?: string
+  end_of_year_date: string
+  equity: string
+  financing_activities: string
+  fiscal: number
+  gpm: string
+  gross_profit: string
+  mkt_cap: string
+  net_profit: string
+  net_profit_yoy?: string
+  npm: string
+  operating_activities: string
+  price_book_value: string
+  price_earning_ratio: string
+  quarter: number
+  revenue: string
+  revenue_yoy?: string
+  roa: string
+  roe: string
+  security_id: string
+  sga: string
+  sga_per_revenue: string
+  total_debt: string
 }
 
 /**
- * Stock statistics data from external API
+ * External API response structure
  */
-export interface StockStatisticsData {
-  // Market Data
-  marketCap: number
-  enterpriseValue: number
-  earningsDate: string
-  exDividendDate: string
-  sharesOutstanding: number
-  sharesChangeYoY: number | null
-  sharesChangeQoQ: number | null
-  ownedByInstitutions: number | null
+interface ExternalYearlyOperations {
+  success: boolean
+  data: Record<string, YearlyFinancialData>
+  cached?: boolean
+}
 
-  // Valuation Ratios
-  peRatio: number
-  forwardPERatio: number
-  psRatio: number
-  pbRatio: number
-  ptbvRatio: number
-  pfcfRatio: number
-  pocfRatio: number
-  pegRatio: number | null
-  evEarnings: number
-  evSales: number
-  evEbitda: number
-  evEbit: number
-  evFcf: number
-
-  // Financial Health
-  currentRatio: number
-  quickRatio: number
-  debtToEquity: number
-  debtToEbitda: number
-  debtToFcf: number
-  interestCoverage: number
-
-  // Profitability
-  returnOnEquity: number
-  returnOnAssets: number
-  returnOnInvestedCapital: number
-  returnOnCapitalEmployed: number
-
-  // Trading Data
-  beta5Y: number
-  priceChange52W: number
-  movingAverage50D: number
-  movingAverage200D: number
-  rsi: number
-  averageVolume20D: number
-
-  // Income Statement
-  revenue: number
-  grossProfit: number
-  operatingIncome: number
-  pretaxIncome: number
-  netIncome: number
-  ebitda: number
-  ebit: number
+/**
+ * Processed EPS history for stability analysis
+ */
+export interface EPSHistoryData {
+  year: number
   eps: number
+}
 
-  // Balance Sheet
-  cash: number
-  totalDebt: number
-  netCash: number
-  netCashPerShare: number
-  bookValue: number
-  bookValuePerShare: number
-  workingCapital: number
-
-  // Cash Flow
-  operatingCashFlow: number
-  capitalExpenditures: number
-  freeCashFlow: number
-  freeCashFlowPerShare: number
-
-  // Margins
-  grossMargin: number
-  operatingMargin: number
-  pretaxMargin: number
-  profitMargin: number
-  ebitdaMargin: number
-  ebitMargin: number
-  fcfMargin: number
-
-  // Dividends
-  dividendPerShare: number
-  dividendYield: number
-  dividendGrowth: number
-  payoutRatio: number
-  buybackYield: number
-  shareholderYield: number
-  earningsYield: number
-  fcfYield: number
-
-  // Scores
-  altmanZScore: number
-  piotroskiFScore: number
-
-  // EPS History (optional - for 5-year stability analysis)
-  epsHistory?: {
-    year: number
-    eps: number
-  }[]
+/**
+ * Internal API response structure
+ */
+export interface YearlyOperationsResponse {
+  success: boolean
+  data?: {
+    // Raw data by fiscal year
+    yearly: Record<string, YearlyFinancialData>
+    // EPS history for stability analysis (last 10 years)
+    epsHistory: EPSHistoryData[]
+    // Current year EPS
+    currentEps: number | null
+    // 5-year CAGR
+    epsCagr5Y: number | null
+  }
+  cached?: boolean
+  error?: string
 }
 
 // ============================================================================
 // CONFIGURATION
 // ============================================================================
 
-/**
- * External API configuration
- */
 const EXTERNAL_API_CONFIG = {
   baseUrl: 'https://my-fon-stock-api.vercel.app/api',
-  timeout: 10000, // 10 seconds
+  timeout: 10000,
   maxRetries: 2,
-  retryDelay: 500, // milliseconds
+  retryDelay: 500,
 } as const
 
-/**
- * Bounded cache for stock statistics data (max 100 entries, 5 min TTL)
- */
-const stockCache = new BoundedCache<ExternalStockStatistics>(100, 5 * 60 * 1000)
+const stockCache = new BoundedCache<ExternalYearlyOperations>(100, 5 * 60 * 1000)
 
 // ============================================================================
 // LOGGING
 // ============================================================================
 
-/**
- * Log error with context
- */
 function logError(symbol: string, message: string, error: unknown): void {
   const errorMsg = error instanceof Error ? error.message : String(error)
-  // In production, use proper logging service (e.g., Sentry, CloudWatch)
   if (process.env.NODE_ENV === 'production') {
-    // Production logging - could send to external service
-    console.error(`[StockAPI] ${symbol}: ${message}`, errorMsg)
+    console.error(`[YearlyOperationsAPI] ${symbol}: ${message}`, errorMsg)
   } else {
-    console.error(`[StockAPI] ${symbol}: ${message}`, error)
+    console.error(`[YearlyOperationsAPI] ${symbol}: ${message}`, error)
+  }
+}
+
+// ============================================================================
+// DATA PROCESSING
+// ============================================================================
+
+/**
+ * Process yearly data and extract EPS history
+ */
+function processYearlyData(externalData: Record<string, YearlyFinancialData>) {
+  // Convert to array and sort by fiscal year
+  const years = Object.values(externalData).sort((a, b) => a.fiscal - b.fiscal)
+
+  // Extract EPS history (last 5 years only)
+  const epsHistory: EPSHistoryData[] = years
+    .map((y) => ({
+      year: y.fiscal,
+      eps: parseFloat(y.earning_per_share) || 0,
+    }))
+    .sort((a, b) => a.year - b.year)
+    .slice(-5) // Keep only the last 5 years
+
+  // Get current year EPS (most recent)
+  const currentEps = epsHistory.length > 0 ? epsHistory[epsHistory.length - 1].eps : null
+
+  // Calculate 5-year CAGR if we have at least 5 years
+  let epsCagr5Y: number | null = null
+  if (epsHistory.length >= 5) {
+    const recent5 = epsHistory.slice(-5)
+    const oldest = recent5[0].eps
+    const newest = recent5[4].eps
+
+    if (oldest > 0) {
+      epsCagr5Y = Math.pow(newest / oldest, 1 / 5) - 1
+    }
+  }
+
+  return {
+    yearly: externalData,
+    epsHistory,
+    currentEps,
+    epsCagr5Y,
   }
 }
 
@@ -178,15 +167,11 @@ function logError(symbol: string, message: string, error: unknown): void {
 // FETCH FUNCTIONS
 // ============================================================================
 
-/**
- * Fetch stock statistics from external API
- *
- * @param symbol Stock symbol
- * @returns Stock statistics data
- * @throws StockApiError if fetch fails
- */
-async function fetchStockStatistics(symbol: string): Promise<ExternalStockStatistics> {
-  const url = `${EXTERNAL_API_CONFIG.baseUrl}/th/stocks/${symbol}/statistics`
+async function fetchYearlyOperations(
+  symbol: string,
+  locale: string = 'th'
+): Promise<ExternalYearlyOperations> {
+  const url = `${EXTERNAL_API_CONFIG.baseUrl}/${locale}/stocks/${symbol}/operations/yearly`
 
   const controller = new AbortController()
   const timeoutId = setTimeout(() => controller.abort(), EXTERNAL_API_CONFIG.timeout)
@@ -198,8 +183,7 @@ async function fetchStockStatistics(symbol: string): Promise<ExternalStockStatis
         'Accept': 'application/json',
         'User-Agent': 'FonPick/1.0',
       },
-      // Next.js caching options
-      next: { revalidate: 300 }, // 5 minutes
+      next: { revalidate: 300 },
     })
 
     clearTimeout(timeoutId)
@@ -212,7 +196,7 @@ async function fetchStockStatistics(symbol: string): Promise<ExternalStockStatis
       )
     }
 
-    const data = (await response.json()) as ExternalStockStatistics
+    const data = (await response.json()) as ExternalYearlyOperations
 
     if (!data.success || !data.data) {
       throw new StockApiError(
@@ -238,29 +222,26 @@ async function fetchStockStatistics(symbol: string): Promise<ExternalStockStatis
   }
 }
 
-/**
- * Fetch stock statistics with retry logic
- *
- * @param symbol Stock symbol
- * @returns Stock statistics data
- */
-async function fetchWithRetry(symbol: string): Promise<ExternalStockStatistics> {
+async function fetchWithRetry(
+  symbol: string,
+  locale: string
+): Promise<ExternalYearlyOperations> {
   let lastError: Error | null = null
 
   for (let attempt = 0; attempt <= EXTERNAL_API_CONFIG.maxRetries; attempt++) {
     try {
-      return await fetchStockStatistics(symbol)
+      return await fetchYearlyOperations(symbol, locale)
     } catch (error) {
       lastError = error as Error
 
-      // Don't retry on client errors (4xx)
       if (error instanceof StockApiError && error.statusCode >= 400 && error.statusCode < 500) {
         throw error
       }
 
-      // Wait before retry (except on last attempt)
       if (attempt < EXTERNAL_API_CONFIG.maxRetries) {
-        await new Promise(resolve => setTimeout(resolve, EXTERNAL_API_CONFIG.retryDelay * (attempt + 1)))
+        await new Promise(resolve =>
+          setTimeout(resolve, EXTERNAL_API_CONFIG.retryDelay * (attempt + 1))
+        )
       }
     }
   }
@@ -272,13 +253,6 @@ async function fetchWithRetry(symbol: string): Promise<ExternalStockStatistics> 
 // ROUTE HANDLERS
 // ============================================================================
 
-/**
- * GET /api/stocks/[symbol]/statistics
- *
- * Query parameters:
- * - nocache: Set to 'true' to bypass cache
- * - timeout: Custom timeout in milliseconds (max 30000)
- */
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ symbol: string }> }
@@ -286,6 +260,7 @@ export async function GET(
   const { symbol } = await params
   const searchParams = request.nextUrl.searchParams
   const bypassCache = searchParams.get('nocache') === 'true'
+  const locale = searchParams.get('locale') || 'th'
 
   // Validate symbol format
   if (!symbol || !validateSymbol(symbol)) {
@@ -294,7 +269,7 @@ export async function GET(
         success: false,
         error: 'Invalid stock symbol format',
       },
-      NO_CACHE,
+      MARKET_DATA_CACHE,
       400
     )
   }
@@ -316,7 +291,7 @@ export async function GET(
           fetchedAt: Date.now(),
         },
       },
-      NO_CACHE,
+      MARKET_DATA_CACHE,
       429
     )
     response.headers.set('Retry-After', retryAfter.toString())
@@ -324,14 +299,15 @@ export async function GET(
   }
 
   try {
-    // Check cache first (unless bypass is requested)
+    // Check cache first
     if (!bypassCache) {
       const cached = stockCache.get(uppercaseSymbol)
       if (cached) {
+        const processed = processYearlyData(cached.data)
         const response = cachedJson(
           {
             success: true,
-            data: cached.data,
+            data: processed,
             meta: {
               symbol: uppercaseSymbol,
               fetchedAt: Date.now(),
@@ -341,7 +317,6 @@ export async function GET(
           MARKET_DATA_CACHE
         )
 
-        // Apply CORS headers
         const corsHeaders = getCorsHeaders(request)
         Object.entries(corsHeaders).forEach(([key, value]) => {
           response.headers.set(key, value)
@@ -351,18 +326,21 @@ export async function GET(
       }
     }
 
-    // Fetch from external API with retry
-    const externalData = await fetchWithRetry(uppercaseSymbol)
+    // Fetch from external API
+    const externalData = await fetchWithRetry(uppercaseSymbol, locale)
 
     // Cache the result
     stockCache.set(uppercaseSymbol, externalData)
+
+    // Process the data
+    const processed = processYearlyData(externalData.data)
 
     // Build response with CORS headers
     const corsHeaders = getCorsHeaders(request)
     const response = cachedJson(
       {
         success: true,
-        data: externalData.data,
+        data: processed,
         meta: {
           symbol: uppercaseSymbol,
           fetchedAt: Date.now(),
@@ -372,7 +350,6 @@ export async function GET(
       MARKET_DATA_CACHE
     )
 
-    // Apply CORS headers
     Object.entries(corsHeaders).forEach(([key, value]) => {
       response.headers.set(key, value)
     })
@@ -387,24 +364,19 @@ export async function GET(
     return cachedJson(
       {
         success: false,
-        error: 'Failed to fetch stock statistics',
+        error: 'Failed to fetch yearly operations',
         message: errorMessage,
         meta: {
           symbol: uppercaseSymbol,
           fetchedAt: Date.now(),
         },
       },
-      NO_CACHE,
+      MARKET_DATA_CACHE,
       statusCode
     )
   }
 }
 
-/**
- * OPTIONS /api/stocks/[symbol]/statistics
- *
- * Handle CORS preflight requests
- */
 export async function OPTIONS(request: NextRequest) {
   const corsHeaders = getCorsHeaders(request)
 
@@ -418,17 +390,6 @@ export async function OPTIONS(request: NextRequest) {
 // ROUTE CONFIG
 // ============================================================================
 
-/**
- * Enable dynamic rendering for real-time data
- */
 export const dynamic = 'force-dynamic'
-
-/**
- * Runtime configuration (Edge for better performance)
- */
 export const runtime = 'nodejs'
-
-/**
- * Segment config for cache behavior
- */
 export const fetchCache = 'force-no-store'

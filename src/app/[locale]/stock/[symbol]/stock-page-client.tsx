@@ -17,6 +17,7 @@ import { useTranslations, useLocale } from "next-intl";
 import { useStockScreening } from "@/hooks/useStockScreening";
 import { useCatalystScore } from "@/hooks/useCatalystScore";
 import { useSupportResistanceLevels } from "@/hooks/useSupportResistanceLevels";
+import { useEPSHistory } from "@/hooks/useYearlyOperations";
 import {
   StockPageSkeleton,
   StockPageErrorBoundary,
@@ -241,6 +242,9 @@ export function StockPageClient({ symbol, children }: StockPageClientProps) {
     years: 3,
     interval: '1d'
   });
+
+  // Get EPS history from yearly operations data
+  const { epsHistory, currentEps, epsCagr5Y } = useEPSHistory(symbol, true);
 
   // Recalculate screening score with AI score AND support levels
   const screeningWithAI = useMemo(() => {
@@ -524,10 +528,11 @@ export function StockPageClient({ symbol, children }: StockPageClientProps) {
                       dividendYield: statistics.dividendYield,
                       pfcfRatio: statistics.pfcfRatio,
                       marketCap: statistics.marketCap,
-                      epsGrowthYoY: 0.05, // TODO: From yearly data
+                      epsGrowthYoY: epsCagr5Y ?? 0.05, // From yearly operations data
                       epsAcceleration: 0.02, // TODO: From quarterly data
-                      epsCurrent: statistics.eps, // TODO: From yearly data
-                      eps5YearsAgo: undefined, // TODO: From yearly data (5 years ago)
+                      epsCurrent: currentEps ?? statistics.eps, // From yearly operations data
+                      eps5YearsAgo: undefined, // Calculated from CAGR in component
+                      epsHistory: epsHistory ?? undefined, // Real EPS history from API
                     }}
                     compact={compact}
                   />

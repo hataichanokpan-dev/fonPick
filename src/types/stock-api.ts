@@ -102,6 +102,7 @@ export interface FinancialStats {
   debtToEquity: number
   currentRatio: number
   quickRatio: number
+  epsHistory?: { year: number; eps: number }[]  // EPS history for 5 years
 }
 
 /**
