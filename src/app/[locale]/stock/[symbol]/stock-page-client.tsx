@@ -523,8 +523,11 @@ export function StockPageClient({ symbol, children }: StockPageClientProps) {
                       returnOnEquity: statistics.returnOnEquity,
                       dividendYield: statistics.dividendYield,
                       pfcfRatio: statistics.pfcfRatio,
+                      marketCap: statistics.marketCap,
                       epsGrowthYoY: 0.05, // TODO: From yearly data
                       epsAcceleration: 0.02, // TODO: From quarterly data
+                      epsCurrent: statistics.eps, // TODO: From yearly data
+                      eps5YearsAgo: undefined, // TODO: From yearly data (5 years ago)
                     }}
                     compact={compact}
                   />

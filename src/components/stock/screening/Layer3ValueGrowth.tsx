@@ -20,6 +20,7 @@ import { VALUE_THRESHOLDS, GROWTH_THRESHOLDS, VALUE_POINTS, GROWTH_POINTS } from
 import { MetricProgressBar } from './MetricProgressBar'
 import type { ValueGrowthScoreData, MetricStatus } from './types'
 import { formatRatio, formatPercentageFromDecimal } from './utils/formatters'
+import { safeToFixed } from '@/lib/utils'
 
 // ============================================================================
 // LABELS
@@ -94,10 +95,13 @@ export interface ValueGrowthInputData {
   dividendYield: number  // Decimal
   pfcfRatio: number
   sectorAvgDivYield?: number
+  marketCap?: number  // Market cap for P/FCF formula display
 
   // Growth metrics
   epsGrowthYoY: number  // Decimal (e.g., 0.15 for 15%)
   epsAcceleration: number  // QoQ change (positive = accelerating)
+  epsCurrent?: number  // Current year EPS for CAGR formula display
+  eps5YearsAgo?: number  // EPS 5 years ago for CAGR formula display
 }
 
 // ============================================================================
@@ -361,12 +365,27 @@ export function Layer3ValueGrowth({
             score={Math.min(10, (scoreData.valueMetrics.pfcf.points / VALUE_POINTS.PFCF) * 10)}
             label={t.pfcf}
             thaiLabel={t.pfcfThai}
-            value={`${formatRatio(scoreData.valueMetrics.pfcf.currentValue)}x`}
+            value={`${formatRatio(scoreData.valueMetrics.pfcf.currentValue)}x `}
             points={scoreData.valueMetrics.pfcf.points}
             maxPoints={scoreData.valueMetrics.pfcf.maxPoints}
             status={scoreData.valueMetrics.pfcf.status}
             compact={compact}
           />
+          {/* P/FCF formula with actual values */}
+          {data.marketCap && data.pfcfRatio > 0 && (
+            <div className="text-xs text-text-3 mt-1 ml-1">
+              {(() => {
+                const fcf = data.marketCap / data.pfcfRatio
+                const formatLargeNumber = (num: number) => {
+                  if (num >= 1_000_000_000) return `${(num / 1_000_000_000).toFixed(0)}B`
+                  if (num >= 1_000_000) return `${(num / 1_000_000).toFixed(0)}M`
+                  if (num >= 1_000) return `${(num / 1_000).toFixed(0)}K`
+                  return num.toFixed(0)
+                }
+                return `P/FCF = ${formatRatio(scoreData.valueMetrics.pfcf.currentValue)}x => (${formatLargeNumber(data.marketCap)} ÷ ${formatLargeNumber(fcf)})`
+              })()}
+            </div>
+          )}
         </div>
 
         {/* GROWTH METRICS */}
@@ -379,12 +398,25 @@ export function Layer3ValueGrowth({
             score={Math.min(10, (scoreData.growthMetrics.epsYoY.points / GROWTH_POINTS.EPS_YOY) * 10)}
             label={t.epsYoY}
             thaiLabel={t.epsYoYThai}
-            value={`${formatPercentageFromDecimal(scoreData.growthMetrics.epsYoY.currentValue)}`}
+            value={`${formatPercentageFromDecimal(scoreData.growthMetrics.epsYoY.currentValue)} CAGR`}
             points={scoreData.growthMetrics.epsYoY.points}
             maxPoints={scoreData.growthMetrics.epsYoY.maxPoints}
             status={scoreData.growthMetrics.epsYoY.status}
             compact={compact}
           />
+          {/* CAGR formula with actual values */}
+          {data.epsCurrent && (
+            <div className="text-xs text-text-3 mt-1 ml-1">
+              {(() => {
+                const eps5YAgo = data.eps5YearsAgo && data.eps5YearsAgo > 0
+                  ? data.eps5YearsAgo
+                  : data.epsCurrent / Math.pow(1 + scoreData.growthMetrics.epsYoY.currentValue, 5)
+                const currentYear = new Date().getFullYear()
+                const fiveYearsAgo = currentYear - 5
+                return `CAGR 5Y = (${currentYear}: ${safeToFixed(data.epsCurrent, 2)} ÷ ${fiveYearsAgo}: ${safeToFixed(eps5YAgo, 2)})^(1/5) - 1 = ${formatPercentageFromDecimal(scoreData.growthMetrics.epsYoY.currentValue)}`
+              })()}
+            </div>
+          )}
 
           <MetricProgressBar
             score={Math.min(10, (scoreData.growthMetrics.epsAccel.points / GROWTH_POINTS.EPS_ACCEL) * 10)}
