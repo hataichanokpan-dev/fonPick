@@ -187,9 +187,7 @@ export interface TechnicalScoreData {
     support: TechnicalMetric
   }
   catalysts: {
-    events: CatalystEvent[]
-    sectorMomentum: MetricStatus
-    seasonality: MetricStatus
+    aiScore?: number | null  // 0-10 from AI API
   }
 }
 

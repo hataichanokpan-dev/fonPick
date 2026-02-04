@@ -73,14 +73,7 @@ export interface ScreeningInputData {
   rsi: number | null
   macdPositive: boolean | null
   supportLevel: number | null
-  catalystEvents?: Array<{
-    name: string
-    thaiName?: string
-    date: Date | null
-    importance: 'high' | 'medium' | 'low'
-    impact: 'positive' | 'negative' | 'neutral'
-  }>
-  sectorMomentum?: 'strong' | 'neutral' | 'weak'
+  aiScore?: number | null  // 0-10 from AI API
 }
 
 /**
@@ -122,8 +115,7 @@ export function calculateScreeningScore(data: ScreeningInputData): ScreeningScor
     rsi: data.rsi,
     macdPositive: data.macdPositive,
     supportLevel: data.supportLevel,
-    catalystEvents: data.catalystEvents,
-    sectorMomentum: data.sectorMomentum,
+    aiScore: data.aiScore,
   })
 
   // Calculate total score (27 max)

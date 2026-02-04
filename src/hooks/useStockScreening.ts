@@ -122,8 +122,7 @@ export function useStockScreening(symbol: string) {
           rsi: statistics.rsi || null,
           macdPositive: null, // TODO: From API
           supportLevel: null, // TODO: Calculate from price history
-          catalystEvents: [], // TODO: From AI API
-          sectorMomentum: undefined, // TODO: From sector data
+          aiScore: null, // TODO: From AI API
         }
 
         screening = calculateScreeningScore(screeningInput)

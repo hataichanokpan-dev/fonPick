@@ -12,9 +12,10 @@
  * - Bilingual support (Thai/English) via next-intl
  */
 
-import { useState } from "react";
-import { useTranslations } from "next-intl";
+import { useState, useMemo } from "react";
+import { useTranslations, useLocale } from "next-intl";
 import { useStockScreening } from "@/hooks/useStockScreening";
+import { useCatalystScore } from "@/hooks/useCatalystScore";
 import {
   StockPageSkeleton,
   StockPageErrorBoundary,
@@ -32,6 +33,8 @@ import {
   EntryPlanCard,
   calculateEntryPlan,
 } from "@/components/stock/screening";
+import { calculateScreeningScore, type ScreeningInputData } from "@/components/stock/screening/utils/score-calculator";
+import { AIInsightsCard } from "@/components/stock/screening/AIInsightsCard";
 import {
   TrendingUp,
   TrendingDown,
@@ -109,7 +112,6 @@ function parseMarketCap(marketCap: string): number {
         : 1;
   const numStr = str.replace(/[BMK]$/, "").trim();
   const num = parseFloat(numStr);
-  //console.log("Parsed market cap:", marketCap, "->", num * multiplier);
   return isNaN(num) ? 0 : num * multiplier;
 }
 
@@ -229,7 +231,56 @@ function StockHeader({
 export function StockPageClient({ symbol, children }: StockPageClientProps) {
   const { data, isLoading, error, refetch } = useStockScreening(symbol);
 
+  // Fetch AI catalyst score
+  const { aiScore, data: catalystData } = useCatalystScore(symbol, true);
+
+  // Recalculate screening score with AI score when available
+  const screeningWithAI = useMemo(() => {
+    if (!data?.screening) return null;
+    if (aiScore === null || aiScore === undefined) return data.screening;
+
+    // Recalculate with AI score - need to rebuild the input data
+    const { statistics, overview } = data;
+    if (!statistics || !overview) return data.screening;
+
+    const screeningInput: ScreeningInputData = {
+      // Layer 1: Universe
+      marketCap: statistics.marketCap || 0,
+      volume: statistics.averageVolume20D || overview.volume || 0,
+
+      // Layer 2: Quality
+      pegRatio: statistics.pegRatio || null,
+      profitMargin: statistics.profitMargin || 0,
+      returnOnEquity: statistics.returnOnEquity || 0,
+      returnOnInvestedCapital: statistics.returnOnInvestedCapital || 0,
+      debtToEquity: statistics.debtToEquity || 0,
+      fcfYield: statistics.fcfYield || 0,
+      operatingCashFlow: statistics.operatingCashFlow || 0,
+      netIncome: statistics.netIncome || 0,
+
+      // Layer 3: Value + Growth
+      peRatio: statistics.peRatio || overview.peRatio || 0,
+      pbRatio: statistics.pbRatio || 0,
+      dividendYield: statistics.dividendYield || 0,
+      pfcfRatio: statistics.pfcfRatio || 0,
+      epsGrowthYoY: 0.05, // TODO: Calculate from yearly data
+      epsAcceleration: 0.02, // TODO: Calculate from quarterly data
+
+      // Layer 4: Technical + Catalyst (with AI score!)
+      currentPrice: overview.price,
+      ma50: statistics.movingAverage50D || null,
+      rsi: statistics.rsi || null,
+      macdPositive: null,
+      supportLevel: overview.low52Week || null,
+      aiScore: aiScore,
+    };
+
+    return calculateScreeningScore(screeningInput);
+  }, [data, aiScore]);
+
   const t = useTranslations("stock");
+  const localeRaw = useLocale();
+  const locale: 'en' | 'th' = localeRaw === 'en' || localeRaw === 'th' ? localeRaw : 'th';
 
   const compact = true; // TODO: Determine based on screen size
 
@@ -292,7 +343,10 @@ export function StockPageClient({ symbol, children }: StockPageClientProps) {
     );
   }
 
-  const { overview, statistics, alpha, screening } = data;
+  const { overview, statistics, alpha } = data;
+
+  // Use screening with AI score (or fallback to original screening)
+  const screening = screeningWithAI || data.screening;
 
   // Calculate entry plan
   const entryPlan =
@@ -304,8 +358,6 @@ export function StockPageClient({ symbol, children }: StockPageClientProps) {
           screening.decision,
         )
       : null;
-
-  console.log("statistics:", statistics);
 
   return (
     <div className="space-y-6">
@@ -491,13 +543,15 @@ export function StockPageClient({ symbol, children }: StockPageClientProps) {
                       rsi: statistics.rsi,
                       macdPositive: null, // TODO: From API
                       supportLevel: overview.low52Week || null,
-                      catalystEvents: [], // TODO: From AI API
-                      sectorMomentum: undefined, // TODO: From sector data
+                      aiScore: aiScore, // From AI API
                     }}
                     compact={compact}
                   />
                 )}
               </LayerCard>
+
+              {/* AI Insights Card */}
+              <AIInsightsCard symbol={symbol} locale={locale} initialData={catalystData} />
 
               {/* Entry Plan */}
               {entryPlan && overview && screening.decision !== "PASS" && (

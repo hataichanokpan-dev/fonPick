@@ -17,11 +17,11 @@
  * - Seasonality (1 pt)
  */
 
-import { TECHNICAL_THRESHOLDS, TECHNICAL_POINTS, CATALYST_POINTS, isFavorableSeasonality } from './constants'
+import { TECHNICAL_THRESHOLDS, TECHNICAL_POINTS } from './constants'
 import { MetricProgressBar } from './MetricProgressBar'
-import type { TechnicalScoreData, CatalystEvent, MetricStatus } from './types'
-import { formatRatio, formatCountdown } from './utils/formatters'
-import { Calendar, TrendingUp, TrendingDown, Minus } from 'lucide-react'
+import type { TechnicalScoreData, MetricStatus } from './types'
+import { formatRatio } from './utils/formatters'
+import { Calendar } from 'lucide-react'
 import { safeToFixed } from '@/lib/utils'
 
 // ============================================================================
@@ -123,15 +123,8 @@ export interface TechnicalInputData {
   macdPositive: boolean | null
   supportLevel: number | null
 
-  // Catalyst data
-  catalystEvents?: Array<{
-    name: string
-    thaiName?: string
-    date: Date | null
-    importance: 'high' | 'medium' | 'low'
-    impact: 'positive' | 'negative' | 'neutral'
-  }>
-  sectorMomentum?: 'strong' | 'neutral' | 'weak'
+  // AI Catalyst score (0-10) - will be converted to 0-5 points
+  aiScore?: number | null
 }
 
 // ============================================================================
@@ -141,33 +134,19 @@ export interface TechnicalInputData {
  
 
 /**
- * Calculate catalyst score
+ * Calculate catalyst score using AI score (0-10 → 0-5 points)
  */
 function calculateCatalystScore(data: TechnicalInputData) {
   let catalystScore = 0
 
-  // High-impact event (3 pts)
-  let hasHighImpactEvent = false
-  if (data.catalystEvents && data.catalystEvents.length > 0) {
-    hasHighImpactEvent = data.catalystEvents.some(
-      e => e.importance === 'high' && e.date && new Date(e.date) > new Date()
-    )
+  // AI Score: Convert 0-10 scale to 0-5 points (divide by 2)
+  if (data.aiScore !== null && data.aiScore !== undefined) {
+    catalystScore = Math.floor(data.aiScore / 2)
   }
-  catalystScore += hasHighImpactEvent ? CATALYST_POINTS.HIGH_IMPACT_EVENT : 0
-
-  // Sector momentum (1 pt)
-  const sectorStatus: MetricStatus = data.sectorMomentum === 'strong' ? 'pass' : data.sectorMomentum === 'weak' ? 'fail' : 'partial'
-  catalystScore += sectorStatus === 'pass' ? CATALYST_POINTS.SECTOR_MOMENTUM : 0
-
-  // Seasonality (1 pt)
-  const isFavorable = isFavorableSeasonality()
-  catalystScore += isFavorable ? CATALYST_POINTS.SEASONALITY : 0
 
   return {
     totalScore: catalystScore,
-    hasHighImpactEvent,
-    sectorStatus,
-    isFavorable,
+    aiScore: data.aiScore,
   }
 }
 
@@ -277,17 +256,7 @@ export function calculateTechnicalScore(data: TechnicalInputData): TechnicalScor
       },
     },
     catalysts: {
-      events: (data.catalystEvents || []).map((e, i) => ({
-        id: `event-${i}`,
-        name: e.name,
-        thaiName: e.thaiName || e.name,
-        date: e.date,
-        importance: e.importance,
-        impact: e.impact,
-        countdown: e.date ? formatCountdown(new Date(e.date), 'th') : undefined,
-      })) as CatalystEvent[],
-      sectorMomentum: catalystResult.sectorStatus,
-      seasonality: catalystResult.isFavorable ? 'pass' : 'fail',
+      aiScore: catalystResult.aiScore,
     },
   }
 }
@@ -321,16 +290,16 @@ export function Layer4Technical({
             {t.title}
           </h3>
           <p className="text-sm text-text-3">
-            {t.description}
+            {t.description} 
           </p>
         </div>
         <div className="flex gap-2">
           <div className="px-3 py-1.5 rounded-lg bg-surface-2 border border-border">
-            <span className="text-xs text-text-3">{t.technicalThai}</span>
+            <span className="text-xs text-text-3 text-text-secondary">{t.technicalThai}</span>
             <span className="ml-1 text-sm font-bold text-accent-purple">{scoreData.technicalScore}/5</span>
           </div>
           <div className="px-3 py-1.5 rounded-lg bg-surface-2 border border-border">
-            <span className="text-xs text-text-3">{t.catalystThai}</span>
+            <span className="text-xs text-text-3 text-text-secondary">{t.catalystThai}</span>
             <span className="ml-1 text-sm font-bold text-insight">{scoreData.catalystScore}/5</span>
           </div>
         </div>
@@ -340,7 +309,8 @@ export function Layer4Technical({
       <div className={`grid gap-4 ${compact ? 'grid-cols-1' : 'grid-cols-1 md:grid-cols-2'}`}>
         {/* TECHNICAL METRICS */}
         <div className="space-y-3">
-          <div className="text-xs font-semibold text-text-3 uppercase tracking-wider mb-3">
+          <div className="text-xs font-semibold 
+          text-text-3 uppercase tracking-wider mb-3">
             {t.technical}
           </div>
 
@@ -395,17 +365,38 @@ export function Layer4Technical({
             {t.catalyst}
           </div>
 
-          {/* Events */}
-          <div className="p-3 rounded-lg bg-surface-2">
-            <div className="flex items-center gap-2 mb-2">
-              <Calendar className="w-4 h-4 text-insight" />
-              <span className="text-sm font-medium text-text-primary">{t.catalystEventsThai}</span>
+          {/* AI Score Display */}
+          <div className="p-4 rounded-lg bg-surface-2 border border-border">
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center gap-2">
+                <Calendar className="w-4 h-4 text-insight" />
+                <span className="text-sm font-medium text-text-primary">{t.catalystEventsThai}</span>
+              </div>
+              {scoreData.catalysts.aiScore !== null && scoreData.catalysts.aiScore !== undefined && (
+                <div className="text-right">
+                  <div className="text-xs text-text-3">AI Score</div>
+                  <div className="text-lg font-bold text-insight">
+                    {scoreData.catalysts.aiScore}<span className="text-sm">/10</span>
+                  </div>
+                </div>
+              )}
             </div>
-            {scoreData.catalysts.events.length > 0 ? (
+
+            {scoreData.catalysts.aiScore !== null && scoreData.catalysts.aiScore !== undefined ? (
               <div className="space-y-2">
-                {scoreData.catalysts.events.slice(0, 3).map((event) => (
-                  <EventCard key={event.id} event={event} locale={locale} />
-                ))}
+                {/* Score-based message */}
+                <div className="text-sm text-text-primary">
+                  {scoreData.catalysts.aiScore >= 8 && '🎯 เหตุการณ์สำคัญระดับสูง มีแนวโน้มเป็นบวกต่อราคา'}
+                  {scoreData.catalysts.aiScore >= 6 && scoreData.catalysts.aiScore < 8 && '📈 มีเหตุการณ์สนับสนุนระดับปานกลาง'}
+                  {scoreData.catalysts.aiScore >= 4 && scoreData.catalysts.aiScore < 6 && '⚖️ เหตุการณ์สำคัญในระดับกลางๆ'}
+                  {scoreData.catalysts.aiScore >= 2 && scoreData.catalysts.aiScore < 4 && '⚠️ มีความเสี่ยงหรือเหตุการณ์ไม่ชัดเจน'}
+                  {scoreData.catalysts.aiScore < 2 && '🔴 ไม่มีเหตุการณ์สำคัญหรือมีความเสี่ยงสูง'}
+                </div>
+
+                {/* Points explanation */}
+                <div className="text-xs text-text-3 pt-2 border-t border-border">
+                  คะแนน CATALYST: {scoreData.catalystScore}/5 จากการแปลง AI Score ({scoreData.catalysts.aiScore}/10 ÷ 2)
+                </div>
               </div>
             ) : (
               <div className="text-xs text-text-3 py-2 text-center">
@@ -413,93 +404,8 @@ export function Layer4Technical({
               </div>
             )}
           </div>
-
-          {/* Sector Momentum */}
-          <MomentumBadge
-            label={t.sectorMomentumThai}
-            status={scoreData.catalysts.sectorMomentum}
-            locale={locale}
-          />
-
-          {/* Seasonality */}
-          <MomentumBadge
-            label={t.seasonalityThai}
-            status={scoreData.catalysts.seasonality}
-            locale={locale}
-          />
         </div>
       </div>
-    </div>
-  )
-}
-
-// ============================================================================
-// SUB-COMPONENTS
-// ============================================================================
-
-/**
- * Event card for catalysts
- */
-function EventCard({ event, locale }: { event: CatalystEvent; locale: 'en' | 'th' }) {
-  const t = LABELS[locale]
-
-  const importanceColors = {
-    high: 'bg-risk/20 text-risk border-risk',
-    medium: 'bg-insight/20 text-insight border-insight',
-    low: 'bg-surface-3 text-text-2 border-border',
-  }
-
-  return (
-    <div className={`p-2 rounded border ${importanceColors[event.importance].split(' ').slice(1).join(' ')}`}>
-      <div className="flex items-start justify-between gap-2">
-        <div className="flex-1 min-w-0">
-          <div className="text-sm font-medium text-text-primary truncate">
-            {event.thaiName || event.name}
-          </div>
-          {event.date && event.countdown && (
-            <div className="text-xs text-text-3 mt-0.5">
-              {event.countdown}
-            </div>
-          )}
-        </div>
-        <span className={`text-xs px-1.5 py-0.5 rounded ${importanceColors[event.importance]}`}>
-          {event.importance === 'high' ? t.highImpact : event.importance === 'medium' ? t.mediumImpact : t.lowImpact}
-        </span>
-      </div>
-    </div>
-  )
-}
-
-/**
- * Momentum/Seasonality badge
- */
-function MomentumBadge({
-  label,
-  status,
-  locale,
-}: {
-  label: string
-  status: MetricStatus
-  locale: 'en' | 'th'
-}) {
-  const t = LABELS[locale]
-
-  const statusConfig: Record<MetricStatus, { bg: string; text: string; icon: any; label: string }> = {
-    pass: { bg: 'bg-up-soft', text: 'text-up-primary', icon: TrendingUp, label: t.favorable },
-    fail: { bg: 'bg-risk/10', text: 'text-risk', icon: TrendingDown, label: t.unfavorable },
-    partial: { bg: 'bg-surface-3', text: 'text-text-2', icon: Minus, label: t.neutral },
-  }
-
-  const config = statusConfig[status]
-  const Icon = config.icon
-
-  return (
-    <div className={`flex items-center justify-between p-3 rounded-lg border border-border ${config.bg}`}>
-      <div className="flex items-center gap-2">
-        <Icon className="w-4 h-4" />
-        <span className="text-sm text-text-secondary">{label}</span>
-      </div>
-      <span className={`text-sm font-medium ${config.text}`}>{config.label}</span>
     </div>
   )
 }

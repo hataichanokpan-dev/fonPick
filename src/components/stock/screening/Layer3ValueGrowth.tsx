@@ -306,11 +306,11 @@ export function Layer3ValueGrowth({
         </div>
         <div className="flex gap-2">
           <div className="px-3 py-1.5 rounded-lg bg-surface-2 border border-border">
-            <span className="text-xs text-text-3">{t.valueThai}</span>
+            <span className="text-xs text-text-3 text-text-secondary">{t.valueThai}</span>
             <span className="ml-1 text-sm font-bold text-accent-teal">{scoreData.valueScore}/5</span>
           </div>
           <div className="px-3 py-1.5 rounded-lg bg-surface-2 border border-border">
-            <span className="text-xs text-text-3">{t.growthThai}</span>
+            <span className="text-xs text-text-3 text-text-secondary">{t.growthThai}</span>
             <span className="ml-1 text-sm font-bold text-accent-blue">{scoreData.growthScore}/5</span>
           </div>
         </div>
