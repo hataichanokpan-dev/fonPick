@@ -95,3 +95,20 @@ export interface TechnicalChartData {
   volumeHistory: VolumeDataPoint[]
   indicators: TechnicalIndicators
 }
+
+/**
+ * First Support and Resistance Levels
+ *
+ * Simplified type for the nearest (most relevant) support and resistance levels
+ * Used by useSupportResistanceLevels hook and screening system
+ */
+export interface FirstSupportResistance {
+  /** Nearest support level price (null if no support found) */
+  support: number | null
+  /** Nearest resistance level price (null if no resistance found) */
+  resistance: number | null
+  /** Strength of the nearest support level */
+  supportStrength: 'strong' | 'moderate' | 'weak' | null
+  /** Strength of the nearest resistance level */
+  resistanceStrength: 'strong' | 'moderate' | 'weak' | null
+}

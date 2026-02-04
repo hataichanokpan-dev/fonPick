@@ -284,12 +284,15 @@ export function getCorsHeaders(request: NextRequest): HeadersInit {
 /**
  * Validate stock symbol format
  *
+ * Thai stock symbols are typically 2-6 uppercase letters
+ * Examples: PTT (3), AOT (3), KBANK (5), ADVANC (6)
+ *
  * @param symbol Stock symbol to validate
  * @returns true if valid
  */
 export function validateSymbol(symbol: string): boolean {
-  // Thai stock symbols are typically 2-4 uppercase letters
-  const symbolPattern = /^[A-Z]{2,4}$/
+  // Thai stock symbols are 2-6 uppercase letters
+  const symbolPattern = /^[A-Z]{2,6}$/
   return symbolPattern.test(symbol)
 }
 

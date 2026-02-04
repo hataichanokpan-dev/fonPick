@@ -109,12 +109,19 @@ export const GROWTH_POINTS = {
 // ============================================================================
 
 export const TECHNICAL_THRESHOLDS = {
-  RSI_GOOD_MIN: 40,                // 40-60 = neutral
-  RSI_GOOD_MAX: 60,
-  SUPPORT_PROXIMITY_PCT: 0.05,     // Within 5% of support
+  // RSI thresholds (REVISED)
+  RSI_OVERSOLD_MAX: 30,            // RSI < 30 = oversold (good for buying)
+  RSI_NEUTRAL_MIN: 40,             // 40-60 = neutral
+  RSI_NEUTRAL_MAX: 60,
+  RSI_OVERBOUGHT_MIN: 70,          // RSI > 70 = overbought
+
+  // Support proximity (REVISED)
+  SUPPORT_PROXIMITY_PCT: 0.05,     // Within 5% of support = 2 pts
+  SUPPORT_PROXIMITY_PARTIAL: 0.10, // Within 10% = 1 pt (partial)
 } as const
 
 // Technical metric point allocations
+// Technical Analysis: 5 points max (Price vs MA50: 1, RSI: 1, MACD: 1, Support: 2)
 export const TECHNICAL_POINTS = {
   PRICE_VS_MA50: 1,
   RSI: 1,
@@ -123,11 +130,19 @@ export const TECHNICAL_POINTS = {
 } as const
 
 // Catalyst point allocations
+// AI Catalyst: 5 points max (AI Score 0-10 divided by 2)
 export const CATALYST_POINTS = {
   HIGH_IMPACT_EVENT: 3,
   SECTOR_MOMENTUM: 1,
   SEASONALITY: 1,
 } as const
+
+// Total Score Breakdown (27 points max):
+// Layer 1: Universe = 2 points
+// Layer 2: Quality = 10 points
+// Layer 3: Value + Growth = 10 points
+// Layer 4: Technical + Catalyst = 10 points (5 technical + 5 catalyst)
+// TOTAL = 27 points
 
 // ============================================================================
 // COLOR MAPPINGS
@@ -281,7 +296,7 @@ export const LAYER_CONFIG = {
     description: 'Technical analysis and catalysts',
     thaiDescription: 'การวิเคราะห์เทคนิคและเหตุการณ์สำคัญ',
     color: 'technical' as LayerColor,
-    maxScore: 10,
+    maxScore: 10, // 5 technical (Price vs MA50, RSI, MACD, Support) + 5 catalyst (AI Score)
   },
 } as const
 

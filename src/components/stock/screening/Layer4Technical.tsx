@@ -160,13 +160,30 @@ function calculateTechnicalMetricsScore(data: TechnicalInputData) {
   const priceVsMA50Status: MetricStatus = data.ma50 && data.currentPrice >= data.ma50 ? 'pass' : 'fail'
   techScore += priceVsMA50Status === 'pass' ? TECHNICAL_POINTS.PRICE_VS_MA50 : 0
 
-  // RSI 40-60 (1 pt) - In neutral zone
+  // RSI (1 pt) - REVISED LOGIC
+  // - RSI < 30 (oversold) = Good for buying → PASS
+  // - RSI 40-60 (neutral) = OK → PASS
+  // - RSI 30-40 or 60-70 = PARTIAL
+  // - RSI > 70 (overbought) = FAIL
   let rsiStatus: MetricStatus = 'fail'
   if (data.rsi) {
-    if (data.rsi >= TECHNICAL_THRESHOLDS.RSI_GOOD_MIN && data.rsi <= TECHNICAL_THRESHOLDS.RSI_GOOD_MAX) {
+    // Oversold (< 30) = Good for buying → PASS
+    if (data.rsi < TECHNICAL_THRESHOLDS.RSI_OVERSOLD_MAX) {
       rsiStatus = 'pass'
-    } else if (data.rsi >= 35 && data.rsi <= 65) {
+    }
+    // Neutral zone (40-60) = OK → PASS
+    else if (data.rsi >= TECHNICAL_THRESHOLDS.RSI_NEUTRAL_MIN &&
+             data.rsi <= TECHNICAL_THRESHOLDS.RSI_NEUTRAL_MAX) {
+      rsiStatus = 'pass'
+    }
+    // Near oversold (30-40) or near overbought (60-70) = PARTIAL
+    else if (data.rsi < TECHNICAL_THRESHOLDS.RSI_NEUTRAL_MIN ||
+             data.rsi < TECHNICAL_THRESHOLDS.RSI_OVERBOUGHT_MIN) {
       rsiStatus = 'partial'
+    }
+    // Overbought (> 70) = FAIL
+    else {
+      rsiStatus = 'fail'
     }
   }
   techScore += rsiStatus === 'pass' ? TECHNICAL_POINTS.RSI : 0
@@ -175,18 +192,32 @@ function calculateTechnicalMetricsScore(data: TechnicalInputData) {
   const macdStatus: MetricStatus = data.macdPositive === true ? 'pass' : data.macdPositive === false ? 'fail' : 'partial'
   techScore += macdStatus === 'pass' ? TECHNICAL_POINTS.MACD : 0
 
-  // Near support (2 pts) - Within 5% of support
+  // Near support (2 pts) - REVISED TO HANDLE NULL AND ADD PARTIAL
+  // - Within 5% above support → PASS (2 pts)
+  // - Within 10% above support → PARTIAL (1 pt)
+  // - Below support within 5% → Also good (oversold) → PARTIAL (1 pt)
   let supportStatus: MetricStatus = 'fail'
   let distanceToSupport = 0
-  if (data.supportLevel) {
+  if (data.supportLevel && data.supportLevel > 0) {
     distanceToSupport = (data.currentPrice - data.supportLevel) / data.supportLevel
+
+    // Within 5% above support → PASS (2 pts)
     if (distanceToSupport >= 0 && distanceToSupport <= TECHNICAL_THRESHOLDS.SUPPORT_PROXIMITY_PCT) {
       supportStatus = 'pass'
-    } else if (distanceToSupport > 0 && distanceToSupport <= TECHNICAL_THRESHOLDS.SUPPORT_PROXIMITY_PCT * 2) {
+      techScore += TECHNICAL_POINTS.SUPPORT  // Add 2 points
+    }
+    // Within 10% above support → PARTIAL (1 pt)
+    else if (distanceToSupport > 0 && distanceToSupport <= TECHNICAL_THRESHOLDS.SUPPORT_PROXIMITY_PARTIAL) {
       supportStatus = 'partial'
+      techScore += 1  // Add 1 point
+    }
+    // Below support → Also good (oversold) → PARTIAL (1 pt)
+    else if (distanceToSupport < 0 && Math.abs(distanceToSupport) <= TECHNICAL_THRESHOLDS.SUPPORT_PROXIMITY_PCT) {
+      supportStatus = 'partial'
+      techScore += 1
     }
   }
-  techScore += supportStatus === 'pass' ? TECHNICAL_POINTS.SUPPORT : 0
+  // Note: If supportLevel is null or 0, no points awarded
 
   return {
     totalScore: techScore,
@@ -231,7 +262,9 @@ export function calculateTechnicalScore(data: TechnicalInputData): TechnicalScor
         currentValue: data.rsi || 0,
         status: techResult.rsiStatus,
         detail: data.rsi
-          ? (data.rsi > 70 ? LABELS.th.overbought : data.rsi < 30 ? LABELS.th.oversold : LABELS.th.neutral)
+          ? (data.rsi > 70 ? LABELS.th.overbought
+             : data.rsi < 30 ? `${LABELS.th.oversold} (ซื้อดี)`
+             : LABELS.th.neutral)
           : LABELS.th.neutral,
       },
       macd: {

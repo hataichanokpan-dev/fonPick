@@ -36,9 +36,9 @@ const LABELS = {
       timeHorizon: 'Time Horizon',
       portfolio: 'of portfolio',
       months: 'months',
-    buyRationale: 'Buy near support level',
-    stopRationale: 'Stop below support',
-    targetRationale: 'Based on fair value',
+    buyRationale: 'Buy at first support from 3-Year Price History',
+    stopRationale: 'Stop below first support level',
+    targetRationale: 'Target at first resistance from 3-Year Price History',
   },
   th: {
     title: 'แผนการเข้าซื้อ',
@@ -54,9 +54,9 @@ const LABELS = {
     timeHorizon: 'ระยะเวลา',
     portfolio: 'ของพอร์ต',
     months: 'เดือน',
-    buyRationale: 'ซื้อใกล้แนวรับ',
-    stopRationale: 'ตัดขาดทอนหลังแนวรับ',
-    targetRationale: 'พิจารณาจากมูลค่าที่เหมาะสม',
+    buyRationale: 'ซื้อที่แนวรับแรกจาก 3-Year Price History',
+    stopRationale: 'ตัดขาดทอนหลังแนวรับแรก',
+    targetRationale: 'เป้าหมายที่แนวต้านแรกจาก 3-Year Price History',
   },
 } as const
 
@@ -340,17 +340,17 @@ export function calculateEntryPlan(
     buyAt: {
       price: buyAt,
       discountFromCurrent: buyDiscount,
-      rationale: 'Buy near support level with margin of safety',
+      rationale: 'Buy at first support from 3-Year Price History',
     },
     stopLoss: {
       price: stopLoss,
       percentageFromBuy: ENTRY_PLAN_DEFAULTS.STOP_LOSS_PCT,
-      rationale: 'Stop below support level',
+      rationale: 'Stop below first support level',
     },
     target: {
       price: target,
       percentageFromBuy: (target - buyAt) / buyAt,
-      rationale: 'Based on fair value estimate',
+      rationale: 'Target at first resistance from 3-Year Price History',
     },
     positionSize: {
       percentage: positionSize,

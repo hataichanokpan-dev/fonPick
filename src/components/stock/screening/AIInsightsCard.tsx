@@ -17,8 +17,6 @@ import {
   RefreshCw,
   AlertCircle,
   ChevronRight,
-  Calendar,
-  Eye,
   Lightbulb,
 } from "lucide-react";
 import { CatalystLoading } from "./CatalystLoading";
@@ -146,80 +144,6 @@ function ErrorState({
         <RefreshCw className="w-4 h-4" />
         {t.retryButton}
       </button>
-    </div>
-  );
-}
-
-/**
- * Tab content for Catalysts
- */
-function CatalystsTab({
-  catalysts,
-  locale,
-}: {
-  catalysts: string[];
-  locale: "en" | "th";
-}) {
-  const t = LABELS[locale];
-
-  if (catalysts.length === 0) {
-    return (
-      <div className="text-center py-6 text-text-3 text-sm">{t.noData}</div>
-    );
-  }
-
-  return (
-    <div className="space-y-2">
-      {catalysts.map((catalyst, index) => (
-        <div
-          key={index}
-          className="p-3 rounded-lg bg-surface-2 border border-border"
-        >
-          <div className="flex items-start gap-2">
-            <div className="w-6 h-6 rounded-full bg-amber-500/20 flex items-center justify-center shrink-0 mt-0.5">
-              <Calendar className="w-3 h-3 text-amber-600" />
-            </div>
-            <p className="text-sm text-text-primary flex-1">{catalyst}</p>
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-/**
- * Tab content for Watch List
- */
-function WatchTab({
-  whatToWatch,
-  locale,
-}: {
-  whatToWatch: string[];
-  locale: "en" | "th";
-}) {
-  const t = LABELS[locale];
-
-  if (whatToWatch.length === 0) {
-    return (
-      <div className="text-center py-6 text-text-3 text-sm">{t.noData}</div>
-    );
-  }
-
-  return (
-    <div className="space-y-2">
-      {whatToWatch.map((item, index) => (
-        <div
-          key={index}
-          className="p-3 rounded-lg bg-surface-2 border border-border"
-        >
-          <div className="flex items-start gap-2">
-            <div className="w-6 h-6 rounded-full bg-accent-teal/20 flex items-center justify-center shrink-0 mt-0.5">
-              <Eye className="w-3 h-3 text-accent-teal" />
-            </div>
-            <p className="text-sm text-text-primary flex-1">{item}</p>
-          </div>
-        </div>
-      ))}
     </div>
   );
 }

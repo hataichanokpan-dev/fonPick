@@ -16,6 +16,7 @@ import { useState, useMemo } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { useStockScreening } from "@/hooks/useStockScreening";
 import { useCatalystScore } from "@/hooks/useCatalystScore";
+import { useSupportResistanceLevels } from "@/hooks/useSupportResistanceLevels";
 import {
   StockPageSkeleton,
   StockPageErrorBoundary,
@@ -234,14 +235,22 @@ export function StockPageClient({ symbol, children }: StockPageClientProps) {
   // Fetch AI catalyst score
   const { aiScore, data: catalystData } = useCatalystScore(symbol, true);
 
-  // Recalculate screening score with AI score when available
+  // Get support/resistance levels from 3-Year Price History
+  const { data: srLevels } = useSupportResistanceLevels({
+    symbol,
+    years: 3,
+    interval: '1d'
+  });
+
+  // Recalculate screening score with AI score AND support levels
   const screeningWithAI = useMemo(() => {
     if (!data?.screening) return null;
-    if (aiScore === null || aiScore === undefined) return data.screening;
 
-    // Recalculate with AI score - need to rebuild the input data
     const { statistics, overview } = data;
     if (!statistics || !overview) return data.screening;
+
+    // Get support level from calculated data (from 3-Year Price History)
+    const supportLevel = srLevels?.support ?? null;
 
     const screeningInput: ScreeningInputData = {
       // Layer 1: Universe
@@ -266,17 +275,17 @@ export function StockPageClient({ symbol, children }: StockPageClientProps) {
       epsGrowthYoY: 0.05, // TODO: Calculate from yearly data
       epsAcceleration: 0.02, // TODO: Calculate from quarterly data
 
-      // Layer 4: Technical + Catalyst (with AI score!)
+      // Layer 4: Technical + Catalyst (with support level from 3-Year History!)
       currentPrice: overview.price,
       ma50: statistics.movingAverage50D || null,
       rsi: statistics.rsi || null,
       macdPositive: null,
-      supportLevel: overview.low52Week || null,
+      supportLevel: supportLevel, // ← NOW USES CALCULATED SUPPORT FROM 3-YEAR HISTORY
       aiScore: aiScore,
     };
 
     return calculateScreeningScore(screeningInput);
-  }, [data, aiScore]);
+  }, [data, aiScore, srLevels]);
 
   const t = useTranslations("stock");
   const localeRaw = useLocale();
@@ -348,13 +357,13 @@ export function StockPageClient({ symbol, children }: StockPageClientProps) {
   // Use screening with AI score (or fallback to original screening)
   const screening = screeningWithAI || data.screening;
 
-  // Calculate entry plan
+  // Calculate entry plan with support/resistance from 3-Year History
   const entryPlan =
-    screening && overview && statistics
+    screening && overview && statistics && srLevels
       ? calculateEntryPlan(
           overview.price,
-          overview.low52Week || overview.price * 0.95,
-          alpha?.AvgForecast || overview.price * 1.15,
+          srLevels.support ?? overview.price * 0.95,  // Use calculated support from 3-Year History
+          srLevels.resistance ?? alpha?.AvgForecast ?? overview.price * 1.15,  // Use calculated resistance from 3-Year History
           screening.decision,
         )
       : null;
@@ -542,7 +551,7 @@ export function StockPageClient({ symbol, children }: StockPageClientProps) {
                       ma50: statistics.movingAverage50D,
                       rsi: statistics.rsi,
                       macdPositive: null, // TODO: From API
-                      supportLevel: overview.low52Week || null,
+                      supportLevel: srLevels?.support ?? null, // Use calculated support from 3-Year History
                       aiScore: aiScore, // From AI API
                     }}
                     compact={compact}
