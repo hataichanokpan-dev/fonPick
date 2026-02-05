@@ -90,24 +90,24 @@ export function ConsistencyMeter({
   const config = RATING_CONFIG[consistency.rating];
 
   return (
-    <div className={cn("bg-surface-2 rounded-lg p-4 border border-border-subtle/50", className)}>
+    <div className={cn("bg-surface-2 rounded-lg border border-border-subtle/50", "p-3 sm:p-4", className)}>
       {/* Header */}
-      <div className="flex items-center justify-between mb-3">
+      <div className="flex items-center justify-between mb-2 sm:mb-3">
         <p className="text-[10px] uppercase tracking-wide text-text-tertiary">
           {locale === "th" ? "ความสม่ำเสมอ" : "Consistency"}
         </p>
         {consistency.score >= 80 && (
-          <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
+          <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400 fill-amber-400" />
         )}
       </div>
 
-      {/* Star Rating */}
-      <div className="flex items-center gap-1.5 mb-3">
+      {/* Star Rating - responsive size */}
+      <div className="flex items-center gap-1 sm:gap-1.5 mb-2 sm:mb-3">
         {Array.from({ length: 5 }).map((_, i) => (
           <Star
             key={i}
             className={cn(
-              "w-5 h-5",
+              "w-4 h-4 sm:w-5 sm:h-5",
               i < consistency.score / 20
                 ? "fill-amber-400 text-amber-400"
                 : "text-surface-3"
@@ -117,41 +117,43 @@ export function ConsistencyMeter({
       </div>
 
       {/* Rating Label */}
-      <div className={cn("text-sm font-semibold mb-1", config.color)}>
+      <div className={cn("text-sm sm:text-base font-semibold mb-1", config.color)}>
         {locale === "th" ? config.thaiLabel : config.label}
       </div>
 
-      {/* Description */}
-      <p className="text-xs text-text-2 mb-3">{config.description}</p>
+      {/* Description - responsive typography */}
+      <p className="text-xs text-text-2 mb-2 sm:mb-3 line-clamp-2">
+        {config.description}
+      </p>
 
-      {/* Metrics */}
-      <div className="space-y-2 text-xs">
-        <div className="flex justify-between">
-          <span className="text-text-2">
+      {/* Metrics - better spacing on mobile */}
+      <div className="space-y-1.5 sm:space-y-2 text-xs">
+        <div className="flex justify-between gap-2">
+          <span className="text-text-2 shrink-0">
             {locale === "th" ? "จ่ายต่อเนื่อง" : "Years Paid"}:
           </span>
-          <span className="font-semibold text-text-primary tabular-nums">
+          <span className="font-semibold text-text-primary tabular-nums text-right">
             {consistency.yearsPaid} {locale === "th" ? "ปี" : "years"}
           </span>
         </div>
 
         {consistency.growthStreak > 0 && (
-          <div className="flex justify-between">
-            <span className="text-text-2 flex items-center gap-1">
+          <div className="flex justify-between gap-2">
+            <span className="text-text-2 flex items-center gap-1 shrink-0">
               <TrendingUp className="w-3 h-3 text-up-primary" />
               {locale === "th" ? "เพิ่มต่อเนื่อง" : "Growth Streak"}:
             </span>
-            <span className="font-semibold text-up-primary tabular-nums">
+            <span className="font-semibold text-up-primary tabular-nums text-right">
               {consistency.growthStreak} {locale === "th" ? "ปี" : "years"}
             </span>
           </div>
         )}
 
-        <div className="flex justify-between">
-          <span className="text-text-2">
+        <div className="flex justify-between gap-2">
+          <span className="text-text-2 shrink-0">
             {locale === "th" ? "อัตราโตเฉลี่ย" : "Avg Growth"}:
           </span>
-          <span className="font-semibold text-text-primary tabular-nums">
+          <span className="font-semibold text-text-primary tabular-nums text-right">
             {consistency.averageGrowth > 0 ? "+" : ""}
             {consistency.averageGrowth.toFixed(1)}%
           </span>

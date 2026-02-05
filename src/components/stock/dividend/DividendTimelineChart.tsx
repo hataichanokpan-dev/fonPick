@@ -95,52 +95,52 @@ function DividendTooltip({ active, payload }: DividendTooltipProps) {
 
   return (
     <div
-      className="rounded-lg border shadow-xl min-w-[200px]"
+      className="rounded-lg border shadow-xl max-w-[180px] sm:max-w-[200px] z-50"
       style={{
         backgroundColor: chartColors.tooltipBg,
         borderColor: chartColors.tooltipBorder,
       }}
     >
-      <div className="p-3 space-y-2">
+      <div className="p-2.5 sm:p-3 space-y-1.5 sm:space-y-2">
         {/* Year */}
-        <div className="text-xs text-text-2 border-b border-gray-700 pb-2">
+        <div className="text-[10px] sm:text-xs text-text-2 border-b border-gray-700 pb-1.5 sm:pb-2 mb-1.5 sm:mb-2">
           {data.year}
         </div>
 
         {/* DPS */}
-        <div className="flex items-center justify-between">
-          <span className="text-xs text-text-2">
+        <div className="flex items-center justify-between gap-2">
+          <span className="text-[10px] sm:text-xs text-text-2 shrink-0">
             {locale === "th" ? "เงินปันผล" : "DPS"}:
           </span>
-          <span className="text-sm font-semibold tabular-nums text-text-primary">
+          <span className="text-xs sm:text-sm font-semibold tabular-nums text-text-primary">
             ฿{data.dps.toFixed(2)}
           </span>
         </div>
 
         {/* Yield */}
-        <div className="flex items-center justify-between">
-          <span className="text-xs text-text-2">
+        <div className="flex items-center justify-between gap-2">
+          <span className="text-[10px] sm:text-xs text-text-2 shrink-0">
             {locale === "th" ? "อัตราผลตอบ" : "Yield"}:
           </span>
-          <span className="text-sm font-semibold tabular-nums text-up-primary">
+          <span className="text-xs sm:text-sm font-semibold tabular-nums text-up-primary">
             {data.yield.toFixed(2)}%
           </span>
         </div>
 
         {/* Payout Ratio */}
-        <div className="flex items-center justify-between">
-          <span className="text-xs text-text-2">
-            {locale === "th" ? "Payout Ratio" : "Payout"}:
+        <div className="flex items-center justify-between gap-2">
+          <span className="text-[10px] sm:text-xs text-text-2 shrink-0">
+            Payout:
           </span>
-          <span className="text-sm font-semibold tabular-nums text-text-primary">
+          <span className="text-xs sm:text-sm font-semibold tabular-nums text-text-primary">
             {data.payoutRatio.toFixed(0)}%
           </span>
         </div>
 
         {/* Forecast Badge */}
         {data.isForecast && (
-          <div className="pt-2 border-t border-gray-700">
-            <span className="text-xs font-medium text-amber-400">
+          <div className="pt-1.5 sm:pt-2 border-t border-gray-700">
+            <span className="text-[10px] sm:text-xs font-medium text-amber-400">
               {locale === "th" ? "คาดการณ" : "Forecast"}
             </span>
           </div>
@@ -158,7 +158,7 @@ export function DividendTimelineChart({
   history,
   forecasts,
   currentPrice,
-  height = 250,
+  height = 220,
   className,
 }: DividendTimelineChartProps) {
   const locale = useLocale() as "en" | "th";
@@ -202,7 +202,7 @@ export function DividendTimelineChart({
       <div className={cn("w-full", className)}>
         <div
           className="flex items-center justify-center rounded-lg bg-surface-2 border border-border"
-          style={{ height: `${height}px` }}
+          style={{ height: `${height}px`, minHeight: '180px' }}
         >
           <p className="text-text-2">
             {locale === "th" ? "ไม่มีข้อมูล" : "No data available"}
@@ -214,14 +214,15 @@ export function DividendTimelineChart({
 
   return (
     <div className={cn("w-full", className)}>
-      <div style={{ height: `${height}px` }}>
+      <div style={{ height: `${height}px`, minHeight: '180px' }}>
         <ResponsiveContainer width="100%" height="100%">
           <ComposedChart
             data={chartData}
             margin={{
-              top: 5,
+              // Extra top margin for tooltip on mobile
+              top: 10,
               right: 5,
-              left: -15,
+              left: -20,
               bottom: 5,
             }}
           >
@@ -269,8 +270,10 @@ export function DividendTimelineChart({
               cursor={{
                 fill: "rgba(255, 255, 255, 0.05)",
               }}
-              position={{ y: 0 }}
+              position={{ y: 0, x: 0 }}
               allowEscapeViewBox={{ x: true, y: true }}
+              isAnimationActive={false}
+              wrapperStyle={{ zIndex: 100 }}
             />
 
             {/* Dividend Bars (historical only) */}
@@ -312,17 +315,15 @@ export function DividendTimelineChart({
         </ResponsiveContainer>
       </div>
 
-      {/* Legend */}
-      <div className="mt-3 flex flex-wrap items-center gap-4 text-xs text-text-3">
+      {/* Responsive Legend */}
+      <div className="mt-3 sm:mt-4 grid grid-cols-2 gap-x-4 gap-y-2 sm:flex sm:items-center sm:gap-4 text-xs text-text-3">
         <div className="flex items-center gap-1.5">
-          <span className="w-3 h-3 bg-green-400 rounded" />
+          <span className="w-3 h-3 bg-green-400 rounded shrink-0" />
           <span>{locale === "th" ? "ประวัติ" : "History"}</span>
         </div>
         <div className="flex items-center gap-1.5">
-          <span
-            className="w-6 h-0.5 border-t-2 border-dashed border-amber-400"
-          />
-          <span>{locale === "th" ? "คาดการณ" : "Forecast"}</span>
+          <span className="w-6 h-0.5 border-t-2 border-dashed border-amber-400 shrink-0" />
+          <span>{locale === "th" ? "คาดการณ์" : "Forecast"}</span>
         </div>
       </div>
     </div>

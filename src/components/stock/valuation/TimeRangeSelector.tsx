@@ -46,7 +46,7 @@ export function TimeRangeSelector({
   return (
     <div
       className={cn(
-        "flex bg-surface-2 rounded-lg p-1",
+        "inline-flex bg-surface-2 rounded-lg p-1 sm:p-1",
         className
       )}
       role="group"
@@ -58,11 +58,19 @@ export function TimeRangeSelector({
           type="button"
           onClick={() => onSelect(range)}
           className={cn(
-            "px-3 py-1.5 text-xs font-medium rounded-md transition-all duration-200",
-            "focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-blue",
+            // Touch-friendly sizing
+            "min-h-[36px] min-w-[44px] px-3 py-2 sm:px-4 sm:py-1.5 sm:min-w-0",
+            // Responsive typography
+            "text-xs sm:text-[11px]",
+            "font-medium",
+            "rounded-md",
+            "transition-all duration-200",
+            // Focus styles with offset for visibility
+            "focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-blue focus-visible:ring-offset-1",
+            // Active vs inactive
             selected === range
-              ? "bg-surface-3 text-text-primary shadow-sm"
-              : "text-text-tertiary hover:text-text-secondary hover:bg-surface-3/50"
+              ? "bg-surface-3 text-text-primary shadow-sm ring-1 ring-inset ring-border-subtle"
+              : "text-text-tertiary hover:text-text-secondary hover:bg-surface-3/50 active:scale-[0.96]"
           )}
           aria-pressed={selected === range}
           aria-label={`Show ${range} data`}

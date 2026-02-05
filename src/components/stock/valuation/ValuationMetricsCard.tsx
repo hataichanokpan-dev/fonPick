@@ -45,28 +45,28 @@ interface ValuationSkeletonProps {
 
 function ValuationSkeleton({ className }: ValuationSkeletonProps) {
   return (
-    <div className={cn("rounded-xl bg-surface border border-border p-4 md:p-6", className)}>
+    <div className={cn("rounded-xl bg-surface border border-border p-4 sm:p-5 md:p-6", className)}>
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
-        <div className="space-y-2">
-          <div className="h-6 w-48 bg-surface-2 rounded animate-pulse" />
-          <div className="h-4 w-32 bg-surface-2 rounded animate-pulse" />
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5 sm:mb-6">
+        <div className="space-y-1.5 sm:space-y-2">
+          <div className="h-6 w-36 sm:w-40 bg-surface-2 rounded animate-pulse" />
+          <div className="h-4 w-24 sm:w-32 bg-surface-2 rounded animate-pulse" />
         </div>
-        <div className="h-8 w-40 bg-surface-2 rounded-lg animate-pulse" />
+        <div className="h-8 w-32 sm:w-40 bg-surface-2 rounded-lg animate-pulse" />
       </div>
 
       {/* Metric Tabs */}
-      <div className="flex gap-2 mb-6">
+      <div className="flex gap-2 mb-5 sm:mb-6 overflow-x-auto no-scrollbar -mx-1 px-1 sm:mx-0 sm:px-0">
         {[1, 2, 3].map((i) => (
           <div
             key={i}
-            className="h-14 w-20 bg-surface-2 rounded-lg animate-pulse"
+            className="h-14 w-16 sm:w-20 bg-surface-2 rounded-lg animate-pulse shrink-0 snap-start"
           />
         ))}
       </div>
 
       {/* Chart */}
-      <div className="h-64 bg-surface-2 rounded-lg animate-pulse" />
+      <div className="h-52 sm:h-64 bg-surface-2 rounded-lg animate-pulse" />
     </div>
   );
 }
@@ -98,7 +98,7 @@ function ValuationError({ error, onRetry, className }: ValuationErrorProps) {
   }[locale];
 
   return (
-    <div className={cn("rounded-xl bg-surface border border-border p-4 md:p-6", className)}>
+    <div className={cn("rounded-xl bg-surface border border-border p-4 sm:p-5 md:p-6", className)}>
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-semibold text-text-primary">{t.title}</h3>
       </div>
@@ -108,7 +108,7 @@ function ValuationError({ error, onRetry, className }: ValuationErrorProps) {
         <p className="text-xs text-text-3 mb-4">{error?.message}</p>
         <button
           onClick={onRetry}
-          className="px-4 py-2 rounded-lg bg-accent-blue text-white text-sm font-medium hover:bg-accent-blue/80 transition-colors"
+          className="min-h-[44px] px-6 py-2.5 rounded-lg bg-accent-blue text-white text-sm font-medium hover:bg-accent-blue/80 active:scale-[0.98] transition-all"
         >
           {t.retry}
         </button>
@@ -182,7 +182,7 @@ export function ValuationMetricsCard({
   // No data state
   if (!currentSeries || !currentBand) {
     return (
-      <div className={cn("rounded-xl bg-surface border border-border p-4 md:p-6", className)}>
+      <div className={cn("rounded-xl bg-surface border border-border p-4 sm:p-5 md:p-6", className)}>
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-semibold text-text-primary">{t.title}</h3>
         </div>
@@ -201,48 +201,54 @@ export function ValuationMetricsCard({
   return (
     <div
       className={cn(
-        "rounded-xl bg-surface border border-border p-4 md:p-6 fade-in-slide-up",
+        "rounded-xl bg-surface border border-border p-4 sm:p-5 md:p-6 fade-in-slide-up",
         className
       )}
     >
       {/* Header Section */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
-        <div>
-          <h3 className="text-lg font-semibold text-text-primary leading-tight">
+      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-5 sm:mb-6">
+        <div className="space-y-1 sm:space-y-2">
+          <h3 className="text-lg sm:text-xl font-semibold text-text-primary leading-tight">
             {t.title}
           </h3>
-          <p className="text-sm text-text-secondary">{t.subtitle}</p>
+          <p className="text-sm text-text-secondary leading-snug">{t.subtitle}</p>
         </div>
 
         {/* Time Range Selector */}
-        <TimeRangeSelector
-          selected={timeRange}
-          onSelect={handleTimeRangeChange}
-        />
+        <div className="flex justify-start sm:justify-end">
+          <TimeRangeSelector
+            selected={timeRange}
+            onSelect={handleTimeRangeChange}
+          />
+        </div>
       </div>
 
       {/* Metric Type Tabs */}
-      <MetricSelector
-        selected={selectedMetric}
-        onSelect={handleMetricChange}
-      />
+      <div className="mb-5 sm:mb-6">
+        <MetricSelector
+          selected={selectedMetric}
+          onSelect={handleMetricChange}
+        />
+      </div>
 
       {/* Chart Area */}
-      <div className="mt-6">
+      <div className="mt-5 sm:mt-6">
         <MetricBandChart
           series={currentSeries}
           band={currentBand}
           metric={selectedMetric}
+          // Responsive height: smaller on mobile
+          height={typeof window !== 'undefined' && window.innerWidth < 640 ? 220 : 280}
         />
       </div>
 
       {/* Current Value Badge */}
-      <div className="mt-4 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <span className="text-xs text-text-2">
+      <div className="mt-4 sm:mt-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
+        <div className="flex items-center gap-2 sm:gap-3">
+          <span className="text-xs sm:text-sm text-text-2">
             {locale === "th" ? "ค่าปัจจุบัน" : "Current Value"}:
           </span>
-          <span className="text-sm font-semibold tabular-nums text-text-primary">
+          <span className="text-base sm:text-lg font-semibold tabular-nums text-text-primary">
             {selectedMetric === "PE" || selectedMetric === "PBV"
               ? currentBand.currentValue.toFixed(2)
               : currentBand.currentValue.toFixed(1)}
@@ -253,7 +259,7 @@ export function ValuationMetricsCard({
         {/* Valuation Status Badge */}
         <div
           className={cn(
-            "px-3 py-1 rounded-full text-xs font-medium border",
+            "px-3 py-1.5 sm:py-1 rounded-full text-xs sm:text-xs font-medium border inline-flex items-center justify-center min-h-[32px]",
             {
               "bg-up-soft text-up-primary border-up-primary/30":
                 currentBand.interpretation === "undervalued" ||

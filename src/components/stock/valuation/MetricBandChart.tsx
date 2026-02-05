@@ -47,7 +47,7 @@ export interface MetricBandChartProps {
   band: ValuationBand;
   /** Metric type */
   metric: MetricType;
-  /** ความสูงกราฟ (pixels) */
+  /** ความสูงกราฟ (pixels) - default 240 for mobile-friendly */
   height?: number;
   /** CSS classes เพิ่มเติม */
   className?: string;
@@ -151,52 +151,52 @@ function ValuationTooltip({
 
   return (
     <div
-      className="rounded-lg border shadow-xl min-w-[200px]"
+      className="rounded-lg border shadow-xl max-w-[200px] sm:max-w-[220px] z-50"
       style={{
         backgroundColor: chartColors.tooltipBg,
         borderColor: chartColors.tooltipBorder,
       }}
     >
-      <div className="p-3 space-y-2">
+      <div className="p-2.5 sm:p-3 space-y-1.5 sm:space-y-2">
         {/* Date */}
-        <div className="text-xs text-text-2 border-b border-gray-700 pb-2 mb-2">
+        <div className="text-[10px] sm:text-xs text-text-2 border-b border-gray-700 pb-1.5 sm:pb-2 mb-1.5 sm:mb-2 truncate">
           {formatDate(label || "")}
         </div>
 
         {/* Value */}
-        <div className="flex items-center justify-between">
-          <span className="text-xs text-text-2">
-            {config.thai} ({config.english}):
+        <div className="flex items-center justify-between gap-2">
+          <span className="text-[10px] sm:text-xs text-text-2 shrink-0">
+            {config.thai}:
           </span>
-          <span className="text-sm font-mono font-semibold text-text-primary">
+          <span className="text-xs sm:text-sm font-mono font-semibold text-text-primary tabular-nums truncate">
             {formatValue(value)}
             {config.unit}
           </span>
         </div>
 
         {/* Bands */}
-        <div className="space-y-1 pt-2 border-t border-gray-700">
-          <div className="flex justify-between text-xs">
+        <div className="space-y-0.5 sm:space-y-1 pt-1.5 sm:pt-2 border-t border-gray-700">
+          <div className="flex justify-between text-[10px] sm:text-xs">
             <span className="text-text-2" style={{ color: chartColors.mean }}>
               {locale === "th" ? "ค่าเฉลี่ย" : "Mean"}:
             </span>
-            <span className="font-mono tabular-nums">
+            <span className="font-mono tabular-nums text-text-3">
               {formatValue(band.mean)}
               {config.unit}
             </span>
           </div>
-          <div className="flex justify-between text-xs">
+          <div className="flex justify-between text-[10px] sm:text-xs">
             <span className="text-text-2">
-              -1SD ({locale === "th" ? "ต่ำ" : "Low"}):
+              -1SD:
             </span>
             <span className="font-mono tabular-nums text-text-3">
               {formatValue(band.minus1SD)}
               {config.unit}
             </span>
           </div>
-          <div className="flex justify-between text-xs">
+          <div className="flex justify-between text-[10px] sm:text-xs">
             <span className="text-text-2">
-              +1SD ({locale === "th" ? "สูง" : "High"}):
+              +1SD:
             </span>
             <span className="font-mono tabular-nums text-text-3">
               {formatValue(band.plus1SD)}
@@ -206,9 +206,9 @@ function ValuationTooltip({
         </div>
 
         {/* Interpretation */}
-        <div className="pt-2 border-t border-gray-700">
+        <div className="pt-1.5 sm:pt-2 border-t border-gray-700">
           <div
-            className="text-xs font-medium text-center"
+            className="text-[10px] sm:text-xs font-medium text-center leading-tight"
             style={{ color: interpretationColor }}
           >
             {interpretation}
@@ -227,7 +227,7 @@ export function MetricBandChart({
   series,
   band,
   metric,
-  height = 280,
+  height = 240,
   className,
 }: MetricBandChartProps) {
   const locale = useLocale() as "en" | "th";
@@ -265,7 +265,7 @@ export function MetricBandChart({
       <div className={cn("w-full", className)}>
         <div
           className="flex items-center justify-center rounded-lg bg-surface-2 border border-border"
-          style={{ height: `${height}px` }}
+          style={{ height: `${height}px`, minHeight: '200px' }}
         >
           <p className="text-text-2">
             {locale === "th" ? "ไม่มีข้อมูล" : "No data available"}
@@ -277,14 +277,15 @@ export function MetricBandChart({
 
   return (
     <div className={cn("w-full", className)}>
-      <div style={{ height: `${height}px` }}>
+      <div style={{ height: `${height}px`, minHeight: '200px' }}>
         <ResponsiveContainer width="100%" height="100%">
           <ComposedChart
             data={chartData}
             margin={{
-              top: 5,
+              // Extra top margin for tooltip on mobile
+              top: 10,
               right: 5,
-              left: -15,
+              left: -20,
               bottom: 5,
             }}
           >
@@ -340,8 +341,10 @@ export function MetricBandChart({
                 strokeWidth: 1,
                 strokeDasharray: "4 4",
               }}
-              position={{ y: 0 }}
+              position={{ y: 0, x: 0 }}
               allowEscapeViewBox={{ x: true, y: true }}
+              isAnimationActive={false}
+              wrapperStyle={{ zIndex: 100 }}
             />
 
             {/* +2SD Band (outer) */}
@@ -426,41 +429,40 @@ export function MetricBandChart({
         </ResponsiveContainer>
       </div>
 
-      {/* Legend */}
-      <div className="mt-3 flex flex-wrap items-center gap-4 text-xs text-text-3">
-        <div className="flex items-center gap-1.5">
-          <span
-            className="w-3 h-0.5"
-            style={{ backgroundColor: config.color }}
-          />
-          <span>
-            {config.thai} ({config.english})
-          </span>
-        </div>
-        <div className="flex items-center gap-1.5">
-          <span
-            className="w-3 h-0.5 border-t border-dashed"
-            style={{ borderColor: chartColors.mean }}
-          />
-          <span>{locale === "th" ? "ค่าเฉลี่ย" : "Mean"}</span>
-        </div>
-        <div className="flex items-center gap-1.5">
-          <span
-            className="w-3 h-3 rounded"
-            style={{ backgroundColor: chartColors.undervalued.band }}
-          />
-          <span>
-            {locale === "th" ? "โซนถูก" : "Undervalued"}
-          </span>
-        </div>
-        <div className="flex items-center gap-1.5">
-          <span
-            className="w-3 h-3 rounded"
-            style={{ backgroundColor: chartColors.overvalued.band }}
-          />
-          <span>
-            {locale === "th" ? "โซนแพง" : "Overvalued"}
-          </span>
+      {/* Responsive Legend - stacks on mobile */}
+      <div className="mt-3 sm:mt-4 flex flex-col sm:flex-row sm:items-center sm:gap-4 gap-y-2">
+        {/* Legend items in grid for better mobile layout */}
+        <div className="grid grid-cols-2 gap-x-4 gap-y-2 sm:flex sm:gap-4 text-xs text-text-3">
+          <div className="flex items-center gap-1.5">
+            <span
+              className="w-3 h-0.5 shrink-0"
+              style={{ backgroundColor: config.color }}
+            />
+            <span className="truncate">
+              {config.thai} ({config.english})
+            </span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <span
+              className="w-3 h-0.5 border-t border-dashed shrink-0"
+              style={{ borderColor: chartColors.mean }}
+            />
+            <span>{locale === "th" ? "ค่าเฉลี่ย" : "Mean"}</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <span
+              className="w-3 h-3 rounded shrink-0"
+              style={{ backgroundColor: chartColors.undervalued.band }}
+            />
+            <span>{locale === "th" ? "โซนถูก" : "Undervalued"}</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <span
+              className="w-3 h-3 rounded shrink-0"
+              style={{ backgroundColor: chartColors.overvalued.band }}
+            />
+            <span>{locale === "th" ? "โซนแพง" : "Overvalued"}</span>
+          </div>
         </div>
       </div>
     </div>
