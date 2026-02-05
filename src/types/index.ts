@@ -13,6 +13,8 @@ export * from './insights'
 export * from './correlation'
 export * from './market-intelligence'
 export * from './stock-api'
+export * from './valuation'
+export * from './dividend'
 
 /**
  * Common UI Props

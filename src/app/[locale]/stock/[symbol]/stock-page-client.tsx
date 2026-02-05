@@ -24,6 +24,8 @@ import {
   WatchlistButton,
   PriceHistoryCard,
 } from "@/components/stock";
+import { ValuationMetricsCard } from "@/components/stock/valuation";
+import { DividendAnalysisCard } from "@/components/stock/dividend";
 import { useAnalytics } from "@/hooks/useAnalytics";
 import {
   TotalScoreCard,
@@ -600,6 +602,16 @@ export function StockPageClient({ symbol, children }: StockPageClientProps) {
       {/* Price History Chart */}
       <div className="rounded-xl bg-surface border border-border p-4 md:p-6">
         <PriceHistoryCard symbol={symbol} years={3} interval="1d" />
+      </div>
+
+      {/* Valuation Metrics Card */}
+      <div className="rounded-xl bg-surface border border-border p-4 md:p-6">
+        <ValuationMetricsCard symbol={symbol} />
+      </div>
+
+      {/* Dividend Analysis Card */}
+      <div className="rounded-xl bg-surface border border-border p-4 md:p-6">
+        <DividendAnalysisCard symbol={symbol} currentPrice={overview?.price ?? 100} />
       </div>
 
       <div className="mb-4"></div>
