@@ -89,20 +89,20 @@ export function GradeBadge({
   const { color, letterGrade, label, description } = display
 
   return (
-    <div className={`${color.bg} ${color.border} rounded-xl ${sizeConfig.padding} ${sizeConfig.gap} ${className}`}>
+    <div className={`${color.bg} ${color.border} rounded-xl ${sizeConfig.padding} ${sizeConfig.gap} shadow-sm ${className}`}>
       {/* Letter Grade */}
       <div className={`${sizeConfig.gradeText} font-bold ${color.text} text-center`}>
         {letterGrade}
       </div>
 
       {/* Grade Label */}
-      <div className={`${sizeConfig.labelText} font-medium ${color.text} text-center`}>
+      <div className={`${sizeConfig.labelText} font-semibold ${color.text} text-center`}>
         {label}
       </div>
 
       {/* Description */}
       {showDescription && (
-        <div className={`${sizeConfig.descriptionText} text-text-secondary text-center opacity-90`}>
+        <div className={`${sizeConfig.descriptionText} text-text-secondary text-center opacity-80`}>
           {description}
         </div>
       )}
@@ -174,32 +174,32 @@ export function ScoreWithGrade({
   const display = toDisplayScore(score, maxScore, locale)
 
   return (
-    <div className={`flex items-center gap-4 ${className}`}>
+    <div className={`flex flex-col sm:flex-row items-center gap-3 sm:gap-4 ${className}`}>
       {/* Numeric Score */}
-      <div className="text-center">
-        <div className={`text-3xl font-bold tabular-nums ${display.color.text}`}>
+      <div className="text-center min-w-[60px]">
+        <div className={`text-3xl sm:text-4xl font-bold tabular-nums ${display.color.text}`}>
           {score}
         </div>
         <div className="text-xs text-text-secondary">/{maxScore}</div>
       </div>
 
-      {/* Divider */}
-      <div className="w-px h-10 bg-border" />
+      {/* Divider - Desktop only */}
+      <div className="hidden sm:block w-px h-10 bg-border" />
 
       {/* Percentage */}
-      <div className="text-center">
-        <div className={`text-3xl font-bold tabular-nums ${display.color.text}`}>
+      <div className="text-center min-w-[80px]">
+        <div className={`text-3xl sm:text-4xl font-bold tabular-nums ${display.color.text}`}>
           {display.percentage}%
         </div>
         <div className="text-xs text-text-secondary">{display.label}</div>
       </div>
 
-      {/* Divider */}
-      <div className="w-px h-10 bg-border" />
+      {/* Divider - Desktop only */}
+      <div className="hidden sm:block w-px h-10 bg-border" />
 
-      {/* Grade Badge */}
-      <div className={`${display.color.bg} ${display.color.border} rounded-lg px-3 py-2`}>
-        <div className={`text-2xl font-bold ${display.color.text}`}>
+      {/* Grade Badge - More prominent on mobile */}
+      <div className={`${display.color.bg} ${display.color.border} rounded-xl px-4 py-2.5 flex-1 sm:flex-none min-w-[70px] justify-center`}>
+        <div className={`text-2xl sm:text-3xl font-bold ${display.color.text} text-center`}>
           {display.letterGrade}
         </div>
       </div>

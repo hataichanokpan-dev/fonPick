@@ -3,10 +3,19 @@
 /**
  * Metric Progress Bar Component
  *
+ * @deprecated This component is deprecated and will be removed in a future version.
+ * Use `ScoreIndicator` component instead for simpler, cleaner display.
+ *
+ * Migration guide:
+ * - Replace `<MetricProgressBar />` with `<ScoreIndicator />`
+ * - ScoreIndicator uses ✓/✗/− icons instead of progress bars
+ * - Remove `points` and `maxPoints` props (no longer needed)
+ *
  * Displays a metric with progress bar visualization.
  * Supports both compact (mobile) and expanded (desktop) modes.
  */
 
+import { useEffect } from 'react'
 import { getScoreColorClasses } from './constants'
 import type { MetricProgressBarProps } from './types'
 import { Check, X, Minus } from 'lucide-react'
@@ -24,10 +33,24 @@ export function MetricProgressBar({
   compact = true,
   className = '',
 }: MetricProgressBarProps) {
+  // Deprecation warning
+  useEffect(() => {
+    if (process.env.NODE_ENV === 'development') {
+      console.warn(
+        `[DEPRECATED] MetricProgressBar is deprecated and will be removed in a future version.\n` +
+        `Use ScoreIndicator instead:\n` +
+        `  - Replace: <MetricProgressBar ... />\n` +
+        `  - With: <ScoreIndicator status={status} label={label} thaiLabel={thaiLabel} value={value} />\n` +
+        `  - Remove: points, maxScore, showValue props (no longer needed)\n` +
+        `  - File: ${label ? `"${label}"` : 'MetricProgressBar component'}`
+      )
+    }
+  }, [label])
+
   const colors = getScoreColorClasses(score)
   const percentage = (score / maxScore) * 100
 
-   
+
   // Status icon
   const StatusIcon = () => {
     if (status === 'pass') {

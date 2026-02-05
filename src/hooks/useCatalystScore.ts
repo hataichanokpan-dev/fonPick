@@ -41,7 +41,7 @@ export function useCatalystScore(symbol: string, autoFetch = true) {
       }
 
       setState({
-        aiScore: result.data.aiScore ?? 0,
+        aiScore: result.data ?? result.aiScore ?? 0,
         data: result.data,
         isLoading: false,
         error: null,

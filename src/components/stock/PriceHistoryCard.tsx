@@ -39,7 +39,7 @@ import {
   calculateSupportResistance,
 } from "@/lib/technical-indicators";
 import { cn } from "@/lib/utils";
- 
+
 // ============================================================================
 // TYPES
 // ============================================================================
@@ -567,7 +567,7 @@ export function PriceHistoryCard({
       <div className={cn("w-full", className)}>
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-semibold text-text-primary">
-            {t.threeYearHistory}
+            Technical Chart
           </h3>
         </div>
         <div
@@ -586,7 +586,7 @@ export function PriceHistoryCard({
       <div className={cn("w-full", className)}>
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-semibold text-text-primary">
-            {t.threeYearHistory}
+            Technical Chart
           </h3>
         </div>
         <div
@@ -613,7 +613,7 @@ export function PriceHistoryCard({
       <div className={cn("w-full", className)}>
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-semibold text-text-primary">
-            {t.threeYearHistory}
+            Technical Chart
           </h3>
         </div>
         <div
@@ -634,7 +634,7 @@ export function PriceHistoryCard({
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
         <h3 className="text-lg font-semibold text-text-primary">
-          {t.threeYearHistory}
+          Technical Chart
         </h3>
 
         {/* Indicator Toggles */}

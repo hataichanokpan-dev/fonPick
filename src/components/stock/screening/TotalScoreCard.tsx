@@ -10,7 +10,6 @@
 import { DECISION_THRESHOLDS, getScoreColorClasses } from "./constants";
 import { DecisionBadge } from "./DecisionBadge";
 import { LayerScoreBadge } from "./ScoreBadge";
-import { ScoreWithGrade } from "./GradeBadge";
 import { toDisplayScore } from "./utils/display-transformer";
 import type { TotalScoreCardProps, InvestmentDecision } from "./types";
 import { Award } from "lucide-react";
@@ -124,54 +123,82 @@ export function TotalScoreCard({
 }: TotalScoreCardProps) {
   const t = LABELS[locale];
 
+  const display = toDisplayScore(totalScore, maxScore, locale)
+  const colors = getScoreColorClasses(totalScore)
+
   return (
     <div className={`total-score-card ${className}`}>
-      <div className="rounded-xl bg-surface border border-border overflow-hidden">
+      <div className={`rounded-xl overflow-hidden border-2 ${display.color.border}`}>
         {/* Header with gradient background based on score */}
         <div
-          className={`p-6 bg-gradient-to-br ${
+          className={`p-4 sm:p-6 ${
             totalScore >= 18
-              ? "from-up-primary/20 to-up-soft"
+              ? "bg-gradient-to-br from-up-primary/20 to-up-soft"
               : totalScore >= 14
-                ? "from-insight/20 to-insight/10"
-                : "from-risk/20 to-risk/10"
+                ? "bg-gradient-to-br from-insight/20 to-insight/10"
+                : "bg-gradient-to-br from-risk/20 to-risk/10"
           }`}
         >
-          {/* Top row: Score, Percentage, Grade and Decision */}
-          <div className="flex items-start justify-between gap-4">
-            {/* Score + Percentage + Grade */}
-            <div className="flex-1">
-              <ScoreWithGrade
-                score={totalScore}
-                maxScore={maxScore}
-                locale={locale}
-              />
-            </div>
+          {/* Main Score Display - Centered on mobile, horizontal on desktop */}
+          <div className="flex flex-col items-center mb-4">
+            {/* Score, Percentage, and Grade in one compact row */}
+            <div className="flex items-center gap-2 sm:gap-4">
+              {/* Large Score */}
+              <div className="text-center">
+                <div className={`text-4xl sm:text-5xl font-bold tabular-nums ${display.color.text}`}>
+                  {totalScore}
+                </div>
+                <div className="text-xs text-text-3">/{maxScore}</div>
+              </div>
 
-            {/* Decision badge */}
-            <div className="flex flex-col items-center justify-center">
+              {/* Divider */}
+              <div className={`hidden sm:block w-px h-12 ${display.color.border.replace('border-', 'bg-').replace('/20', '').replace('/10', '').replace(' dark:', ' dark:')}`} />
+
+              {/* Percentage with label */}
+              <div className="text-center">
+                <div className={`text-3xl sm:text-4xl font-bold tabular-nums ${display.color.text}`}>
+                  {display.percentage}%
+                </div>
+                <div className="text-xs text-text-3">{display.label}</div>
+              </div>
+
+              {/* Grade Badge */}
+              <div className={`${display.color.bg} ${display.color.border} border-2 rounded-xl px-3 py-2 sm:px-4 sm:py-2.5`}>
+                <div className={`text-3xl sm:text-4xl font-bold ${display.color.text} text-center`}>
+                  {display.letterGrade}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Decision Badge & Summary - Full width card style on mobile */}
+          <div className={`${display.color.bg} rounded-lg p-3 sm:p-4 border ${display.color.border}`}>
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-4">
+              {/* Decision Badge */}
               <DecisionBadge
                 decision={decision}
                 confidence={confidence}
-                size="lg"
+                size="md"
               />
+
+              {/* Summary text */}
               {summary && (
-                <p className="text-sm text-text-secondary mt-3 text-center line-clamp-2 max-w-[200px]">
+                <p className="text-sm text-text-secondary text-center sm:text-left line-clamp-2">
                   {summary}
                 </p>
               )}
             </div>
           </div>
 
-          {/* Confidence bar */}
-          <div className="mt-4">
-            <div className="flex items-center justify-between text-xs text-text-3 mb-1">
-              <span>{locale === "th" ? "ความมั่นใจ" : "Confidence"}</span>
-              <span>{confidencePercent}%</span>
+          {/* Confidence bar - Compact */}
+          <div className="mt-3 sm:mt-4">
+            <div className="flex items-center justify-between text-xs text-text-3 mb-1.5">
+              <span className="font-medium">{locale === "th" ? "ระดับความมั่นใจ" : "Confidence Level"}</span>
+              <span className={`font-semibold ${display.color.text}`}>{confidencePercent}%</span>
             </div>
-            <div className="h-2 bg-surface-3 rounded-full overflow-hidden">
+            <div className="h-2 rounded-full overflow-hidden bg-surface-3">
               <div
-                className="h-full bg-white/60 rounded-full transition-all duration-1000"
+                className={`h-full ${colors.progress} rounded-full transition-all duration-700 ease-out`}
                 style={{ width: `${confidencePercent}%` }}
               />
             </div>
@@ -179,11 +206,11 @@ export function TotalScoreCard({
         </div>
 
         {/* Layer breakdown */}
-        <div className="p-4 bg-surface-2/30">
-          <div className="text-xs font-semibold text-text-3 uppercase tracking-wider mb-3">
+        <div className="p-3 sm:p-4 bg-surface dark:bg-surface-2/50">
+          <div className="text-xs font-semibold text-text-3 uppercase tracking-wider mb-2 sm:mb-3">
             {t.layerBreakdown}
           </div>
-          <div className="space-y-2">
+          <div className="space-y-1.5 sm:space-y-2">
             {/* Universe */}
             <LayerScoreBadge
               layer={1}
@@ -221,21 +248,21 @@ export function TotalScoreCard({
 
         {/* Rationale (if provided) */}
         {rationale.length > 0 && (
-          <div className="p-4 border-t border-border/50">
+          <div className="p-3 sm:p-4 border-t border-border/50 bg-surface dark:bg-surface-2/30">
             <div className="flex items-center gap-2 mb-2">
               <Award className="w-4 h-4 text-insight" />
               <span className="text-xs font-semibold text-text-3 uppercase tracking-wider">
                 {t.rationale}
               </span>
             </div>
-            <ul className="space-y-1.5">
+            <ul className="space-y-1">
               {rationale.slice(0, 3).map((reason, index) => (
                 <li
                   key={index}
                   className="flex items-start gap-2 text-sm text-text-secondary"
                 >
-                  <span className="text-insight mt-0.5">•</span>
-                  <span>{reason}</span>
+                  <span className="text-insight mt-0.5 flex-shrink-0">•</span>
+                  <span className="leading-snug">{reason}</span>
                 </li>
               ))}
             </ul>

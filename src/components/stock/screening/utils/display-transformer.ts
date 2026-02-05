@@ -79,7 +79,13 @@ const STATUS_LABELS = {
 } as const
 
 /**
- * Color classes for each status
+ * Color classes for each status/grade
+ *
+ * Grade colors using project theme colors:
+ * - A (Excellent): up-primary - Strong buy candidate
+ * - B (Good): up - Worth considering
+ * - C (Fair): insight - Hold and watch
+ * - D (Poor): risk - Pass for now
  */
 const STATUS_COLORS: Record<DisplayScore['status'], ScoreColorClasses> = {
   excellent: {
@@ -89,10 +95,10 @@ const STATUS_COLORS: Record<DisplayScore['status'], ScoreColorClasses> = {
     progress: 'bg-up-primary',
   },
   good: {
-    text: 'text-accent-blue',
-    bg: 'bg-info-soft',
-    border: 'border-info',
-    progress: 'bg-accent-blue',
+    text: 'text-up',
+    bg: 'bg-up-soft',
+    border: 'border-up-strong',
+    progress: 'bg-up',
   },
   fair: {
     text: 'text-insight',
