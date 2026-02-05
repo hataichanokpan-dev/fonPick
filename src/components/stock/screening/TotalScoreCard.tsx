@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 /**
  * Total Score Card Component
@@ -123,12 +123,14 @@ export function TotalScoreCard({
 }: TotalScoreCardProps) {
   const t = LABELS[locale];
 
-  const display = toDisplayScore(totalScore, maxScore, locale)
-  const colors = getScoreColorClasses(totalScore)
+  const display = toDisplayScore(totalScore, maxScore, locale);
+  const colors = getScoreColorClasses(totalScore);
 
   return (
     <div className={`total-score-card ${className}`}>
-      <div className={`rounded-xl overflow-hidden border-2 ${display.color.border}`}>
+      <div
+        className={`rounded-xl overflow-hidden border-2 ${display.color.border}`}
+      >
         {/* Header with gradient background based on score */}
         <div
           className={`p-4 sm:p-6 ${
@@ -142,29 +144,43 @@ export function TotalScoreCard({
           {/* Main Score Display - Centered on mobile, horizontal on desktop */}
           <div className="flex flex-col items-center mb-4">
             {/* Score, Percentage, and Grade in one compact row */}
-            <div className="grid grid-cols-3  gap-4 items-center mb-2">
+            <div className="flex items-center gap-2 sm:gap-4 sm:">
               {/* Large Score */}
               <div className="text-center">
-                <div className={`text-4xl sm:text-5xl font-bold tabular-nums ${display.color.text}`}>
+                <div
+                  className={`text-4xl sm:text-5xl font-bold tabular-nums ${display.color.text}`}
+                >
                   {totalScore}
                 </div>
                 <div className="text-xs text-text-3">/{maxScore}</div>
               </div>
 
               {/* Divider */}
-              <div className={`hidden sm:block w-px h-12 ${display.color.border.replace('border-', 'bg-').replace('/20', '').replace('/10', '').replace(' dark:', ' dark:')}`} />
+              <div
+                className={`mx-4 sm:block w-px h-12 ${display.color.border.replace("border-", "bg-").replace("/20", "").replace("/10", "").replace(" dark:", " dark:")}`}
+              />
 
               {/* Percentage with label */}
               <div className="text-center">
-                <div className={`text-3xl sm:text-4xl font-bold tabular-nums ${display.color.text}`}>
+                <div
+                  className={`text-3xl sm:text-4xl font-bold tabular-nums ${display.color.text}`}
+                >
                   {display.percentage}%
                 </div>
                 <div className="text-xs text-text-3">{display.label}</div>
               </div>
+              {/* Divider */}
+              <div
+                className={`mx-4 sm:block w-px h-12 ${display.color.border.replace("border-", "bg-").replace("/20", "").replace("/10", "").replace(" dark:", " dark:")}`}
+              />
 
               {/* Grade Badge */}
-              <div className={`${display.color.bg} ${display.color.border} border-2 rounded-xl px-3 py-2 sm:px-4 sm:py-2.5`}>
-                <div className={`text-3xl sm:text-4xl font-bold ${display.color.text} text-center`}>
+              <div
+                className={`${display.color.bg} ${display.color.border} border-2 rounded-xl px-3 py-2 sm:px-4 sm:py-2.5`}
+              >
+                <div
+                  className={`text-3xl sm:text-4xl font-bold ${display.color.text} text-center`}
+                >
                   {display.letterGrade}
                 </div>
               </div>
@@ -172,7 +188,9 @@ export function TotalScoreCard({
           </div>
 
           {/* Decision Badge & Summary - Full width card style on mobile */}
-          <div className={`${display.color.bg} rounded-lg p-3 sm:p-4 border ${display.color.border}`}>
+          <div
+            className={`${display.color.bg} rounded-lg p-3 sm:p-4 border ${display.color.border}`}
+          >
             <div className="flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-4">
               {/* Decision Badge */}
               <DecisionBadge
@@ -193,8 +211,12 @@ export function TotalScoreCard({
           {/* Confidence bar - Compact */}
           <div className="mt-3 sm:mt-4">
             <div className="flex items-center justify-between text-xs text-text-3 mb-1.5">
-              <span className="font-medium">{locale === "th" ? "ระดับความมั่นใจ" : "Confidence Level"}</span>
-              <span className={`font-semibold ${display.color.text}`}>{confidencePercent}%</span>
+              <span className="font-medium">
+                {locale === "th" ? "ระดับความมั่นใจ" : "Confidence Level"}
+              </span>
+              <span className={`font-semibold ${display.color.text}`}>
+                {confidencePercent}%
+              </span>
             </div>
             <div className="h-2 rounded-full overflow-hidden bg-surface-3">
               <div
@@ -292,7 +314,7 @@ export function CompactTotalScore({
   className = "",
 }: CompactTotalScoreProps) {
   const colors = getScoreColorClasses(totalScore);
-  const display = toDisplayScore(totalScore, maxScore, 'th');
+  const display = toDisplayScore(totalScore, maxScore, "th");
 
   return (
     <div className={`compact-total-score ${className}`}>
@@ -305,7 +327,9 @@ export function CompactTotalScore({
               {totalScore}
             </div>
             {/* Grade badge */}
-            <div className={`${display.color.bg} ${display.color.border} rounded-lg px-2 py-1`}>
+            <div
+              className={`${display.color.bg} ${display.color.border} rounded-lg px-2 py-1`}
+            >
               <span className={`text-lg font-bold ${display.color.text}`}>
                 {display.letterGrade}
               </span>
