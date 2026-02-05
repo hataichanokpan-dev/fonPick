@@ -5,14 +5,14 @@
  * This hook can be shared between Layer4Technical and AIInsightsCard.
  */
 
-import { useState, useEffect } from 'react'
-import type { ParsedCatalystData } from '@/types/catalyst'
+import { useState, useEffect } from "react";
+import type { ParsedCatalystData } from "@/types/catalyst";
 
 export interface CatalystScoreState {
-  aiScore: number | null
-  data: ParsedCatalystData | null
-  isLoading: boolean
-  error: string | null
+  aiScore: number | null;
+  data: ParsedCatalystData | null;
+  isLoading: boolean;
+  error: string | null;
 }
 
 /**
@@ -27,44 +27,44 @@ export function useCatalystScore(symbol: string, autoFetch = true) {
     data: null,
     isLoading: autoFetch,
     error: null,
-  })
+  });
 
   const fetchCatalystScore = async () => {
-    setState((prev) => ({ ...prev, isLoading: true, error: null }))
+    setState((prev) => ({ ...prev, isLoading: true, error: null }));
 
     try {
-      const response = await fetch(`/api/stocks/${symbol}/catalyst`)
-      const result = await response.json()
+      const response = await fetch(`/api/stocks/${symbol}/catalyst`);
+      const result = await response.json();
 
       if (!result.success) {
-        console.error('[useCatalystScore] API Error:', result)
+        console.error("[useCatalystScore] API Error:", result);
       }
 
       setState({
-        aiScore: result.data.aiScore,
+        aiScore: result.data.aiScore ?? 0,
         data: result.data,
         isLoading: false,
         error: null,
-      })
+      });
     } catch (err) {
-      console.error('[useCatalystScore] Error:', err)
+      console.error("[useCatalystScore] Error:", err);
       setState({
         aiScore: null,
         data: null,
         isLoading: false,
-        error: err instanceof Error ? err.message : 'Unknown error',
-      })
+        error: err instanceof Error ? err.message : "Unknown error",
+      });
     }
-  }
+  };
 
   useEffect(() => {
     if (autoFetch && symbol) {
-      fetchCatalystScore()
+      fetchCatalystScore();
     }
-  }, [symbol, autoFetch])
+  }, [symbol, autoFetch]);
 
   return {
     ...state,
     refetch: fetchCatalystScore,
-  }
+  };
 }

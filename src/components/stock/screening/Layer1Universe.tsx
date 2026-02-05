@@ -9,6 +9,7 @@
  */
 
 import { UNIVERSE_THRESHOLDS } from "./constants";
+import { ScoreIndicator } from "./ScoreIndicator";
 import type { UniverseScoreData } from "./types";
 import { formatLargeNumber } from "./utils/formatters";
 
@@ -124,44 +125,24 @@ export function Layer1Universe({
         {/* Filters */}
         <div className="space-y-2">
           {/* Market Cap */}
-          <div className="flex items-center justify-between py-2 border-b border-border/50">
-            <div className="flex items-center gap-2">
-              <span
-                className={`text-xs ${scoreData.filters.marketCap.passes ? "text-up-primary" : "text-risk"}`}
-              >
-                {scoreData.filters.marketCap.passes ? "✓" : "✗"}
-              </span>
-              <span className="text-sm text-text-secondary">
-                {t.marketCapThai} &gt;{" "}
-                {formatLargeNumber(UNIVERSE_THRESHOLDS.MARKET_CAP_MIN)}
-              </span>
-            </div>
-            <span
-              className={`text-sm font-semibold tabular-nums ${scoreData.filters.marketCap.passes ? "text-up-primary" : "text-risk"}`}
-            >
-              {scoreData.filters.marketCap.currentDisplay}
-            </span>
-          </div>
+          <ScoreIndicator
+            status={scoreData.filters.marketCap.passes ? 'pass' : 'fail'}
+            label={t.marketCap}
+            thaiLabel={t.marketCapThai}
+            value={`> ${formatLargeNumber(UNIVERSE_THRESHOLDS.MARKET_CAP_MIN)} | ${scoreData.filters.marketCap.currentDisplay}`}
+            locale={locale}
+            compact
+          />
 
           {/* Volume */}
-          <div className="flex items-center justify-between py-2">
-            <div className="flex items-center gap-2">
-              <span
-                className={`text-xs ${scoreData.filters.volume.passes ? "text-up-primary" : "text-risk"}`}
-              >
-                {scoreData.filters.volume.passes ? "✓" : "✗"}
-              </span>
-              <span className="text-sm text-text-secondary">
-                {t.volumeThai} &gt;{" "}
-                {formatLargeNumber(UNIVERSE_THRESHOLDS.VOLUME_DAILY_MIN)}
-              </span>
-            </div>
-            <span
-              className={`text-sm font-semibold tabular-nums ${scoreData.filters.volume.passes ? "text-up-primary" : "text-risk"}`}
-            >
-              {scoreData.filters.volume.currentDisplay}
-            </span>
-          </div>
+          <ScoreIndicator
+            status={scoreData.filters.volume.passes ? 'pass' : 'fail'}
+            label={t.volume}
+            thaiLabel={t.volumeThai}
+            value={`> ${formatLargeNumber(UNIVERSE_THRESHOLDS.VOLUME_DAILY_MIN)} | ${scoreData.filters.volume.currentDisplay}`}
+            locale={locale}
+            compact
+          />
         </div>
       </div>
     );
@@ -193,105 +174,23 @@ export function Layer1Universe({
       </div>
 
       {/* Filters Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         {/* Market Cap Filter */}
-        <FilterCard
-          name={t.marketCap}
-          thaiName={t.marketCapThai}
-          current={scoreData.filters.marketCap.currentDisplay}
-          threshold={scoreData.filters.marketCap.thresholdDisplay}
-          passed={scoreData.filters.marketCap.passes}
+        <ScoreIndicator
+          status={scoreData.filters.marketCap.passes ? 'pass' : 'fail'}
+          label={t.marketCap}
+          thaiLabel={t.marketCapThai}
+          value={`${locale === 'th' ? 'ปัจจุบัน' : 'Current'}: ${scoreData.filters.marketCap.currentDisplay} | ${locale === 'th' ? 'เกณฑ์ขั้นต่ำ' : 'Minimum'}: > ${scoreData.filters.marketCap.thresholdDisplay}`}
           locale={locale}
         />
 
         {/* Volume Filter */}
-        <FilterCard
-          name={t.volume}
-          thaiName={t.volumeThai}
-          current={scoreData.filters.volume.currentDisplay}
-          threshold={scoreData.filters.volume.thresholdDisplay}
-          passed={scoreData.filters.volume.passes}
+        <ScoreIndicator
+          status={scoreData.filters.volume.passes ? 'pass' : 'fail'}
+          label={t.volume}
+          thaiLabel={t.volumeThai}
+          value={`${locale === 'th' ? 'ปัจจุบัน' : 'Current'}: ${scoreData.filters.volume.currentDisplay} | ${locale === 'th' ? 'เกณฑ์ขั้นต่ำ' : 'Minimum'}: > ${scoreData.filters.volume.thresholdDisplay}`}
           locale={locale}
-        />
-      </div>
-    </div>
-  );
-}
-
-/**
- * Individual filter card
- */
-interface FilterCardProps {
-  name: string;
-  thaiName: string;
-  current: string | undefined;
-  threshold: string | undefined;
-  passed: boolean;
-  locale: "en" | "th";
-}
-
-function FilterCard({
-  name,
-  thaiName,
-  current,
-  threshold,
-  passed,
-  locale,
-}: FilterCardProps) {
-  return (
-    <div
-      className={`rounded-lg border p-4 transition-all duration-200 ${
-        passed
-          ? "border-up-primary/30 bg-up-soft/10"
-          : "border-risk/30 bg-risk/10"
-      }`}
-    >
-      {/* Header */}
-      <div className="flex items-start justify-between mb-3">
-        <div className="flex items-center gap-2">
-          <span
-            className={`w-6 h-6 rounded-full flex items-center justify-center text-sm ${
-              passed ? "bg-up-primary text-white" : "bg-risk text-white"
-            }`}
-          >
-            {passed ? "✓" : "✗"}
-          </span>
-          <div>
-            <div className="text-sm font-medium text-text-primary">
-              {thaiName}
-            </div>
-            <div className="text-xs text-text-3">{name}</div>
-          </div>
-        </div>
-      </div>
-
-      {/* Values */}
-      <div className="space-y-2">
-        <div className="flex items-center justify-between">
-          <span className="text-xs text-text-3">
-            {locale === "th" ? "ปัจจุบัน" : "Current"}
-          </span>
-          <span
-            className={`text-sm font-semibold tabular-nums ${passed ? "text-up-primary" : "text-risk"}`}
-          >
-            {current}
-          </span>
-        </div>
-        <div className="flex items-center justify-between">
-          <span className="text-xs text-text-3">
-            {locale === "th" ? "เกณฑ์ขั้นต่ำ" : "Minimum"}
-          </span>
-          <span className="text-sm font-medium tabular-nums text-text-2">
-            {">"} {threshold}
-          </span>
-        </div>
-      </div>
-
-      {/* Status bar */}
-      <div className="mt-3 h-1.5 bg-surface-3 rounded-full overflow-hidden">
-        <div
-          className={`h-full rounded-full ${passed ? "bg-up-primary" : "bg-risk"}`}
-          style={{ width: "100%" }}
         />
       </div>
     </div>

@@ -95,6 +95,18 @@ export {
   CompactMetricRow,
 } from './MetricProgressBar'
 
+// New simplified score indicators (Phase 1)
+export {
+  ScoreIndicator,
+} from './ScoreIndicator'
+
+// New grade badges (Phase 1)
+export {
+  GradeBadge,
+  SimpleGradeDisplay,
+  ScoreWithGrade,
+} from './GradeBadge'
+
 // Score displays
 export {
   ScoreBadge,
@@ -158,6 +170,16 @@ export {
 // UTILITIES
 // ============================================================================
 
+// Display transformer (Phase 1) - Convert scores to user-friendly formats
+export {
+  toDisplayScore,
+  getScoreDisplayColor,
+  getDecisionLabel,
+  formatScoreDisplay,
+  type DisplayScore,
+} from './utils/display-transformer'
+
+// Formatters
 export {
   formatLargeNumber,
   formatCurrency,

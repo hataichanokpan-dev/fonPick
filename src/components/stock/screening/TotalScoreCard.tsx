@@ -10,6 +10,8 @@
 import { DECISION_THRESHOLDS, getScoreColorClasses } from "./constants";
 import { DecisionBadge } from "./DecisionBadge";
 import { LayerScoreBadge } from "./ScoreBadge";
+import { ScoreWithGrade } from "./GradeBadge";
+import { toDisplayScore } from "./utils/display-transformer";
 import type { TotalScoreCardProps, InvestmentDecision } from "./types";
 import { Award } from "lucide-react";
 
@@ -121,8 +123,6 @@ export function TotalScoreCard({
   className = "",
 }: TotalScoreCardProps) {
   const t = LABELS[locale];
-  const colors = getScoreColorClasses(totalScore);
-  const percentage = Math.round((totalScore / maxScore) * 100);
 
   return (
     <div className={`total-score-card ${className}`}>
@@ -137,58 +137,26 @@ export function TotalScoreCard({
                 : "from-risk/20 to-risk/10"
           }`}
         >
-          {/* Top row: Score and Decision */}
+          {/* Top row: Score, Percentage, Grade and Decision */}
           <div className="flex items-start justify-between gap-4">
-            {/* Score circle */}
-            <div className="relative w-28 h-28 shrink-0">
-              <svg
-                className="w-full h-full transform -rotate-90"
-                viewBox="0 0 100 100"
-              >
-                {/* Background circle */}
-                <circle
-                  cx="50"
-                  cy="50"
-                  r="42"
-                  fill="none"
-                  className="stroke-surface-3/30"
-                  strokeWidth="8"
-                />
-                {/* Progress circle */}
-                <circle
-                  cx="50"
-                  cy="50"
-                  r="42"
-                  fill="none"
-                  className={colors.progress.replace("bg-", "stroke-")}
-                  strokeWidth="8"
-                  strokeDasharray={`${2 * Math.PI * 42}`}
-                  strokeDashoffset={`${2 * Math.PI * 42 * (1 - percentage / 100)}`}
-                  strokeLinecap="round"
-                  style={{ transition: "stroke-dashoffset 1s ease-out" }}
-                />
-              </svg>
-
-              {/* Center text */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <span
-                  className={`text-3xl font-bold tabular-nums ${colors.text}`}
-                >
-                  {totalScore}
-                </span>
-                <span className="text-xs text-text-3">/{maxScore}</span>
-              </div>
+            {/* Score + Percentage + Grade */}
+            <div className="flex-1">
+              <ScoreWithGrade
+                score={totalScore}
+                maxScore={maxScore}
+                locale={locale}
+              />
             </div>
 
             {/* Decision badge */}
-            <div className="flex-1 flex flex-col items-center justify-center">
+            <div className="flex flex-col items-center justify-center">
               <DecisionBadge
                 decision={decision}
                 confidence={confidence}
                 size="lg"
               />
               {summary && (
-                <p className="text-sm text-text-secondary mt-3 text-center line-clamp-2">
+                <p className="text-sm text-text-secondary mt-3 text-center line-clamp-2 max-w-[200px]">
                   {summary}
                 </p>
               )}
@@ -297,41 +265,22 @@ export function CompactTotalScore({
   className = "",
 }: CompactTotalScoreProps) {
   const colors = getScoreColorClasses(totalScore);
-  const percentage = Math.round((totalScore / maxScore) * 100);
+  const display = toDisplayScore(totalScore, maxScore, 'th');
 
   return (
     <div className={`compact-total-score ${className}`}>
       <div className="rounded-lg bg-surface border border-border p-3">
         <div className="flex items-center gap-3">
-          {/* Mini score circle */}
-          <div className="relative w-14 h-14 shrink-0">
-            <svg
-              className="w-full h-full transform -rotate-90"
-              viewBox="0 0 100 100"
-            >
-              <circle
-                cx="50"
-                cy="50"
-                r="40"
-                fill="none"
-                className="stroke-surface-3"
-                strokeWidth="10"
-              />
-              <circle
-                cx="50"
-                cy="50"
-                r="40"
-                fill="none"
-                className={colors.progress.replace("bg-", "stroke-")}
-                strokeWidth="10"
-                strokeDasharray={`${2 * Math.PI * 40}`}
-                strokeDashoffset={`${2 * Math.PI * 40 * (1 - percentage / 100)}`}
-                strokeLinecap="round"
-              />
-            </svg>
-            <div className="absolute inset-0 flex items-center justify-center">
-              <span className={`text-lg font-bold tabular-nums ${colors.text}`}>
-                {totalScore}
+          {/* Score + Grade */}
+          <div className="flex items-center gap-2">
+            {/* Score */}
+            <div className={`text-2xl font-bold tabular-nums ${colors.text}`}>
+              {totalScore}
+            </div>
+            {/* Grade badge */}
+            <div className={`${display.color.bg} ${display.color.border} rounded-lg px-2 py-1`}>
+              <span className={`text-lg font-bold ${display.color.text}`}>
+                {display.letterGrade}
               </span>
             </div>
           </div>

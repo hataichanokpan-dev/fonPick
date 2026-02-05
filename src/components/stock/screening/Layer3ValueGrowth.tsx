@@ -17,7 +17,7 @@
  */
 
 import { VALUE_THRESHOLDS, GROWTH_THRESHOLDS, VALUE_POINTS, GROWTH_POINTS } from './constants'
-import { MetricProgressBar } from './MetricProgressBar'
+import { ScoreIndicator } from './ScoreIndicator'
 import type { ValueGrowthScoreData, MetricStatus } from './types'
 import { formatRatio, formatPercentageFromDecimal } from './utils/formatters'
 import { safeToFixed } from '@/lib/utils'
@@ -329,52 +329,44 @@ export function Layer3ValueGrowth({
       {/* Two column layout for desktop */}
       <div className={`grid gap-4 ${compact ? 'grid-cols-1' : 'grid-cols-1 md:grid-cols-2'}`}>
         {/* VALUE METRICS */}
-        <div className="space-y-3">
+        <div className="space-y-2">
           <div className="text-xs font-semibold text-text-3 uppercase tracking-wider mb-3">
             {t.value}
           </div>
 
-          <MetricProgressBar
-            score={Math.min(10, (scoreData.valueMetrics.peBand.points / VALUE_POINTS.PE_BAND) * 10)}
+          <ScoreIndicator
+            status={scoreData.valueMetrics.peBand.status}
             label={t.peBand}
             thaiLabel={t.peBandThai}
             value={`${t.peBandThai} ${formatRatio(scoreData.valueMetrics.peBand.currentValue)} - ${scoreData.valueMetrics.peBand.interpretation}`}
-            points={scoreData.valueMetrics.peBand.points}
-            maxPoints={scoreData.valueMetrics.peBand.maxPoints}
-            status={scoreData.valueMetrics.peBand.status}
+            locale={locale}
             compact={compact}
           />
 
-          <MetricProgressBar
-            score={Math.min(10, (scoreData.valueMetrics.pbFair.points / VALUE_POINTS.PB_FAIR) * 10)}
+          <ScoreIndicator
+            status={scoreData.valueMetrics.pbFair.status}
             label={t.pbFair}
             thaiLabel={t.pbFairThai}
             value={`${formatRatio(scoreData.valueMetrics.pbFair.currentValue)} vs ${formatRatio(scoreData.valueMetrics.pbFair.targetValue!)} - ${scoreData.valueMetrics.pbFair.interpretation}`}
-            points={scoreData.valueMetrics.pbFair.points}
-            maxPoints={scoreData.valueMetrics.pbFair.maxPoints}
-            status={scoreData.valueMetrics.pbFair.status}
+            locale={locale}
             compact={compact}
           />
 
-          <MetricProgressBar
-            score={Math.min(10, (scoreData.valueMetrics.divYield.points / VALUE_POINTS.DIV_YIELD) * 10)}
+          <ScoreIndicator
+            status={scoreData.valueMetrics.divYield.status}
             label={t.divYield}
             thaiLabel={t.divYieldThai}
             value={`${(scoreData.valueMetrics.divYield.currentValue)} ${t.vsSector} ${formatPercentageFromDecimal(scoreData.valueMetrics.divYield.targetValue!)}`}
-            points={scoreData.valueMetrics.divYield.points}
-            maxPoints={scoreData.valueMetrics.divYield.maxPoints}
-            status={scoreData.valueMetrics.divYield.status}
+            locale={locale}
             compact={compact}
           />
 
-          <MetricProgressBar
-            score={Math.min(10, (scoreData.valueMetrics.pfcf.points / VALUE_POINTS.PFCF) * 10)}
+          <ScoreIndicator
+            status={scoreData.valueMetrics.pfcf.status}
             label={t.pfcf}
             thaiLabel={t.pfcfThai}
-            value={`${formatRatio(scoreData.valueMetrics.pfcf.currentValue)}x `}
-            points={scoreData.valueMetrics.pfcf.points}
-            maxPoints={scoreData.valueMetrics.pfcf.maxPoints}
-            status={scoreData.valueMetrics.pfcf.status}
+            value={`${formatRatio(scoreData.valueMetrics.pfcf.currentValue)}x`}
+            locale={locale}
             compact={compact}
           />
           {/* P/FCF formula with actual values */}
@@ -395,19 +387,17 @@ export function Layer3ValueGrowth({
         </div>
 
         {/* GROWTH METRICS */}
-        <div className="space-y-3">
+        <div className="space-y-2">
           <div className="text-xs font-semibold text-text-3 uppercase tracking-wider mb-3">
             {t.growth}
           </div>
 
-          <MetricProgressBar
-            score={Math.min(10, (scoreData.growthMetrics.epsYoY.points / GROWTH_POINTS.EPS_YOY) * 10)}
+          <ScoreIndicator
+            status={scoreData.growthMetrics.epsYoY.status}
             label={t.epsYoY}
             thaiLabel={t.epsYoYThai}
             value={`${formatPercentageFromDecimal(scoreData.growthMetrics.epsYoY.currentValue)} CAGR`}
-            points={scoreData.growthMetrics.epsYoY.points}
-            maxPoints={scoreData.growthMetrics.epsYoY.maxPoints}
-            status={scoreData.growthMetrics.epsYoY.status}
+            locale={locale}
             compact={compact}
           />
           {/* CAGR formula with actual values */}
@@ -424,14 +414,12 @@ export function Layer3ValueGrowth({
             </div>
           )}
 
-          <MetricProgressBar
-            score={Math.min(10, (scoreData.growthMetrics.epsAccel.points / GROWTH_POINTS.EPS_ACCEL) * 10)}
+          <ScoreIndicator
+            status={scoreData.growthMetrics.epsAccel.status}
             label={t.epsAccel}
             thaiLabel={t.epsAccelThai}
             value={getTrendLabel(scoreData.growthMetrics.epsAccel.trend, locale)}
-            points={scoreData.growthMetrics.epsAccel.points}
-            maxPoints={scoreData.growthMetrics.epsAccel.maxPoints}
-            status={scoreData.growthMetrics.epsAccel.status}
+            locale={locale}
             compact={compact}
           />
 

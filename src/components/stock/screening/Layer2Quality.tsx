@@ -18,7 +18,7 @@ import {
   QUALITY_POINTS,
   getScoreColorClasses,
 } from "./constants";
-import { MetricProgressBar } from "./MetricProgressBar";
+import { ScoreIndicator } from "./ScoreIndicator";
 import type { QualityScoreData, MetricStatus } from "./types";
 import { formatPercentageFromDecimal, formatRatio } from "./utils/formatters";
 
@@ -304,88 +304,74 @@ export function Layer2Quality({
       </div>
 
       {/* Metrics */}
-      <div className="space-y-3 ">
+      <div className="space-y-2">
         {/* PEG Ratio */}
-        <MetricProgressBar
-          score={Math.min(10, scoreData.metrics.peg.points * 5)}
+        <ScoreIndicator
+          status={scoreData.metrics.peg.status}
           label={t.peg}
           thaiLabel={t.pegThai}
           value={formatRatio(scoreData.metrics.peg.currentValue)}
-          points={scoreData.metrics.peg.points}
-          maxPoints={scoreData.metrics.peg.maxPoints}
-          status={scoreData.metrics.peg.status}
+          locale={locale}
           compact={compact}
         />
 
         {/* Net Profit Margin */}
-        <MetricProgressBar
-          score={Math.min(10, scoreData.metrics.npm.points * 5)}
+        <ScoreIndicator
+          status={scoreData.metrics.npm.status}
           label={t.npm}
           thaiLabel={t.npmThai}
           value={`${scoreData.metrics.npm.currentValue}% ${t.vsSector} ${formatPercentageFromDecimal(scoreData.metrics.npm.comparison!)}`}
-          points={scoreData.metrics.npm.points}
-          maxPoints={scoreData.metrics.npm.maxPoints}
-          status={scoreData.metrics.npm.status}
+          locale={locale}
           compact={compact}
         />
 
         {/* ROE */}
-        <MetricProgressBar
-          score={Math.min(10, scoreData.metrics.roe.points * 10)}
+        <ScoreIndicator
+          status={scoreData.metrics.roe.status}
           label={t.roe}
           thaiLabel={t.roeThai}
           value={`${scoreData.metrics.roe.currentValue}% ${t.vsSector} ${formatPercentageFromDecimal(scoreData.metrics.roe.comparison!)}`}
-          points={scoreData.metrics.roe.points}
-          maxPoints={scoreData.metrics.roe.maxPoints}
-          status={scoreData.metrics.roe.status}
+          locale={locale}
           compact={compact}
         />
 
         {/* ROIC/WACC */}
-        <MetricProgressBar
-          score={Math.min(10, scoreData.metrics.roicWacc.points * 5)}
+        <ScoreIndicator
+          status={scoreData.metrics.roicWacc.status}
           label={t.roicWacc}
           thaiLabel={t.roicWaccThai}
           value={formatRatio(scoreData.metrics.roicWacc.currentValue)}
-          points={scoreData.metrics.roicWacc.points}
-          maxPoints={scoreData.metrics.roicWacc.maxPoints}
-          status={scoreData.metrics.roicWacc.status}
+          locale={locale}
           compact={compact}
         />
 
         {/* Debt/Equity */}
-        <MetricProgressBar
-          score={Math.min(10, scoreData.metrics.debtEquity.points * 10)}
+        <ScoreIndicator
+          status={scoreData.metrics.debtEquity.status}
           label={t.debtEquity}
           thaiLabel={t.debtEquityThai}
           value={formatRatio(scoreData.metrics.debtEquity.currentValue)}
-          points={scoreData.metrics.debtEquity.points}
-          maxPoints={scoreData.metrics.debtEquity.maxPoints}
-          status={scoreData.metrics.debtEquity.status}
+          locale={locale}
           compact={compact}
         />
 
         {/* FCF Yield */}
-        <MetricProgressBar
-          score={Math.min(10, scoreData.metrics.fcfYield.points * 10)}
+        <ScoreIndicator
+          status={scoreData.metrics.fcfYield.status}
           label={t.fcfYield}
           thaiLabel={t.fcfYieldThai}
-          value={scoreData.metrics.fcfYield.currentValue.toString() + '%'}
-          points={scoreData.metrics.fcfYield.points}
-          maxPoints={scoreData.metrics.fcfYield.maxPoints}
-          status={scoreData.metrics.fcfYield.status}
+          value={scoreData.metrics.fcfYield.currentValue ? scoreData.metrics.fcfYield.currentValue + '%' : ''}
+          locale={locale}
           compact={compact}
         />
 
         {/* OCF/NI */}
-        <MetricProgressBar
-          score={Math.min(10, scoreData.metrics.ocfNi.points * 10)}
+        <ScoreIndicator
+          status={scoreData.metrics.ocfNi.status}
           label={t.ocfNi}
           thaiLabel={t.ocfNiThai}
           value={formatRatio(scoreData.metrics.ocfNi.currentValue)}
-          points={scoreData.metrics.ocfNi.points}
-          maxPoints={scoreData.metrics.ocfNi.maxPoints}
-          status={scoreData.metrics.ocfNi.status}
+          locale={locale}
           compact={compact}
         />
       </div>

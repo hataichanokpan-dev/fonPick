@@ -18,7 +18,7 @@
  */
 
 import { TECHNICAL_THRESHOLDS, TECHNICAL_POINTS } from './constants'
-import { MetricProgressBar } from './MetricProgressBar'
+import { ScoreIndicator } from './ScoreIndicator'
 import type { TechnicalScoreData, MetricStatus } from './types'
 import { formatRatio } from './utils/formatters'
 import { Calendar } from 'lucide-react'
@@ -341,53 +341,45 @@ export function Layer4Technical({
       {/* Two column layout */}
       <div className={`grid gap-4 ${compact ? 'grid-cols-1' : 'grid-cols-1 md:grid-cols-2'}`}>
         {/* TECHNICAL METRICS */}
-        <div className="space-y-3">
-          <div className="text-xs font-semibold 
+        <div className="space-y-2">
+          <div className="text-xs font-semibold
           text-text-3 uppercase tracking-wider mb-3">
             {t.technical}
           </div>
 
-          <MetricProgressBar
-            score={Math.min(10, (scoreData.technicalMetrics.priceVsMA50.points / TECHNICAL_POINTS.PRICE_VS_MA50) * 10)}
+          <ScoreIndicator
+            status={scoreData.technicalMetrics.priceVsMA50.status}
             label={t.priceVsMA50}
             thaiLabel={t.priceVsMA50Thai}
-            value={scoreData.technicalMetrics.priceVsMA50.detail}
-            points={scoreData.technicalMetrics.priceVsMA50.points}
-            maxPoints={scoreData.technicalMetrics.priceVsMA50.maxPoints}
-            status={scoreData.technicalMetrics.priceVsMA50.status}
+            value={scoreData.technicalMetrics.priceVsMA50.detail ?? '-'}
+            locale={locale}
             compact={compact}
           />
 
-          <MetricProgressBar
-            score={Math.min(10, (scoreData.technicalMetrics.rsi.points / TECHNICAL_POINTS.RSI) * 10)}
+          <ScoreIndicator
+            status={scoreData.technicalMetrics.rsi.status}
             label={t.rsi}
             thaiLabel={t.rsiThai}
             value={`${formatRatio(typeof scoreData.technicalMetrics.rsi.currentValue === 'number' ? scoreData.technicalMetrics.rsi.currentValue : 0)} - ${scoreData.technicalMetrics.rsi.detail}`}
-            points={scoreData.technicalMetrics.rsi.points}
-            maxPoints={scoreData.technicalMetrics.rsi.maxPoints}
-            status={scoreData.technicalMetrics.rsi.status}
+            locale={locale}
             compact={compact}
           />
 
-          <MetricProgressBar
-            score={Math.min(10, (scoreData.technicalMetrics.macd.points / TECHNICAL_POINTS.MACD) * 10)}
+          <ScoreIndicator
+            status={scoreData.technicalMetrics.macd.status}
             label={t.macd}
             thaiLabel={t.macdThai}
-            value={scoreData.technicalMetrics.macd.detail}
-            points={scoreData.technicalMetrics.macd.points}
-            maxPoints={scoreData.technicalMetrics.macd.maxPoints}
-            status={scoreData.technicalMetrics.macd.status}
+            value={scoreData.technicalMetrics.macd.detail ?? '-'}
+            locale={locale}
             compact={compact}
           />
 
-          <MetricProgressBar
-            score={Math.min(10, (scoreData.technicalMetrics.support.points / TECHNICAL_POINTS.SUPPORT) * 10)}
+          <ScoreIndicator
+            status={scoreData.technicalMetrics.support.status}
             label={t.support}
             thaiLabel={t.supportThai}
-            value={scoreData.technicalMetrics.support.detail}
-            points={scoreData.technicalMetrics.support.points}
-            maxPoints={scoreData.technicalMetrics.support.maxPoints}
-            status={scoreData.technicalMetrics.support.status}
+            value={scoreData.technicalMetrics.support.detail ?? '-'}
+            locale={locale}
             compact={compact}
           />
         </div>
