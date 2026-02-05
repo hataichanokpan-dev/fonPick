@@ -5,21 +5,13 @@
  * Combines all layer calculators into one unified interface.
  */
 
-import {
-  calculateUniverseScore,
-} from '../Layer1Universe'
+import { calculateUniverseScore } from "../Layer1Universe";
 
-import {
-  calculateQualityScore,
-} from '../Layer2Quality'
+import { calculateQualityScore } from "../Layer2Quality";
 
-import {
-  calculateValueGrowthScore,
-} from '../Layer3ValueGrowth'
+import { calculateValueGrowthScore } from "../Layer3ValueGrowth";
 
-import {
-  calculateTechnicalScore,
-} from '../Layer4Technical'
+import { calculateTechnicalScore } from "../Layer4Technical";
 
 import type {
   UniverseScoreData,
@@ -29,59 +21,60 @@ import type {
   ScreeningScoreData,
   InvestmentDecision,
   TotalScore,
-} from '../types'
+} from "../types";
 
-import {
-  determineDecision,
-  determineConfidence,
-} from '../TotalScoreCard'
+import { determineDecision, determineConfidence } from "../TotalScoreCard";
 
 /**
  * Combined input data for all layers
  */
 export interface ScreeningInputData {
   // Layer 1: Universe
-  marketCap: number
-  volume: number
+  marketCap: number;
+  volume: number;
 
   // Layer 2: Quality
-  pegRatio: number | null
-  profitMargin: number
-  returnOnEquity: number
-  returnOnInvestedCapital: number
-  debtToEquity: number
-  fcfYield: number
-  operatingCashFlow: number
-  netIncome: number
+  pegRatio: number | null;
+  profitMargin: number;
+  returnOnEquity: number;
+  returnOnInvestedCapital: number;
+  debtToEquity: number;
+  fcfYield: number;
+  operatingCashFlow: number;
+  netIncome: number;
   sectorAverages?: {
-    profitMargin?: number
-    returnOnEquity?: number
-    dividendYield?: number
-  }
+    profitMargin?: number;
+    returnOnEquity?: number;
+    dividendYield?: number;
+  };
 
   // Layer 3: Value + Growth
-  peRatio: number
-  pbRatio: number
-  dividendYield: number
-  pfcfRatio: number
-  epsGrowthYoY: number
-  epsAcceleration: number
+  peRatio: number;
+  pbRatio: number;
+  dividendYield: number;
+  pfcfRatio: number;
+  epsGrowthYoY: number;
+  epsAcceleration: number;
 
   // Layer 4: Technical + Catalyst
-  currentPrice: number
-  ma50: number | null
-  rsi: number | null
-  macdPositive: boolean | null
-  supportLevel: number | null
-  aiScore?: number | null  // 0-10 from AI API
+  currentPrice: number;
+  ma50: number | null;
+  rsi: number | null;
+  macdPositive: boolean | null;
+  supportLevel: number | null;
+  aiScore?: number | null; // 0-10 from AI API
 }
 
 /**
  * Calculate complete screening score
  */
-export function calculateScreeningScore(data: ScreeningInputData): ScreeningScoreData {
+export function calculateScreeningScore(
+  data: ScreeningInputData,
+): ScreeningScoreData {
   // Layer 1: Universe
-  const universe = calculateUniverseScore(data.marketCap, data.volume)
+  const mktCap =
+    data.marketCap < 100 ? data.marketCap * 10 ** 12 : data.marketCap;
+  const universe = calculateUniverseScore(mktCap, data.volume);
 
   // Layer 2: Quality
   const quality = calculateQualityScore({
@@ -94,7 +87,7 @@ export function calculateScreeningScore(data: ScreeningInputData): ScreeningScor
     operatingCashFlow: data.operatingCashFlow,
     netIncome: data.netIncome,
     sectorAverages: data.sectorAverages,
-  })
+  });
 
   // Layer 3: Value + Growth
   const valueGrowth = calculateValueGrowthScore({
@@ -106,7 +99,7 @@ export function calculateScreeningScore(data: ScreeningInputData): ScreeningScor
     sectorAvgDivYield: data.sectorAverages?.dividendYield,
     epsGrowthYoY: data.epsGrowthYoY,
     epsAcceleration: data.epsAcceleration,
-  })
+  });
 
   // Layer 4: Technical + Catalyst
   const technical = calculateTechnicalScore({
@@ -116,13 +109,16 @@ export function calculateScreeningScore(data: ScreeningInputData): ScreeningScor
     macdPositive: data.macdPositive,
     supportLevel: data.supportLevel,
     aiScore: data.aiScore,
-  })
+  });
 
   // Calculate total score (27 max)
-  const totalScore = (universe.totalScore + quality.totalScore + valueGrowth.totalScore + technical.totalScore) as TotalScore
+  const totalScore = (universe.totalScore +
+    quality.totalScore +
+    valueGrowth.totalScore +
+    technical.totalScore) as TotalScore;
 
   // Determine decision
-  const decision = determineDecision(totalScore)
+  const decision = determineDecision(totalScore);
 
   // Determine confidence
   const confidence = determineConfidence(totalScore, {
@@ -130,7 +126,7 @@ export function calculateScreeningScore(data: ScreeningInputData): ScreeningScor
     quality: { score: quality.totalScore },
     valueGrowth: { score: valueGrowth.totalScore },
     technical: { score: technical.totalScore },
-  })
+  });
 
   // Generate summary and rationale
   const { summary, rationale } = generateSummaryAndRationale({
@@ -141,7 +137,7 @@ export function calculateScreeningScore(data: ScreeningInputData): ScreeningScor
     quality,
     valueGrowth,
     technical,
-  })
+  });
 
   return {
     totalScore,
@@ -157,93 +153,94 @@ export function calculateScreeningScore(data: ScreeningInputData): ScreeningScor
     },
     summary,
     rationale,
-  }
+  };
 }
 
 /**
  * Generate summary and rationale based on scores
  */
 interface SummaryInput {
-  totalScore: TotalScore
-  decision: InvestmentDecision
-  confidence: { level: 'High' | 'Medium' | 'Low'; percent: number }
-  universe: UniverseScoreData
-  quality: QualityScoreData
-  valueGrowth: ValueGrowthScoreData
-  technical: TechnicalScoreData
+  totalScore: TotalScore;
+  decision: InvestmentDecision;
+  confidence: { level: "High" | "Medium" | "Low"; percent: number };
+  universe: UniverseScoreData;
+  quality: QualityScoreData;
+  valueGrowth: ValueGrowthScoreData;
+  technical: TechnicalScoreData;
 }
 
 function generateSummaryAndRationale(input: SummaryInput): {
-  summary: string
-  rationale: string[]
+  summary: string;
+  rationale: string[];
 } {
-  const { decision, confidence, universe, quality, valueGrowth, technical } = input
-  const rationale: string[] = []
+  const { decision, confidence, universe, quality, valueGrowth, technical } =
+    input;
+  const rationale: string[] = [];
 
   // Summary based on decision
-  let summary = ''
-  if (decision === 'BUY') {
-    if (confidence.level === 'High') {
-      summary = 'หุ้นมีคุณภาพดี ราคาเหมาะสม พร้อมเหตุการณ์สนับสนุน'
+  let summary = "";
+  if (decision === "BUY") {
+    if (confidence.level === "High") {
+      summary = "หุ้นมีคุณภาพดี ราคาเหมาะสม พร้อมเหตุการณ์สนับสนุน";
     } else {
-      summary = 'หุ้นมีแนวโน้มขาขึ้น แต่มีความเสี่ยงบางประการ'
+      summary = "หุ้นมีแนวโน้มขาขึ้น แต่มีความเสี่ยงบางประการ";
     }
-  } else if (decision === 'HOLD') {
-    summary = 'หุ้นมีทั้งจุดแข็งและจุดอ่อน ควรศึกษาเพิ่มเติม'
+  } else if (decision === "HOLD") {
+    summary = "หุ้นมีทั้งจุดแข็งและจุดอ่อน ควรศึกษาเพิ่มเติม";
   } else {
-    summary = 'หุ้นมีความเสี่ยงสูง ไม่แนะนำการลงทุนในขณะนี้'
+    summary = "หุ้นมีความเสี่ยงสูง ไม่แนะนำการลงทุนในขณะนี้";
   }
 
   // Generate rationale points
   // Universe
   if (universe.allPassed) {
-    rationale.push('ผ่านเกณฑ์การคัดเลือกพื้นฐาน')
+    rationale.push("ผ่านเกณฑ์การคัดเลือกพื้นฐาน");
   } else {
-    rationale.push('ไม่ผ่านเกณฑ์บางประการ')
+    rationale.push("ไม่ผ่านเกณฑ์บางประการ");
   }
 
   // Quality
   if (quality.totalScore >= 7) {
-    rationale.push('คุณภาพทางการเงินดี')
+    rationale.push("คุณภาพทางการเงินดี");
   } else if (quality.totalScore >= 5) {
-    rationale.push('คุณภาพทางการเงินปานกลาง')
+    rationale.push("คุณภาพทางการเงินปานกลาง");
   } else {
-    rationale.push('คุณภาพทางการเงินอ่อน')
+    rationale.push("คุณภาพทางการเงินอ่อน");
   }
 
   // Value
-  const valueScore = valueGrowth.valueScore
+  const valueScore = valueGrowth.valueScore;
   if (valueScore >= 4) {
-    rationale.push('ราคาถูกเมื่อเทียบกับมูลค่า')
+    rationale.push("ราคาถูกเมื่อเทียบกับมูลค่า");
   } else if (valueScore >= 2) {
-    rationale.push('ราคาอยู่ในระดับปานกลาง')
+    rationale.push("ราคาอยู่ในระดับปานกลาง");
   } else {
-    rationale.push('ราคาแพงเมื่อเทียบกับมูลค่า')
+    rationale.push("ราคาแพงเมื่อเทียบกับมูลค่า");
   }
 
   // Growth
-  const growthScore = valueGrowth.growthScore
+  const growthScore = valueGrowth.growthScore;
   if (growthScore >= 4) {
-    rationale.push('การเติบโตดี')
+    rationale.push("การเติบโตดี");
   } else if (growthScore >= 2) {
-    rationale.push('การเติบโตปานกลาง')
+    rationale.push("การเติบโตปานกลาง");
   } else {
-    rationale.push('การเติบโตอ่อน')
+    rationale.push("การเติบโตอ่อน");
   }
 
   // Technical
   if (technical.technicalScore >= 3) {
-    rationale.push('สัญญาณเทคนิคดี')
+    rationale.push("สัญญาณเทคนิคดี");
   } else if (technical.technicalScore >= 2) {
-    rationale.push('สัญญาณเทคนิคปานกลาง')
+    rationale.push("สัญญาณเทคนิคปานกลาง");
   }
 
   // Catalyst
   if (technical.catalystScore >= 3) {
-    rationale.push('มีเหตุการณ์สนับสนุน')
+    rationale.push("มีเหตุการณ์สนับสนุน");
   }
 
-  return { summary, rationale: rationale.slice(0, 5) }
+  return { summary, rationale: rationale.slice(0, 5) };
 }
 
 /**
@@ -251,49 +248,49 @@ function generateSummaryAndRationale(input: SummaryInput): {
  */
 export function calculateScoreChange(
   oldScore: TotalScore,
-  newScore: TotalScore
+  newScore: TotalScore,
 ): {
-  change: number
-  improved: boolean
-  percentChange: number
+  change: number;
+  improved: boolean;
+  percentChange: number;
 } {
-  const change = newScore - oldScore
-  const improved = change > 0
-  const percentChange = oldScore > 0 ? (change / oldScore) * 100 : 0
+  const change = newScore - oldScore;
+  const improved = change > 0;
+  const percentChange = oldScore > 0 ? (change / oldScore) * 100 : 0;
 
-  return { change, improved, percentChange }
+  return { change, improved, percentChange };
 }
 
 /**
  * Validate input data
  */
 export function validateScreeningInput(data: Partial<ScreeningInputData>): {
-  valid: boolean
-  errors: string[]
+  valid: boolean;
+  errors: string[];
 } {
-  const errors: string[] = []
+  const errors: string[] = [];
 
   // Required fields
   if (!data.marketCap || data.marketCap <= 0) {
-    errors.push('Market cap must be positive')
+    errors.push("Market cap must be positive");
   }
   if (!data.volume || data.volume <= 0) {
-    errors.push('Volume must be positive')
+    errors.push("Volume must be positive");
   }
   if (!data.currentPrice || data.currentPrice <= 0) {
-    errors.push('Current price must be positive')
+    errors.push("Current price must be positive");
   }
 
   // Value checks
   if (data.peRatio !== undefined && data.peRatio <= 0) {
-    errors.push('PE ratio must be positive')
+    errors.push("PE ratio must be positive");
   }
   if (data.returnOnEquity !== undefined && data.returnOnEquity < -1) {
-    errors.push('ROE cannot be less than -100%')
+    errors.push("ROE cannot be less than -100%");
   }
 
   return {
     valid: errors.length === 0,
     errors,
-  }
+  };
 }

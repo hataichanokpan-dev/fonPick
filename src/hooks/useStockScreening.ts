@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 /**
  * useStockScreening Hook
@@ -7,34 +7,40 @@
  * Combines multiple data sources and calculates screening scores.
  */
 
-import { useQuery } from '@tanstack/react-query'
-import { calculateScreeningScore, type ScreeningInputData } from '@/components/stock/screening/utils/score-calculator'
-import { fetchStockData } from '@/lib/api/stock-api'
-import type { StockOverviewData, StockStatisticsData } from '@/types/stock-proxy-api'
-import type { AlphaAPIResponse } from '@/components/stock/screening/types'
+import { useQuery } from "@tanstack/react-query";
+import {
+  calculateScreeningScore,
+  type ScreeningInputData,
+} from "@/components/stock/screening/utils/score-calculator";
+import { fetchStockData } from "@/lib/api/stock-api";
+import type {
+  StockOverviewData,
+  StockStatisticsData,
+} from "@/types/stock-proxy-api";
+import type { AlphaAPIResponse } from "@/components/stock/screening/types";
 
 /**
  * Screening data result
  */
 export interface StockScreeningData {
-  overview: StockOverviewData | null
-  statistics: StockStatisticsData | null
-  alpha: AlphaAPIResponse['data'] | null
-  screening: ReturnType<typeof calculateScreeningScore> | null
+  overview: StockOverviewData | null;
+  statistics: StockStatisticsData | null;
+  alpha: AlphaAPIResponse["data"] | null;
+  screening: ReturnType<typeof calculateScreeningScore> | null;
 }
 
 /**
  * Query key factory for screening data
  */
 export const screeningQueryKeys = {
-  all: ['stockScreening'] as const,
-  detail: (symbol: string) => ['stockScreening', symbol] as const,
-}
+  all: ["stockScreening"] as const,
+  detail: (symbol: string) => ["stockScreening", symbol] as const,
+};
 
 /**
  * Stale time for screening data (5 minutes)
  */
-const STALE_TIME = 5 * 60 * 1000
+const STALE_TIME = 5 * 60 * 1000;
 
 /**
  * Custom error class for screening data failures
@@ -42,27 +48,29 @@ const STALE_TIME = 5 * 60 * 1000
 export class ScreeningDataError extends Error {
   constructor(
     message: string,
-    public code?: string
+    public code?: string,
   ) {
-    super(message)
-    this.name = 'ScreeningDataError'
+    super(message);
+    this.name = "ScreeningDataError";
   }
 }
 
 /**
  * Fetch Alpha API data
  */
-async function fetchScreeningAlphaData(symbol: string): Promise<AlphaAPIResponse['data'] | null> {
+async function fetchScreeningAlphaData(
+  symbol: string,
+): Promise<AlphaAPIResponse["data"] | null> {
   try {
-    const response = await fetch(`/api/stocks/${symbol}/alpha`)
+    const response = await fetch(`/api/stocks/${symbol}/alpha`);
     if (!response.ok) {
-      return null
+      return null;
     }
-    const data: AlphaAPIResponse = await response.json()
-    return data.success ? data.data : null
+    const data: AlphaAPIResponse = await response.json();
+    return data.success ? data.data : null;
   } catch (error) {
-    console.error(`Failed to fetch Alpha data for ${symbol}:`, error)
-    return null
+    console.error(`Failed to fetch Alpha data for ${symbol}:`, error);
+    return null;
   }
 }
 
@@ -74,27 +82,33 @@ export function useStockScreening(symbol: string) {
     queryKey: screeningQueryKeys.detail(symbol),
     queryFn: async (): Promise<StockScreeningData> => {
       // Fetch base stock data
-      const stockResult = await fetchStockData(symbol)
+      const stockResult = await fetchStockData(symbol);
 
       // Check if we have at least some data
       if (!stockResult.overview.success && !stockResult.statistics.success) {
         throw new ScreeningDataError(
-          'Failed to fetch stock data',
-          'FETCH_FAILED'
-        )
+          "Failed to fetch stock data",
+          "FETCH_FAILED",
+        );
       }
 
-      const overview: StockOverviewData | null = stockResult.overview.success ? stockResult.overview.data ?? null : null
-      const statistics: StockStatisticsData | null = stockResult.statistics.success ? stockResult.statistics.data ?? null : null
+      const overview: StockOverviewData | null = stockResult.overview.success
+        ? (stockResult.overview.data ?? null)
+        : null;
+      const statistics: StockStatisticsData | null = stockResult.statistics
+        .success
+        ? (stockResult.statistics.data ?? null)
+        : null;
 
       // Fetch Alpha data
-      const alpha = await fetchScreeningAlphaData(symbol)
+      const alpha = await fetchScreeningAlphaData(symbol);
 
       // Calculate screening score if we have enough data
-      let screening = null
+      let screening = null;
       if (statistics) {
         const screeningInput: ScreeningInputData = {
           // Layer 1: Universe
+
           marketCap: statistics.marketCap || 0,
           volume: statistics.averageVolume20D || overview?.volume || 0,
 
@@ -123,9 +137,9 @@ export function useStockScreening(symbol: string) {
           macdPositive: null, // TODO: From API
           supportLevel: null, // TODO: Calculate from price history
           aiScore: null, // TODO: From AI API
-        }
+        };
 
-        screening = calculateScreeningScore(screeningInput)
+        screening = calculateScreeningScore(screeningInput);
       }
 
       return {
@@ -133,7 +147,7 @@ export function useStockScreening(symbol: string) {
         statistics,
         alpha,
         screening,
-      }
+      };
     },
     staleTime: STALE_TIME,
     refetchOnWindowFocus: false,
@@ -141,23 +155,23 @@ export function useStockScreening(symbol: string) {
     refetchOnReconnect: false,
     retry: (failureCount, error) => {
       if (error instanceof ScreeningDataError) {
-        if (error.code === 'VALIDATION_ERROR') {
-          return false
+        if (error.code === "VALIDATION_ERROR") {
+          return false;
         }
       }
-      return failureCount < 2
+      return failureCount < 2;
     },
-  })
+  });
 }
 
 /**
  * Hook for screening score only (lighter version)
  */
 export function useScreeningScore(symbol: string) {
-  const { data, ...rest } = useStockScreening(symbol)
+  const { data, ...rest } = useStockScreening(symbol);
 
   return {
     ...rest,
     data: data?.screening || null,
-  }
+  };
 }

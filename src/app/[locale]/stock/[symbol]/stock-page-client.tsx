@@ -35,7 +35,10 @@ import {
   EntryPlanCard,
   calculateEntryPlan,
 } from "@/components/stock/screening";
-import { calculateScreeningScore, type ScreeningInputData } from "@/components/stock/screening/utils/score-calculator";
+import {
+  calculateScreeningScore,
+  type ScreeningInputData,
+} from "@/components/stock/screening/utils/score-calculator";
 import { AIInsightsCard } from "@/components/stock/screening/AIInsightsCard";
 import {
   TrendingUp,
@@ -87,7 +90,7 @@ function getPriceChangeColor(change: number) {
  */
 function formatLargeNumber(num: number | null | undefined): string {
   if (num === null || num === undefined || Number.isNaN(num)) return "N/A";
-  
+
   if (num >= 1_000_000_000_000) {
     return `${(num / 1_000_000_000_000).toFixed(2)}T`;
   }
@@ -109,13 +112,15 @@ function formatLargeNumber(num: number | null | undefined): string {
  */
 function parseMarketCap(marketCap: string): number {
   const str = marketCap.toUpperCase().trim();
-  const multiplier = str.endsWith("B")
-    ? 1_000_000_000
-    : str.endsWith("M")
-      ? 1_000_000
-      : str.endsWith("K")
-        ? 1_000
-        : 1;
+  const multiplier = str.endsWith("T")
+    ? 1_000_000_000_000
+    : str.endsWith("B")
+      ? 1_000_000_000
+      : str.endsWith("M")
+        ? 1_000_000
+        : str.endsWith("K")
+          ? 1_000
+          : 1;
   const numStr = str.replace(/[BMK]$/, "").trim();
   const num = parseFloat(numStr);
   return isNaN(num) ? 0 : num * multiplier;
@@ -244,7 +249,7 @@ export function StockPageClient({ symbol, children }: StockPageClientProps) {
   const { data: srLevels } = useSupportResistanceLevels({
     symbol,
     years: 3,
-    interval: '1d'
+    interval: "1d",
   });
 
   // Get EPS history from yearly operations data
@@ -260,6 +265,7 @@ export function StockPageClient({ symbol, children }: StockPageClientProps) {
     // Get support level from calculated data (from 3-Year Price History)
     const supportLevel = srLevels?.support ?? null;
 
+    
     const screeningInput: ScreeningInputData = {
       // Layer 1: Universe
       marketCap: statistics.marketCap || 0,
@@ -297,7 +303,8 @@ export function StockPageClient({ symbol, children }: StockPageClientProps) {
 
   const t = useTranslations("stock");
   const localeRaw = useLocale();
-  const locale: 'en' | 'th' = localeRaw === 'en' || localeRaw === 'th' ? localeRaw : 'th';
+  const locale: "en" | "th" =
+    localeRaw === "en" || localeRaw === "th" ? localeRaw : "th";
 
   const compact = true; // TODO: Determine based on screen size
 
@@ -361,7 +368,7 @@ export function StockPageClient({ symbol, children }: StockPageClientProps) {
   }
 
   const { overview, statistics, alpha } = data;
-
+ 
   // Use screening with AI score (or fallback to original screening)
   const screening = screeningWithAI || data.screening;
 
@@ -370,8 +377,8 @@ export function StockPageClient({ symbol, children }: StockPageClientProps) {
     screening && overview && statistics && srLevels
       ? calculateEntryPlan(
           overview.price,
-          srLevels.support ?? overview.price * 0.95,  // Use calculated support from 3-Year History
-          srLevels.resistance ?? alpha?.AvgForecast ?? overview.price * 1.15,  // Use calculated resistance from 3-Year History
+          srLevels.support ?? overview.price * 0.95, // Use calculated support from 3-Year History
+          srLevels.resistance ?? alpha?.AvgForecast ?? overview.price * 1.15, // Use calculated resistance from 3-Year History
           screening.decision,
         )
       : null;
@@ -469,7 +476,7 @@ export function StockPageClient({ symbol, children }: StockPageClientProps) {
               >
                 {overview && statistics && (
                   <Layer1Universe
-                    marketCap={statistics.marketCap}
+                    marketCap={statistics.marketCap < 100 ? statistics.marketCap * (10 ** 12) : statistics.marketCap}
                     volume={overview.volume}
                     compact={compact}
                   />
@@ -572,7 +579,11 @@ export function StockPageClient({ symbol, children }: StockPageClientProps) {
               </LayerCard>
 
               {/* AI Insights Card */}
-              <AIInsightsCard symbol={symbol} locale={locale} initialData={catalystData} />
+              <AIInsightsCard
+                symbol={symbol}
+                locale={locale}
+                initialData={catalystData}
+              />
 
               {/* Entry Plan */}
               {entryPlan && overview && screening.decision !== "PASS" && (

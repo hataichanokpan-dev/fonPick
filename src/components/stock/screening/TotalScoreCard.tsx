@@ -142,7 +142,7 @@ export function TotalScoreCard({
           {/* Main Score Display - Centered on mobile, horizontal on desktop */}
           <div className="flex flex-col items-center mb-4">
             {/* Score, Percentage, and Grade in one compact row */}
-            <div className="flex items-center gap-2 sm:gap-4">
+            <div className="grid grid-cols-3  gap-4 items-center mb-2">
               {/* Large Score */}
               <div className="text-center">
                 <div className={`text-4xl sm:text-5xl font-bold tabular-nums ${display.color.text}`}>
