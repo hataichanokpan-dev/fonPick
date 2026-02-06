@@ -19,6 +19,7 @@
 
 "use client";
 
+import { useState } from "react";
 import { Card } from "@/components/shared";
 import { Badge } from "@/components/shared/Badge";
 import {
@@ -29,10 +30,12 @@ import {
   Users,
   Briefcase,
   Gauge,
+  LineChart,
 } from "lucide-react";
 import { formatTradingValue, safeToFixed } from "@/lib/utils";
 import { useSmartMoney } from "@/hooks/useMarketIntelligence";
 import { useTranslations } from "next-intl";
+import { SmartMoneyTrendModal } from "./smart-money/SmartMoneyTrendModal";
 
 // ==================================================================
 // TYPES
@@ -259,6 +262,9 @@ function SmartMoneySkeleton({ t }: SmartMoneySkeletonProps) {
 // ==================================================================
 
 export function SmartMoneyCard({ className }: SmartMoneyCardProps) {
+  // State for trend modal
+  const [isTrendModalOpen, setIsTrendModalOpen] = useState(false);
+
   // Use consolidated market intelligence hook
   const { data: smartMoneyData, isLoading, error } = useSmartMoney();
   const t = useTranslations("dashboard.smartMoney");
@@ -404,6 +410,13 @@ export function SmartMoneyCard({ className }: SmartMoneyCardProps) {
           <Badge size="sm" color={getRiskColor()}>
             {translateRiskSignal(smartMoneyData.riskSignal)}
           </Badge>
+          <button
+            onClick={() => setIsTrendModalOpen(true)}
+            className="p-1.5 rounded-lg hover:bg-surface-3 transition-colors group"
+            aria-label="View Trend"
+          >
+            <LineChart className="w-4 h-4 text-text-muted group-hover:text-text-primary transition-colors" />
+          </button>
         </div>
       </div>
       <div className="flex items-center justify-center mb-2 mt-1">
@@ -502,6 +515,13 @@ export function SmartMoneyCard({ className }: SmartMoneyCardProps) {
             </p>
           )}
       </div>
+
+      {/* Trend Modal */}
+      <SmartMoneyTrendModal
+        isOpen={isTrendModalOpen}
+        onClose={() => setIsTrendModalOpen(false)}
+        initialPeriod={30}
+      />
     </Card>
   );
 }

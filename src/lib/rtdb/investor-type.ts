@@ -12,7 +12,7 @@
  */
 
 import { fetchWithFallback, fetchLatestAvailable } from './client'
-import { RTDB_PATHS } from './paths'
+import { RTDB_PATHS, getDateDaysAgo } from './paths'
 import type {
   RTDBInvestorType,
   RTDBInvestorFlow,
@@ -225,4 +225,105 @@ export async function getInvestorTrend(
   } else {
     return 'NEUTRAL'
   }
+}
+
+// ============================================================================
+// RANGE FETCHING (For Trend Analysis)
+// ============================================================================
+
+/**
+ * Generate date array between two dates (inclusive)
+ * @param startDate Start date in YYYY-MM-DD format
+ * @param endDate End date in YYYY-MM-DD format
+ * @returns Array of date strings
+ */
+function generateDateRange(startDate: string, endDate: string): string[] {
+  const dates: string[] = []
+  const current = new Date(startDate)
+  const end = new Date(endDate)
+
+  while (current <= end) {
+    dates.push(current.toISOString().split('T')[0])
+    current.setDate(current.getDate() + 1)
+  }
+
+  return dates
+}
+
+/**
+ * Chunk array into smaller arrays
+ * @param array Array to chunk
+ * @param size Size of each chunk
+ * @returns Array of chunks
+ */
+function chunkArray<T>(array: T[], size: number): T[][] {
+  const chunks: T[][] = []
+  for (let i = 0; i < array.length; i += size) {
+    chunks.push(array.slice(i, i + size))
+  }
+  return chunks
+}
+
+/**
+ * Fetch investor type data for a date range
+ * Uses parallel fetching with Promise.all for efficiency
+ *
+ * @param startDate Start date in YYYY-MM-DD format
+ * @param endDate End date in YYYY-MM-DD format
+ * @returns Array of investor type data with dates, sorted by date
+ *
+ * @example
+ * const data = await fetchInvestorTypeRange('2026-01-01', '2026-01-31')
+ * // Returns array of { date: string, data: RTDBInvestorType }
+ */
+export async function fetchInvestorTypeRange(
+  startDate: string,
+  endDate: string
+): Promise<Array<{ date: string; data: RTDBInvestorType }>> {
+  const dates = generateDateRange(startDate, endDate)
+
+  // Fetch in parallel with chunking to avoid overwhelming the database
+  // Using chunks of 10 concurrent requests
+  const chunks = chunkArray(dates, 10)
+  const results: Array<{ date: string; data: RTDBInvestorType }> = []
+
+  for (const chunk of chunks) {
+    const promises = chunk.map(async (date) => {
+      const data = await fetchInvestorTypeByDate(date)
+      return { date, data }
+    })
+
+    const chunkResults = await Promise.allSettled(promises)
+
+    for (const result of chunkResults) {
+      if (result.status === 'fulfilled' && result.value.data !== null) {
+        results.push({ date: result.value.date, data: result.value.data })
+      }
+    }
+  }
+
+  // Sort by date
+  return results.sort((a, b) => a.date.localeCompare(b.date))
+}
+
+/**
+ * Fetch investor type data for the last N days
+ * Convenience wrapper for fetchInvestorTypeRange
+ *
+ * @param days Number of days to fetch (default: 30)
+ * @param endDate End date in YYYY-MM-DD format (default: today)
+ * @returns Array of investor type data with dates, sorted by date
+ *
+ * @example
+ * const data = await fetchInvestorTypeLastNDays(30)
+ * // Returns last 30 days of data
+ */
+export async function fetchInvestorTypeLastNDays(
+  days: number = 30,
+  endDate?: string
+): Promise<Array<{ date: string; data: RTDBInvestorType }>> {
+  const end = endDate || new Date().toISOString().split('T')[0]
+  const start = getDateDaysAgo(days - 1)
+
+  return fetchInvestorTypeRange(start, end)
 }

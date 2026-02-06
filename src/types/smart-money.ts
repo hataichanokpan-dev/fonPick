@@ -292,3 +292,242 @@ export interface PropTradingAnalysis {
   /** Is prop trading reducing sell volume? (bullish when true) */
   reducingSellVolume: boolean
 }
+
+// ============================================================================
+// TREND ANALYSIS TYPES
+// ============================================================================
+
+/**
+ * Time period options for trend analysis
+ */
+export type TrendPeriod = 5 | 10 | 30 | 60 | 90
+
+/**
+ * Investor types for trend filtering
+ */
+export type TrendInvestorFilter = 'foreign' | 'institution' | 'retail' | 'prop' | 'all'
+
+/**
+ * Aggregation granularity
+ */
+export type TrendGranularity = 'daily' | 'weekly'
+
+/**
+ * Trend direction classification
+ */
+export type TrendDirection = 'up' | 'down' | 'sideways'
+
+/**
+ * Daily trend data point for a single investor type
+ */
+export interface DailyTrendPoint {
+  /** Date in YYYY-MM-DD format */
+  date: string
+
+  /** Unix timestamp */
+  timestamp: number
+
+  /** Buy value (millions THB) */
+  buy: number
+
+  /** Sell value (millions THB) */
+  sell: number
+
+  /** Net value (millions THB) */
+  net: number
+
+  /** Buy percentage */
+  buyPct: number
+
+  /** Sell percentage */
+  sellPct: number
+}
+
+/**
+ * Aggregated metrics for an investor type over a period
+ */
+export interface AggregatedMetrics {
+  /** Total buy value (millions THB) */
+  totalBuy: number
+
+  /** Total sell value (millions THB) */
+  totalSell: number
+
+  /** Total net value (millions THB) */
+  totalNet: number
+
+  /** Average daily net flow (millions THB) */
+  avgDaily: number
+
+  /** Maximum buy day */
+  maxBuy: { date: string; value: number }
+
+  /** Maximum sell day */
+  maxSell: { date: string; value: number }
+
+  /** Trend direction */
+  trend: TrendDirection
+
+  /** Trend strength (0-100) */
+  trendStrength: number
+
+  /** Standard deviation of net flow */
+  stdDev: number
+}
+
+/**
+ * Trend data for a single investor type
+ */
+export interface InvestorTrendData {
+  /** Investor type */
+  investor: 'foreign' | 'institution' | 'retail' | 'prop'
+
+  /** Thai name */
+  name: string
+
+  /** Daily trend points */
+  daily: DailyTrendPoint[]
+
+  /** Aggregated metrics */
+  aggregated: AggregatedMetrics
+
+  /** Moving averages */
+  movingAverages: {
+    ma3: number | null
+    ma5: number | null
+    ma10: number | null
+  }
+}
+
+/**
+ * Combined trend point (all investors)
+ */
+export interface CombinedTrendPoint {
+  /** Date in YYYY-MM-DD format */
+  date: string
+
+  /** Unix timestamp */
+  timestamp: number
+
+  /** Smart money net (foreign + institution) */
+  smartMoneyNet: number
+
+  /** Retail net */
+  retailNet: number
+
+  /** Prop net */
+  propNet: number
+
+  /** Total net */
+  totalNet: number
+
+  /** Combined signal */
+  signal: CombinedSignal
+
+  /** Risk signal */
+  riskSignal: RiskSignal
+}
+
+/**
+ * Pattern detection result
+ */
+export interface DetectedPattern {
+  /** Pattern type */
+  type: 'Accumulation' | 'Distribution' | 'Divergence' | 'Reversal' | 'FOMO' | 'Panic'
+
+  /** Pattern description */
+  description: string
+
+  /** Start date */
+  startDate: string
+
+  /** End date (if applicable) */
+  endDate?: string
+
+  /** Pattern strength (0-100) */
+  strength: number
+
+  /** Investors involved */
+  investors: ('foreign' | 'institution' | 'retail' | 'prop')[]
+}
+
+/**
+ * Trend analysis request parameters
+ */
+export interface TrendAnalysisParams {
+  /** Period in days */
+  period: TrendPeriod
+
+  /** Investor filter */
+  investors: TrendInvestorFilter[]
+
+  /** Aggregation granularity */
+  aggregate?: TrendGranularity
+
+  /** Start date (optional, overrides period) */
+  startDate?: string
+
+  /** End date (optional, defaults to today) */
+  endDate?: string
+}
+
+/**
+ * Complete trend analysis response
+ */
+export interface TrendAnalysisResponse {
+  success: boolean
+
+  data?: {
+    /** Period information */
+    period: {
+      start: string
+      end: string
+      days: number
+    }
+
+    /** Individual investor trends */
+    investors: {
+      foreign: InvestorTrendData
+      institution: InvestorTrendData
+      retail: InvestorTrendData
+      prop: InvestorTrendData
+    }
+
+    /** Combined trend points */
+    combined: CombinedTrendPoint[]
+
+    /** Detected patterns */
+    patterns: DetectedPattern[]
+
+    /** Overall summary */
+    summary: {
+      /** Total smart money flow */
+      totalSmartMoneyFlow: number
+
+      /** Dominant trend */
+      dominantTrend: TrendDirection
+
+      /** Primary driver */
+      primaryDriver: 'foreign' | 'institution' | 'retail' | 'prop' | 'none'
+
+      /** Overall signal */
+      signal: CombinedSignal
+
+      /** Risk signal */
+      riskSignal: RiskSignal
+    }
+  }
+
+  meta?: {
+    /** Response timestamp */
+    timestamp: number
+
+    /** Processing time (ms) */
+    processingTime: number
+
+    /** Cache status */
+    cacheStatus: 'hit' | 'miss'
+  }
+
+  error?: string
+}
