@@ -40,7 +40,26 @@
     "sell": "ขาย",
     "strongSell": "ขายมาก",
     "confidence": "ความมั่นใจ",
-    "signal": "สัญญาณ"
+    "signal": "สัญญาณ",
+    "bullishEnvironment": "ตลาดขาขึ้น",
+    "bearishEnvironment": "ตลาดขาลง",
+    "mixedSignals": "สัญญาณผสม",
+    "focus": "โฟกัส",
+    "caution": "ข้อควรระวัง",
+    "keyIndicators": "ตัวชี้วัดสำคัญ",
+    "unableToLoad": "ไม่สามารถโหลดข้อมูลได้",
+    "confidenceLevel": {
+      "high": "สูง",
+      "medium": "ปานกลาง",
+      "low": "ต่ำ"
+    },
+    "messages": {
+      "marketLacksDirection": "ตลาดขาดทิศทางที่ชัดเจน ควรเลือกซื้อหุ้นคุณภาพ",
+      "waitForClearDirection": "รอให้ตลาดมีทิศทางที่ชัดเจนก่อนลงทุนจำนวนมาก",
+      "setIndexSlightlyNegative": "ดัชนี SET ปรับตัวลดลงเล็กน้อย",
+      "strongBuyingFromSmartMoney": "แรงซื้อเข้ามากจาก Smart Money (นักลงทุนต่างชาติ + สถาบัน)",
+      "broadSectorParticipationPositive": "ภาคส่วนต่างๆ เคลื่อนไหวในเชิงบวกอย่างกว้างขวาง"
+    }
   },
   "smartMoney": {
     "title": "Smart Money",

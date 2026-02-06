@@ -115,16 +115,6 @@ function createTabs(
       icon: <Activity className="w-4 h-4" />,
     },
     {
-      key: "gainers",
-      label: t("tabs.gainers"),
-      icon: <TrendingUp className="w-4 h-4" />,
-    },
-    {
-      key: "losers",
-      label: t("tabs.losers"),
-      icon: <TrendingDown className="w-4 h-4" />,
-    },
-    {
       key: "volume",
       label: t("tabs.volume"),
       icon: <Activity className="w-4 h-4" />,

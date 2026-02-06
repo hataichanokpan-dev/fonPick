@@ -40,7 +40,26 @@
     "sell": "Sell",
     "strongSell": "Strong Sell",
     "confidence": "Confidence",
-    "signal": "Signal"
+    "signal": "Signal",
+    "bullishEnvironment": "Bullish environment",
+    "bearishEnvironment": "Bearish environment",
+    "mixedSignals": "Mixed signals",
+    "focus": "Focus",
+    "caution": "Caution",
+    "keyIndicators": "Key Indicators",
+    "unableToLoad": "Unable to load regime data",
+    "confidenceLevel": {
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low"
+    },
+    "messages": {
+      "marketLacksDirection": "Market lacks clear direction. Stay selective, focus on quality names.",
+      "waitForClearDirection": "Wait for clear market direction before taking large positions.",
+      "setIndexSlightlyNegative": "SET index slightly negative",
+      "strongBuyingFromSmartMoney": "Strong buying from smart money (foreign + institution)",
+      "broadSectorParticipationPositive": "Broad sector participation in positive territory"
+    }
   },
   "smartMoney": {
     "title": "Smart Money",

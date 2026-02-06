@@ -30,6 +30,7 @@ import {
   Activity,
 } from "lucide-react";
 import { useMarketRegime } from "@/hooks/useMarketIntelligence";
+import { useTranslations } from "next-intl";
 
 // ============================================================================
 // TYPES
@@ -76,6 +77,8 @@ interface RegimeIndicatorProps {
   variant?: "default" | "prominent";
   /** Use AccessibleSignal for color-blind friendly display */
   useAccessibleSignal?: boolean;
+  /** Translation function */
+  t: (key: string) => string;
 }
 
 function RegimeIndicator({
@@ -83,6 +86,7 @@ function RegimeIndicator({
   confidence,
   variant = "default",
   useAccessibleSignal = false,
+  t,
 }: RegimeIndicatorProps) {
   const isProminent = variant === "prominent";
 
@@ -95,8 +99,8 @@ function RegimeIndicator({
           bgGradient:
             "linear-gradient(135deg, rgba(46, 216, 167, 0.2) 0%, rgba(46, 216, 167, 0.05) 100%)",
           icon: <TrendingUp className="w-5 h-5" />,
-          label: "Risk-On",
-          description: "Bullish environment",
+          label: t("riskOn"),
+          description: t("riskOnDescription"),
           signalType: "up" as const,
         };
       case "Risk-Off":
@@ -106,8 +110,8 @@ function RegimeIndicator({
           bgGradient:
             "linear-gradient(135deg, rgba(244, 91, 105, 0.2) 0%, rgba(244, 91, 105, 0.05) 100%)",
           icon: <TrendingDown className="w-5 h-5" />,
-          label: "Risk-Off",
-          description: "Bearish environment",
+          label: t("riskOff"),
+          description: t("riskOffDescription"),
           signalType: "down" as const,
         };
       default:
@@ -117,8 +121,8 @@ function RegimeIndicator({
           bgGradient:
             "linear-gradient(135deg, rgba(174, 183, 179, 0.2) 0%, rgba(174, 183, 179, 0.05) 100%)",
           icon: <Minus className="w-5 h-5" />,
-          label: "Neutral",
-          description: "Mixed signals",
+          label: t("neutral"),
+          description: t("mixedSignals"),
           signalType: "neutral" as const,
         };
     }
@@ -127,11 +131,11 @@ function RegimeIndicator({
   const getConfidenceConfig = () => {
     switch (confidence) {
       case "High":
-        return { width: "100%", color: COLORS.up };
+        return { width: "100%", color: COLORS.up, label: t("confidenceLevel.high") };
       case "Medium":
-        return { width: "66%", color: COLORS.warn };
+        return { width: "66%", color: COLORS.warn, label: t("confidenceLevel.medium") };
       default:
-        return { width: "33%", color: COLORS.down };
+        return { width: "33%", color: COLORS.down, label: t("confidenceLevel.low") };
     }
   };
 
@@ -182,7 +186,7 @@ function RegimeIndicator({
           {useAccessibleSignal ? (
             <AccessibleSignal
               type={regimeConfig.signalType}
-              label={confidence}
+              label={confidenceConfig.label}
               size={isProminent ? "md" : "sm"}
               animated
             />
@@ -197,7 +201,7 @@ function RegimeIndicator({
                     : "sell"
               }
             >
-              {confidence}
+              {confidenceConfig.label}
             </Badge>
           )}
         </div>
@@ -210,7 +214,7 @@ function RegimeIndicator({
         {/* Confidence Bar - CSS animation replaces Framer Motion */}
         <div className="flex flex-col gap-1 mt-2">
           <span className="text-[9px] uppercase tracking-wide text-text-muted font-medium">
-            Confidence
+            {t("confidence")}
           </span>
           <div
             className={`h-1.5 bg-surface-2 rounded-full overflow-hidden ${isProminent ? "w-20" : "w-16"}`}
@@ -253,10 +257,13 @@ function ReasonItem({ reason, index }: ReasonItemProps) {
 interface MarketRegimeSkeletonProps {
   /** Display variant for skeleton */
   variant?: "default" | "prominent";
+  /** Translation function */
+  t: (key: string) => string;
 }
 
 function MarketRegimeSkeleton({
   variant = "default",
+  t,
 }: MarketRegimeSkeletonProps) {
   const isProminent = variant === "prominent";
   const iconSize = isProminent ? "w-20 h-20" : "w-14 h-14";
@@ -264,7 +271,7 @@ function MarketRegimeSkeleton({
   return (
     <Card padding="sm">
       <div className="flex items-center justify-between mb-3">
-        <h3 className="text-sm font-semibold text-text-2">Market Regime</h3>
+        <h3 className="text-sm font-semibold text-text-2">{t("title")}</h3>
       </div>
       <div className="animate-pulse space-y-3">
         <div className="flex items-center gap-4">
@@ -296,9 +303,24 @@ export function MarketRegimeCard({
 }: MarketRegimeCardProps) {
   // Use consolidated market intelligence hook
   const { data: regimeData, isLoading, error } = useMarketRegime();
+  const t = useTranslations("dashboard.regime");
+
+  // Runtime translation for API messages
+  const messageMap: Record<string, string> = {
+    // Focus messages
+    "Market lacks clear direction. Stay selective, focus on quality names.": t("messages.marketLacksDirection"),
+    "Strong buying from smart money (foreign + institution)": t("messages.strongBuyingFromSmartMoney"),
+    "Broad sector participation in positive territory": t("messages.broadSectorParticipationPositive"),
+    // Caution messages
+    "Wait for clear market direction before taking large positions.": t("messages.waitForClearDirection"),
+    // Reason messages
+    "SET index slightly negative": t("messages.setIndexSlightlyNegative"),
+  };
+
+  const translateMessage = (message: string) => messageMap[message] || message;
 
   if (isLoading) {
-    return <MarketRegimeSkeleton variant={variant} />;
+    return <MarketRegimeSkeleton variant={variant} t={t} />;
   }
 
   if (error || !regimeData) {
@@ -315,13 +337,13 @@ export function MarketRegimeCard({
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
             <Activity className="w-4 h-4 text-text-muted" />
-            <h3 className="text-sm font-semibold text-text-2">Market Regime</h3>
+            <h3 className="text-sm font-semibold text-text-2">{t("title")}</h3>
           </div>
         </div>
         <div className="flex items-center gap-2 p-3 rounded-lg bg-surface-2">
           <AlertTriangle className="w-4 h-4 text-warn flex-shrink-0" />
           <span className="text-xs text-text-muted">
-            Unable to load regime data
+            {t("unableToLoad")}
           </span>
         </div>
       </CardComponent>
@@ -342,7 +364,7 @@ export function MarketRegimeCard({
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
           <Activity className="w-4 h-4 text-text-muted" />
-          <h3 className="text-sm font-semibold text-text-2">Market Regime</h3>
+          <h3 className="text-sm font-semibold text-text-2">{t("title")}</h3>
         </div>
       </div>
 
@@ -353,6 +375,7 @@ export function MarketRegimeCard({
           confidence={regimeData.confidence}
           variant={variant}
           useAccessibleSignal={useAccessibleSignal}
+          t={t}
         />
       </div>
 
@@ -361,10 +384,10 @@ export function MarketRegimeCard({
         <div className="flex items-center gap-2 mb-1.5">
           <Shield className="w-3.5 h-3.5" style={{ color: COLORS.up }} />
           <span className="text-[10px] uppercase tracking-wide text-text-muted font-semibold">
-            Focus
+            {t("focus")}
           </span>
         </div>
-        <p className="text-sm text-text leading-snug">{regimeData.focus}</p>
+        <p className="text-sm text-text leading-snug">{translateMessage(regimeData.focus)}</p>
       </div>
 
       {/* Caution Section */}
@@ -372,21 +395,21 @@ export function MarketRegimeCard({
         <div className="flex items-center gap-2 mb-1.5">
           <AlertTriangle className="w-3.5 h-3.5" style={{ color: COLORS.down }} />
           <span className="text-[10px] uppercase tracking-wide text-text-muted font-semibold">
-            Caution
+            {t("caution")}
           </span>
         </div>
-        <p className="text-sm text-text leading-snug">{regimeData.caution}</p>
+        <p className="text-sm text-text leading-snug">{translateMessage(regimeData.caution)}</p>
       </div>
 
       {/* Reasons */}
       {regimeData.reasons && regimeData.reasons.length > 0 && (
         <div className="pt-3 border-t border-border">
           <span className="text-[10px] uppercase tracking-wide text-text-muted block mb-2">
-            Key Indicators
+            {t("keyIndicators")}
           </span>
           <div className="space-y-1.5">
             {regimeData.reasons.slice(0, 3).map((reason, index) => (
-              <ReasonItem key={index} reason={reason} index={index} />
+              <ReasonItem key={index} reason={translateMessage(reason)} index={index} />
             ))}
           </div>
         </div>
