@@ -1,0 +1,763 @@
+{
+  "byDate": {
+    "2026-01-16": {
+      "meta": {
+        "capturedAt": "2026-01-16T15:48:13.454902Z",
+        "schemaVersion": 1,
+        "source": "settrade:Investor-Type-Daily"
+      },
+      "rows": {
+        "FOREIGN": {
+          "buyPct": 58.67,
+          "buyValue": 26855.05,
+          "name": "นักลงทุนต่างประเทศ",
+          "netValue": 3355.84,
+          "sellPct": 51.34,
+          "sellValue": 23499.21
+        },
+        "LOCAL_INDIVIDUAL": {
+          "buyPct": 23.8,
+          "buyValue": 10892.54,
+          "name": "นักลงทุนทั่วไปในประเทศ",
+          "netValue": -3142.08,
+          "sellPct": 30.66,
+          "sellValue": 14034.62
+        },
+        "LOCAL_INST": {
+          "buyPct": 8.52,
+          "buyValue": 3898.09,
+          "name": "สถาบันในประเทศ",
+          "netValue": -1401.24,
+          "sellPct": 11.58,
+          "sellValue": 5299.33
+        },
+        "PROPRIETARY": {
+          "buyPct": 9.02,
+          "buyValue": 4127.85,
+          "name": "บัญชีบริษัทหลักทรัพย์",
+          "netValue": 1187.48,
+          "sellPct": 6.42,
+          "sellValue": 2940.37
+        }
+      }
+    },
+    "2026-01-19": {
+      "meta": {
+        "capturedAt": "2026-01-19T14:28:40.890104Z",
+        "schemaVersion": 1,
+        "source": "settrade:Investor-Type-Daily"
+      },
+      "rows": {
+        "FOREIGN": {
+          "buyPct": 52.98,
+          "buyValue": 19149.35,
+          "name": "นักลงทุนต่างประเทศ",
+          "netValue": 1064.32,
+          "sellPct": 50.03,
+          "sellValue": 18085.03
+        },
+        "LOCAL_INDIVIDUAL": {
+          "buyPct": 29.16,
+          "buyValue": 10541.03,
+          "name": "นักลงทุนทั่วไปในประเทศ",
+          "netValue": -1353.23,
+          "sellPct": 32.91,
+          "sellValue": 11894.26
+        },
+        "LOCAL_INST": {
+          "buyPct": 9.12,
+          "buyValue": 3296.2,
+          "name": "สถาบันในประเทศ",
+          "netValue": -576.24,
+          "sellPct": 10.71,
+          "sellValue": 3872.45
+        },
+        "PROPRIETARY": {
+          "buyPct": 8.74,
+          "buyValue": 3158.98,
+          "name": "บัญชีบริษัทหลักทรัพย์",
+          "netValue": 865.15,
+          "sellPct": 6.35,
+          "sellValue": 2293.83
+        }
+      }
+    },
+    "2026-01-20": {
+      "meta": {
+        "capturedAt": "2026-01-20T11:44:15.309220Z",
+        "schemaVersion": 1,
+        "source": "settrade:Investor-Type-Daily"
+      },
+      "rows": {
+        "FOREIGN": {
+          "buyPct": 54.09,
+          "buyValue": 28465.43,
+          "name": "นักลงทุนต่างประเทศ",
+          "netValue": 3660.39,
+          "sellPct": 47.13,
+          "sellValue": 24805.05
+        },
+        "LOCAL_INDIVIDUAL": {
+          "buyPct": 26.23,
+          "buyValue": 13803.76,
+          "name": "นักลงทุนทั่วไปในประเทศ",
+          "netValue": -4636.63,
+          "sellPct": 35.04,
+          "sellValue": 18440.39
+        },
+        "LOCAL_INST": {
+          "buyPct": 9.77,
+          "buyValue": 5140.03,
+          "name": "สถาบันในประเทศ",
+          "netValue": -818.21,
+          "sellPct": 11.32,
+          "sellValue": 5958.25
+        },
+        "PROPRIETARY": {
+          "buyPct": 9.91,
+          "buyValue": 5217.31,
+          "name": "บัญชีบริษัทหลักทรัพย์",
+          "netValue": 1794.45,
+          "sellPct": 6.5,
+          "sellValue": 3422.86
+        }
+      }
+    },
+    "2026-01-21": {
+      "meta": {
+        "capturedAt": "2026-01-21T11:45:20.194475Z",
+        "schemaVersion": 1,
+        "source": "settrade:Investor-Type-Daily"
+      },
+      "rows": {
+        "FOREIGN": {
+          "buyPct": 47.5,
+          "buyValue": 32373.3,
+          "name": "นักลงทุนต่างประเทศ",
+          "netValue": -2016.54,
+          "sellPct": 50.46,
+          "sellValue": 34389.84
+        },
+        "LOCAL_INDIVIDUAL": {
+          "buyPct": 35.19,
+          "buyValue": 23980.76,
+          "name": "นักลงทุนทั่วไปในประเทศ",
+          "netValue": 3163.28,
+          "sellPct": 30.55,
+          "sellValue": 20817.47
+        },
+        "LOCAL_INST": {
+          "buyPct": 8.08,
+          "buyValue": 5507.95,
+          "name": "สถาบันในประเทศ",
+          "netValue": -3812.87,
+          "sellPct": 13.68,
+          "sellValue": 9320.82
+        },
+        "PROPRIETARY": {
+          "buyPct": 9.22,
+          "buyValue": 6286.64,
+          "name": "บัญชีบริษัทหลักทรัพย์",
+          "netValue": 2666.12,
+          "sellPct": 5.31,
+          "sellValue": 3620.52
+        }
+      }
+    },
+    "2026-01-22": {
+      "meta": {
+        "capturedAt": "2026-01-22T11:43:41.664592Z",
+        "schemaVersion": 1,
+        "source": "settrade:Investor-Type-Daily"
+      },
+      "rows": {
+        "FOREIGN": {
+          "buyPct": 55.27,
+          "buyValue": 40195.51,
+          "name": "นักลงทุนต่างประเทศ",
+          "netValue": -234.06,
+          "sellPct": 55.59,
+          "sellValue": 40429.56
+        },
+        "LOCAL_INDIVIDUAL": {
+          "buyPct": 31.73,
+          "buyValue": 23073.5,
+          "name": "นักลงทุนทั่วไปในประเทศ",
+          "netValue": 4225.27,
+          "sellPct": 25.92,
+          "sellValue": 18848.23
+        },
+        "LOCAL_INST": {
+          "buyPct": 5.79,
+          "buyValue": 4207.4,
+          "name": "สถาบันในประเทศ",
+          "netValue": -5692.5,
+          "sellPct": 13.61,
+          "sellValue": 9899.9
+        },
+        "PROPRIETARY": {
+          "buyPct": 7.22,
+          "buyValue": 5247.6,
+          "name": "บัญชีบริษัทหลักทรัพย์",
+          "netValue": 1701.29,
+          "sellPct": 4.88,
+          "sellValue": 3546.32
+        }
+      }
+    },
+    "2026-01-23": {
+      "meta": {
+        "capturedAt": "2026-01-23T11:40:07.728591Z",
+        "schemaVersion": 1,
+        "source": "settrade:Investor-Type-Daily"
+      },
+      "rows": {
+        "FOREIGN": {
+          "buyPct": 53.53,
+          "buyValue": 27246.21,
+          "name": "นักลงทุนต่างประเทศ",
+          "netValue": -1125.96,
+          "sellPct": 55.74,
+          "sellValue": 28372.16
+        },
+        "LOCAL_INDIVIDUAL": {
+          "buyPct": 34.06,
+          "buyValue": 17337.89,
+          "name": "นักลงทุนทั่วไปในประเทศ",
+          "netValue": 3635.27,
+          "sellPct": 26.92,
+          "sellValue": 13702.62
+        },
+        "LOCAL_INST": {
+          "buyPct": 5.42,
+          "buyValue": 2759.81,
+          "name": "สถาบันในประเทศ",
+          "netValue": -2957.39,
+          "sellPct": 11.23,
+          "sellValue": 5717.19
+        },
+        "PROPRIETARY": {
+          "buyPct": 6.99,
+          "buyValue": 3557.95,
+          "name": "บัญชีบริษัทหลักทรัพย์",
+          "netValue": 448.07,
+          "sellPct": 6.11,
+          "sellValue": 3109.88
+        }
+      }
+    },
+    "2026-01-26": {
+      "meta": {
+        "capturedAt": "2026-01-26T11:39:26.826542Z",
+        "schemaVersion": 1,
+        "source": "settrade:Investor-Type-Daily"
+      },
+      "rows": {
+        "FOREIGN": {
+          "buyPct": 53.06,
+          "buyValue": 22664.19,
+          "name": "นักลงทุนต่างประเทศ",
+          "netValue": -1270.7,
+          "sellPct": 56.04,
+          "sellValue": 23934.89
+        },
+        "LOCAL_INDIVIDUAL": {
+          "buyPct": 33.35,
+          "buyValue": 14246.04,
+          "name": "นักลงทุนทั่วไปในประเทศ",
+          "netValue": 2903.7,
+          "sellPct": 26.55,
+          "sellValue": 11342.34
+        },
+        "LOCAL_INST": {
+          "buyPct": 6.91,
+          "buyValue": 2952.31,
+          "name": "สถาบันในประเทศ",
+          "netValue": -2026.38,
+          "sellPct": 11.66,
+          "sellValue": 4978.69
+        },
+        "PROPRIETARY": {
+          "buyPct": 6.67,
+          "buyValue": 2850.15,
+          "name": "บัญชีบริษัทหลักทรัพย์",
+          "netValue": 393.37,
+          "sellPct": 5.75,
+          "sellValue": 2456.77
+        }
+      }
+    },
+    "2026-01-27": {
+      "meta": {
+        "capturedAt": "2026-01-27T11:44:38.449936Z",
+        "schemaVersion": 1,
+        "source": "settrade:Investor-Type-Daily"
+      },
+      "rows": {
+        "FOREIGN": {
+          "buyPct": 61.61,
+          "buyValue": 33419.08,
+          "name": "นักลงทุนต่างประเทศ",
+          "netValue": 4493.94,
+          "sellPct": 53.33,
+          "sellValue": 28925.14
+        },
+        "LOCAL_INDIVIDUAL": {
+          "buyPct": 22.46,
+          "buyValue": 12181.62,
+          "name": "นักลงทุนทั่วไปในประเทศ",
+          "netValue": -4055.74,
+          "sellPct": 29.94,
+          "sellValue": 16237.36
+        },
+        "LOCAL_INST": {
+          "buyPct": 9.97,
+          "buyValue": 5407.63,
+          "name": "สถาบันในประเทศ",
+          "netValue": -893.63,
+          "sellPct": 11.62,
+          "sellValue": 6301.25
+        },
+        "PROPRIETARY": {
+          "buyPct": 5.96,
+          "buyValue": 3233.63,
+          "name": "บัญชีบริษัทหลักทรัพย์",
+          "netValue": 455.42,
+          "sellPct": 5.12,
+          "sellValue": 2778.21
+        }
+      }
+    },
+    "2026-01-28": {
+      "meta": {
+        "capturedAt": "2026-01-28T11:43:13.302867Z",
+        "schemaVersion": 1,
+        "source": "settrade:Investor-Type-Daily"
+      },
+      "rows": {
+        "FOREIGN": {
+          "buyPct": 52.35,
+          "buyValue": 23419.92,
+          "name": "นักลงทุนต่างประเทศ",
+          "netValue": 458.88,
+          "sellPct": 51.33,
+          "sellValue": 22961.04
+        },
+        "LOCAL_INDIVIDUAL": {
+          "buyPct": 31.06,
+          "buyValue": 13892.86,
+          "name": "นักลงทุนทั่วไปในประเทศ",
+          "netValue": 642.63,
+          "sellPct": 29.62,
+          "sellValue": 13250.23
+        },
+        "LOCAL_INST": {
+          "buyPct": 11.06,
+          "buyValue": 4945.25,
+          "name": "สถาบันในประเทศ",
+          "netValue": -1154.49,
+          "sellPct": 13.64,
+          "sellValue": 6099.75
+        },
+        "PROPRIETARY": {
+          "buyPct": 5.53,
+          "buyValue": 2475.06,
+          "name": "บัญชีบริษัทหลักทรัพย์",
+          "netValue": 52.98,
+          "sellPct": 5.41,
+          "sellValue": 2422.07
+        }
+      }
+    },
+    "2026-01-29": {
+      "meta": {
+        "capturedAt": "2026-01-29T11:57:40.550643Z",
+        "schemaVersion": 1,
+        "source": "settrade:Investor-Type-Daily"
+      },
+      "rows": {
+        "FOREIGN": {
+          "buyPct": 52.83,
+          "buyValue": 27343.33,
+          "name": "นักลงทุนต่างประเทศ",
+          "netValue": -2567.93,
+          "sellPct": 57.8,
+          "sellValue": 29911.27
+        },
+        "LOCAL_INDIVIDUAL": {
+          "buyPct": 32.82,
+          "buyValue": 16987.59,
+          "name": "นักลงทุนทั่วไปในประเทศ",
+          "netValue": 4200.93,
+          "sellPct": 24.71,
+          "sellValue": 12786.66
+        },
+        "LOCAL_INST": {
+          "buyPct": 7.77,
+          "buyValue": 4021.61,
+          "name": "สถาบันในประเทศ",
+          "netValue": -2360.03,
+          "sellPct": 12.33,
+          "sellValue": 6381.63
+        },
+        "PROPRIETARY": {
+          "buyPct": 6.57,
+          "buyValue": 3401.06,
+          "name": "บัญชีบริษัทหลักทรัพย์",
+          "netValue": 727.03,
+          "sellPct": 5.17,
+          "sellValue": 2674.03
+        }
+      }
+    },
+    "2026-01-30": {
+      "meta": {
+        "capturedAt": "2026-01-30T11:55:07.141409Z",
+        "schemaVersion": 1,
+        "source": "settrade:Investor-Type-Daily"
+      },
+      "rows": {
+        "FOREIGN": {
+          "buyPct": 59.24,
+          "buyValue": 27782.79,
+          "name": "นักลงทุนต่างประเทศ",
+          "netValue": -877.73,
+          "sellPct": 61.11,
+          "sellValue": 28660.53
+        },
+        "LOCAL_INDIVIDUAL": {
+          "buyPct": 26.83,
+          "buyValue": 12583.4,
+          "name": "นักลงทุนทั่วไปในประเทศ",
+          "netValue": 1113.96,
+          "sellPct": 24.46,
+          "sellValue": 11469.44
+        },
+        "LOCAL_INST": {
+          "buyPct": 9.32,
+          "buyValue": 4372.22,
+          "name": "สถาบันในประเทศ",
+          "netValue": 417.66,
+          "sellPct": 8.43,
+          "sellValue": 3954.56
+        },
+        "PROPRIETARY": {
+          "buyPct": 4.61,
+          "buyValue": 2160.32,
+          "name": "บัญชีบริษัทหลักทรัพย์",
+          "netValue": -653.89,
+          "sellPct": 6,
+          "sellValue": 2814.22
+        }
+      }
+    },
+    "2026-02-02": {
+      "meta": {
+        "capturedAt": "2026-02-02T12:00:41.628376Z",
+        "schemaVersion": 1,
+        "source": "settrade:Investor-Type-Daily"
+      },
+      "rows": {
+        "FOREIGN": {
+          "buyPct": 51.23,
+          "buyValue": 22310.28,
+          "name": "นักลงทุนต่างประเทศ",
+          "netValue": -297.33,
+          "sellPct": 51.92,
+          "sellValue": 22607.6
+        },
+        "LOCAL_INDIVIDUAL": {
+          "buyPct": 31.88,
+          "buyValue": 13881.96,
+          "name": "นักลงทุนทั่วไปในประเทศ",
+          "netValue": 1906.8,
+          "sellPct": 27.5,
+          "sellValue": 11975.16
+        },
+        "LOCAL_INST": {
+          "buyPct": 8.8,
+          "buyValue": 3829.88,
+          "name": "สถาบันในประเทศ",
+          "netValue": -2193.99,
+          "sellPct": 13.83,
+          "sellValue": 6023.88
+        },
+        "PROPRIETARY": {
+          "buyPct": 8.09,
+          "buyValue": 3523.05,
+          "name": "บัญชีบริษัทหลักทรัพย์",
+          "netValue": 584.52,
+          "sellPct": 6.75,
+          "sellValue": 2938.53
+        }
+      }
+    },
+    "2026-02-03": {
+      "meta": {
+        "capturedAt": "2026-02-03T12:00:46.740403Z",
+        "schemaVersion": 1,
+        "source": "settrade:Investor-Type-Daily"
+      },
+      "rows": {
+        "FOREIGN": {
+          "buyPct": 58.77,
+          "buyValue": 33556.24,
+          "name": "นักลงทุนต่างประเทศ",
+          "netValue": 1550.68,
+          "sellPct": 56.05,
+          "sellValue": 32005.56
+        },
+        "LOCAL_INDIVIDUAL": {
+          "buyPct": 23.13,
+          "buyValue": 13208.62,
+          "name": "นักลงทุนทั่วไปในประเทศ",
+          "netValue": -3273.13,
+          "sellPct": 28.86,
+          "sellValue": 16481.75
+        },
+        "LOCAL_INST": {
+          "buyPct": 10.86,
+          "buyValue": 6199.68,
+          "name": "สถาบันในประเทศ",
+          "netValue": 1760.22,
+          "sellPct": 7.77,
+          "sellValue": 4439.46
+        },
+        "PROPRIETARY": {
+          "buyPct": 7.24,
+          "buyValue": 4136.24,
+          "name": "บัญชีบริษัทหลักทรัพย์",
+          "netValue": -37.77,
+          "sellPct": 7.31,
+          "sellValue": 4174
+        }
+      }
+    },
+    "2026-02-04": {
+      "meta": {
+        "capturedAt": "2026-02-04T14:07:19.924608Z",
+        "schemaVersion": 1,
+        "source": "settrade:Investor-Type-Daily"
+      },
+      "rows": {
+        "FOREIGN": {
+          "buyPct": 54.02,
+          "buyValue": 28795.33,
+          "name": "นักลงทุนต่างประเทศ",
+          "netValue": 2163.47,
+          "sellPct": 49.97,
+          "sellValue": 26631.86
+        },
+        "LOCAL_INDIVIDUAL": {
+          "buyPct": 28.81,
+          "buyValue": 15356.31,
+          "name": "นักลงทุนทั่วไปในประเทศ",
+          "netValue": -1556.77,
+          "sellPct": 31.73,
+          "sellValue": 16913.07
+        },
+        "LOCAL_INST": {
+          "buyPct": 9.56,
+          "buyValue": 5093.89,
+          "name": "สถาบันในประเทศ",
+          "netValue": -580,
+          "sellPct": 10.65,
+          "sellValue": 5673.89
+        },
+        "PROPRIETARY": {
+          "buyPct": 7.61,
+          "buyValue": 4055.29,
+          "name": "บัญชีบริษัทหลักทรัพย์",
+          "netValue": -26.7,
+          "sellPct": 7.66,
+          "sellValue": 4082
+        }
+      }
+    },
+    "2026-02-05": {
+      "meta": {
+        "capturedAt": "2026-02-05T11:33:35.274175Z",
+        "schemaVersion": 1,
+        "source": "settrade:Investor-Type-Daily"
+      },
+      "rows": {
+        "FOREIGN": {
+          "buyPct": 59.35,
+          "buyValue": 34062.62,
+          "name": "นักลงทุนต่างประเทศ",
+          "netValue": 4151.97,
+          "sellPct": 52.12,
+          "sellValue": 29910.66
+        },
+        "LOCAL_INDIVIDUAL": {
+          "buyPct": 25.95,
+          "buyValue": 14889.87,
+          "name": "นักลงทุนทั่วไปในประเทศ",
+          "netValue": -2716.6,
+          "sellPct": 30.68,
+          "sellValue": 17606.47
+        },
+        "LOCAL_INST": {
+          "buyPct": 7.94,
+          "buyValue": 4557.96,
+          "name": "สถาบันในประเทศ",
+          "netValue": -1771.36,
+          "sellPct": 11.03,
+          "sellValue": 6329.32
+        },
+        "PROPRIETARY": {
+          "buyPct": 6.76,
+          "buyValue": 3878.13,
+          "name": "บัญชีบริษัทหลักทรัพย์",
+          "netValue": 335.99,
+          "sellPct": 6.17,
+          "sellValue": 3542.14
+        }
+      }
+    },
+    "2026-02-06": {
+      "meta": {
+        "capturedAt": "2026-02-06T11:35:54.478987Z",
+        "schemaVersion": 1,
+        "source": "settrade:Investor-Type-Daily"
+      },
+      "rows": {
+        "FOREIGN": {
+          "buyPct": 52.48,
+          "buyValue": 24913.08,
+          "name": "นักลงทุนต่างประเทศ",
+          "netValue": 2949.65,
+          "sellPct": 46.26,
+          "sellValue": 21963.43
+        },
+        "LOCAL_INDIVIDUAL": {
+          "buyPct": 32.32,
+          "buyValue": 15345.44,
+          "name": "นักลงทุนทั่วไปในประเทศ",
+          "netValue": -986.04,
+          "sellPct": 34.4,
+          "sellValue": 16331.48
+        },
+        "LOCAL_INST": {
+          "buyPct": 8.13,
+          "buyValue": 3858.27,
+          "name": "สถาบันในประเทศ",
+          "netValue": -2003.97,
+          "sellPct": 12.35,
+          "sellValue": 5862.25
+        },
+        "PROPRIETARY": {
+          "buyPct": 7.08,
+          "buyValue": 3359.3,
+          "name": "บัญชีบริษัทหลักทรัพย์",
+          "netValue": 40.35,
+          "sellPct": 6.99,
+          "sellValue": 3318.94
+        }
+      }
+    }
+  },
+  "indexByDate": {
+    "-Oj6UXtfMJ7jmoG422ao": {
+      "date": "2026-01-16",
+      "dateKey": 20260116,
+      "refPath": "/settrade/investorType/byDate/2026-01-16"
+    },
+    "-OjL2ittXnJDEzm6MO1W": {
+      "date": "2026-01-19",
+      "dateKey": 20260119,
+      "refPath": "/settrade/investorType/byDate/2026-01-19"
+    },
+    "-OjLdbdd2-ky0pd-nO0N": {
+      "date": "2026-01-19",
+      "dateKey": 20260119,
+      "refPath": "/settrade/investorType/byDate/2026-01-19"
+    },
+    "-OjLe5yykVjwkSjLqVHs": {
+      "date": "2026-01-19",
+      "dateKey": 20260119,
+      "refPath": "/settrade/investorType/byDate/2026-01-19"
+    },
+    "-OjQD38X8WK1tdLxer7P": {
+      "date": "2026-01-20",
+      "dateKey": 20260120,
+      "refPath": "/settrade/investorType/byDate/2026-01-20"
+    },
+    "-OjVMtiRTciLXE3d26F0": {
+      "date": "2026-01-21",
+      "dateKey": 20260121,
+      "refPath": "/settrade/investorType/byDate/2026-01-21"
+    },
+    "-Oj_W6PDuKEwGhkV9_Mu": {
+      "date": "2026-01-22",
+      "dateKey": 20260122,
+      "refPath": "/settrade/investorType/byDate/2026-01-22"
+    },
+    "-OjedsyKvVLapGk9f8Ko": {
+      "date": "2026-01-23",
+      "dateKey": 20260123,
+      "refPath": "/settrade/investorType/byDate/2026-01-23"
+    },
+    "-Oju5VBcKaE_ZeOd7Fa3": {
+      "date": "2026-01-26",
+      "dateKey": 20260126,
+      "refPath": "/settrade/investorType/byDate/2026-01-26"
+    },
+    "-OjzGHFBdBd2tPyB1GEm": {
+      "date": "2026-01-27",
+      "dateKey": 20260127,
+      "refPath": "/settrade/investorType/byDate/2026-01-27"
+    },
+    "-Ok3PXzmL6zNl-aOTKA6": {
+      "date": "2026-01-28",
+      "dateKey": 20260128,
+      "refPath": "/settrade/investorType/byDate/2026-01-28"
+    },
+    "-Ok8bRSjNnoT1LLBGWkB": {
+      "date": "2026-01-29",
+      "dateKey": 20260129,
+      "refPath": "/settrade/investorType/byDate/2026-01-29"
+    },
+    "-OkDkRlZiGMOqQXgWMRG": {
+      "date": "2026-01-30",
+      "dateKey": 20260130,
+      "refPath": "/settrade/investorType/byDate/2026-01-30"
+    },
+    "-OkTDUgYx_TosZRBijon": {
+      "date": "2026-02-02",
+      "dateKey": 20260202,
+      "refPath": "/settrade/investorType/byDate/2026-02-02"
+    },
+    "-OkYN5eqgX0QEg-iRCYq": {
+      "date": "2026-02-03",
+      "dateKey": 20260203,
+      "refPath": "/settrade/investorType/byDate/2026-02-03"
+    },
+    "-OkcPzN8HrjIXh9CwkQE": {
+      "date": "2026-02-04",
+      "dateKey": 20260204,
+      "refPath": "/settrade/investorType/byDate/2026-02-04"
+    },
+    "-OkcyeDH7dx-IPPpm-01": {
+      "date": "2026-02-04",
+      "dateKey": 20260204,
+      "refPath": "/settrade/investorType/byDate/2026-02-04"
+    },
+    "-Okh_2s7ClyymqRluhVm": {
+      "date": "2026-02-05",
+      "dateKey": 20260205,
+      "refPath": "/settrade/investorType/byDate/2026-02-05"
+    },
+    "-OkmjAaf6NNz82Z6Shz0": {
+      "date": "2026-02-06",
+      "dateKey": 20260206,
+      "refPath": "/settrade/investorType/byDate/2026-02-06"
+    }
+  },
+  "latest": {
+    "date": "2026-02-06",
+    "dateKey": 20260206,
+    "refPath": "/settrade/investorType/byDate/2026-02-06",
+    "schemaVersion": 1
+  }
+}
