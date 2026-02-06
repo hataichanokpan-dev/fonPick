@@ -15,7 +15,7 @@
 
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useCallback } from "react";
 import { X, ArrowLeft } from "lucide-react";
 import { TrendChartContainer } from "./TrendChartContainer";
 import { TrendMetricsGrid } from "./TrendMetricsGrid";
@@ -52,15 +52,12 @@ export function SmartMoneyTrendModal({
   initialPeriod = 30,
 }: SmartMoneyTrendModalProps) {
   const t = useTranslations("dashboard.smartMoney.trend");
-  const [period, setPeriod] = useState<TrendPeriod>(initialPeriod);
 
-  // Fetch trend data
-  
-  const { data, isLoading, error } = useSmartMoneyTrend({
-    period,
+  // Fetch trend data - use hook's internal period state
+  const { data, isLoading, error, period, setPeriod, refetch } = useSmartMoneyTrend({
+    period: initialPeriod,
     enabled: isOpen,
   });
-  
 
   // Handle escape key
   useEffect(() => {
@@ -87,10 +84,10 @@ export function SmartMoneyTrendModal({
     };
   }, [isOpen]);
 
-  // Handle period change
-  const handlePeriodChange = async (newPeriod: TrendPeriod) => {
-    setPeriod(newPeriod);
-  };
+  // Handle period change - use callback to prevent unnecessary re-renders
+  const handlePeriodChange = useCallback(async (newPeriod: TrendPeriod) => {
+    await setPeriod(newPeriod);
+  }, [setPeriod]);
 
   if (!isOpen) return null;
 
@@ -134,7 +131,7 @@ export function SmartMoneyTrendModal({
           {isLoading ? (
             <LoadingSkeleton t={t} />
           ) : error ? (
-            <ErrorState t={t} onRetry={() => setPeriod(period)} />
+            <ErrorState t={t} onRetry={refetch} />
           ) : data ? (
             <>
               {/* Period Selector */}

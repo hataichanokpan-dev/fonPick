@@ -39,7 +39,7 @@ const Sparkline = memo(function Sparkline({ data, color, height = 32 }: Sparklin
   const range = max - min || 1;
 
   // Create SVG path
-  const width = 100;
+  const width = 200;
   const step = width / (data.length - 1);
 
   const points = data.map((value, index) => {
