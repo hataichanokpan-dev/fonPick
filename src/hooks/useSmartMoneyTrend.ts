@@ -102,6 +102,13 @@ function buildTrendUrl(options: UseSmartMoneyTrendOptions): string {
 }
 
 // ============================================================================
+// CONSTANTS
+// ============================================================================
+
+/** Stable default investors array */
+const DEFAULT_INVESTORS: TrendInvestorFilter[] = ['all']
+
+// ============================================================================
 // MAIN HOOK
 // ============================================================================
 
@@ -128,12 +135,15 @@ export function useSmartMoneyTrend(
 ): UseSmartMoneyTrendResult {
   const {
     period: initialPeriod = 30,
-    investors = ['all'],
+    investors: investorsProp,
     enabled = true,
     refetchInterval,
     onSuccess,
     onError,
   } = options
+
+  // Use stable default investors array
+  const investors = investorsProp ?? DEFAULT_INVESTORS
 
   // State
   const [data, setData] = useState<TrendAnalysisResponse['data'] | null>(null)
@@ -142,6 +152,7 @@ export function useSmartMoneyTrend(
   const [isRefetching, setIsRefetching] = useState(false)
   const [period, setPeriodState] = useState<TrendPeriod>(initialPeriod)
   const [lastFetchedAt, setLastFetchedAt] = useState<number | null>(null)
+  const [refetchTrigger, setRefetchTrigger] = useState(0) // State for manual refetch
 
   // Refs for stable callbacks
   const onSuccessRef = useRef(onSuccess)
@@ -154,9 +165,29 @@ export function useSmartMoneyTrend(
     onErrorRef.current = onError
   }, [onSuccess, onError])
 
-  // Fetch function
-  const fetchData = useCallback(
-    async (isRefetch = false) => {
+  // Refetch function - triggers refetch by incrementing state
+  const refetch = useCallback(async () => {
+    setRefetchTrigger(prev => prev + 1)
+  }, [])
+
+  // Set period and refetch
+  const setPeriod = useCallback(
+    async (newPeriod: TrendPeriod) => {
+      setPeriodState(newPeriod)
+    },
+    []
+  )
+
+  // Main fetch effect - handles all data fetching
+  useEffect(() => {
+    if (!enabled) {
+      setIsLoading(false)
+      return
+    }
+
+    let isCancelled = false
+
+    const fetchData = async (isRefetch = false) => {
       // Cancel previous request
       if (abortControllerRef.current) {
         abortControllerRef.current.abort()
@@ -173,7 +204,7 @@ export function useSmartMoneyTrend(
         }
         setError(null)
 
-        const url = buildTrendUrl({ ...options, period })
+        const url = buildTrendUrl({ period, investors })
         const response = await fetch(url, {
           signal: abortControllerRef.current.signal,
         })
@@ -188,7 +219,7 @@ export function useSmartMoneyTrend(
           throw new Error(json.error || 'Failed to fetch trend data')
         }
 
-        if (json.data) {
+        if (!isCancelled && json.data) {
           setData(json.data)
           setLastFetchedAt(Date.now())
 
@@ -202,50 +233,32 @@ export function useSmartMoneyTrend(
           return
         }
 
-        const errorObj = err instanceof Error ? err : new Error('Unknown error')
-        setError(errorObj)
+        if (!isCancelled) {
+          const errorObj = err instanceof Error ? err : new Error('Unknown error')
+          setError(errorObj)
 
-        if (onErrorRef.current) {
-          onErrorRef.current(errorObj)
+          if (onErrorRef.current) {
+            onErrorRef.current(errorObj)
+          }
         }
       } finally {
-        setIsLoading(false)
-        setIsRefetching(false)
+        if (!isCancelled) {
+          setIsLoading(false)
+          setIsRefetching(false)
+        }
       }
-    },
-    [period, options]
-  )
-
-  // Refetch function
-  const refetch = useCallback(async () => {
-    await fetchData(true)
-  }, [fetchData])
-
-  // Set period and refetch
-  const setPeriod = useCallback(
-    async (newPeriod: TrendPeriod) => {
-      setPeriodState(newPeriod)
-      // Will refetch automatically due to useEffect
-    },
-    []
-  )
-
-  // Fetch on mount and when dependencies change
-  useEffect(() => {
-    if (!enabled) {
-      setIsLoading(false)
-      return
     }
 
     fetchData()
 
     return () => {
+      isCancelled = true
       // Cleanup: abort request on unmount
       if (abortControllerRef.current) {
         abortControllerRef.current.abort()
       }
     }
-  }, [enabled, period, investors, fetchData])
+  }, [enabled, period, investors, refetchTrigger])
 
   // Auto-refetch interval
   useEffect(() => {
@@ -254,11 +267,11 @@ export function useSmartMoneyTrend(
     }
 
     const interval = setInterval(() => {
-      refetch()
+      setRefetchTrigger(prev => prev + 1)
     }, refetchInterval)
 
     return () => clearInterval(interval)
-  }, [refetchInterval, enabled, refetch])
+  }, [refetchInterval, enabled])
 
   // Calculate time since last fetch
   const lastFetchedSecondsAgo =

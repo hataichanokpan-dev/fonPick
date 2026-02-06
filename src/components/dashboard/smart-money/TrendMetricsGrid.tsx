@@ -10,6 +10,7 @@
 
 "use client";
 
+import { memo } from "react";
 import { TrendingUp, TrendingDown, Minus, Activity } from "lucide-react";
 import { formatTradingValue } from "@/lib/utils";
 import type { TrendAnalysisResponse } from "@/types/smart-money";
@@ -35,7 +36,7 @@ interface MetricCardProps {
   color?: string;
 }
 
-function MetricCard({ label, value, change, icon, trend, color }: MetricCardProps) {
+const MetricCard = memo(function MetricCard({ label, value, change, icon, trend, color }: MetricCardProps) {
   const getTrendColor = () => {
     if (color) return color;
     if (trend === "up") return "text-[#2ED8A7]";
@@ -72,13 +73,13 @@ function MetricCard({ label, value, change, icon, trend, color }: MetricCardProp
       )}
     </div>
   );
-}
+});
 
 // ============================================================================
 // MAIN COMPONENT
 // ============================================================================
 
-export function TrendMetricsGrid({ data }: TrendMetricsGridProps) {
+export const TrendMetricsGrid = memo(function TrendMetricsGrid({ data }: TrendMetricsGridProps) {
   const { summary } = data!;
 
   // Calculate metrics
@@ -122,6 +123,6 @@ export function TrendMetricsGrid({ data }: TrendMetricsGridProps) {
       />
     </div>
   );
-}
+});
 
 export default TrendMetricsGrid;

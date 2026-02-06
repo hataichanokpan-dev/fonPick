@@ -55,10 +55,12 @@ export function SmartMoneyTrendModal({
   const [period, setPeriod] = useState<TrendPeriod>(initialPeriod);
 
   // Fetch trend data
+  
   const { data, isLoading, error } = useSmartMoneyTrend({
     period,
     enabled: isOpen,
   });
+  
 
   // Handle escape key
   useEffect(() => {
@@ -113,7 +115,9 @@ export function SmartMoneyTrendModal({
               <ArrowLeft className="w-5 h-5 text-text-secondary" />
             </button>
             <h2 className="text-base md:text-lg font-semibold text-text-primary">
-              {t("title")}
+              {
+                "Smart Money Trend Analysis"
+              }
             </h2>
           </div>
           <button

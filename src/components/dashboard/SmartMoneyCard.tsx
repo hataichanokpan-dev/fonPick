@@ -19,7 +19,7 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card } from "@/components/shared";
 import { Badge } from "@/components/shared/Badge";
 import {
@@ -264,6 +264,16 @@ function SmartMoneySkeleton({ t }: SmartMoneySkeletonProps) {
 export function SmartMoneyCard({ className }: SmartMoneyCardProps) {
   // State for trend modal
   const [isTrendModalOpen, setIsTrendModalOpen] = useState(false);
+
+  // Prefetch trend data on mount for faster modal opening
+  useEffect(() => {
+    // Prefetch default 30-day trend data in background
+    fetch('/api/smart-money/trend?period=30', {
+      cache: 'force-cache', // Use cache if available
+    }).catch(() => {
+      // Silently fail - prefetch is optional
+    });
+  }, []);
 
   // Use consolidated market intelligence hook
   const { data: smartMoneyData, isLoading, error } = useSmartMoney();

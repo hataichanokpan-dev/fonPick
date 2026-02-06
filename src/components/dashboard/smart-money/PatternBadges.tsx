@@ -7,6 +7,7 @@
 
 "use client";
 
+import { memo } from "react";
 import { Badge } from "@/components/shared/Badge";
 import type { DetectedPattern } from "@/types/smart-money";
 
@@ -38,7 +39,7 @@ const PATTERN_CONFIG: Record<
 // MAIN COMPONENT
 // ============================================================================
 
-export function PatternBadges({ patterns }: PatternBadgesProps) {
+export const PatternBadges = memo(function PatternBadges({ patterns }: PatternBadgesProps) {
   if (patterns.length === 0) return null;
 
   return (
@@ -73,6 +74,6 @@ export function PatternBadges({ patterns }: PatternBadgesProps) {
       </div>
     </div>
   );
-}
+});
 
 export default PatternBadges;

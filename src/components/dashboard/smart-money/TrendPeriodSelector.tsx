@@ -7,6 +7,7 @@
 
 "use client";
 
+import { memo } from "react";
 import { TrendingUp } from "lucide-react";
 import type { TrendPeriod } from "@/types/smart-money";
 
@@ -38,7 +39,7 @@ const PERIOD_OPTIONS: Array<{ value: TrendPeriod; label: string }> = [
 // MAIN COMPONENT
 // ============================================================================
 
-export function TrendPeriodSelector({
+export const TrendPeriodSelector = memo(function TrendPeriodSelector({
   period,
   onPeriodChange,
 }: TrendPeriodSelectorProps) {
@@ -66,6 +67,6 @@ export function TrendPeriodSelector({
       </div>
     </div>
   );
-}
+});
 
 export default TrendPeriodSelector;

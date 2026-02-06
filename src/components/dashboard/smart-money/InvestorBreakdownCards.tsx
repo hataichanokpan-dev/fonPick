@@ -6,6 +6,7 @@
 
 "use client";
 
+import { memo } from "react";
 import { formatTradingValue } from "@/lib/utils";
 import type { CombinedTrendPoint } from "@/types/smart-money";
 
@@ -14,7 +15,7 @@ export interface TrendDataTableProps {
   maxRows?: number;
 }
 
-function TableRow({ date, foreign, institution, retail, prop, total, signal }: {
+const TableRow = memo(function TableRow({ date, foreign, institution, retail, prop, total, signal }: {
   date: string;
   foreign: number;
   institution: number;
@@ -54,9 +55,9 @@ function TableRow({ date, foreign, institution, retail, prop, total, signal }: {
       </td>
     </tr>
   );
-}
+});
 
-export function TrendDataTable({ combined, maxRows = 15 }: TrendDataTableProps) {
+export const TrendDataTable = memo(function TrendDataTable({ combined, maxRows = 15 }: TrendDataTableProps) {
   const displayData = [...combined].reverse().slice(0, maxRows);
 
   return (
@@ -95,6 +96,6 @@ export function TrendDataTable({ combined, maxRows = 15 }: TrendDataTableProps) 
       )}
     </div>
   );
-}
+});
 
 export default TrendDataTable;

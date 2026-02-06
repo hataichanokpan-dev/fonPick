@@ -9,6 +9,7 @@
 
 "use client";
 
+import { memo, useMemo } from "react";
 import {
   AreaChart,
   Area,
@@ -70,7 +71,7 @@ interface ChartTooltipProps {
   label?: string;
 }
 
-function ChartTooltip({ active, payload, label }: ChartTooltipProps) {
+const ChartTooltip = memo(function ChartTooltip({ active, payload, label }: ChartTooltipProps) {
   if (!active || !payload || !label) return null;
 
   return (
@@ -91,14 +92,18 @@ function ChartTooltip({ active, payload, label }: ChartTooltipProps) {
       ))}
     </div>
   );
-}
+});
 
 // ============================================================================
 // MAIN COMPONENT
 // ============================================================================
 
-export function TrendChartContainer({ data, period: _period }: TrendChartContainerProps) {
-  const chartData = transformChartData(data!.combined);
+export const TrendChartContainer = memo(function TrendChartContainer({ data, period: _period }: TrendChartContainerProps) {
+  // Memoize chart data transformation to prevent unnecessary recalculations
+  const chartData = useMemo(
+    () => transformChartData(data!.combined),
+    [data]
+  );
 
   // Colors matching the design system
   const colors = {
@@ -180,6 +185,6 @@ export function TrendChartContainer({ data, period: _period }: TrendChartContain
       </div>
     </div>
   );
-}
+});
 
 export default TrendChartContainer;

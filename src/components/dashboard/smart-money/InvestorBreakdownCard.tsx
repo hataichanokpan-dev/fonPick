@@ -7,6 +7,7 @@
 
 "use client";
 
+import { memo } from "react";
 import { Globe, Building2, Users, Briefcase } from "lucide-react";
 import { formatTradingValue } from "@/lib/utils";
 import type { InvestorTrendData } from "@/types/smart-money";
@@ -30,7 +31,7 @@ interface SparklineProps {
   height?: number;
 }
 
-function Sparkline({ data, color, height = 32 }: SparklineProps) {
+const Sparkline = memo(function Sparkline({ data, color, height = 32 }: SparklineProps) {
   if (data.length === 0) return null;
 
   const min = Math.min(...data);
@@ -62,13 +63,13 @@ function Sparkline({ data, color, height = 32 }: SparklineProps) {
       />
     </svg>
   );
-}
+});
 
 // ============================================================================
 // MAIN COMPONENT
 // ============================================================================
 
-export function InvestorBreakdownCard({
+export const InvestorBreakdownCard = memo(function InvestorBreakdownCard({
   investor,
   isPrimary = false,
 }: InvestorBreakdownCardProps) {
@@ -136,7 +137,7 @@ export function InvestorBreakdownCard({
         <div className="text-[10px] text-text-muted uppercase tracking-wide mb-1">
           Net Flow ({aggregated.trend === "up" ? "ขาขึ้น" : aggregated.trend === "down" ? "ขาลง" : "ออกทางเดียว"})
         </div>
-        <div className={`text-xl font-bold tabular-nums ${trendColor}`}>
+        <div className="text-xl font-bold tabular-nums" style={{ color: trendColor }}>
           {aggregated.totalNet > 0 ? "+" : ""}
           {formatTradingValue(aggregated.totalNet)}
         </div>
@@ -177,6 +178,6 @@ export function InvestorBreakdownCard({
       </div>
     </div>
   );
-}
+});
 
 export default InvestorBreakdownCard;
