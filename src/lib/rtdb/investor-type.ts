@@ -232,10 +232,19 @@ export async function getInvestorTrend(
 // ============================================================================
 
 /**
+ * Check if a date is a weekend (Saturday = 6, Sunday = 0)
+ */
+function isWeekend(date: Date): boolean {
+  const day = date.getDay()
+  return day === 0 || day === 6
+}
+
+/**
  * Generate date array between two dates (inclusive)
+ * Only includes weekdays (Monday-Friday) since stock market is closed on weekends
  * @param startDate Start date in YYYY-MM-DD format
  * @param endDate End date in YYYY-MM-DD format
- * @returns Array of date strings
+ * @returns Array of date strings (weekdays only)
  */
 function generateDateRange(startDate: string, endDate: string): string[] {
   const dates: string[] = []
@@ -243,7 +252,10 @@ function generateDateRange(startDate: string, endDate: string): string[] {
   const end = new Date(endDate)
 
   while (current <= end) {
-    dates.push(current.toISOString().split('T')[0])
+    // Skip weekends (Saturday = 6, Sunday = 0)
+    if (!isWeekend(current)) {
+      dates.push(current.toISOString().split('T')[0])
+    }
     current.setDate(current.getDate() + 1)
   }
 

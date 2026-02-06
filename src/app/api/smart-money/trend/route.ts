@@ -81,6 +81,27 @@ function parseQueryParams(searchParams: URLSearchParams): TrendAnalysisParams {
 }
 
 /**
+ * Count weekdays (Monday-Friday) between two dates (inclusive)
+ */
+function countWeekdays(startDate: string, endDate: string): number {
+  const start = new Date(startDate)
+  const end = new Date(endDate)
+  let count = 0
+  const current = new Date(start)
+
+  while (current <= end) {
+    const day = current.getDay()
+    // Count only weekdays (Monday=1 to Friday=5)
+    if (day >= 1 && day <= 5) {
+      count++
+    }
+    current.setDate(current.getDate() + 1)
+  }
+
+  return count
+}
+
+/**
  * Get date range from params
  */
 function getDateRange(params: TrendAnalysisParams): { start: string; end: string } {
@@ -133,9 +154,9 @@ export async function GET(request: NextRequest) {
     }
 
     // Check if data is partial (fewer days than requested)
-    // Allow some tolerance for weekends/holidays
-    const requestedDays = Math.ceil((new Date(end).getTime() - new Date(start).getTime()) / (1000 * 60 * 60 * 24)) + 1
-    const partialData = rangeData.length < requestedDays - 2
+    // Only count weekdays since weekends have no market data
+    const requestedWeekdays = countWeekdays(start, end)
+    const partialData = rangeData.length < requestedWeekdays - 2
 
     // Convert to trend data for each investor type
     const foreign = convertToInvestorTrend(rangeData, 'foreign')

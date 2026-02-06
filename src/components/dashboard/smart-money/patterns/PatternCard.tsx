@@ -137,7 +137,7 @@ export const PatternCard = memo(function PatternCard({
             </span>
           )}
           <Badge size="sm" color={config.color}>
-            {pattern.strength}%
+            {pattern.strength ? pattern.strength.toFixed(2) : "-"}%
           </Badge>
         </div>
       </div>
