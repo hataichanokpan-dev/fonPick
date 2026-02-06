@@ -96,7 +96,56 @@
     "foreignInvestorsAggressiveBuying": "Foreign investors aggressive buying:",
     "institutionBuying": "Institution buying:",
     "retailSelling": "Retail selling:",
-    "propSelling": "Prop selling:"
+    "propSelling": "Prop selling:",
+    "trend": {
+      "title": "Smart Money Trend Analysis",
+      "close": "Close",
+      "dataRange": "Data Range",
+      "totalDays": "Total Days",
+      "periods": {
+        "5D": "5D",
+        "10D": "10D",
+        "1M": "1M",
+        "3M": "3M",
+        "6M": "6M",
+        "1Y": "1Y"
+      },
+      "metrics": {
+        "netFlow": "Net Flow",
+        "signal": "Signal",
+        "confidence": "Confidence",
+        "buyingPressure": "Buying Pressure",
+        "sellingPressure": "Selling Pressure",
+        "primaryDriver": "Primary Driver"
+      },
+      "patterns": {
+        "title": "Detected Patterns",
+        "Accumulation": "Accumulation",
+        "Distribution": "Distribution",
+        "Divergence": "Divergence",
+        "Reversal": "Reversal",
+        "FOMO": "FOMO",
+        "Panic": "Panic",
+        "descriptions": {
+          "accumulation": "Consistent net buying flow",
+          "distribution": "Consistent net selling flow",
+          "divergence": "Foreign and institutional investors moving in opposite directions",
+          "reversal": "Trend change from downtrend to uptrend or vice versa",
+          "fomo": "Retail investors buying excessively",
+          "panic": "Heavy selling due to fear"
+        }
+      },
+      "investors": {
+        "title": "Investor Breakdown",
+        "details": "Details by Type",
+        "dailyData": "Daily Data"
+      },
+      "error": {
+        "title": "Unable to Load Data",
+        "message": "There was an error loading the trend data. Please try again.",
+        "retry": "Retry"
+      }
+    }
   },
   "sectors": {
     "title": "Sector Strength",

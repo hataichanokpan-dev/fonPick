@@ -132,6 +132,11 @@ export async function GET(request: NextRequest) {
       )
     }
 
+    // Check if data is partial (fewer days than requested)
+    // Allow some tolerance for weekends/holidays
+    const requestedDays = Math.ceil((new Date(end).getTime() - new Date(start).getTime()) / (1000 * 60 * 60 * 24)) + 1
+    const partialData = rangeData.length < requestedDays - 2
+
     // Convert to trend data for each investor type
     const foreign = convertToInvestorTrend(rangeData, 'foreign')
     const institution = convertToInvestorTrend(rangeData, 'institution')
@@ -178,6 +183,7 @@ export async function GET(request: NextRequest) {
           start,
           end,
           days: rangeData.length,
+          partialData,
         },
         investors: {
           foreign,

@@ -530,7 +530,7 @@ export function SmartMoneyCard({ className }: SmartMoneyCardProps) {
       <SmartMoneyTrendModal
         isOpen={isTrendModalOpen}
         onClose={() => setIsTrendModalOpen(false)}
-        initialPeriod={30}
+        initialPeriod={10}
       />
     </Card>
   );

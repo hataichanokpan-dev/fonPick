@@ -23,6 +23,99 @@ import type {
 } from '@/types/smart-money'
 
 // ============================================================================
+// PATTERN ENRICHMENT HELPERS
+// ============================================================================
+
+/**
+ * Determine participant role for a pattern
+ */
+function getParticipantRole(
+  investorNet: number,
+  totalNet: number,
+  threshold: number = 100
+): 'driving' | 'following' | 'absent' | 'opposing' {
+  const absNet = Math.abs(investorNet)
+  const pct = totalNet !== 0 ? Math.abs(investorNet / totalNet) : 0
+
+  if (absNet < threshold) return 'absent'
+  if (pct > 0.5 && investorNet * totalNet > 0) return 'driving'
+  if (investorNet * totalNet > 0) return 'following'
+  return 'opposing'
+}
+
+/**
+ * Get actionable guidance for pattern type
+ */
+function getPatternGuidance(
+  type: DetectedPattern['type'],
+  strength: number,
+  isSmartMoneyBuying: boolean
+): Pick<DetectedPattern, 'action' | 'riskLevel' | 'insight'> {
+  const highStrength = strength >= 70
+  const lowStrength = strength < 40
+
+  switch (type) {
+    case 'Accumulation':
+      return {
+        action: highStrength ? 'accumulate' : 'buy',
+        riskLevel: 'low',
+        insight: 'Smart money quietly buying. Add on pullbacks for swing trades.',
+      }
+
+    case 'Distribution':
+      return {
+        action: 'reduce',
+        riskLevel: highStrength ? 'high' : 'medium',
+        insight: 'Smart money exiting. Reduce exposure, avoid new entries.',
+      }
+
+    case 'Divergence':
+      if (isSmartMoneyBuying) {
+        return {
+          action: 'buy',
+          riskLevel: 'medium',
+          insight: 'Smart money buying while retail sells. Bullish signal.',
+        }
+      }
+      return {
+        action: 'sell',
+        riskLevel: 'medium',
+        insight: 'Smart money selling into retail buying. Be cautious.',
+      }
+
+    case 'FOMO':
+      return {
+        action: 'wait',
+        riskLevel: 'high',
+        insight: 'Retail chasing prices. Smart money typically sells into this.',
+      }
+
+    case 'Panic':
+      return {
+        action: isSmartMoneyBuying ? 'buy' : 'wait',
+        riskLevel: isSmartMoneyBuying ? 'medium' : 'high',
+        insight: isSmartMoneyBuying
+          ? 'Capitulation selling. Smart money absorbing - opportunity.'
+          : 'Panic selling in progress. Wait for stabilization.',
+      }
+
+    case 'Reversal':
+      return {
+        action: 'hold',
+        riskLevel: 'medium',
+        insight: 'Trend changing direction. Wait for confirmation before acting.',
+      }
+
+    default:
+      return {
+        action: 'hold',
+        riskLevel: 'medium',
+        insight: 'Monitor closely for more signals.',
+      }
+  }
+}
+
+// ============================================================================
 // DATA CONVERSION
 // ============================================================================
 
@@ -362,12 +455,32 @@ function detectAccumulation(
 
   if (maxConsecutiveBuys >= 3) {
     const totalFlow = combinedDaily.reduce((sum, d) => sum + d.net, 0)
+    const foreignTotal = foreign.aggregated.totalNet
+    const instTotal = institution.aggregated.totalNet
+    const strength = Math.min(100, maxConsecutiveBuys * 15 + Math.abs(totalFlow) / 100)
+
+    // Get actionable guidance
+    const guidance = getPatternGuidance('Accumulation', strength, true)
+
+    // Determine participant roles
+    const totalFlowAbs = Math.abs(totalFlow)
+    const participants = {
+      foreign: getParticipantRole(foreignTotal, totalFlowAbs, 200),
+      institution: getParticipantRole(instTotal, totalFlowAbs, 200),
+      retail: 'absent' as const,
+    }
+
     return {
       type: 'Accumulation',
       description: `Smart money accumulation detected (${maxConsecutiveBuys} consecutive buy days, +${totalFlow.toFixed(0)}M total)`,
       startDate: combinedDaily[0].date,
-      strength: Math.min(100, maxConsecutiveBuys * 15 + Math.abs(totalFlow) / 100),
+      strength,
       investors: ['foreign', 'institution'],
+      // P0: Actionable fields
+      consecutiveDays: maxConsecutiveBuys,
+      totalFlow,
+      ...guidance,
+      participants,
     }
   }
 
@@ -403,12 +516,32 @@ function detectDistribution(
 
   if (maxConsecutiveSells >= 3) {
     const totalFlow = combinedDaily.reduce((sum, d) => sum + d.net, 0)
+    const foreignTotal = foreign.aggregated.totalNet
+    const instTotal = institution.aggregated.totalNet
+    const strength = Math.min(100, maxConsecutiveSells * 15 + Math.abs(totalFlow) / 100)
+
+    // Get actionable guidance
+    const guidance = getPatternGuidance('Distribution', strength, false)
+
+    // Determine participant roles
+    const totalFlowAbs = Math.abs(totalFlow)
+    const participants = {
+      foreign: getParticipantRole(foreignTotal, totalFlowAbs, 200),
+      institution: getParticipantRole(instTotal, totalFlowAbs, 200),
+      retail: 'absent' as const,
+    }
+
     return {
       type: 'Distribution',
       description: `Smart money distribution detected (${maxConsecutiveSells} consecutive sell days, ${totalFlow.toFixed(0)}M total)`,
       startDate: combinedDaily[0].date,
-      strength: Math.min(100, maxConsecutiveSells * 15 + Math.abs(totalFlow) / 100),
+      strength,
       investors: ['foreign', 'institution'],
+      // P0: Actionable fields
+      consecutiveDays: maxConsecutiveSells,
+      totalFlow,
+      ...guidance,
+      participants,
     }
   }
 
@@ -446,14 +579,36 @@ function detectDivergence(
 
   if (divergenceDays >= 2) {
     const isSmartMoneyBuying = totalSmartMoneyFlow > 0
+    const strength = Math.min(100, divergenceDays * 20 + Math.abs(totalSmartMoneyFlow) / 50)
+
+    // Get actionable guidance
+    const guidance = getPatternGuidance('Divergence', strength, isSmartMoneyBuying)
+
+    // Determine participant roles
+    const foreignTotal = foreign.aggregated.totalNet
+    const instTotal = institution.aggregated.totalNet
+    const retailTotal = retail.aggregated.totalNet
+    const totalFlowAbs = Math.abs(totalSmartMoneyFlow) + Math.abs(totalRetailFlow)
+
+    const participants = {
+      foreign: getParticipantRole(foreignTotal, totalFlowAbs, 150),
+      institution: getParticipantRole(instTotal, totalFlowAbs, 150),
+      retail: getParticipantRole(retailTotal, totalFlowAbs, 200),
+    }
+
     return {
       type: 'Divergence',
       description: isSmartMoneyBuying
         ? `Smart money accumulating (+${totalSmartMoneyFlow.toFixed(0)}M) while retail distributing (${totalRetailFlow.toFixed(0)}M)`
         : `Smart money distributing (${totalSmartMoneyFlow.toFixed(0)}M) while retail accumulating (+${totalRetailFlow.toFixed(0)}M)`,
       startDate: smartMoneyDaily[0].date,
-      strength: Math.min(100, divergenceDays * 20 + Math.abs(totalSmartMoneyFlow) / 50),
+      strength,
       investors: ['foreign', 'institution', 'retail'],
+      // P0: Actionable fields
+      consecutiveDays: divergenceDays,
+      totalFlow: totalSmartMoneyFlow,
+      ...guidance,
+      participants,
     }
   }
 
@@ -468,12 +623,26 @@ function detectFOMO(retail: InvestorTrendData): DetectedPattern | null {
 
   if (heavyBuyDays >= 2) {
     const totalBuy = retail.daily.reduce((sum, d) => sum + (d.net > 0 ? d.net : 0), 0)
+    const strength = Math.min(100, heavyBuyDays * 20 + totalBuy / 100)
+
+    // Get actionable guidance
+    const guidance = getPatternGuidance('FOMO', strength, false)
+
     return {
       type: 'FOMO',
       description: `Retail FOMO detected (${heavyBuyDays} heavy buy days, +${totalBuy.toFixed(0)}M total)`,
       startDate: retail.daily[0].date,
-      strength: Math.min(100, heavyBuyDays * 20 + totalBuy / 100),
+      strength,
       investors: ['retail'],
+      // P0: Actionable fields
+      consecutiveDays: heavyBuyDays,
+      totalFlow: totalBuy,
+      ...guidance,
+      participants: {
+        foreign: 'absent',
+        institution: 'absent',
+        retail: 'driving',
+      },
     }
   }
 
@@ -488,12 +657,27 @@ function detectPanic(retail: InvestorTrendData): DetectedPattern | null {
 
   if (heavySellDays >= 2) {
     const totalSell = retail.daily.reduce((sum, d) => sum + (d.net < 0 ? Math.abs(d.net) : 0), 0)
+    const strength = Math.min(100, heavySellDays * 20 + totalSell / 100)
+
+    // For panic, we assume smart money might be buying (opposite)
+    // This will be refined by checking actual smart money data if available
+    const guidance = getPatternGuidance('Panic', strength, false)
+
     return {
       type: 'Panic',
       description: `Retail panic selling detected (${heavySellDays} heavy sell days, -${totalSell.toFixed(0)}M total)`,
       startDate: retail.daily[0].date,
-      strength: Math.min(100, heavySellDays * 20 + totalSell / 100),
+      strength,
       investors: ['retail'],
+      // P0: Actionable fields
+      consecutiveDays: heavySellDays,
+      totalFlow: -totalSell,
+      ...guidance,
+      participants: {
+        foreign: 'absent',
+        institution: 'absent',
+        retail: 'driving',
+      },
     }
   }
 

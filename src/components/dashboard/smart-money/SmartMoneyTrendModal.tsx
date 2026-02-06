@@ -49,7 +49,7 @@ export interface SmartMoneyTrendModalProps {
 export function SmartMoneyTrendModal({
   isOpen,
   onClose,
-  initialPeriod = 30,
+  initialPeriod = 10,
 }: SmartMoneyTrendModalProps) {
   const t = useTranslations("dashboard.smartMoney.trend");
 

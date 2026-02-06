@@ -449,6 +449,29 @@ export interface DetectedPattern {
 
   /** Investors involved */
   investors: ('foreign' | 'institution' | 'retail' | 'prop')[]
+
+  // P0: Actionable fields
+  /** Number of consecutive days this pattern has been active */
+  consecutiveDays?: number
+
+  /** Total flow magnitude (millions THB) - direction depends on pattern */
+  totalFlow?: number
+
+  /** Actionable recommendation */
+  action?: 'buy' | 'sell' | 'hold' | 'accumulate' | 'reduce' | 'wait'
+
+  /** Risk level */
+  riskLevel?: 'low' | 'medium' | 'high'
+
+  /** Simple one-line insight for investors */
+  insight?: string
+
+  /** Participant breakdown - who's driving this pattern */
+  participants?: {
+    foreign: 'driving' | 'following' | 'absent' | 'opposing'
+    institution: 'driving' | 'following' | 'absent' | 'opposing'
+    retail: 'driving' | 'following' | 'absent' | 'opposing'
+  }
 }
 
 /**
@@ -483,6 +506,8 @@ export interface TrendAnalysisResponse {
       start: string
       end: string
       days: number
+      /** True if fewer days returned than requested (due to missing data in RTDB) */
+      partialData?: boolean
     }
 
     /** Individual investor trends */
