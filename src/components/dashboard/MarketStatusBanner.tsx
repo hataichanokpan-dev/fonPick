@@ -137,12 +137,12 @@ export function MarketStatusBanner({
       role="banner"
       aria-label={`${t("marketStatus.title")}: ${safeToFixed(setIndex)}`}
       className="sticky top-0 z-50 w-full backdrop-blur-lg
-      border-b h-14 sm:h-16 rounded-lg mb-3
+      h-14 sm:h-16 rounded-lg mb-3
       shadow-sm animate-fade-in-up"
       style={{
         backgroundColor: setChangePercent > 0 ? "#4ade8026" : "#ff6b6b26",
-        borderBottomColor: setChangePercent > 0 ? "#00a33c26" : "#ff000026",
-        borderColor: colors.border,
+        border: `1px solid ${colors.border}`,
+        borderBottom: `1px solid ${setChangePercent > 0 ? "#00a33c26" : "#ff000026"}`,
       }}
     >
       <div className="h-full px-4 py-2 sm:px-5 sm:py-2.5">
