@@ -52,7 +52,7 @@ function getPatternGuidance(
   isSmartMoneyBuying: boolean
 ): Pick<DetectedPattern, 'action' | 'riskLevel' | 'insight'> {
   const highStrength = strength >= 70
-  const lowStrength = strength < 40
+  //const lowStrength = strength < 40
 
   switch (type) {
     case 'Accumulation':
