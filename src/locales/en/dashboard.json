@@ -55,10 +55,15 @@
     },
     "messages": {
       "marketLacksDirection": "Market lacks clear direction. Stay selective, focus on quality names.",
+      "focusOnCyclicalAndGrowth": "Focus on cyclical sectors and growth stocks. Market favors risk-taking.",
       "waitForClearDirection": "Wait for clear market direction before taking large positions.",
+      "watchForReversalSignals": "Watch for reversal signals. Don't chase overextended names.",
       "setIndexSlightlyNegative": "SET index slightly negative",
+      "setIndexStrongPositiveMomentum": "SET index showing strong positive momentum",
+      "cyclicalSectorsLeading": "Cyclical sectors leading - risk-on behavior",
       "strongBuyingFromSmartMoney": "Strong buying from smart money (foreign + institution)",
-      "broadSectorParticipationPositive": "Broad sector participation in positive territory"
+      "broadSectorParticipationPositive": "Broad sector participation in positive territory",
+      "foreignInvestorsAggressiveBuying": "Foreign investors aggressive buying"
     }
   },
   "smartMoney": {
@@ -71,11 +76,27 @@
     "net": "Net",
     "buy": "Buy",
     "sell": "Sell",
+    "strongBuy": "Strong Buy",
+    "strongSell": "Strong Sell",
     "inflow": "Inflow",
     "outflow": "Outflow",
     "accumulation": "Accumulation",
     "distribution": "Distribution",
-    "neutral": "Neutral"
+    "neutral": "Neutral",
+    "unableToLoad": "Unable to load smart money data",
+    "context": "Context",
+    "score": "Score",
+    "primaryDriver": "Primary Driver",
+    "none": "None",
+    "confidence": "Confidence",
+    "riskOn": "Risk-On",
+    "riskOnMild": "Risk-On Mild",
+    "riskOff": "Risk-Off",
+    "riskOffMild": "Risk-Off Mild",
+    "foreignInvestorsAggressiveBuying": "Foreign investors aggressive buying:",
+    "institutionBuying": "Institution buying:",
+    "retailSelling": "Retail selling:",
+    "propSelling": "Prop selling:"
   },
   "sectors": {
     "title": "Sector Strength",

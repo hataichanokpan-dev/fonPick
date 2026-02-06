@@ -32,6 +32,7 @@ import {
 } from "lucide-react";
 import { formatTradingValue, safeToFixed } from "@/lib/utils";
 import { useSmartMoney } from "@/hooks/useMarketIntelligence";
+import { useTranslations } from "next-intl";
 
 // ==================================================================
 // TYPES
@@ -132,10 +133,14 @@ interface InvestorRowProps {
     trend?: string;
     strength?: string;
   };
+  /** Translated strength label for display */
+  translatedStrength?: string;
+  /** Translation function for fallback strength */
+  t?: (key: string) => string;
   opacity?: number;
 }
 
-function InvestorRow({ label, icon, data, opacity = 1 }: InvestorRowProps) {
+function InvestorRow({ label, icon, data, translatedStrength, t, opacity = 1 }: InvestorRowProps) {
   // Handle missing data gracefully
   const todayNet = data.todayNet ?? 0;
   const strength = data.strength ?? "Neutral";
@@ -172,6 +177,9 @@ function InvestorRow({ label, icon, data, opacity = 1 }: InvestorRowProps) {
     return null;
   };
 
+  // Display translated strength, fallback to original strength translated via t function
+  const displayStrength = translatedStrength || (t ? t("neutral") : strength);
+
   return (
     <div
       className="flex items-center gap-2.5 p-2.5 rounded-md transition-all duration-200"
@@ -204,19 +212,23 @@ function InvestorRow({ label, icon, data, opacity = 1 }: InvestorRowProps) {
 
       {/* Signal Badge */}
       <Badge size="sm" color={getStrengthColor()}>
-        {strength}
+        {displayStrength}
       </Badge>
     </div>
   );
 }
 
 // Separator between smart money and context investors
-function InvestorSeparator() {
+interface InvestorSeparatorProps {
+  t: (key: string) => string;
+}
+
+function InvestorSeparator({ t }: InvestorSeparatorProps) {
   return (
     <div className="flex items-center gap-2 my-2">
       <div className="flex-1 h-px bg-border-subtle" />
       <span className="text-[9px] uppercase tracking-wider text-text-muted font-semibold">
-        Context
+        {t("context")}
       </span>
       <div className="flex-1 h-px bg-border-subtle" />
     </div>
@@ -224,11 +236,15 @@ function InvestorSeparator() {
 }
 
 // Loading Skeleton
-function SmartMoneySkeleton() {
+interface SmartMoneySkeletonProps {
+  t: (key: string) => string;
+}
+
+function SmartMoneySkeleton({ t }: SmartMoneySkeletonProps) {
   return (
     <Card padding="sm">
       <div className="flex items-center justify-between mb-3">
-        <h3 className="text-sm font-semibold text-text-2">Smart Money</h3>
+        <h3 className="text-sm font-semibold text-text-2">{t("title")}</h3>
       </div>
       <div className="animate-pulse space-y-2">
         <div className="h-14 bg-surface-2 rounded" />
@@ -245,9 +261,88 @@ function SmartMoneySkeleton() {
 export function SmartMoneyCard({ className }: SmartMoneyCardProps) {
   // Use consolidated market intelligence hook
   const { data: smartMoneyData, isLoading, error } = useSmartMoney();
+  const t = useTranslations("dashboard.smartMoney");
+
+  // Runtime translation for strength and risk signals from API
+  const translateStrength = (strength: string): string => {
+    if (!strength) return t("neutral");
+
+    const normalizedStrength = strength.trim();
+    const strengthMap: Record<string, string> = {
+      "Strong Buy": t("strongBuy"),
+      "Buy": t("buy"),
+      "Strong Sell": t("strongSell"),
+      "Sell": t("sell"),
+      "Neutral": t("neutral"),
+    };
+
+    // Try exact match first
+    if (strengthMap[normalizedStrength]) {
+      return strengthMap[normalizedStrength];
+    }
+
+    // Try case-insensitive match
+    const lowerKey = normalizedStrength.toLowerCase();
+    for (const [key, value] of Object.entries(strengthMap)) {
+      if (key.toLowerCase() === lowerKey) {
+        return value;
+      }
+    }
+
+    return strength;
+  };
+
+  const translateRiskSignal = (riskSignal: string): string => {
+    const riskMap: Record<string, string> = {
+      "Risk-On": t("riskOn"),
+      "Risk-On Mild": t("riskOnMild"),
+      "Risk-Off": t("riskOff"),
+      "Risk-Off Mild": t("riskOffMild"),
+    };
+    return riskMap[riskSignal] || riskSignal;
+  };
+
+  // Runtime translation for observations from API
+  const translateObservation = (observation: string): string => {
+    // Observations may come as "Text: value" or just "Text"
+    // Find the colon and split there
+    const colonIndex = observation.indexOf(':');
+
+    if (colonIndex === -1) {
+      // No colon, try to translate the whole text
+      const observationMap: Record<string, string> = {
+        "Foreign investors aggressive buying": t("foreignInvestorsAggressiveBuying"),
+        "Institution buying": t("institutionBuying"),
+        "Retail selling": t("retailSelling"),
+        "Prop selling": t("propSelling"),
+      };
+      return observationMap[observation.trim()] || observation;
+    }
+
+    // Split into text and value parts
+    const textPart = observation.substring(0, colonIndex).trim();
+    const valuePart = observation.substring(colonIndex); // Keep ": value" as is
+
+    const observationMap: Record<string, string> = {
+      "Foreign investors aggressive buying": t("foreignInvestorsAggressiveBuying"),
+      "Institution buying": t("institutionBuying"),
+      "Retail selling": t("retailSelling"),
+      "Prop selling": t("propSelling"),
+    };
+
+    const translatedText = observationMap[textPart] || textPart;
+    return translatedText + valuePart;
+  };
+
+  // Translate primary driver - handle special case for "none"
+  const translatePrimaryDriver = (driver: string | undefined): string => {
+    if (!driver) return t("none");
+    if (driver.toLowerCase() === "none") return t("none");
+    return driver;
+  };
 
   if (isLoading) {
-    return <SmartMoneySkeleton />;
+    return <SmartMoneySkeleton t={t} />;
   }
 
   if (error || !smartMoneyData) {
@@ -256,11 +351,11 @@ export function SmartMoneyCard({ className }: SmartMoneyCardProps) {
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
             <Gauge className="w-4 h-4 text-text-muted" />
-            <h3 className="text-sm font-semibold text-text-2">Smart Money</h3>
+            <h3 className="text-sm font-semibold text-text-2">{t("title")}</h3>
           </div>
         </div>
         <p className="text-text-muted text-xs">
-          Unable to load smart money data
+          {t("unableToLoad")}
         </p>
       </Card>
     );
@@ -300,14 +395,14 @@ export function SmartMoneyCard({ className }: SmartMoneyCardProps) {
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
           <Gauge className="w-4 h-4 text-text-muted" />
-          <h3 className="text-sm font-semibold text-text-2">Smart Money</h3>
+          <h3 className="text-sm font-semibold text-text-2">{t("title")}</h3>
         </div>
         <div className="flex items-center gap-2">
           <Badge size="sm" color={getSignalColor()}>
-            {smartMoneyData.combinedSignal}
+            {translateStrength(smartMoneyData.combinedSignal)}
           </Badge>
           <Badge size="sm" color={getRiskColor()}>
-            {smartMoneyData.riskSignal}
+            {translateRiskSignal(smartMoneyData.riskSignal)}
           </Badge>
         </div>
       </div>
@@ -316,45 +411,53 @@ export function SmartMoneyCard({ className }: SmartMoneyCardProps) {
         <div className="item-center flex flex-col items-center text-center">
           <ScoreGauge score={smartMoneyData.score} size={56} />
           <span className="text-[9px] uppercase tracking-wide text-text-muted">
-            Score
+            {t("score")}
           </span>
         </div>
       </div>
 
       {/* Main Content */}
       <div className="flex gap-3">
-       
+
 
         {/* Investor Flows - Access from investors property */}
         <div className="flex-1 space-y-2">
           {/* Primary (Smart Money) - 100% opacity */}
           <InvestorRow
-            label="Foreign"
+            label={t("foreign")}
             icon={<Globe className="w-4 h-4" />}
             data={smartMoneyData.investors.foreign}
+            translatedStrength={translateStrength(smartMoneyData.investors.foreign.strength ?? "Neutral")}
+            t={t}
             opacity={1}
           />
           <InvestorRow
-            label="Institution"
+            label={t("institution")}
             icon={<Building2 className="w-4 h-4" />}
             data={smartMoneyData.investors.institution}
+            translatedStrength={translateStrength(smartMoneyData.investors.institution.strength ?? "Neutral")}
+            t={t}
             opacity={1}
           />
 
           {/* Separator */}
-          <InvestorSeparator />
+          <InvestorSeparator t={t} />
 
           {/* Secondary (Context) - 60% opacity */}
           <InvestorRow
-            label="Retail"
+            label={t("retail")}
             icon={<Users className="w-4 h-4" />}
             data={smartMoneyData.investors.retail}
+            translatedStrength={translateStrength(smartMoneyData.investors.retail.strength ?? "Neutral")}
+            t={t}
             opacity={0.6}
           />
           <InvestorRow
-            label="Prop"
+            label={t("prop")}
             icon={<Briefcase className="w-4 h-4" />}
             data={smartMoneyData.investors.prop}
+            translatedStrength={translateStrength(smartMoneyData.investors.prop.strength ?? "Neutral")}
+            t={t}
             opacity={0.6}
           />
         </div>
@@ -364,10 +467,10 @@ export function SmartMoneyCard({ className }: SmartMoneyCardProps) {
       <div className="mt-3 pt-3 border-t border-border">
         <div className="flex items-center justify-between mb-2">
           <span className="text-[10px] text-text-muted uppercase tracking-wide">
-            Primary Driver
+            {t("primaryDriver")}
           </span>
-          <span className="text-xs font-medium text-text capitalize">
-            {smartMoneyData.primaryDriver || "None"}
+          <span className="text-xs font-medium text-text">
+            {translatePrimaryDriver(smartMoneyData.primaryDriver)}
           </span>
         </div>
 
@@ -375,7 +478,7 @@ export function SmartMoneyCard({ className }: SmartMoneyCardProps) {
         <div className="mb-2">
           <div className="flex items-center justify-between mb-1">
             <span className="text-[10px] text-text-muted uppercase tracking-wide">
-              Confidence
+              {t("confidence")}
             </span>
             <span className="text-xs text-text-muted">
               {smartMoneyData.confidence}%
@@ -395,7 +498,7 @@ export function SmartMoneyCard({ className }: SmartMoneyCardProps) {
         {smartMoneyData.observations &&
           smartMoneyData.observations.length > 0 && (
             <p className="mt-2 text-xs text-text-muted leading-relaxed">
-              {smartMoneyData.observations[0]}
+              {translateObservation(smartMoneyData.observations[0])}
             </p>
           )}
       </div>

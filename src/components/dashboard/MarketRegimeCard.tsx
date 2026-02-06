@@ -309,12 +309,18 @@ export function MarketRegimeCard({
   const messageMap: Record<string, string> = {
     // Focus messages
     "Market lacks clear direction. Stay selective, focus on quality names.": t("messages.marketLacksDirection"),
+    "Focus on cyclical sectors and growth stocks. Market favors risk-taking.": t("messages.focusOnCyclicalAndGrowth"),
     "Strong buying from smart money (foreign + institution)": t("messages.strongBuyingFromSmartMoney"),
     "Broad sector participation in positive territory": t("messages.broadSectorParticipationPositive"),
     // Caution messages
     "Wait for clear market direction before taking large positions.": t("messages.waitForClearDirection"),
+    "Watch for reversal signals. Don't chase overextended names.": t("messages.watchForReversalSignals"),
     // Reason messages
     "SET index slightly negative": t("messages.setIndexSlightlyNegative"),
+    "SET index showing strong positive momentum": t("messages.setIndexStrongPositiveMomentum"),
+    "Cyclical sectors leading - risk-on behavior": t("messages.cyclicalSectorsLeading"),
+    // Smart Money messages
+    "Foreign investors aggressive buying:": t("messages.foreignInvestorsAggressiveBuying"),
   };
 
   const translateMessage = (message: string) => messageMap[message] || message;
