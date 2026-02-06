@@ -104,7 +104,54 @@
     "bottomSectors": "ภาคส่วนอ่อนแอ",
     "strength": "ความแข็งแกร่ง",
     "change": "เปลี่ยนแปลง",
-    "marketCap": "มูลค่าตลาด"
+    "marketCap": "มูลค่าตลาด",
+    "unableToLoad": "ไม่สามารถโหลดข้อมูลภาคส่วนได้",
+    "topLeaders": "ผู้นำ {count} อันดับแรก",
+    "bottomLaggards": "ภาคส่วนอ่อนแอ {count} อันดับแรก",
+    "concentration": "ความเข้มข้น",
+    "buy": "ซื้อ:",
+    "avoid": "หลีกเลี่ยง:",
+    "signals": {
+      "entry": "เข้าซื้อ",
+      "accumulate": "สะสม",
+      "hold": "ถือ",
+      "distribute": "แตกตัว",
+      "exit": "ออก"
+    },
+    "patterns": {
+      "riskOnRotation": "Risk-On Rotation",
+      "riskOffRotation": "Risk-Off Rotation",
+      "broadBasedAdvance": "การเติบโตทั่วทิศทาง",
+      "broadBasedDecline": "การปรับลดทั่วทิศทาง",
+      "mixedNoClearPattern": "สัญญาณผสมปนเป",
+      "sectorSpecific": "เฉพาะภาคส่วน"
+    },
+    "sectorNames": {
+      "financial": "การเงิน",
+      "energy": "พลังงาน",
+      "agribusiness": "ธุรกิจเกษตร",
+      "food": "อาหาร",
+      "healthcare": "การแพทย์",
+      "technology": "เทคโนโลยี",
+      "property": "อสังหาริมทรัพย์",
+      "bank": "ธนาคาร",
+      "construction": "ก่อสร้าง",
+      "industrial": "อุตสาหกรรม",
+      "mining": "เหมืองแร่",
+      "transport": "การขนส่ง",
+      "telecom": "โทรคมนาคม"
+    },
+    "observations": {
+      "highConcentration": "ความเข้มข้นสูง: Rankings dominated by {sectors}",
+      "lowConcentration": "ความเข้มข้นต่ำ: Rankings spread across many sectors",
+      "sectorAnomalies": "{count} ความผิดปกติของภาคส่วน",
+      "rankingsDominatedBy": "Rankings dominated by: {sectors}",
+      "rotationPattern": "รูปแบบการหมุนเวียน: {pattern}",
+      "leadingSectors": "ภาคส่วนนำ: {sectors}",
+      "laggingSectors": "ภาคส่วนล้าหลัง: {sectors}",
+      "regimeConfirmed": "Regime: {regime} (ยืนยันแล้ว)",
+      "regimeNotConfirmed": "Regime: {regime} (ยังไม่ยืนยัน)"
+    }
   },
   "movers": {
     "title": "Market Movers",

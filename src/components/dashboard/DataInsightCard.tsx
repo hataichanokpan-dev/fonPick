@@ -109,11 +109,9 @@ interface ConflictDetailProps {
   label: string
   value: string
   confidence: number
-  /** Translation function for value */
-  t?: (key: string) => string
 }
 
-function ConflictDetail({ label, value, confidence, t }: ConflictDetailProps) {
+function ConflictDetail({ label, value, confidence }: ConflictDetailProps) {
   const getValueColor = () => {
     const lowerValue = value.toLowerCase()
     if (lowerValue.includes('risk-on') || lowerValue.includes('buy') || lowerValue.includes('strong')) {
@@ -392,7 +390,7 @@ export function DataInsightCard({ className, showOnLoad }: DataInsightCardProps)
     // Translate primary driver template
     translated = translated.replace(
       /(\w+(?: \w+)*) is the primary driver\./,
-      (match, driver) => {
+      (_match, driver) => {
         const translatedDriver = getPrimaryDriverLabel(driver as PrimaryDriver)
         return t('messages.primaryDriverTemplate', { driver: translatedDriver })
       }
@@ -401,7 +399,7 @@ export function DataInsightCard({ className, showOnLoad }: DataInsightCardProps)
     // Translate regime context
     translated = translated.replace(
       /Market regime is (Risk-On|Neutral|Risk-Off) with (\d+)% confidence\./,
-      (match, regime, confidence) => {
+      (_match, regime, confidence) => {
         const translatedRegime = regime === 'Risk-On'
           ? tRegime('riskOn')
           : regime === 'Risk-Off'
@@ -414,7 +412,7 @@ export function DataInsightCard({ className, showOnLoad }: DataInsightCardProps)
     // Translate smart money context
     translated = translated.replace(
       /Smart money score is ([\d.]+)\/100 with signal: ([\w\s]+)\./,
-      (match, score, signal) => {
+      (_match, score, signal) => {
         const translatedSignal = translateStrength(signal)
         return t('messages.smartMoneyContextTemplate', { score, signal: translatedSignal })
       }
@@ -423,13 +421,13 @@ export function DataInsightCard({ className, showOnLoad }: DataInsightCardProps)
     // Translate sector pattern
     translated = translated.replace(
       /Sector pattern shows ([\w\s\/]+)\./,
-      (match, pattern) => t('messages.sectorPatternTemplate', { pattern })
+      (_match, pattern) => t('messages.sectorPatternTemplate', { pattern })
     )
 
     // Translate key conflict
     translated = translated.replace(
       /Key conflict: (.+)/,
-      (match, conflict) => t('messages.keyConflictTemplate', { conflict })
+      (_match, conflict) => t('messages.keyConflictTemplate', { conflict })
     )
 
     return translated
@@ -550,7 +548,6 @@ export function DataInsightCard({ className, showOnLoad }: DataInsightCardProps)
                 label={t('conflictLabels.regime')}
                 value={insight.conflictingSignals.regime.value}
                 confidence={insight.conflictingSignals.regime.confidence}
-                t={t}
               />
             )}
             {insight.conflictingSignals.smartMoney && (
@@ -558,7 +555,6 @@ export function DataInsightCard({ className, showOnLoad }: DataInsightCardProps)
                 label={t('conflictLabels.smartMoney')}
                 value={insight.conflictingSignals.smartMoney.value}
                 confidence={insight.conflictingSignals.smartMoney.confidence}
-                t={t}
               />
             )}
             {insight.conflictingSignals.foreign && (
@@ -566,7 +562,6 @@ export function DataInsightCard({ className, showOnLoad }: DataInsightCardProps)
                 label={t('conflictLabels.foreignFlow')}
                 value={insight.conflictingSignals.foreign.value}
                 confidence={insight.conflictingSignals.foreign.confidence}
-                t={t}
               />
             )}
             {insight.conflictingSignals.sector && (
@@ -574,7 +569,6 @@ export function DataInsightCard({ className, showOnLoad }: DataInsightCardProps)
                 label={t('conflictLabels.sectors')}
                 value={insight.conflictingSignals.sector.value}
                 confidence={insight.conflictingSignals.sector.confidence}
-                t={t}
               />
             )}
           </div>

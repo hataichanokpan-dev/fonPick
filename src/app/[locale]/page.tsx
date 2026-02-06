@@ -91,7 +91,7 @@ export default function HomePage() {
           title={t('p1.title')}
           subtitle={t('p1.subtitle')}
         />
-        <SectorStrengthCard className="mt-5" />
+        <SectorStrengthCard className="mt-5"  />
       </section>
 
       {/* 5. P2: Market Movers (TabbedMovers) */}

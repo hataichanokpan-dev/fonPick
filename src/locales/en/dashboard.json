@@ -104,7 +104,54 @@
     "bottomSectors": "Bottom Sectors",
     "strength": "Strength",
     "change": "Change",
-    "marketCap": "Market Cap"
+    "marketCap": "Market Cap",
+    "unableToLoad": "Unable to load sector data",
+    "topLeaders": "Top {count} Leaders",
+    "bottomLaggards": "Bottom {count} Laggards",
+    "concentration": "Concentration",
+    "buy": "Buy:",
+    "avoid": "Avoid:",
+    "signals": {
+      "entry": "Entry",
+      "accumulate": "Accumulate",
+      "hold": "Hold",
+      "distribute": "Distribute",
+      "exit": "Exit"
+    },
+    "patterns": {
+      "riskOnRotation": "Risk-On Rotation",
+      "riskOffRotation": "Risk-Off Rotation",
+      "broadBasedAdvance": "Broad-Based Advance",
+      "broadBasedDecline": "Broad-Based Decline",
+      "mixedNoClearPattern": "Mixed/No Clear Pattern",
+      "sectorSpecific": "Sector-Specific"
+    },
+    "sectorNames": {
+      "financial": "Financial",
+      "energy": "Energy",
+      "agribusiness": "Agribusiness",
+      "food": "Food",
+      "healthcare": "Healthcare",
+      "technology": "Technology",
+      "property": "Property",
+      "bank": "Bank",
+      "construction": "Construction",
+      "industrial": "Industrial",
+      "mining": "Mining",
+      "transport": "Transport",
+      "telecom": "Telecom"
+    },
+    "observations": {
+      "highConcentration": "High concentration: Rankings dominated by {sectors}",
+      "lowConcentration": "Low concentration: Rankings spread across many sectors",
+      "sectorAnomalies": "{count} sector anomalies detected",
+      "rankingsDominatedBy": "Rankings dominated by: {sectors}",
+      "rotationPattern": "Rotation pattern: {pattern}",
+      "leadingSectors": "Leading sectors: {sectors}",
+      "laggingSectors": "Lagging sectors: {sectors}",
+      "regimeConfirmed": "Regime: {regime} (confirmed)",
+      "regimeNotConfirmed": "Regime: {regime} (not confirmed)"
+    }
   },
   "movers": {
     "title": "Market Movers",
