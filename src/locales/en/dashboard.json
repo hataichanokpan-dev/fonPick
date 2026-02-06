@@ -185,5 +185,70 @@
       "strongDistribution": "Str Dist",
       "distribution": "Dist"
     }
+  },
+  "dataInsight": {
+    "title": "MARKET INSIGHT",
+    "driver": "Driver:",
+    "showDetails": "Show Details",
+    "hideDetails": "Hide Details",
+    "takeaway": "Takeaway:",
+    "priority": "P0",
+    "verdict": {
+      "proceed": "PROCEED",
+      "caution": "CAUTION",
+      "wait": "WAIT",
+      "neutral": "NEUTRAL"
+    },
+    "conviction": {
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low"
+    },
+    "primaryDriver": {
+      "foreignFlow": "Foreign Flow",
+      "smartMoney": "Smart Money",
+      "marketRegime": "Market Regime",
+      "sectorStrength": "Sector Leaders",
+      "none": "None"
+    },
+    "conflictLabels": {
+      "regime": "Regime",
+      "smartMoney": "Smart Money",
+      "foreignFlow": "Foreign Flow",
+      "sectors": "Sectors"
+    },
+    "messages": {
+      "propNoiseDetected": "High prop trading noise detected",
+      "propNoiseTakeaway": "Wait for prop trading activity to normalize before making trading decisions",
+      "propNoiseReasoning1": "Prop trading accounts for >40% of total flow",
+      "propNoiseReasoning2": "This creates excessive noise in market signals",
+      "propNoiseReasoning3": "Wait for prop trading to subside for clearer signals",
+      "foreignFlowDominance": "Foreign flow dominance detected",
+      "regimeOverridesSmartMoney": "Regime high confidence overrides smart money",
+      "smartMoneyExtremes": "Smart money at extreme levels",
+      "bankSectorDefensive": "Bank sector leadership is defensive, not bullish",
+      "highSectorConcentration": "High sector concentration confirms trend",
+      "primaryDriverTemplate": "{driver} is the primary driver",
+      "regimeContextTemplate": "Market regime is {regime} with {confidence}% confidence",
+      "smartMoneyContextTemplate": "Smart money score is {score}/100 with signal: {signal}",
+      "sectorPatternTemplate": "Sector pattern shows {pattern}",
+      "keyConflictTemplate": "Key conflict: {conflict}",
+      "proceedWithPositions": "Consider {focus} positions in {sectors}. Driven by {driver}",
+      "proceedStandard": "Proceed with trades. Driven by {driver}. Maintain standard position sizing",
+      "reduceExposure": "Reduce exposure to {sectors}. Use tighter stops",
+      "exerciseCaution": "Exercise caution with new positions. Consider reducing position sizes by 25-50%",
+      "waitClearerSignals": "Wait for clearer signals. Current market conditions are too ambiguous for high-conviction trades",
+      "mixedSignals": "Market signals are mixed. Hold existing positions and wait for directional clarity",
+      "regimeScore": "Regime score",
+      "smartMoneyScore": "Smart Money score",
+      "foreignScore": "Foreign score",
+      "sectorScore": "Sector score",
+      "finalScore": "Final score",
+      "scoreTemplate": "{score}/100 (weight: {weight})",
+      "foreignDomesticDivergence": "Foreign investors are {foreignStrength} while {domesticType} is {domesticStrength}",
+      "regimeSmartMoneyMismatch": "Market regime is {regime} but smart money score is low ({score}/100)",
+      "regimeSectorMismatch": "Regime is Risk-On but defensive sectors are leading",
+      "smartMoneyContradiction": "Foreign is {foreignStrength} but Institution is {institutionStrength}"
+    }
   }
 }

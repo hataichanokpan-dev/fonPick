@@ -185,5 +185,70 @@
       "strongDistribution": "Str Dist",
       "distribution": "Dist"
     }
+  },
+  "dataInsight": {
+    "title": "MARKET INSIGHT",
+    "driver": "ตัวขับเคลื่อน:",
+    "showDetails": "แสดงรายละเอียด",
+    "hideDetails": "ซ่อนรายละเอียด",
+    "takeaway": "สรุป:",
+    "priority": "P0",
+    "verdict": {
+      "proceed": "ดำเนินการ",
+      "caution": "ระวัง",
+      "wait": "รอ",
+      "neutral": "กลาง"
+    },
+    "conviction": {
+      "high": "สูง",
+      "medium": "ปานกลาง",
+      "low": "ต่ำ"
+    },
+    "primaryDriver": {
+      "foreignFlow": "กระแสเงินต่างชาติ",
+      "smartMoney": "Smart Money",
+      "marketRegime": "Market Regime",
+      "sectorStrength": "ผู้นำภาคส่วน",
+      "none": "ไม่มี"
+    },
+    "conflictLabels": {
+      "regime": "Regime",
+      "smartMoney": "Smart Money",
+      "foreignFlow": "กระแสเงินต่างชาติ",
+      "sectors": "ภาคส่วน"
+    },
+    "messages": {
+      "propNoiseDetected": "ตรวจพบสัญญาณรบกวนจากการเทรดของเทรดเดอร์ในบ้านอย่างมาก",
+      "propNoiseTakeaway": "รอสัญญาณให้ชัดเจนกว่านี้ก่อนตัดสินใจลงทุน เพราะสัญญาณตลาดมีความผิดปกติ",
+      "propNoiseReasoning1": "การเทรดของเทรดเดอร์ในบ้านคิดเป็นสัดส่วน >40% ของการไหลเข้า-ออกทั้งหมด",
+      "propNoiseReasoning2": "สร้างความผิดปกติในสัญญาณตลาดอย่างมาก",
+      "propNoiseReasoning3": "รอให้การเทรดของเทรดเดอร์ในบ้านลดลงเพื่อสัญญาณที่ชัดเจนกว่านี้",
+      "foreignFlowDominance": "ตรวจพบกระแสเงินต่างชาติขับเคลื่อนตลาดอย่างมาก",
+      "regimeOverridesSmartMoney": "ความมั่นใจระดับสูงของ Market Regime มีน้ำหนักมากกว่า Smart Money",
+      "smartMoneyExtremes": "Smart Money อยู่ในระดับสุดโต่ง",
+      "bankSectorDefensive": "ภาคธนาคารนำตลาดเป็นแนวรับ ไม่ใช่การเดินหน้า",
+      "highSectorConcentration": "ความเข้มข้นของภาคส่วนสูง ยืนยันแนวโน้ม",
+      "primaryDriverTemplate": "{driver} เป็นตัวขับเคลื่อนหลัก",
+      "regimeContextTemplate": "Market Regime คือ {regime} ด้วยความมั่นใจ {confidence}%",
+      "smartMoneyContextTemplate": "คะแนน Smart Money คือ {score}/100 ด้วยสัญญาณ: {signal}",
+      "sectorPatternTemplate": "รูปแบบภาคส่วนแสดงให้เห็น {pattern}",
+      "keyConflictTemplate": "ความขัดแย้งหลัก: {conflict}",
+      "proceedWithPositions": "พิจารณา {focus} ลงทุนใน {sectors}. ขับเคลื่อนโดย {driver}",
+      "proceedStandard": "ดำเนินการเทรดต่อ ขับเคลื่อนโดย {driver} รักษาขนาดการลงทุนตามปกติ",
+      "reduceExposure": "ลดความเสี่ยงใน {sectors} ใช้จุดตัดขาดที่แน่นขึ้น",
+      "exerciseCaution": "ใช้ความระมัดระวังกับการเปิด Position ใหม่ พิจารณาลดขนาดการลงทุนลง 25-50%",
+      "waitClearerSignals": "รอสัญญาณที่ชัดเจนกว่านี้ สภาพตลาดปัจจุบันยังไม่ชัดเจนพอสำหรับการเทรดที่มั่นใจ",
+      "mixedSignals": "สัญญาณตลาดผสมปนเป รักษา Position ที่มีอยู่และรอความชัดเจนของแนวโน้ม",
+      "regimeScore": "คะแนน Regime",
+      "smartMoneyScore": "คะแนน Smart Money",
+      "foreignScore": "คะแนนกระแสเงินต่างชาติ",
+      "sectorScore": "คะแนนภาคส่วน",
+      "finalScore": "คะแนนรวม",
+      "scoreTemplate": "{score}/100 (น้ำหนัก: {weight})",
+      "foreignDomesticDivergence": "นักลงทุนต่างชาติ {foreignStrength} ขณะที่ {domesticType} {domesticStrength}",
+      "regimeSmartMoneyMismatch": "Market Regime คือ {regime} แต่คะแนน Smart Money ต่ำ ({score}/100)",
+      "regimeSectorMismatch": "Regime เป็น Risk-On แต่ภาคส่วนป้องกันเป็นผู้นำ",
+      "smartMoneyContradiction": "นักลงทุนต่างชาติ {foreignStrength} แต่สถาบัน {institutionStrength}"
+    }
   }
 }

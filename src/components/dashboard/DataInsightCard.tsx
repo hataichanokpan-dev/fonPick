@@ -18,6 +18,7 @@
 
 import { useState, useEffect } from 'react'
 import { useQuery } from '@tanstack/react-query'
+import { useTranslations } from 'next-intl'
 import { Card } from '@/components/shared/Card'
 import { Badge } from '@/components/shared/Badge'
 import {
@@ -31,7 +32,7 @@ import {
   TrendingDown,
   Minus,
 } from 'lucide-react'
-import type { DataInsight, Verdict, PrimaryDriver } from '@/types/data-insight'
+import type { DataInsight, Verdict, PrimaryDriver, ConvictionLevel } from '@/types/data-insight'
 
 // ============================================================================
 // TYPES
@@ -108,9 +109,11 @@ interface ConflictDetailProps {
   label: string
   value: string
   confidence: number
+  /** Translation function for value */
+  t?: (key: string) => string
 }
 
-function ConflictDetail({ label, value, confidence }: ConflictDetailProps) {
+function ConflictDetail({ label, value, confidence, t }: ConflictDetailProps) {
   const getValueColor = () => {
     const lowerValue = value.toLowerCase()
     if (lowerValue.includes('risk-on') || lowerValue.includes('buy') || lowerValue.includes('strong')) {
@@ -151,10 +154,27 @@ function ConflictDetail({ label, value, confidence }: ConflictDetailProps) {
 
 interface VerdictBadgeProps {
   verdict: Verdict
+  /** Translation function */
+  t: (key: string) => string
 }
 
-function VerdictBadge({ verdict }: VerdictBadgeProps) {
+function VerdictBadge({ verdict, t }: VerdictBadgeProps) {
   const colors = VERDICT_COLORS[verdict]
+
+  const getVerdictLabel = (): string => {
+    switch (verdict) {
+      case 'PROCEED':
+        return t('verdict.proceed')
+      case 'CAUTION':
+        return t('verdict.caution')
+      case 'WAIT':
+        return t('verdict.wait')
+      case 'NEUTRAL':
+        return t('verdict.neutral')
+      default:
+        return verdict
+    }
+  }
 
   return (
     <div
@@ -169,7 +189,7 @@ function VerdictBadge({ verdict }: VerdictBadgeProps) {
       {verdict === 'CAUTION' && <AlertTriangle className="w-3.5 h-3.5" />}
       {verdict === 'WAIT' && <Minus className="w-3.5 h-3.5" />}
       {verdict === 'NEUTRAL' && <Info className="w-3.5 h-3.5" />}
-      <span>{verdict}</span>
+      <span>{getVerdictLabel()}</span>
     </div>
   )
 }
@@ -198,6 +218,10 @@ function DataInsightSkeleton() {
 // ============================================================================
 
 export function DataInsightCard({ className, showOnLoad }: DataInsightCardProps) {
+  const t = useTranslations('dashboard.dataInsight')
+  const tRegime = useTranslations('dashboard.regime')
+  const tSmartMoney = useTranslations('dashboard.smartMoney')
+
   // State management
   const [isExpanded, setIsExpanded] = useState(false)
   const [isDismissed, setIsDismissed] = useState(false)
@@ -267,14 +291,182 @@ export function DataInsightCard({ className, showOnLoad }: DataInsightCardProps)
 
   // Get primary driver label
   const getPrimaryDriverLabel = (driver: PrimaryDriver): string => {
-    const labels: Record<PrimaryDriver, string> = {
-      'Foreign Flow': 'Foreign Investors',
-      'Smart Money': 'Smart Money',
-      'Market Regime': 'Market Regime',
-      'Sector Strength': 'Sector Leaders',
-      'None': 'None',
+    switch (driver) {
+      case 'Foreign Flow':
+        return t('primaryDriver.foreignFlow')
+      case 'Smart Money':
+        return t('primaryDriver.smartMoney')
+      case 'Market Regime':
+        return t('primaryDriver.marketRegime')
+      case 'Sector Strength':
+        return t('primaryDriver.sectorStrength')
+      case 'None':
+        return t('primaryDriver.none')
+      default:
+        return driver
     }
-    return labels[driver] || driver
+  }
+
+  // Translate conviction level
+  const translateConviction = (conviction: ConvictionLevel): string => {
+    switch (conviction) {
+      case 'High':
+        return t('conviction.high')
+      case 'Medium':
+        return t('conviction.medium')
+      case 'Low':
+        return t('conviction.low')
+      default:
+        return conviction
+    }
+  }
+
+  // Translate combined signal from smart money (used by multiple functions)
+  const translateStrength = (strength: string): string => {
+    const strengthMap: Record<string, string> = {
+      'Strong Buy': tSmartMoney('strongBuy'),
+      'Buy': tSmartMoney('buy'),
+      'Strong Sell': tSmartMoney('strongSell'),
+      'Sell': tSmartMoney('sell'),
+      'Neutral': tSmartMoney('neutral'),
+    }
+    return strengthMap[strength] || strength
+  }
+
+  // Translate conflict descriptions from conflict-detector
+  const translateConflictDescription = (description: string): string => {
+    let translated = description
+
+    // Foreign-Domestic Divergence: "Foreign investors are Strong Buy while retail is Strong Sell"
+    const foreignDomesticMatch = translated.match(/Foreign investors are (\w+(?: \w+)?) while (\w+) is (\w+(?: \w+)?)/)
+    if (foreignDomesticMatch) {
+      const [, foreignStrength, domesticType, domesticStrength] = foreignDomesticMatch
+      const translatedForeignStrength = translateStrength(foreignStrength)
+      const translatedDomesticStrength = translateStrength(domesticStrength)
+      const translatedDomesticType = domesticType === 'retail'
+        ? tSmartMoney('retail')
+        : tSmartMoney('prop')
+      return t('messages.foreignDomesticDivergence', {
+        foreignStrength: translatedForeignStrength,
+        domesticType: translatedDomesticType,
+        domesticStrength: translatedDomesticStrength
+      })
+    }
+
+    // Regime-Smart Money Mismatch: "Market regime is Risk-On but smart money score is low (45.00/100)"
+    const regimeSmartMoneyMatch = translated.match(/Market regime is (\w+(?:-\w+)?) but smart money score is low \(([\d.]+)\/100\)/)
+    if (regimeSmartMoneyMatch) {
+      const [, regime, score] = regimeSmartMoneyMatch
+      const translatedRegime = regime === 'Risk-On'
+        ? tRegime('riskOn')
+        : regime === 'Risk-Off'
+          ? tRegime('riskOff')
+          : tRegime('neutral')
+      return t('messages.regimeSmartMoneyMismatch', { regime: translatedRegime, score })
+    }
+
+    // Regime-Sector Mismatch: "Regime is Risk-On but defensive sectors are leading"
+    if (translated.includes('Regime is Risk-On but defensive sectors are leading')) {
+      return t('messages.regimeSectorMismatch')
+    }
+
+    // Smart Money Contradiction: "Foreign is Strong Buy but Institution is Sell"
+    const smartMoneyContradictionMatch = translated.match(/Foreign is (\w+(?: \w+)?) but Institution is (\w+(?: \w+)?)/)
+    if (smartMoneyContradictionMatch) {
+      const [, foreignStrength, institutionStrength] = smartMoneyContradictionMatch
+      const translatedForeignStrength = translateStrength(foreignStrength)
+      const translatedInstitutionStrength = translateStrength(institutionStrength)
+      return t('messages.smartMoneyContradiction', {
+        foreignStrength: translatedForeignStrength,
+        institutionStrength: translatedInstitutionStrength
+      })
+    }
+
+    return translated
+  }
+
+  // Translate explanation (composed of multiple parts)
+  const translateExplanation = (explanation: string): string => {
+    let translated = explanation
+
+    // Translate primary driver template
+    translated = translated.replace(
+      /(\w+(?: \w+)*) is the primary driver\./,
+      (match, driver) => {
+        const translatedDriver = getPrimaryDriverLabel(driver as PrimaryDriver)
+        return t('messages.primaryDriverTemplate', { driver: translatedDriver })
+      }
+    )
+
+    // Translate regime context
+    translated = translated.replace(
+      /Market regime is (Risk-On|Neutral|Risk-Off) with (\d+)% confidence\./,
+      (match, regime, confidence) => {
+        const translatedRegime = regime === 'Risk-On'
+          ? tRegime('riskOn')
+          : regime === 'Risk-Off'
+            ? tRegime('riskOff')
+            : tRegime('neutral')
+        return t('messages.regimeContextTemplate', { regime: translatedRegime, confidence })
+      }
+    )
+
+    // Translate smart money context
+    translated = translated.replace(
+      /Smart money score is ([\d.]+)\/100 with signal: ([\w\s]+)\./,
+      (match, score, signal) => {
+        const translatedSignal = translateStrength(signal)
+        return t('messages.smartMoneyContextTemplate', { score, signal: translatedSignal })
+      }
+    )
+
+    // Translate sector pattern
+    translated = translated.replace(
+      /Sector pattern shows ([\w\s\/]+)\./,
+      (match, pattern) => t('messages.sectorPatternTemplate', { pattern })
+    )
+
+    // Translate key conflict
+    translated = translated.replace(
+      /Key conflict: (.+)/,
+      (match, conflict) => t('messages.keyConflictTemplate', { conflict })
+    )
+
+    return translated
+  }
+
+  // Translate actionable takeaway (with dynamic values)
+  const translateActionableTakeaway = (takeaway: string): string => {
+    // Actionable takeaway exact match messages
+    const actionMessageMap: Record<string, string> = {
+      'Proceed with trades. Driven by {primaryDriver}. Maintain standard position sizing.': t('messages.proceedStandard'),
+      'Exercise caution with new positions. Consider reducing position sizes by 25-50%.': t('messages.exerciseCaution'),
+      'Wait for clearer signals. Current market conditions are too ambiguous for high-conviction trades.': t('messages.waitClearerSignals'),
+      'Market signals are mixed. Hold existing positions and wait for directional clarity.': t('messages.mixedSignals'),
+    }
+
+    // Check for exact matches first
+    if (actionMessageMap[takeaway]) {
+      return actionMessageMap[takeaway]
+    }
+
+    // Try pattern matching
+    // "Consider OVERWEIGHT positions in ENERGY, TECHNOLOGY. Driven by Foreign Flow."
+    const proceedWithPositionsMatch = takeaway.match(/Consider (\w+) positions in ([^.]+)\. Driven by (.+)\./)
+    if (proceedWithPositionsMatch) {
+      const [, focus, sectors, driver] = proceedWithPositionsMatch
+      const translatedDriver = getPrimaryDriverLabel(driver as PrimaryDriver)
+      return t('messages.proceedWithPositions', { focus, sectors, driver: translatedDriver })
+    }
+
+    // "Reduce exposure to BANKS, ENERGY. Use tighter stops."
+    const reduceExposureMatch = takeaway.match(/Reduce exposure to ([^.]+)\. Use tighter stops\./)
+    if (reduceExposureMatch) {
+      const [, sectors] = reduceExposureMatch
+      return t('messages.reduceExposure', { sectors })
+    }
+
+    return takeaway
   }
 
   return (
@@ -289,13 +481,13 @@ export function DataInsightCard({ className, showOnLoad }: DataInsightCardProps)
         <div className="flex items-start justify-between mb-3">
           <div className="flex items-center gap-2">
             <Shuffle className="w-4 h-4 text-info" />
-            <h3 className="text-sm font-bold text-text-primary">MARKET INSIGHT</h3>
+            <h3 className="text-sm font-bold text-text-primary">{t('title')}</h3>
           </div>
           <div className="flex items-center gap-2">
             {/* Priority Badge (show for conflicts) */}
             {insight.keyConflictAlert && (
               <Badge size="sm" color="warning">
-                P0
+                {t('priority')}
               </Badge>
             )}
             {/* Dismiss Button */}
@@ -319,24 +511,24 @@ export function DataInsightCard({ className, showOnLoad }: DataInsightCardProps)
           >
             <AlertTriangle className="w-4 h-4 text-warning flex-shrink-0 mt-0.5" />
             <p className="text-xs text-text-secondary leading-relaxed">
-              {insight.keyConflictAlert}
+              {translateConflictDescription(insight.keyConflictAlert)}
             </p>
           </div>
         )}
 
         {/* Verdict Badge (Primary) */}
         <div className="flex items-center justify-center my-3">
-          <VerdictBadge verdict={insight.verdict} />
+          <VerdictBadge verdict={insight.verdict} t={t} />
         </div>
 
         {/* Explanation (Secondary) */}
         <p className="text-sm text-text-primary text-center leading-relaxed mb-3">
-          {insight.explanation}
+          {translateExplanation(insight.explanation)}
         </p>
 
         {/* Primary Driver (Tertiary) */}
         <div className="flex items-center justify-center gap-2 mb-3">
-          <span className="text-xs text-text-muted">Driver:</span>
+          <span className="text-xs text-text-muted">{t('driver')}</span>
           <span className="text-xs font-semibold text-text-secondary">
             {getPrimaryDriverLabel(insight.primaryDriver)}
           </span>
@@ -346,7 +538,7 @@ export function DataInsightCard({ className, showOnLoad }: DataInsightCardProps)
         <div className="flex items-center justify-center gap-3 mb-3 pb-3 border-b border-border-subtle">
           <ConfidenceDots confidence={insight.confidence} />
           <span className="text-xs text-text-muted tabular-nums">
-            {insight.conviction} ({insight.confidence}%)
+            {translateConviction(insight.conviction)} ({insight.confidence}%)
           </span>
         </div>
 
@@ -355,30 +547,34 @@ export function DataInsightCard({ className, showOnLoad }: DataInsightCardProps)
           <div className="pt-2 space-y-1.5">
             {insight.conflictingSignals.regime && (
               <ConflictDetail
-                label="Regime"
+                label={t('conflictLabels.regime')}
                 value={insight.conflictingSignals.regime.value}
                 confidence={insight.conflictingSignals.regime.confidence}
+                t={t}
               />
             )}
             {insight.conflictingSignals.smartMoney && (
               <ConflictDetail
-                label="Smart Money"
+                label={t('conflictLabels.smartMoney')}
                 value={insight.conflictingSignals.smartMoney.value}
                 confidence={insight.conflictingSignals.smartMoney.confidence}
+                t={t}
               />
             )}
             {insight.conflictingSignals.foreign && (
               <ConflictDetail
-                label="Foreign Flow"
+                label={t('conflictLabels.foreignFlow')}
                 value={insight.conflictingSignals.foreign.value}
                 confidence={insight.conflictingSignals.foreign.confidence}
+                t={t}
               />
             )}
             {insight.conflictingSignals.sector && (
               <ConflictDetail
-                label="Sectors"
+                label={t('conflictLabels.sectors')}
                 value={insight.conflictingSignals.sector.value}
                 confidence={insight.conflictingSignals.sector.confidence}
+                t={t}
               />
             )}
           </div>
@@ -387,8 +583,8 @@ export function DataInsightCard({ className, showOnLoad }: DataInsightCardProps)
           {insight.actionableTakeaway && (
             <div className="mt-3 p-2.5 rounded-md bg-info/10 border border-info/20">
               <p className="text-xs text-text-secondary leading-relaxed">
-                <span className="font-semibold text-info">Takeaway:</span>{' '}
-                {insight.actionableTakeaway}
+                <span className="font-semibold text-info">{t('takeaway')}</span>{' '}
+                {translateActionableTakeaway(insight.actionableTakeaway)}
               </p>
             </div>
           )}
@@ -399,7 +595,7 @@ export function DataInsightCard({ className, showOnLoad }: DataInsightCardProps)
           onClick={() => setIsExpanded(!isExpanded)}
           className="w-full flex items-center justify-center gap-1.5 mt-2 py-1.5 text-xs text-text-muted hover:text-text-secondary hover:scale-[1.02] active:scale-[0.98] transition-all duration-150"
         >
-          <span>{isExpanded ? 'Hide Details' : 'Show Details'}</span>
+          <span>{isExpanded ? t('hideDetails') : t('showDetails')}</span>
           {isExpanded ? (
             <ChevronUp className="w-3.5 h-3.5" />
           ) : (
