@@ -102,7 +102,7 @@ export default function HomePage() {
           subtitle={t('p2.subtitle')}
         />
         <TabbedMovers
-          topCount={5}
+          topCount={10}
           useModernCard={true}
           enableSwipeableCards={true}
           className="mt-5"

@@ -250,8 +250,8 @@ export function StockPageClient({ symbol, children }: StockPageClientProps) {
   // Get support/resistance levels from 3-Year Price History
   const { data: srLevels } = useSupportResistanceLevels({
     symbol,
-    years: 3,
-    interval: "1d",
+    years: 5,
+    interval: "1wk",
   });
 
   // Get EPS history from yearly operations data

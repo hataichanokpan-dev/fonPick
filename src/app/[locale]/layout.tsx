@@ -44,10 +44,10 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/favicon.svg', type: 'image/svg+xml' },
-      { url: '/icon-192.svg', sizes: '192x192', type: 'image/svg+xml' },
+      { url: '/logo.png', sizes: '192x192', type: 'image/png' },
+      { url: '/logo.png', sizes: '512x512', type: 'image/png' },
     ],
-    apple: [{ url: '/icon-192.svg', sizes: '192x192', type: 'image/svg+xml' }],
+    apple: [{ url: '/logo.png', sizes: '192x192', type: 'image/png' }],
   },
 }
 
