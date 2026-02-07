@@ -42,7 +42,7 @@ import {
   type ScreeningInputData,
 } from "@/components/stock/screening/utils/score-calculator";
 import { AIInsightsCard } from "@/components/stock/screening/AIInsightsCard";
-import { QualityScreenCard } from "@/components/stock/screening/QualityScreenCard";
+import { QualityScreenDialog } from "@/components/stock/screening/QualityScreenDialog";
 import {
   TrendingUp,
   TrendingDown,
@@ -148,6 +148,7 @@ function StockHeader({
   peRatio,
   subSector,
   subSectorEn,
+  onToggleQualityScreen,
 }: {
   symbol: string;
   price: number;
@@ -159,6 +160,7 @@ function StockHeader({
   peRatio: number;
   subSector?: string;
   subSectorEn?: string;
+  onToggleQualityScreen?: () => void;
 }) {
   const t = useTranslations("stock");
   const locale = useLocale();
@@ -190,10 +192,15 @@ function StockHeader({
             {(subSector || subSectorEn) && (
               <>
                 <span className="text-text-3">•</span>
-                <Tag className="w-3.5 h-3.5 text-accent-teal" />
-                <span className="text-accent-teal font-medium">
-                  {isThai ? subSector : subSectorEn}
-                </span>
+                <button
+                  onClick={onToggleQualityScreen}
+                  className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-accent-teal/10 hover:bg-accent-teal/20 transition-colors cursor-pointer"
+                >
+                  <Tag className="w-3.5 h-3.5 text-accent-teal" />
+                  <span className="text-accent-teal font-medium">
+                    {isThai ? subSector : subSectorEn}
+                  </span>
+                </button>
               </>
             )}
           </div>
@@ -267,6 +274,9 @@ export function StockPageClient({ symbol, children }: StockPageClientProps) {
     subSectorEn?: string;
     sector?: string;
   } | null>(null);
+
+  // Quality Screen Dialog state
+  const [qualityScreenOpen, setQualityScreenOpen] = useState(false);
 
   // Fetch stock metadata on mount
   useEffect(() => {
@@ -430,7 +440,8 @@ export function StockPageClient({ symbol, children }: StockPageClientProps) {
       : null;
 
   return (
-    <div className="space-y-6">
+    <>
+      <div className="space-y-6">
       {/* Header with Watchlist */}
       <div className="flex items-start justify-between gap-4">
         <div className="flex-1">
@@ -450,6 +461,7 @@ export function StockPageClient({ symbol, children }: StockPageClientProps) {
               peRatio={overview.peRatio}
               subSector={stockMetadata?.subSector}
               subSectorEn={stockMetadata?.subSectorEn}
+              onToggleQualityScreen={() => setQualityScreenOpen(true)}
             />
           )}
         </div>
@@ -660,16 +672,18 @@ export function StockPageClient({ symbol, children }: StockPageClientProps) {
         <DividendAnalysisCard symbol={symbol} currentPrice={overview?.price ?? 100} />
       </div>
 
-      {/* Quality Screen Card - Shows sub-sector specific screening criteria */}
+      <div className="mb-4"></div>
+      </div>
+
+      {/* Quality Screen Dialog - Shows when clicking subsector tag */}
       {stockMetadata?.subSectorEn && (
-        <QualityScreenCard
+        <QualityScreenDialog
           subSector={stockMetadata.subSectorEn}
           locale={locale}
-          className="rounded-xl bg-surface border border-border"
+          open={qualityScreenOpen}
+          onOpenChange={setQualityScreenOpen}
         />
       )}
-
-      <div className="mb-4"></div>
-    </div>
+    </>
   );
 }
