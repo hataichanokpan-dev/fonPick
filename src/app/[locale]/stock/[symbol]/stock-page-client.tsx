@@ -25,7 +25,6 @@ import {
   PriceHistoryCard,
 } from "@/components/stock";
 import { ValuationMetricsCard } from "@/components/stock/valuation";
-import { DividendAnalysisCard } from "@/components/stock/dividend";
 import { useAnalytics } from "@/hooks/useAnalytics";
 import {
   TotalScoreCard,
