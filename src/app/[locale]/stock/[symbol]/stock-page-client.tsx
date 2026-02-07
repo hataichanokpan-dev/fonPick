@@ -282,7 +282,9 @@ export function StockPageClient({ symbol, children }: StockPageClientProps) {
   useEffect(() => {
     async function fetchMetadata() {
       try {
-        const response = await fetch(`/api/stocks/lookup/${encodeURIComponent(symbol)}`);
+        const response = await fetch(
+          `/api/stocks/lookup/${encodeURIComponent(symbol)}`,
+        );
         const result = await response.json();
         if (result.success && result.data) {
           setStockMetadata({
@@ -292,7 +294,7 @@ export function StockPageClient({ symbol, children }: StockPageClientProps) {
           });
         }
       } catch (err) {
-        console.error('Failed to fetch stock metadata:', err);
+        console.error("Failed to fetch stock metadata:", err);
       }
     }
     fetchMetadata();
@@ -321,7 +323,6 @@ export function StockPageClient({ symbol, children }: StockPageClientProps) {
     // Get support level from calculated data (from 3-Year Price History)
     const supportLevel = srLevels?.support ?? null;
 
-    
     const screeningInput: ScreeningInputData = {
       // Layer 1: Universe
       marketCap: statistics.marketCap || 0,
@@ -424,7 +425,7 @@ export function StockPageClient({ symbol, children }: StockPageClientProps) {
   }
 
   const { overview, statistics, alpha } = data;
- 
+
   // Use screening with AI score (or fallback to original screening)
   const screening = screeningWithAI || data.screening;
 
@@ -442,237 +443,242 @@ export function StockPageClient({ symbol, children }: StockPageClientProps) {
   return (
     <>
       <div className="space-y-6">
-      {/* Header with Watchlist */}
-      <div className="flex items-start justify-between gap-4">
-        <div className="flex-1">
-          {overview && (
-            <StockHeader
-              symbol={symbol}
-              price={overview.price}
-              change={overview.price - overview.previousClose}
-              changePercent={
-                ((overview.price - overview.previousClose) /
-                  overview.previousClose) *
-                100
-              }
-              marketCapString={overview.marketCap}
-              marketCap={parseMarketCap(overview.marketCap)}
-              volume={overview.volume}
-              peRatio={overview.peRatio}
-              subSector={stockMetadata?.subSector}
-              subSectorEn={stockMetadata?.subSectorEn}
-              onToggleQualityScreen={() => setQualityScreenOpen(true)}
-            />
-          )}
-        </div>
-      </div>
-
-      {/* Screening Analysis */}
-      {screening && (
-        <div className="space-y-4">
-          {/* Section header */}
-          <div className="flex items-center justify-between">
-            <h2 className="text-lg font-semibold text-text-primary">
-              {t("page.screening")}
-            </h2>
-            <div className="flex gap-2">
-              <button
-                onClick={expandAll}
-                className="text-xs px-2 py-1.5 rounded-lg 
-                bg-surface-2 border border-border hover:bg-surface-3 transition-colors"
-              >
-                <EyeIcon className="w-4 h-4 hover:text-accent-blue" />
-              </button>
-              <button
-                onClick={collapseAll}
-                className="text-xs px-2 py-1.5 rounded-lg 
-                bg-surface-2 border border-border hover:bg-surface-3 transition-colors"
-              >
-                <EyeClosed className="w-4 h-4 hover:text-accent-blue" />
-              </button>
-            </div>
+        {/* Header with Watchlist */}
+        <div className="flex items-start justify-between gap-4">
+          <div className="flex-1">
+            {overview && (
+              <StockHeader
+                symbol={symbol}
+                price={overview.price}
+                change={overview.price - overview.previousClose}
+                changePercent={
+                  ((overview.price - overview.previousClose) /
+                    overview.previousClose) *
+                  100
+                }
+                marketCapString={overview.marketCap}
+                marketCap={parseMarketCap(overview.marketCap)}
+                volume={overview.volume}
+                peRatio={overview.peRatio}
+                subSector={stockMetadata?.subSector}
+                subSectorEn={stockMetadata?.subSectorEn}
+                onToggleQualityScreen={() => setQualityScreenOpen(true)}
+              />
+            )}
           </div>
+        </div>
 
-          {/* Desktop: Two-column layout */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-            {/* Left column: Total score + Universe */}
-            <div className="space-y-4">
-              {/* Total Score Card (Sticky) */}
-              <div className="lg:sticky lg:top-4">
-                <TotalScoreCard
-                  totalScore={screening.totalScore}
-                  maxScore={screening.maxScore}
-                  decision={screening.decision}
-                  confidence={screening.confidence}
-                  confidencePercent={screening.confidencePercent}
-                  layers={{
-                    universe: {
-                      score: screening.layers.universe.totalScore,
-                      passed: screening.layers.universe.allPassed,
-                    },
-                    quality: { score: screening.layers.quality.totalScore },
-                    valueGrowth: {
-                      score: screening.layers.valueGrowth.totalScore,
-                    },
-                    technical: { score: screening.layers.technical.totalScore },
-                  }}
-                  summary={screening.summary}
-                  rationale={screening.rationale}
-                />
+        {/* Screening Analysis */}
+        {screening && (
+          <div className="space-y-4">
+            {/* Section header */}
+            <div className="flex items-center justify-between">
+              <h2 className="text-lg font-semibold text-text-primary">
+                {t("page.screening")}
+              </h2>
+              <div className="flex gap-2">
+                <button
+                  onClick={expandAll}
+                  className="text-xs px-2 py-1.5 rounded-lg 
+                bg-surface-2 border border-border hover:bg-surface-3 transition-colors"
+                >
+                  <EyeIcon className="w-4 h-4 hover:text-accent-blue" />
+                </button>
+                <button
+                  onClick={collapseAll}
+                  className="text-xs px-2 py-1.5 rounded-lg 
+                bg-surface-2 border border-border hover:bg-surface-3 transition-colors"
+                >
+                  <EyeClosed className="w-4 h-4 hover:text-accent-blue" />
+                </button>
+              </div>
+            </div>
+
+            {/* Desktop: Two-column layout */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+              {/* Left column: Total score + Universe */}
+              <div className="space-y-4">
+                {/* Total Score Card (Sticky) */}
+                <div className="lg:sticky lg:top-4">
+                  <TotalScoreCard
+                    totalScore={screening.totalScore}
+                    maxScore={screening.maxScore}
+                    decision={screening.decision}
+                    confidence={screening.confidence}
+                    confidencePercent={screening.confidencePercent}
+                    layers={{
+                      universe: {
+                        score: screening.layers.universe.totalScore,
+                        passed: screening.layers.universe.allPassed,
+                      },
+                      quality: { score: screening.layers.quality.totalScore },
+                      valueGrowth: {
+                        score: screening.layers.valueGrowth.totalScore,
+                      },
+                      technical: {
+                        score: screening.layers.technical.totalScore,
+                      },
+                    }}
+                    summary={screening.summary}
+                    rationale={screening.rationale}
+                  />
+                </div>
+
+                {/* Layer 1: Universe */}
+                <LayerCard
+                  layer={1}
+                  title="UNIVERSE"
+                  thaiTitle="กรองพื้นฐาน"
+                  description="Basic eligibility filters"
+                  thaiDescription="เกณฑ์การคัดเลือกพื้นฐาน"
+                  score={screening.layers.universe.totalScore}
+                  maxScore={screening.layers.universe.maxScore}
+                  color="universe"
+                  expanded={expandedLayers[1]}
+                  onToggle={() => toggleLayer(1)}
+                >
+                  {overview && statistics && (
+                    <Layer1Universe
+                      marketCap={
+                        statistics.marketCap < 100
+                          ? statistics.marketCap * 10 ** 12
+                          : statistics.marketCap
+                      }
+                      volume={overview.volume}
+                      compact={compact}
+                    />
+                  )}
+                </LayerCard>
               </div>
 
-              {/* Layer 1: Universe */}
-              <LayerCard
-                layer={1}
-                title="UNIVERSE"
-                thaiTitle="กรองพื้นฐาน"
-                description="Basic eligibility filters"
-                thaiDescription="เกณฑ์การคัดเลือกพื้นฐาน"
-                score={screening.layers.universe.totalScore}
-                maxScore={screening.layers.universe.maxScore}
-                color="universe"
-                expanded={expandedLayers[1]}
-                onToggle={() => toggleLayer(1)}
-              >
-                {overview && statistics && (
-                  <Layer1Universe
-                    marketCap={statistics.marketCap < 100 ? statistics.marketCap * (10 ** 12) : statistics.marketCap}
-                    volume={overview.volume}
-                    compact={compact}
-                  />
-                )}
-              </LayerCard>
-            </div>
+              {/* Right column: Quality, Value+Growth, Technical */}
+              <div className="lg:col-span-2 space-y-4">
+                {/* Layer 2: Quality */}
+                <LayerCard
+                  layer={2}
+                  title="QUALITY"
+                  thaiTitle="คุณภาพ"
+                  description="Financial quality metrics"
+                  thaiDescription="ตัวชี้วัดคุณภาพทางการเงิน"
+                  score={screening.layers.quality.totalScore}
+                  maxScore={screening.layers.quality.maxScore}
+                  color="quality"
+                  expanded={expandedLayers[2]}
+                  onToggle={() => toggleLayer(2)}
+                >
+                  {statistics && (
+                    <Layer2Quality
+                      data={{
+                        pegRatio: statistics.pegRatio,
+                        profitMargin: statistics.profitMargin,
+                        returnOnEquity: statistics.returnOnEquity,
+                        returnOnInvestedCapital:
+                          statistics.returnOnInvestedCapital,
+                        debtToEquity: statistics.debtToEquity,
+                        fcfYield: statistics.fcfYield,
+                        operatingCashFlow: statistics.operatingCashFlow,
+                        netIncome: statistics.netIncome,
+                      }}
+                      compact={compact}
+                    />
+                  )}
+                </LayerCard>
 
-            {/* Right column: Quality, Value+Growth, Technical */}
-            <div className="lg:col-span-2 space-y-4">
-              {/* Layer 2: Quality */}
-              <LayerCard
-                layer={2}
-                title="QUALITY"
-                thaiTitle="คุณภาพ"
-                description="Financial quality metrics"
-                thaiDescription="ตัวชี้วัดคุณภาพทางการเงิน"
-                score={screening.layers.quality.totalScore}
-                maxScore={screening.layers.quality.maxScore}
-                color="quality"
-                expanded={expandedLayers[2]}
-                onToggle={() => toggleLayer(2)}
-              >
-                {statistics && (
-                  <Layer2Quality
-                    data={{
-                      pegRatio: statistics.pegRatio,
-                      profitMargin: statistics.profitMargin,
-                      returnOnEquity: statistics.returnOnEquity,
-                      returnOnInvestedCapital:
-                        statistics.returnOnInvestedCapital,
-                      debtToEquity: statistics.debtToEquity,
-                      fcfYield: statistics.fcfYield,
-                      operatingCashFlow: statistics.operatingCashFlow,
-                      netIncome: statistics.netIncome,
-                    }}
-                    compact={compact}
-                  />
-                )}
-              </LayerCard>
+                {/* Layer 3: Value + Growth */}
+                <LayerCard
+                  layer={3}
+                  title="VALUE + GROWTH"
+                  thaiTitle="มูลค่าและการเติบโต"
+                  description="Valuation and growth metrics"
+                  thaiDescription="ตัวชี้วัดมูลค่าและการเติบโต"
+                  score={screening.layers.valueGrowth.totalScore}
+                  maxScore={screening.layers.valueGrowth.maxScore}
+                  color="value"
+                  expanded={expandedLayers[3]}
+                  onToggle={() => toggleLayer(3)}
+                >
+                  {statistics && overview && (
+                    <Layer3ValueGrowth
+                      data={{
+                        peRatio: statistics.peRatio,
+                        pbRatio: statistics.pbRatio,
+                        returnOnEquity: statistics.returnOnEquity,
+                        dividendYield: statistics.dividendYield,
+                        pfcfRatio: statistics.pfcfRatio,
+                        marketCap: statistics.marketCap,
+                        epsGrowthYoY: epsCagr5Y ?? 0.05, // From yearly operations data
+                        epsAcceleration: 0.02, // TODO: From quarterly data
+                        epsCurrent: currentEps ?? statistics.eps, // From yearly operations data
+                        eps5YearsAgo: undefined, // Calculated from CAGR in component
+                        epsHistory: epsHistory ?? undefined, // Real EPS history from API
+                      }}
+                      compact={compact}
+                    />
+                  )}
+                </LayerCard>
 
-              {/* Layer 3: Value + Growth */}
-              <LayerCard
-                layer={3}
-                title="VALUE + GROWTH"
-                thaiTitle="มูลค่าและการเติบโต"
-                description="Valuation and growth metrics"
-                thaiDescription="ตัวชี้วัดมูลค่าและการเติบโต"
-                score={screening.layers.valueGrowth.totalScore}
-                maxScore={screening.layers.valueGrowth.maxScore}
-                color="value"
-                expanded={expandedLayers[3]}
-                onToggle={() => toggleLayer(3)}
-              >
-                {statistics && overview && (
-                  <Layer3ValueGrowth
-                    data={{
-                      peRatio: statistics.peRatio,
-                      pbRatio: statistics.pbRatio,
-                      returnOnEquity: statistics.returnOnEquity,
-                      dividendYield: statistics.dividendYield,
-                      pfcfRatio: statistics.pfcfRatio,
-                      marketCap: statistics.marketCap,
-                      epsGrowthYoY: epsCagr5Y ?? 0.05, // From yearly operations data
-                      epsAcceleration: 0.02, // TODO: From quarterly data
-                      epsCurrent: currentEps ?? statistics.eps, // From yearly operations data
-                      eps5YearsAgo: undefined, // Calculated from CAGR in component
-                      epsHistory: epsHistory ?? undefined, // Real EPS history from API
-                    }}
-                    compact={compact}
-                  />
-                )}
-              </LayerCard>
+                {/* Layer 4: Technical + Catalyst */}
+                <LayerCard
+                  layer={4}
+                  title="TECHNICAL + CATALYST"
+                  thaiTitle="เทคนิคและเหตุการณ์"
+                  description="Technical analysis and catalysts"
+                  thaiDescription="การวิเคราะห์เทคนิคและเหตุการณ์สำคัญ"
+                  score={screening.layers.technical.totalScore}
+                  maxScore={screening.layers.technical.maxScore}
+                  color="technical"
+                  expanded={expandedLayers[4]}
+                  onToggle={() => toggleLayer(4)}
+                >
+                  {statistics && overview && (
+                    <Layer4Technical
+                      data={{
+                        currentPrice: overview.price,
+                        ma50: statistics.movingAverage50D,
+                        rsi: statistics.rsi,
+                        macdPositive: null, // TODO: From API
+                        supportLevel: srLevels?.support ?? null, // Use calculated support from 3-Year History
+                        aiScore: aiScore, // From AI API
+                      }}
+                      compact={compact}
+                    />
+                  )}
+                </LayerCard>
 
-              {/* Layer 4: Technical + Catalyst */}
-              <LayerCard
-                layer={4}
-                title="TECHNICAL + CATALYST"
-                thaiTitle="เทคนิคและเหตุการณ์"
-                description="Technical analysis and catalysts"
-                thaiDescription="การวิเคราะห์เทคนิคและเหตุการณ์สำคัญ"
-                score={screening.layers.technical.totalScore}
-                maxScore={screening.layers.technical.maxScore}
-                color="technical"
-                expanded={expandedLayers[4]}
-                onToggle={() => toggleLayer(4)}
-              >
-                {statistics && overview && (
-                  <Layer4Technical
-                    data={{
-                      currentPrice: overview.price,
-                      ma50: statistics.movingAverage50D,
-                      rsi: statistics.rsi,
-                      macdPositive: null, // TODO: From API
-                      supportLevel: srLevels?.support ?? null, // Use calculated support from 3-Year History
-                      aiScore: aiScore, // From AI API
-                    }}
-                    compact={compact}
-                  />
-                )}
-              </LayerCard>
-
-              {/* AI Insights Card */}
-              <AIInsightsCard
-                symbol={symbol}
-                locale={locale}
-                initialData={catalystData}
-              />
-
-              {/* Entry Plan */}
-              {entryPlan && overview && screening.decision !== "PASS" && (
-                <EntryPlanCard
-                  entryPlan={entryPlan}
-                  currentPrice={overview.price}
+                {/* AI Insights Card */}
+                <AIInsightsCard
+                  symbol={symbol}
+                  locale={locale}
+                  initialData={catalystData}
                 />
-              )}
+
+                {/* Entry Plan */}
+                {entryPlan && overview && screening.decision !== "PASS" && (
+                  <EntryPlanCard
+                    entryPlan={entryPlan}
+                    currentPrice={overview.price}
+                  />
+                )}
+              </div>
             </div>
           </div>
+        )}
+        <hr className="border-border" />
+        {/* Price History Chart */}
+        <div className="rounded-xl bg-surface border border-border p-4 md:p-6">
+          <PriceHistoryCard symbol={symbol} years={3} interval="1d" />
         </div>
-      )}
-      <hr className="border-border" />
-      {/* Price History Chart */}
-      <div className="rounded-xl bg-surface border border-border p-4 md:p-6">
-        <PriceHistoryCard symbol={symbol} years={3} interval="1d" />
-      </div>
 
-      {/* Valuation Metrics Card */}
-      <div className="rounded-xl bg-surface border border-border p-4 md:p-6">
+        {/* Valuation Metrics Card */}
         <ValuationMetricsCard symbol={symbol} />
-      </div>
 
-      {/* Dividend Analysis Card */}
-      <div className="rounded-xl bg-surface border border-border p-4 md:p-6">
-        <DividendAnalysisCard symbol={symbol} currentPrice={overview?.price ?? 100} />
-      </div>
+        {/* Dividend Analysis Card */}
+        <DividendAnalysisCard
+          symbol={symbol}
+          currentPrice={overview?.price ?? 100}
+        />
 
-      <div className="mb-4"></div>
+        <div className="mb-4"></div>
       </div>
 
       {/* Quality Screen Dialog - Shows when clicking subsector tag */}
