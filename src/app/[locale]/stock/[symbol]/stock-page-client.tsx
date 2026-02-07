@@ -300,8 +300,8 @@ export function StockPageClient({ symbol, children }: StockPageClientProps) {
     fetchMetadata();
   }, [symbol]);
 
-  // Fetch AI catalyst score
-  const { aiScore, data: catalystData } = useCatalystScore(symbol, true);
+  // Fetch AI catalyst score (uses job queue mode by default)
+  const { aiScore, data: catalystData } = useCatalystScore(symbol);
 
   // Get support/resistance levels from 3-Year Price History
   const { data: srLevels } = useSupportResistanceLevels({

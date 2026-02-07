@@ -238,15 +238,39 @@ export function parseCatalystAnswer(
 }
 
 /**
+ * Options for catalyst fetch operations
+ */
+export interface CatalystFetchOptions {
+  /** Optional callback for progress updates (0-100, step description) */
+  onProgress?: (progress: number, step: string) => void
+}
+
+/**
  * Fetch and parse catalyst data in one call
  * @param symbol - Stock symbol
+ * @param options - Optional fetch options including progress callback
  * @returns Parsed catalyst data
  */
 export async function fetchAndParseCatalyst(
   symbol: string,
+  options?: CatalystFetchOptions,
 ): Promise<ParsedCatalystData> {
-  const response = await fetchCatalystAnalysis(symbol);
-  return parseCatalystAnswer(response.Answer, response.Score);
+  const { onProgress } = options || {}
+
+  // Report initial progress
+  onProgress?.(10, 'Connecting to AI service...')
+
+  const response = await fetchCatalystAnalysis(symbol)
+
+  // Report processing progress
+  onProgress?.(80, 'Processing results...')
+
+  const parsed = parseCatalystAnswer(response.Answer, response.Score)
+
+  // Report completion
+  onProgress?.(100, 'Complete')
+
+  return parsed
 }
 
 // ============================================================================
