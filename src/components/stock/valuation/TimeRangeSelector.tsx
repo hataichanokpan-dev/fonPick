@@ -32,7 +32,7 @@ export interface TimeRangeSelectorProps {
 // TIME RANGE OPTIONS
 // ============================================================================
 
-const TIME_RANGES: TimeRange[] = ["1Y", "3Y", "5Y", "ALL"];
+const TIME_RANGES: TimeRange[] = ["3Y", "5Y", "ALL"];
 
 // ============================================================================
 // MAIN COMPONENT

@@ -68,14 +68,10 @@ function MetricTab({ metric, isSelected, onSelect }: MetricTabProps) {
       aria-label={`Select ${config.english} metric`}
     >
       {/* Thai Label - larger on mobile for readability */}
-      <span className="font-semibold text-base sm:text-lg leading-tight">
+      <span className="font-semibold text-base sm:text-md leading-tight">
         {config.thai}
       </span>
-
-      {/* English Label - scales appropriately */}
-      <span className="text-[10px] sm:text-[11px] uppercase tracking-wide opacity-70">
-        {config.english}
-      </span>
+ 
 
       {/* Active Indicator - subtle bottom border */}
       {isSelected && (

@@ -285,7 +285,7 @@ export function MetricBandChart({
               // Extra top margin for tooltip on mobile
               top: 10,
               right: 5,
-              left: -20,
+              left: -30,
               bottom: 5,
             }}
           >
@@ -414,7 +414,8 @@ export function MetricBandChart({
               <ReferenceLine
                 x={chartData[chartData.length - 1].timestamp}
                 stroke={chartColors.current}
-                strokeWidth={2}
+                strokeWidth={1}
+                strokeDasharray="3 3"
                 label={{
                   value: config.format(band.currentValue) + config.unit,
                   position: "insideTopLeft",
