@@ -12,7 +12,7 @@
  * - Bilingual support (Thai/English) via next-intl
  */
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { useStockScreening } from "@/hooks/useStockScreening";
 import { useCatalystScore } from "@/hooks/useCatalystScore";
@@ -42,6 +42,7 @@ import {
   type ScreeningInputData,
 } from "@/components/stock/screening/utils/score-calculator";
 import { AIInsightsCard } from "@/components/stock/screening/AIInsightsCard";
+import { QualityScreenCard } from "@/components/stock/screening/QualityScreenCard";
 import {
   TrendingUp,
   TrendingDown,
@@ -49,6 +50,7 @@ import {
   Building2,
   EyeClosed,
   EyeIcon,
+  Tag,
 } from "lucide-react";
 import { safeToFixed } from "@/lib/utils";
 
@@ -144,6 +146,8 @@ function StockHeader({
   marketCapString,
   volume,
   peRatio,
+  subSector,
+  subSectorEn,
 }: {
   symbol: string;
   price: number;
@@ -153,8 +157,12 @@ function StockHeader({
   marketCapString?: string;
   volume: number;
   peRatio: number;
+  subSector?: string;
+  subSectorEn?: string;
 }) {
   const t = useTranslations("stock");
+  const locale = useLocale();
+  const isThai = locale === "th";
   const priceColor = getPriceChangeColor(change);
 
   const { trackEvent } = useAnalytics();
@@ -179,6 +187,15 @@ function StockHeader({
           <div className="flex items-center gap-2 text-sm text-text-2">
             <Building2 className="w-3.5 h-3.5" />
             <span>{t("thaiStock")}</span>
+            {(subSector || subSectorEn) && (
+              <>
+                <span className="text-text-3">•</span>
+                <Tag className="w-3.5 h-3.5 text-accent-teal" />
+                <span className="text-accent-teal font-medium">
+                  {isThai ? subSector : subSectorEn}
+                </span>
+              </>
+            )}
           </div>
         </div>
         <WatchlistButton
@@ -243,6 +260,33 @@ function StockHeader({
 
 export function StockPageClient({ symbol, children }: StockPageClientProps) {
   const { data, isLoading, error, refetch } = useStockScreening(symbol);
+
+  // Stock metadata state (for sub-sector info)
+  const [stockMetadata, setStockMetadata] = useState<{
+    subSector?: string;
+    subSectorEn?: string;
+    sector?: string;
+  } | null>(null);
+
+  // Fetch stock metadata on mount
+  useEffect(() => {
+    async function fetchMetadata() {
+      try {
+        const response = await fetch(`/api/stocks/lookup/${encodeURIComponent(symbol)}`);
+        const result = await response.json();
+        if (result.success && result.data) {
+          setStockMetadata({
+            subSector: result.data.subSector,
+            subSectorEn: result.data.subSectorEn,
+            sector: result.data.sector,
+          });
+        }
+      } catch (err) {
+        console.error('Failed to fetch stock metadata:', err);
+      }
+    }
+    fetchMetadata();
+  }, [symbol]);
 
   // Fetch AI catalyst score
   const { aiScore, data: catalystData } = useCatalystScore(symbol, true);
@@ -404,6 +448,8 @@ export function StockPageClient({ symbol, children }: StockPageClientProps) {
               marketCap={parseMarketCap(overview.marketCap)}
               volume={overview.volume}
               peRatio={overview.peRatio}
+              subSector={stockMetadata?.subSector}
+              subSectorEn={stockMetadata?.subSectorEn}
             />
           )}
         </div>
@@ -613,6 +659,15 @@ export function StockPageClient({ symbol, children }: StockPageClientProps) {
       <div className="rounded-xl bg-surface border border-border p-4 md:p-6">
         <DividendAnalysisCard symbol={symbol} currentPrice={overview?.price ?? 100} />
       </div>
+
+      {/* Quality Screen Card - Shows sub-sector specific screening criteria */}
+      {stockMetadata?.subSectorEn && (
+        <QualityScreenCard
+          subSector={stockMetadata.subSectorEn}
+          locale={locale}
+          className="rounded-xl bg-surface border border-border"
+        />
+      )}
 
       <div className="mb-4"></div>
     </div>
