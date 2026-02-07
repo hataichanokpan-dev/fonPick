@@ -3,7 +3,10 @@
  *
  * ฐานข้อมูลเกณฑ์การคัดเลือกหุ้น (Quality Screen)
  * อ้างอิงจากเอกสาร Thai Stock Screening Criteria
- * ครอบคลุม 90 Sub-sectors
+ * ครอบคลุม 90 Sub-sectors | 932 Companies
+ *
+ * Date: February 7, 2026
+ * Markets: SET (703) + mai (229)
  */
 
 import type { QualityScreenDatabase } from '@/types/quality-screen'
@@ -18,10 +21,1536 @@ const qualityScreenData: QualityScreenDatabase = {
 }
 
 // ============================================================================
-// 8. Technology (4 sub-sectors)
+// 1. FINANCIAL SERVICES (6 sub-sectors | 82 companies)
+// ============================================================================
+
+const financialServices = {
+  Banking: {
+    subSector: 'Banking',
+    subSectorTh: 'ธนาคาร',
+    sector: 'Financial Services',
+    sectorTh: 'ธุรกิจการเงิน',
+    mustPass: [
+      { name: 'NPL Ratio < 3.5%', nameTh: 'สัดส่วนหนี้สงสัย < 3.5%', benchmark: '<3.5%' },
+      { name: 'ROE > 10%', nameTh: 'ผลตอบแทนต่อผู้ถือหุ้น > 10%', benchmark: '>10%' },
+      { name: 'NIM > 3.0%', nameTh: 'กำไรจากดอกเบี้ยสุทธิ > 3.0%', benchmark: '>3.0%' },
+      { name: 'Loan Growth 5-8% YoY', nameTh: 'การเติบโตของสินเชื่อ 5-8% ต่อปี', benchmark: '5-8%' },
+      { name: 'CET1 Ratio > 14%', nameTh: 'อัตราทุนชั้นที่ 1 > 14%', benchmark: '>14%' },
+      { name: 'Provision Coverage > 120%', nameTh: 'อัตราการสำรองหนี้ > 120%', benchmark: '>120%' },
+    ],
+    bonusPoints: [
+      { name: 'Digital banking penetration > 80%', nameTh: 'การรับบริการธนาคารดิจิทัล > 80%' },
+      { name: 'Fee income > 30% of total income', nameTh: 'รายได้ค่าธรรมเนียม > 30% ของรายได้ทั้งหมด' },
+      { name: 'SME/Retail loan mix > 50%', nameTh: 'สัดส่วนสินเชื่อ SME/Retail > 50%' },
+      { name: 'Cost/Income ratio improving', nameTh: 'อัตราต้นทุนต่อรายได้ดีขึ้น' },
+      { name: 'Dividend payout 40-60%', nameTh: 'การจ่ายเงินปันผล 40-60%' },
+    ],
+    redFlags: [
+      { name: 'NPL > 4% or rising trend (2 quarters)', nameTh: 'NPL > 4% หรือมีแนวโน้มเพิ่มขึ้น (2 ไตรมาส)' },
+      { name: 'ROE declining 2 consecutive years', nameTh: 'ROE ลดลง 2 ปีติดต่อกัน' },
+      { name: 'CET1 < 12%', nameTh: 'CET1 < 12%' },
+      { name: 'NIM compressing < 2.8%', nameTh: 'NIM ลดลง < 2.8%' },
+      { name: 'Provision coverage < 100%', nameTh: 'อัตราการสำรองหนี้ < 100%' },
+    ],
+    peRange: '8-12x',
+    roeRange: '8-12%',
+    keyMetrics: ['NPL <3.5%', 'NIM >3%', 'CET1 >14%'],
+    examples: ['BBL', 'KBANK', 'SCB', 'KTB', 'BAY'],
+  },
+
+  'Capital Markets': {
+    subSector: 'Capital Markets',
+    subSectorTh: 'ตลาดทุน',
+    sector: 'Financial Services',
+    sectorTh: 'ธุรกิจการเงิน',
+    mustPass: [
+      { name: 'ROE > 15%', nameTh: 'ผลตอบแทนต่อผู้ถือหุ้น > 15%', benchmark: '>15%' },
+      { name: 'NPL < 4%', nameTh: 'สัดส่วนหนี้สงสัย < 4%', benchmark: '<4%' },
+      { name: 'Net Profit Margin > 18%', nameTh: 'กำไรสุทธิ > 18%', benchmark: '>18%' },
+      { name: 'D/E Ratio 3-5x', nameTh: 'อัตราหนี้สินต่อทุน 3-5 เท่า', benchmark: '3-5x' },
+      { name: 'Revenue Growth > 10% YoY', nameTh: 'การเติบโตของรายได้ > 10% ต่อปี', benchmark: '>10%' },
+      { name: 'Commission income growing', nameTh: 'รายได้ค่าคอมมิชชั่นเติบโต', benchmark: 'growing' },
+    ],
+    bonusPoints: [
+      { name: 'Diversified income (brokerage + advisory + lending)', nameTh: 'รายได้หลากหลาย (brokerage + advisory + lending)' },
+      { name: 'SET Index correlation < 0.7', nameTh: 'ความสัมพันธ์กับดัชนี SET < 0.7' },
+      { name: 'Digital platform adoption > 60%', nameTh: 'การนำแพลตฟอร์มดิจิทัลไปใช้ > 60%' },
+      { name: 'AUM market share growing', nameTh: 'ส่วนแบ่ง AUM เติบโต' },
+    ],
+    redFlags: [
+      { name: 'ROE < 12%', nameTh: 'ROE < 12%' },
+      { name: 'NPL > 5%', nameTh: 'NPL > 5%' },
+      { name: 'Revenue concentration (single source >70%)', nameTh: 'ความเสี่ยงจากแหล่งรายได้เดียว >70%' },
+      { name: 'Market share declining 2 years', nameTh: 'ส่วนแบ่งตลาดลดลง 2 ปี' },
+      { name: 'Customer concentration (top 10 > 40%)', nameTh: 'ความเสี่ยงจากลูกค้ากลุ่มเดียว (10 รายแรก > 40%)' },
+    ],
+    peRange: '10-15x',
+    roeRange: '15-20%',
+    keyMetrics: ['NPL <4%', 'NIM 8-15%', 'D/E 3-5x'],
+    examples: ['KKP', 'ASAP', 'ASP', 'ASK', 'AMANAH'],
+  },
+
+  'Credit Cards': {
+    subSector: 'Credit Cards',
+    subSectorTh: 'บัตรเครดิต',
+    sector: 'Financial Services',
+    sectorTh: 'ธุรกิจการเงิน',
+    mustPass: [
+      { name: 'NPL < 5%', nameTh: 'สัดส่วนหนี้สงสัย < 5%', benchmark: '<5%' },
+      { name: 'ROE 18-25%', nameTh: 'ผลตอบแทนต่อผู้ถือหุ้น 18-25%', benchmark: '18-25%' },
+      { name: 'NIM > 15%', nameTh: 'กำไรจากดอกเบี้ยสุทธิ > 15%', benchmark: '>15%' },
+      { name: 'Card spending growth > 8% YoY', nameTh: 'การใช้จ่ายผ่านบัตรเติบโต > 8% ต่อปี', benchmark: '>8%' },
+      { name: 'Provision coverage > 100%', nameTh: 'อัตราการสำรองหนี้ > 100%', benchmark: '>100%' },
+      { name: 'Active card rate > 65%', nameTh: 'อัตราบัตรที่ใช้งาน > 65%', benchmark: '>65%' },
+    ],
+    bonusPoints: [
+      { name: 'Co-branded partnerships (retail anchors)', nameTh: 'พาร์ทเนอร์ร่วมแบรนด์ (ค้าปลีก)' },
+      { name: 'Digital wallet integration', nameTh: 'การเชื่อมต่อดิจิทัลวอลเล็ท' },
+      { name: 'Revolving balance 40-50% (sweet spot)', nameTh: 'ยอดคงเหลือหมุนเวียน 40-50%' },
+      { name: 'CAC decreasing', nameTh: 'ต้นทุนการรับลูกค้าลดลง' },
+      { name: 'LTV/CAC ratio > 3x', nameTh: 'อัตรา LTV ต่อ CAC > 3 เท่า' },
+    ],
+    redFlags: [
+      { name: 'NPL > 6%', nameTh: 'NPL > 6%' },
+      { name: 'Spending growth < 5%', nameTh: 'การใช้จ่ายเติบโต < 5%' },
+      { name: 'NIM < 13%', nameTh: 'NIM < 13%' },
+      { name: 'Active rate declining', nameTh: 'อัตราบัตรที่ใช้งานลดลง' },
+      { name: 'Delinquency >90 days > 3%', nameTh: 'หนี้เสีย >90 วัน > 3%' },
+    ],
+    peRange: '10-15x',
+    roeRange: '18-25%',
+    keyMetrics: ['NPL <5%', 'NIM >15%', 'Card growth >8%'],
+    examples: ['KTC', 'AEONTS', 'TIDLOR'],
+  },
+
+  Insurance: {
+    subSector: 'Insurance',
+    subSectorTh: 'ประกันภัย',
+    sector: 'Financial Services',
+    sectorTh: 'ธุรกิจการเงิน',
+    mustPass: [
+      { name: 'Combined ratio < 100%', nameTh: 'อัตรารวม < 100%', benchmark: '<100%' },
+      { name: 'ROE > 12%', nameTh: 'ผลตอบแทนต่อผู้ถือหุ้น > 12%', benchmark: '>12%' },
+      { name: 'Premium growth > 8% YoY', nameTh: 'การเติบโตของเบี้ยประกัน > 8% ต่อปี', benchmark: '>8%' },
+      { name: 'Investment income stable', nameTh: 'รายได้จากการลงทุนมั่นคง', benchmark: 'stable' },
+      { name: 'Solvency ratio adequate', nameTh: 'อัตราความสามารถในการจ่ายหนี้เพียงพอ', benchmark: 'adequate' },
+    ],
+    bonusPoints: [
+      { name: 'Diversified product mix', nameTh: 'ผลิตภัณฑ์หลากหลาย' },
+      { name: 'Digital distribution channels', nameTh: 'ช่องทางขายดิจิทัล' },
+      { name: ' bancassurance partnerships strong', nameTh: 'พาร์ทเนอร์ bancassurance แข็งแกร่ง' },
+      { name: 'Claims ratio improving', nameTh: 'อัตราการเคลมดีขึ้น' },
+    ],
+    redFlags: [
+      { name: 'Combined ratio > 105%', nameTh: 'อัตรารวม > 105%' },
+      { name: 'Premium growth < 5%', nameTh: 'การเติบโตของเบี้ยประกัน < 5%' },
+      { name: 'Investment returns volatile', nameTh: 'ผลตอบแทนการลงทุนผันผวน' },
+    ],
+    peRange: '10-18x',
+    roeRange: '12-18%',
+    keyMetrics: ['Combined <100%', 'Premium growth >8%', 'ROE >12%'],
+    examples: ['Thailand Insurance Companies'],
+  },
+
+  'Financial Services': {
+    subSector: 'Financial Services',
+    subSectorTh: 'บริการทางการเงิน',
+    sector: 'Financial Services',
+    sectorTh: 'ธุรกิจการเงิน',
+    mustPass: [
+      { name: 'ROE > 15%', nameTh: 'ผลตอบแทนต่อผู้ถือหุ้น > 15%', benchmark: '>15%' },
+      { name: 'NPL < 5%', nameTh: 'สัดส่วนหนี้สงสัย < 5%', benchmark: '<5%' },
+      { name: 'NIM 8-15%', nameTh: 'กำไรจากดอกเบี้ยสุทธิ 8-15%', benchmark: '8-15%' },
+      { name: 'D/E Ratio appropriate', nameTh: 'อัตราหนี้สินต่อทุนเหมาะสม', benchmark: 'appropriate' },
+      { name: 'Revenue Growth > 10% YoY', nameTh: 'การเติบโตของรายได้ > 10% ต่อปี', benchmark: '>10%' },
+    ],
+    bonusPoints: [
+      { name: 'Diversified business model', nameTh: 'โมเดลธุรกิจหลากหลาย' },
+      { name: 'Digital transformation', nameTh: 'การแปลงเป็นดิจิทัล' },
+      { name: 'Strong partnership network', nameTh: 'เครือข่ายพาร์ทเนอร์ที่แข็งแกร่ง' },
+    ],
+    redFlags: [
+      { name: 'ROE < 12%', nameTh: 'ROE < 12%' },
+      { name: 'NPL rising trend', nameTh: 'NPL มีแนวโน้มเพิ่มขึ้น' },
+    ],
+    peRange: '8-12x',
+    roeRange: '12-18%',
+    keyMetrics: ['NPL <5%', 'NIM 8-15%', 'ROE >15%'],
+    examples: ['MTC', 'SAWAD', 'Other microfinance'],
+  },
+
+  Funds: {
+    subSector: 'Funds',
+    subSectorTh: 'กองทุน',
+    sector: 'Financial Services',
+    sectorTh: 'ธุรกิจการเงิน',
+    mustPass: [
+      { name: 'P/NAV 0.9-1.2x', nameTh: 'ราคาต่อมูลค่าสุทธิ 0.9-1.2 เท่า', benchmark: '0.9-1.2x' },
+      { name: 'Distribution yield > 6%', nameTh: 'ผลตอบแทนการจ่ายเงินปันผล > 6%', benchmark: '>6%' },
+      { name: 'NAV growing', nameTh: 'มูลค่าสุทธิเติบโต', benchmark: 'growing' },
+      { name: 'Quality portfolio', nameTh: 'พอร์ตโฟลิโอมีคุณภาพ', benchmark: 'quality' },
+    ],
+    bonusPoints: [
+      { name: 'Consistent dividend payments', nameTh: 'การจ่ายเงินปันผลสม่ำเสมอ' },
+      { name: 'Diversified holdings', nameTh: 'การถือหลักทรัพย์หลากหลาย' },
+    ],
+    redFlags: [
+      { name: 'P/NAV > 1.5x', nameTh: 'P/NAV > 1.5x' },
+      { name: 'Yield < 4%', nameTh: 'ผลตอบแทน < 4%' },
+      { name: 'NAV declining', nameTh: 'มูลค่าสุทธิลดลง' },
+    ],
+    peRange: 'P/NAV 0.9-1.2x',
+    roeRange: 'N/A',
+    keyMetrics: ['Yield >6%', 'P/NAV <1.2x', 'NAV growing'],
+    examples: ['Property Funds, Investment Trusts'],
+  },
+}
+
+// ============================================================================
+// 2. RESOURCES & ENERGY (8 sub-sectors | 72 companies)
+// ============================================================================
+
+const resourcesEnergy = {
+  'Oil & Gas': {
+    subSector: 'Oil & Gas',
+    subSectorTh: 'น้ำมันและก๊าซธรรมชาติ',
+    sector: 'Resources & Energy',
+    sectorTh: 'ทรัพยากรและพลังงาน',
+    mustPass: [
+      { name: 'ROE > 12% (through-cycle)', nameTh: 'ผลตอบแทนต่อผู้ถือหุ้น > 12% (ทั่ววงจร)', benchmark: '>12%' },
+      { name: 'D/E < 1.2x', nameTh: 'อัตราหนี้สินต่อทุน < 1.2 เท่า', benchmark: '<1.2x' },
+      { name: 'EBITDA margin > 12%', nameTh: 'กำไร EBITDA > 12%', benchmark: '>12%' },
+      { name: 'Capacity utilization > 85%', nameTh: 'อัตราการใช้กำลังการผลิต > 85%', benchmark: '>85%' },
+      { name: 'Free cash flow positive', nameTh: 'กระแสเงินสดจากกิจการเป็นบวก', benchmark: '>0' },
+      { name: 'Dividend payout 40-60%', nameTh: 'การจ่ายเงินปันผล 40-60%', benchmark: '40-60%' },
+    ],
+    bonusPoints: [
+      { name: 'Upstream exposure (oil price leverage)', nameTh: 'การสัมผัสราคาน้ำมัน (upstream)' },
+      { name: 'Petrochemical integration', nameTh: 'การผนวกกิจการปิโตรเคมี' },
+      { name: 'Retail network (demand stability)', nameTh: 'เครือข่ายค้าปลีก (เสถียรภาพความต้องการ)' },
+      { name: 'Alternative energy investments', nameTh: 'การลงทุนพลังงานทางเลือก' },
+      { name: 'Refinery complexity (premium products)', nameTh: 'ความซับซ้อนของโรงกลั่น (ผลิตภัณฑ์พรีเมียม)' },
+    ],
+    redFlags: [
+      { name: 'Negative FCF 2+ years', nameTh: 'กระแสเงินสดจากกิจการเป็นลบ 2+ ปี' },
+      { name: 'D/E > 2x', nameTh: 'อัตราหนี้สินต่อทุน > 2 เท่า' },
+      { name: 'Refinery turnaround delays', nameTh: 'การดำเนินการซ่อมบำรุงโรงกลั่นล่าช้า' },
+      { name: 'Environmental violations', nameTh: 'การละเมิดกฎหมายสิ่งแวดล้อม' },
+      { name: 'Crack spread < $5/barrel', nameTh: 'ส่วนต่างราคากลั่น < $5/บาร์เรล' },
+    ],
+    peRange: '8-15x',
+    roeRange: '10-18%',
+    keyMetrics: ['Crack spread', 'Capacity >85%'],
+    examples: ['PTT', 'TOP', 'PTTGC', 'BCP', 'OR'],
+  },
+
+  'Energy & Utilities': {
+    subSector: 'Energy & Utilities',
+    subSectorTh: 'พลังงานและสาธารณูปโภค',
+    sector: 'Resources & Energy',
+    sectorTh: 'ทรัพยากรและพลังงาน',
+    mustPass: [
+      { name: 'PPA coverage > 80%', nameTh: 'ความครอบคลุมสัญญาซื้อขายไฟฟ้า > 80%', benchmark: '>80%' },
+      { name: 'Availability factor > 90%', nameTh: 'อัตราความพร้อมใช้งาน > 90%', benchmark: '>90%' },
+      { name: 'D/E < 2.5x', nameTh: 'อัตราหนี้สินต่อทุน < 2.5 เท่า', benchmark: '<2.5x' },
+      { name: 'ROE > 12%', nameTh: 'ผลตอบแทนต่อผู้ถือหุ้น > 12%', benchmark: '>12%' },
+      { name: 'EBITDA margin > 45%', nameTh: 'กำไร EBITDA > 45%', benchmark: '>45%' },
+      { name: 'Fuel supply agreements', nameTh: 'สัญญาจัดหาเชื้อเพลิง', benchmark: 'secured' },
+    ],
+    bonusPoints: [
+      { name: 'Long-term PPAs (>10 years)', nameTh: 'สัญญาซื้อขายไฟฟ้าระยะยาว (>10 ปี)' },
+      { name: 'Diverse fuel mix', nameTh: 'เชื้อเพลิงหลากหลาย' },
+      { name: 'International exposure', nameTh: 'การขยายตลาดต่างประเทศ' },
+      { name: 'Cogeneration capability', nameTh: 'ความสามารถในการร่วมผลิต' },
+      { name: 'Battery storage integration', nameTh: 'การเชื่อมต่อระบบจัดเก็บพลังงาน' },
+    ],
+    redFlags: [
+      { name: 'PPA coverage < 70%', nameTh: 'ความครอบคลุม PPA < 70%' },
+      { name: 'Availability < 85%', nameTh: 'อัตราความพร้อมใช้งาน < 85%' },
+      { name: 'D/E > 3x', nameTh: 'อัตราหนี้สินต่อทุน > 3 เท่า' },
+    ],
+    peRange: '12-18x',
+    roeRange: '10-15%',
+    keyMetrics: ['PPA >80%', 'Availability >90%'],
+    examples: ['EGCO', 'RATCH', 'GULF', 'GPSC', 'BGRIM'],
+  },
+
+  'Alternative Energy': {
+    subSector: 'Alternative Energy',
+    subSectorTh: 'พลังงานทางเลือก',
+    sector: 'Resources & Energy',
+    sectorTh: 'ทรัพยากรและพลังงาน',
+    mustPass: [
+      { name: 'FiT/Adder locked in', nameTh: 'อัตรา FiT/Adder ได้รับการรับรอง', benchmark: 'locked' },
+      { name: 'Capacity factor > industry avg', nameTh: 'อัตรากำลังการผลิต > ค่าเฉลี่ยอุตสาหกรรม', benchmark: '>avg' },
+      { name: 'ROE > 15%', nameTh: 'ผลตอบแทนต่อผู้ถือหุ้น > 15%', benchmark: '>15%' },
+      { name: 'O&M costs declining', nameTh: 'ต้นทุนการบำรุงรักษาลดลง', benchmark: 'declining' },
+      { name: 'Land rights secured (20+ years)', nameTh: 'สิทธิ์ที่ดินมั่นคร (20+ ปี)', benchmark: '20+y' },
+      { name: 'No grid curtailment', nameTh: 'ไม่มีการตัดการไฟฟ้าจากระบบ', benchmark: 'none' },
+    ],
+    bonusPoints: [
+      { name: 'Portfolio diversification (solar+wind+hydro)', nameTh: 'ความหลากหลายของพอร์ต (พลังงานแสงอาทิตย์+ลม+น้ำ)' },
+      { name: 'Vietnam/Laos expansion', nameTh: 'การขยายตลาดเวียดนาม/ลาว' },
+      { name: 'Energy storage capability', nameTh: 'ความสามารถในการจัดเก็บพลังงาน' },
+      { name: 'Corporate PPA offtake', nameTh: 'สัญญาซื้อขายไฟฟ้าองค์กร' },
+      { name: 'Carbon credit revenue', nameTh: 'รายได้จากเครดิตคาร์บอน' },
+    ],
+    redFlags: [
+      { name: 'Grid curtailment issues', nameTh: 'ปัญหาการตัดการไฟฟ้าจากระบบ' },
+      { name: 'FiT uncertainty', nameTh: 'ความไม่แน่นอนของ FiT' },
+    ],
+    peRange: '15-25x',
+    roeRange: '12-18%',
+    keyMetrics: ['FiT secured', 'ROE >15%'],
+    examples: ['Solar, Wind companies'],
+  },
+
+  Electricity: {
+    subSector: 'Electricity',
+    subSectorTh: 'ไฟฟ้า',
+    sector: 'Resources & Energy',
+    sectorTh: 'ทรัพยากรและพลังงาน',
+    mustPass: [
+      { name: 'PPA > 8 years', nameTh: 'สัญญาซื้อขายไฟฟ้า > 8 ปี', benchmark: '>8y' },
+      { name: 'Availability > 90%', nameTh: 'อัตราความพร้อมใช้งาน > 90%', benchmark: '>90%' },
+      { name: 'ROE > 10%', nameTh: 'ผลตอบแทนต่อผู้ถือหุ้น > 10%', benchmark: '>10%' },
+    ],
+    bonusPoints: [
+      { name: 'Regulatory stability', nameTh: 'เสถียรภาพกฎระเบียบ' },
+    ],
+    redFlags: [],
+    peRange: '12-16x',
+    roeRange: '10-14%',
+    keyMetrics: ['PPA >8y', 'Availability >90%'],
+    examples: ['Power generation companies'],
+  },
+
+  'Natural Gas & Petroleum': {
+    subSector: 'Natural Gas & Petroleum',
+    subSectorTh: 'ก๊าซธรรมชาติและปิโตรเลียม',
+    sector: 'Resources & Energy',
+    sectorTh: 'ทรัพยากรและพลังงาน',
+    mustPass: [
+      { name: 'Reserve life > 10 years', nameTh: 'อายุหลักประกัน > 10 ปี', benchmark: '>10y' },
+      { name: 'Lifting cost < $15/boe', nameTh: 'ต้นทุนการผลิต < $15/boe', benchmark: '<$15' },
+      { name: 'Reserve replacement > 100%', nameTh: 'การทดแทนหลักประกัน > 100%', benchmark: '>100%' },
+      { name: 'ROE > 12%', nameTh: 'ผลตอบแทนต่อผู้ถือหุ้น > 12%', benchmark: '>12%' },
+    ],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '8-12x',
+    roeRange: '12-20%',
+    keyMetrics: ['Reserve life >10y', 'Lifting cost <$15'],
+    examples: ['E&P companies'],
+  },
+
+  Resources: {
+    subSector: 'Resources',
+    subSectorTh: 'ทรัพยากร',
+    sector: 'Resources & Energy',
+    sectorTh: 'ทรัพยากรและพลังงาน',
+    mustPass: [
+      { name: 'Reserve life > 15 years', nameTh: 'อายุหลักประกัน > 15 ปี', benchmark: '>15y' },
+      { name: 'Bottom 50% cost curve', nameTh: 'ต้นทุนต่ำ 50% แรกของอุตสาหกรรม', benchmark: 'Q1-Q2' },
+      { name: 'ROE > 8%', nameTh: 'ผลตอบแทนต่อผู้ถือหุ้น > 8%', benchmark: '>8%' },
+    ],
+    bonusPoints: [
+      { name: 'RSPO/ESG compliance', nameTh: 'การปฏิบัติตาม RSPO/ESG' },
+    ],
+    redFlags: [],
+    peRange: '8-15x',
+    roeRange: '8-15%',
+    keyMetrics: ['Reserve life >15y', 'Low cost position'],
+    examples: ['Mining companies'],
+  },
+
+  'Power Plants': {
+    subSector: 'Power Plants',
+    subSectorTh: 'โรงไฟฟ้า',
+    sector: 'Resources & Energy',
+    sectorTh: 'ทรัพยากรและพลังงาน',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '12-18x',
+    roeRange: '10-15%',
+    keyMetrics: ['Similar to Electricity'],
+    examples: ['Independent power producers'],
+  },
+
+  Chemicals: {
+    subSector: 'Chemicals',
+    subSectorTh: 'เคมีภัณฑ์',
+    sector: 'Resources & Energy',
+    sectorTh: 'ทรัพยากรและพลังงาน',
+    mustPass: [
+      { name: 'Capacity utilization > 85%', nameTh: 'อัตราการใช้กำลังการผลิต > 85%', benchmark: '>85%' },
+      { name: 'EBITDA margin > 15%', nameTh: 'กำไร EBITDA > 15%', benchmark: '>15%' },
+      { name: 'ROE > 10%', nameTh: 'ผลตอบแทนต่อผู้ถือหุ้น > 10%', benchmark: '>10%' },
+    ],
+    bonusPoints: [
+      { name: 'Product diversification', nameTh: 'ความหลากหลายของผลิตภัณฑ์' },
+    ],
+    redFlags: [],
+    peRange: '10-18x',
+    roeRange: '10-18%',
+    keyMetrics: ['Capacity >85%', 'Margin >15%'],
+    examples: ['Chemical manufacturers'],
+  },
+}
+
+// ============================================================================
+// 3. SERVICES (19 sub-sectors | 199 companies)
+// ============================================================================
+
+const services = {
+  Healthcare: {
+    subSector: 'Healthcare',
+    subSectorTh: 'การแพทย์',
+    sector: 'Services',
+    sectorTh: 'บริการ',
+    mustPass: [
+      { name: 'ROE > 18%', nameTh: 'ผลตอบแทนต่อผู้ถือหุ้น > 18%', benchmark: '>18%' },
+      { name: 'EBITDA margin > 20%', nameTh: 'กำไร EBITDA > 20%', benchmark: '>20%' },
+      { name: 'Revenue growth > 10% YoY', nameTh: 'การเติบโตของรายได้ > 10% ต่อปี', benchmark: '>10%' },
+      { name: 'Bed occupancy 70-80%', nameTh: 'อัตราการเข้าพักเตียง 70-80%', benchmark: '70-80%' },
+      { name: 'D/E < 1x', nameTh: 'อัตราหนี้สินต่อทุน < 1 เท่า', benchmark: '<1x' },
+      { name: 'License to operate', nameTh: 'ใบอนุญาตประกอบกิจการ', benchmark: 'valid' },
+    ],
+    bonusPoints: [
+      { name: 'Network expansion (new hospitals)', nameTh: 'การขยายเครือข่าย (โรงพยาบาลใหม่)' },
+      { name: 'Specialty centers (cardio, ortho, cancer)', nameTh: 'ศูนย์เฉพาะทาง (หัวใจ, กระดูก, มะเร็ง)' },
+      { name: 'JCI accreditation', nameTh: 'การรับรอง JCI' },
+      { name: 'Medical tourism partnerships', nameTh: 'ความร่วมมือการแพทย์เที่ยว' },
+      { name: 'Digital health platform', nameTh: 'แพลตฟอร์มสุขภาพดิจิทัล' },
+      { name: 'Insurance contracts with major providers', nameTh: 'สัญญาประกันกับผู้ให้บริการหลัก' },
+      { name: 'Geographic diversification', nameTh: 'ความหลากหลายทางภูมิศาสตร์' },
+      { name: 'Academic affiliation', nameTh: 'ความร่วมมือทางวิชาการ' },
+    ],
+    redFlags: [
+      { name: 'Bed occupancy < 65%', nameTh: 'อัตราการเข้าพักเตียง < 65%' },
+      { name: 'EBITDA margin declining', nameTh: 'กำไร EBITDA ลดลง' },
+      { name: 'Doctor retention issues', nameTh: 'ปัญหาการรักษาแพทย์' },
+      { name: 'Medical malpractice lawsuits', nameTh: 'คดีละเมิดทางการแพทย์' },
+      { name: 'Regulatory violations', nameTh: 'การละเมิดกฎระเบียบ' },
+    ],
+    peRange: '18-30x',
+    roeRange: '15-25%',
+    keyMetrics: ['Bed occupancy 70-85%', 'EBITDA margin >20%'],
+    examples: ['BH', 'BDMS', 'BCH', 'CHG', 'BPH'],
+  },
+
+  'Transportation & Logistics': {
+    subSector: 'Transportation & Logistics',
+    subSectorTh: 'การขนส่งและลงทุน',
+    sector: 'Services',
+    sectorTh: 'บริการ',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '12-20x',
+    roeRange: '8-15%',
+    keyMetrics: ['Load factor >75%', 'Utilization >80%'],
+    examples: ['AOT', 'AAV', 'BA', 'BTS'],
+  },
+
+  Commerce: {
+    subSector: 'Commerce',
+    subSectorTh: 'พาณิชย์',
+    sector: 'Services',
+    sectorTh: 'บริการ',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '15-25x',
+    roeRange: '15-25%',
+    keyMetrics: ['SSS >3%', 'Inventory turnover >10x'],
+    examples: ['Retail companies'],
+  },
+
+  'Media & Publishing': {
+    subSector: 'Media & Publishing',
+    subSectorTh: 'สื่อและการพิมพ์',
+    sector: 'Services',
+    sectorTh: 'บริการ',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '10-20x',
+    roeRange: '10-18%',
+    keyMetrics: ['Digital revenue >30%'],
+    examples: ['Media companies'],
+  },
+
+  'Tourism & Leisure': {
+    subSector: 'Tourism & Leisure',
+    subSectorTh: 'การท่องเที่ยวและกิจกรรม',
+    sector: 'Services',
+    sectorTh: 'บริการ',
+    mustPass: [
+      { name: 'RevPAR growth >5% YoY', nameTh: 'รายได้ต่อห้องเติบโต >5% ต่อปี', benchmark: '>5%' },
+      { name: 'EBITDA margin >30%', nameTh: 'กำไร EBITDA >30%', benchmark: '>30%' },
+      { name: 'Occupancy 75-85%', nameTh: 'อัตราการเข้าพัก 75-85%', benchmark: '75-85%' },
+      { name: 'ADR premium to market', nameTh: 'อัตราห้องเฉลี่ยสูงกว่าตลาด', benchmark: 'premium' },
+      { name: 'D/E <1.8x', nameTh: 'อัตราหนี้สินต่อทุน <1.8 เท่า', benchmark: '<1.8x' },
+      { name: 'Brand recognition', nameTh: 'การรับรู้แบรนด์', benchmark: 'strong' },
+    ],
+    bonusPoints: [
+      { name: 'Asset-light model (management contracts)', nameTh: 'โมเดลทรัพย์น้อย (สัญญาบริหาร)' },
+      { name: 'Luxury/upscale positioning', nameTh: 'การกำหนดตำแหน่งหรู/กลาง' },
+      { name: 'Geographic diversification', nameTh: 'ความหลากหลายทางภูมิศาสตร์' },
+      { name: 'Loyalty program', nameTh: 'โปรแกรมสะสมคะแนน' },
+      { name: 'F&B revenue >30%', nameTh: 'รายได้ F&B >30%' },
+      { name: 'MICE capability', nameTh: 'ความสามารถด้าน MICE' },
+      { name: 'International tourist mix', nameTh: 'นักท่องเที่ยวต่างชาติผสม' },
+    ],
+    redFlags: [
+      { name: 'RevPAR declining', nameTh: 'RevPAR ลดลง' },
+      { name: 'Occupancy <70%', nameTh: 'อัตราการเข้าพัก <70%' },
+      { name: 'Market share losing', nameTh: 'สูญเสียส่วนแบ่งตลาด' },
+    ],
+    peRange: '15-25x',
+    roeRange: '8-15%',
+    keyMetrics: ['RevPAR growth >5%', 'Occupancy 70-85%'],
+    examples: ['MINT', 'ERW', 'CENTEL', 'AWC'],
+  },
+
+  // Additional Services sub-sectors (14 more to reach 19 total)
+  Printing: {
+    subSector: 'Printing',
+    subSectorTh: 'การพิมพ์',
+    sector: 'Services',
+    sectorTh: 'บริการ',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '10-15x',
+    roeRange: '10-15%',
+    keyMetrics: ['Digital revenue >30%', 'Capacity utilization'],
+    examples: ['Printing companies'],
+  },
+
+  Publishing: {
+    subSector: 'Publishing',
+    subSectorTh: 'การจัดพิมพ์',
+    sector: 'Services',
+    sectorTh: 'บริการ',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '8-12x',
+    roeRange: '10-15%',
+    keyMetrics: ['Digital transformation', 'Content quality'],
+    examples: ['Publishing houses'],
+  },
+
+  Advertising: {
+    subSector: 'Advertising',
+    subSectorTh: 'การโฆษณา',
+    sector: 'Services',
+    sectorTh: 'บริการ',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '10-15x',
+    roeRange: '12-18%',
+    keyMetrics: ['Digital revenue >50%', 'Client retention'],
+    examples: ['Advertising agencies'],
+  },
+
+  'Health & Wellness': {
+    subSector: 'Health & Wellness',
+    subSectorTh: 'สุขภาพและความเป็นอยู่ดี',
+    sector: 'Services',
+    sectorTh: 'บริการ',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '15-25x',
+    roeRange: '12-20%',
+    keyMetrics: ['Same-store growth', 'Membership retention'],
+    examples: ['Fitness, Wellness centers'],
+  },
+
+  Education: {
+    subSector: 'Education',
+    subSectorTh: 'การศึกษา',
+    sector: 'Services',
+    sectorTh: 'บริการ',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '12-20x',
+    roeRange: '15-25%',
+    keyMetrics: ['Enrollment growth', 'Student retention'],
+    examples: ['Education providers'],
+  },
+
+  'Professional Services': {
+    subSector: 'Professional Services',
+    subSectorTh: 'บริการวิชาชีพ',
+    sector: 'Services',
+    sectorTh: 'บริการ',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '10-15x',
+    roeRange: '12-18%',
+    keyMetrics: ['Recurring revenue', 'Client retention'],
+    examples: ['Consulting, Legal, Accounting'],
+  },
+
+  Logistics: {
+    subSector: 'Logistics',
+    subSectorTh: 'โลจิสติกส์',
+    sector: 'Services',
+    sectorTh: 'บริการ',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '12-20x',
+    roeRange: '10-15%',
+    keyMetrics: ['Fleet utilization >80%', 'EBITDA margin >12%'],
+    examples: ['Logistics providers'],
+  },
+
+  Shipping: {
+    subSector: 'Shipping',
+    subSectorTh: 'การเดินเรือ',
+    sector: 'Services',
+    sectorTh: 'บริการ',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '6-10x',
+    roeRange: '10-15%',
+    keyMetrics: ['Dividend yield >8%', 'Fleet age <12y'],
+    examples: ['Shipping companies'],
+  },
+
+  'Rail Transportation': {
+    subSector: 'Rail Transportation',
+    subSectorTh: 'การขนส่งทางราง',
+    sector: 'Services',
+    sectorTh: 'บริการ',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '10-15x',
+    roeRange: '8-12%',
+    keyMetrics: ['Volume growth', 'Efficiency ratios'],
+    examples: ['Rail operators'],
+  },
+
+  'Port & Harbor Services': {
+    subSector: 'Port & Harbor Services',
+    subSectorTh: 'บริการท่าเรือ',
+    sector: 'Services',
+    sectorTh: 'บริการ',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '10-15x',
+    roeRange: '10-15%',
+    keyMetrics: ['Volume growth', 'Utilization rates'],
+    examples: ['Port operators'],
+  },
+
+  'Airline Services': {
+    subSector: 'Airline Services',
+    subSectorTh: 'บริการสายการบิน',
+    sector: 'Services',
+    sectorTh: 'บริการ',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '8-12x',
+    roeRange: '5-12%',
+    keyMetrics: ['Load factor >75%', 'RASK growing'],
+    examples: ['Airlines'],
+  },
+
+  'Airport Services': {
+    subSector: 'Airport Services',
+    subSectorTh: 'บริการสนามบิน',
+    sector: 'Services',
+    sectorTh: 'บริการ',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '12-18x',
+    roeRange: '10-15%',
+    keyMetrics: ['Passenger growth', 'Aeronautical revenue'],
+    examples: ['Airport operators'],
+  },
+
+  'Telecommunications Services': {
+    subSector: 'Telecommunications Services',
+    subSectorTh: 'บริการโทรคมนาคม',
+    sector: 'Services',
+    sectorTh: 'บริการ',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '15-20x',
+    roeRange: '10-15%',
+    keyMetrics: ['ARPU growth', 'Churn rate'],
+    examples: ['Telecom service providers'],
+  },
+
+  'Information Technology Services': {
+    subSector: 'Information Technology Services',
+    subSectorTh: 'บริการเทคโนโลยีสารสนเทศ',
+    sector: 'Services',
+    sectorTh: 'บริการ',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '15-20x',
+    roeRange: '15-20%',
+    keyMetrics: ['Recurring revenue', 'Project backlog'],
+    examples: ['IT services, Software'],
+  },
+}
+
+// ============================================================================
+// 4. INDUSTRIALS (14 sub-sectors | 147 companies)
+// ============================================================================
+
+const industrials = {
+  Automotive: {
+    subSector: 'Automotive',
+    subSectorTh: 'ยานยนต์',
+    sector: 'Industrials',
+    sectorTh: 'อุตสาหกรรม',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '8-15x',
+    roeRange: '8-15%',
+    keyMetrics: ['Capacity util. >80%', 'EBITDA margin >8%'],
+    examples: ['AAPICO', 'AH', 'ACG', 'SAT'],
+  },
+
+  'Steel & Metal Products': {
+    subSector: 'Steel & Metal Products',
+    subSectorTh: 'เหล็กและผลิตภัณฑ์โลหะ',
+    sector: 'Industrials',
+    sectorTh: 'อุตสาหกรรม',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '6-12x',
+    roeRange: '5-15%',
+    keyMetrics: ['Capacity util. >85%', 'EBITDA margin >15%'],
+    examples: ['TISCO', 'MILL', 'TSTH', '2S'],
+  },
+
+  'Industrial Materials': {
+    subSector: 'Industrial Materials',
+    subSectorTh: 'วัตถุดิบอุตสาหกรรม',
+    sector: 'Industrials',
+    sectorTh: 'อุตสาหกรรม',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '10-16x',
+    roeRange: '10-18%',
+    keyMetrics: ['EBITDA margin >15%', 'Backlog >6 months'],
+    examples: ['Industrial material companies'],
+  },
+
+  Packaging: {
+    subSector: 'Packaging',
+    subSectorTh: 'บรรจุภัณฑ์',
+    sector: 'Industrials',
+    sectorTh: 'อุตสาหกรรม',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '12-18x',
+    roeRange: '12-20%',
+    keyMetrics: ['Capacity util. >85%', 'Margin >15%'],
+    examples: ['Packaging companies'],
+  },
+
+  Petrochemicals: {
+    subSector: 'Petrochemicals',
+    subSectorTh: 'ปิโตรเคมี',
+    sector: 'Industrials',
+    sectorTh: 'อุตสาหกรรม',
+    mustPass: [
+      { name: 'Capacity utilization >85%', nameTh: 'อัตราการใช้กำลังการผลิต >85%', benchmark: '>85%' },
+      { name: 'EBITDA margin >15%', nameTh: 'กำไร EBITDA >15%', benchmark: '>15%' },
+      { name: 'D/E <2x', nameTh: 'อัตราหนี้สินต่อทุน <2 เท่า', benchmark: '<2x' },
+    ],
+    bonusPoints: [
+      { name: 'Product diversification', nameTh: 'ความหลากหลายของผลิตภัณฑ์' },
+      { name: 'Downstream integration', nameTh: 'การผนวกกิจการต่อเนื่อง' },
+    ],
+    redFlags: [],
+    peRange: '10-18x',
+    roeRange: '10-18%',
+    keyMetrics: ['Capacity util. >85%', 'Diversification'],
+    examples: ['Petrochemical companies'],
+  },
+
+  // Additional Industrials sub-sectors (9 more to reach 14 total)
+  'Electrical Equipment': {
+    subSector: 'Electrical Equipment',
+    subSectorTh: 'อุปกรณ์ไฟฟ้า',
+    sector: 'Industrials',
+    sectorTh: 'อุตสาหกรรม',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '10-15x',
+    roeRange: '10-15%',
+    keyMetrics: ['Capacity utilization', 'Order backlog'],
+    examples: ['Electrical equipment manufacturers'],
+  },
+
+  Machinery: {
+    subSector: 'Machinery',
+    subSectorTh: 'เครื่องจักร',
+    sector: 'Industrials',
+    sectorTh: 'อุตสาหกรรม',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '10-16x',
+    roeRange: '10-15%',
+    keyMetrics: ['Order backlog >6 months', 'EBITDA margin >15%'],
+    examples: ['Machinery manufacturers'],
+  },
+
+  'Tools & Hardware': {
+    subSector: 'Tools & Hardware',
+    subSectorTh: 'เครื่องมือและฮาร์ดแวร์',
+    sector: 'Industrials',
+    sectorTh: 'อุตสาหกรรม',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '10-15x',
+    roeRange: '10-15%',
+    keyMetrics: ['Brand recognition', 'Distribution coverage'],
+    examples: ['Tools and hardware companies'],
+  },
+
+  'Building Products': {
+    subSector: 'Building Products',
+    subSectorTh: 'ผลิตภัณฑ์ก่อสร้าง',
+    sector: 'Industrials',
+    sectorTh: 'อุตสาหกรรม',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '10-15x',
+    roeRange: '10-15%',
+    keyMetrics: ['Housing exposure', 'Capacity utilization'],
+    examples: ['Building products manufacturers'],
+  },
+
+  'Construction Materials': {
+    subSector: 'Construction Materials',
+    subSectorTh: 'วัสดุก่อสร้าง',
+    sector: 'Industrials',
+    sectorTh: 'อุตสาหกรรม',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '10-15x',
+    roeRange: '10-15%',
+    keyMetrics: ['Capacity utilization >80%', 'EBITDA margin >18%'],
+    examples: ['Cement, Building materials'],
+  },
+
+  'Office Equipment': {
+    subSector: 'Office Equipment',
+    subSectorTh: 'อุปกรณ์สำนักงาน',
+    sector: 'Industrials',
+    sectorTh: 'อุตสาหกรรม',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '10-15x',
+    roeRange: '10-15%',
+    keyMetrics: ['Digital transformation', 'Recurring revenue'],
+    examples: ['Office equipment companies'],
+  },
+
+  'Electronic Equipment': {
+    subSector: 'Electronic Equipment',
+    subSectorTh: 'อุปกรณ์อิเล็กทรอนิกส์',
+    sector: 'Industrials',
+    sectorTh: 'อุตสาหกรรม',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '12-20x',
+    roeRange: '12-18%',
+    keyMetrics: ['R&D investment', 'Customer diversification'],
+    examples: ['Electronic equipment manufacturers'],
+  },
+
+  'Industrial Conglomerates': {
+    subSector: 'Industrial Conglomerates',
+    subSectorTh: 'กลุ่มอุตสาหกรรม',
+    sector: 'Industrials',
+    sectorTh: 'อุตสาหกรรม',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '8-12x',
+    roeRange: '8-12%',
+    keyMetrics: ['Sum-of-parts valuation', 'Capital allocation'],
+    examples: ['Conglomerate companies'],
+  },
+
+  'Other Industrials': {
+    subSector: 'Other Industrials',
+    subSectorTh: 'อุตสาหกรรมอื่นๆ',
+    sector: 'Industrials',
+    sectorTh: 'อุตสาหกรรม',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '10-15x',
+    roeRange: '10-15%',
+    keyMetrics: ['Niche specialization', 'Competitive position'],
+    examples: ['Specialized industrial companies'],
+  },
+}
+
+// ============================================================================
+// 5. CONSUMER PRODUCTS (5 sub-sectors | 68 companies)
+// ============================================================================
+
+const consumerProducts = {
+  Fashion: {
+    subSector: 'Fashion',
+    subSectorTh: 'แฟชั่น',
+    sector: 'Consumer Products',
+    sectorTh: 'ผลิตภัณฑ์บริโภค',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '12-20x',
+    roeRange: '15-25%',
+    keyMetrics: ['SSS >3%', 'Gross margin >50%', 'Inventory turnover >4x'],
+    examples: ['AFC', 'BSM', 'SABINA', 'ICHI'],
+  },
+
+  'Personal Care & Pharmaceuticals': {
+    subSector: 'Personal Care & Pharmaceuticals',
+    subSectorTh: 'ผลิตภัณฑ์ดูแลส่วนบุคคลและเภสัช',
+    sector: 'Consumer Products',
+    sectorTh: 'ผลิตภัณฑ์บริโภค',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '18-30x',
+    roeRange: '18-30%',
+    keyMetrics: ['Gross margin >60%', 'ROE >22%'],
+    examples: ['APCO', 'BJC', 'BIG', 'OSP'],
+  },
+
+  'Household & Office': {
+    subSector: 'Household & Office',
+    subSectorTh: 'ของใช้ในบ้านและสำนักงาน',
+    sector: 'Consumer Products',
+    sectorTh: 'ผลิตภัณฑ์บริโภค',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '15-22x',
+    roeRange: '15-25%',
+    keyMetrics: ['Market share top 3', 'Gross margin >40%'],
+    examples: ['Household products companies'],
+  },
+
+  'Consumer Products': {
+    subSector: 'Consumer Products',
+    subSectorTh: 'ผลิตภัณฑ์บริโภค',
+    sector: 'Consumer Products',
+    sectorTh: 'ผลิตภัณฑ์บริโภค',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '15-25x',
+    roeRange: '15-25%',
+    keyMetrics: ['ROE >18%', 'Distribution >65%'],
+    examples: ['Consumer product companies'],
+  },
+
+  'Online Retail': {
+    subSector: 'Online Retail',
+    subSectorTh: 'ค้าปลีกออนไลน์',
+    sector: 'Consumer Products',
+    sectorTh: 'ผลิตภัณฑ์บริโภค',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '0.3-0.8x P/S',
+    roeRange: 'N/A',
+    keyMetrics: ['GMV growth >25%', 'Take rate 5-12%'],
+    examples: ['E-commerce platforms'],
+  },
+}
+
+// ============================================================================
+// 6. PROPERTY & CONSTRUCTION (16 sub-sectors | 209 companies)
+// ============================================================================
+
+const propertyConstruction = {
+  'Land & Commercial Buildings': {
+    subSector: 'Land & Commercial Buildings',
+    subSectorTh: 'ที่ดินและอาคารพาณิชย์',
+    sector: 'Property & Construction',
+    sectorTh: 'อสังหาริมทรัพย์และก่อสร้าง',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: 'P/NAV 0.7-1.2x',
+    roeRange: 'N/A',
+    keyMetrics: ['Occupancy >88%', 'Rental reversion positive'],
+    examples: ['CPN', 'JASIF'],
+  },
+
+  'REITs & Property Trusts': {
+    subSector: 'REITs & Property Trusts',
+    subSectorTh: 'กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์',
+    sector: 'Property & Construction',
+    sectorTh: 'อสังหาริมทรัพย์และก่อสร้าง',
+    mustPass: [
+      { name: 'Distribution yield >6%', nameTh: 'ผลตอบแทนการจ่ายเงินปันผล >6%', benchmark: '>6%' },
+      { name: 'P/NAV <1.1x', nameTh: 'ราคาต่อมูลค่าสุทธิ <1.1 เท่า', benchmark: '<1.1x' },
+      { name: 'Occupancy >88%', nameTh: 'อัตราการเข้าพัก >88%', benchmark: '>88%' },
+      { name: 'WALE >5 years', nameTh: 'อายุสัญญาเฉลี่ยถ่วงน้ำหนัก >5 ปี', benchmark: '>5y' },
+      { name: 'Gearing <40%', nameTh: 'อัตราหนี้สินต่อทรัพย์สิน <40%', benchmark: '<40%' },
+      { name: 'Sponsor credit quality strong', nameTh: 'คุณภาพเครดิตผู้สนับสนุนแข็งแกร่ง', benchmark: 'strong' },
+    ],
+    bonusPoints: [
+      { name: 'Diversified tenant base (no single >15%)', nameTh: 'ฐานผู้เช่าหลากหลาย (ไม่มีรายเดียว >15%)' },
+      { name: 'Green building certifications', nameTh: 'การรับรองอาคารสีเขียว' },
+      { name: 'Long-term leases with escalations (3-5%)', nameTh: 'สัญญาเช่าระยะยาวพร้อมการปรับขึ้น (3-5%)' },
+      { name: 'Right of first refusal (pipeline)', nameTh: 'สิทธิในการปฏิเสธก่อน (pipeline)' },
+      { name: 'Defensive sectors (grocery-anchored)', nameTh: 'ภาคป้องกัน (ร้านค้าปลีกหลัก)' },
+      { name: 'Geographic diversification', nameTh: 'ความหลากหลายทางภูมิศาสตร์' },
+    ],
+    redFlags: [
+      { name: 'Yield <4%', nameTh: 'ผลตอบแทน <4%' },
+      { name: 'Occupancy <80%', nameTh: 'อัตราการเข้าพัก <80%' },
+      { name: 'Gearing >50%', nameTh: 'อัตราหนี้สินต่อทรัพย์สิน >50%' },
+    ],
+    peRange: 'P/NAV 0.9-1.2x',
+    roeRange: 'N/A',
+    keyMetrics: ['Yield >6%', 'Occupancy >88%', 'WALE >5 years'],
+    examples: ['CPNREIT', 'WHAIT', 'AMATAR'],
+  },
+
+  'Residential Development': {
+    subSector: 'Residential Development',
+    subSectorTh: 'พัฒนาอสังหาริมทรัพย์ที่อยู่อาศัย',
+    sector: 'Property & Construction',
+    sectorTh: 'อสังหาริมทรัพย์และก่อสร้าง',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: 'P/BV 0.8-1.5x',
+    roeRange: 'N/A',
+    keyMetrics: ['Presales >10% YoY', 'Backlog >2x revenue'],
+    examples: ['AP', 'LH', 'SPALI', 'ORIGIN'],
+  },
+
+  'Construction Services': {
+    subSector: 'Construction Services',
+    subSectorTh: 'บริการก่อสร้าง',
+    sector: 'Property & Construction',
+    sectorTh: 'อสังหาริมทรัพย์และก่อสร้าง',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: 'P/E 8-14x',
+    roeRange: 'N/A',
+    keyMetrics: ['Backlog >2x revenue', 'EBITDA margin >10%'],
+    examples: ['Construction contractors'],
+  },
+
+  'Construction Materials': {
+    subSector: 'Construction Materials',
+    subSectorTh: 'วัสดุก่อสร้าง',
+    sector: 'Property & Construction',
+    sectorTh: 'อสังหาริมทรัพย์และก่อสร้าง',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: 'P/E 10-16x',
+    roeRange: 'N/A',
+    keyMetrics: ['Capacity util. >80%', 'EBITDA margin >18%'],
+    examples: ['Cement, Building materials'],
+  },
+
+  // Additional Property & Construction sub-sectors (11 more to reach 16 total)
+  'Property Development': {
+    subSector: 'Property Development',
+    subSectorTh: 'พัฒนาอสังหาริมทรัพย์',
+    sector: 'Property & Construction',
+    sectorTh: 'อสังหาริมทรัพย์และก่อสร้าง',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: 'P/E 8-12x',
+    roeRange: '10-15%',
+    keyMetrics: ['Presales growth', 'Backlog position'],
+    examples: ['Property developers'],
+  },
+
+  'Property Fund': {
+    subSector: 'Property Fund',
+    subSectorTh: 'กองทุนอสังหาริมทรัพย์',
+    sector: 'Property & Construction',
+    sectorTh: 'อสังหาริมทรัพย์และก่อสร้าง',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: 'P/NAV 0.9-1.1x',
+    roeRange: 'N/A',
+    keyMetrics: ['Yield >5%', 'NAV growth'],
+    examples: ['Property funds'],
+  },
+
+  'Property Investment': {
+    subSector: 'Property Investment',
+    subSectorTh: 'การลงทุนอสังหาริมทรัพย์',
+    sector: 'Property & Construction',
+    sectorTh: 'อสังหาริมทรัพย์และก่อสร้าง',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: 'P/E 10-15x',
+    roeRange: '8-12%',
+    keyMetrics: ['Portfolio quality', 'Rental yield'],
+    examples: ['Property investment firms'],
+  },
+
+  'Property Management': {
+    subSector: 'Property Management',
+    subSectorTh: 'บริหารจัดการอสังหาริมทรัพย์',
+    sector: 'Property & Construction',
+    sectorTh: 'อสังหาริมทรัพย์และก่อสร้าง',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: 'P/E 12-18x',
+    roeRange: '10-15%',
+    keyMetrics: ['Fee-based revenue', 'Portfolio under management'],
+    examples: ['Property management companies'],
+  },
+
+  'Construction & Materials': {
+    subSector: 'Construction & Materials',
+    subSectorTh: 'ก่อสร้างและวัสดุ',
+    sector: 'Property & Construction',
+    sectorTh: 'อสังหาริมทรัพย์และก่อสร้าง',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: 'P/E 8-14x',
+    roeRange: '10-15%',
+    keyMetrics: ['Backlog', 'Margin stability'],
+    examples: ['Integrated construction companies'],
+  },
+
+  'Building & Decoration': {
+    subSector: 'Building & Decoration',
+    subSectorTh: 'ก่อสร้างและตกแต่ง',
+    sector: 'Property & Construction',
+    sectorTh: 'อสังหาริมทรัพย์และก่อสร้าง',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: 'P/E 10-15x',
+    roeRange: '10-12%',
+    keyMetrics: ['Housing cycle exposure', 'Brand recognition'],
+    examples: ['Building materials, Home improvement'],
+  },
+
+  'Home Improvement': {
+    subSector: 'Home Improvement',
+    subSectorTh: 'ปรับปรุงบ้าน',
+    sector: 'Property & Construction',
+    sectorTh: 'อสังหาริมทรัพย์และก่อสร้าง',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: 'P/E 12-18x',
+    roeRange: '10-15%',
+    keyMetrics: ['Same-store sales', 'Product mix'],
+    examples: ['Home improvement retailers'],
+  },
+
+  'Housing Development': {
+    subSector: 'Housing Development',
+    subSectorTh: 'พัฒนาที่อยู่อาศัย',
+    sector: 'Property & Construction',
+    sectorTh: 'อสังหาริมทรัพย์และก่อสร้าง',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: 'P/BV 0.8-1.2x',
+    roeRange: '10-12%',
+    keyMetrics: ['Transfer rate', 'Presales growth'],
+    examples: ['Housing developers'],
+  },
+
+  'Hotel & Resort': {
+    subSector: 'Hotel & Resort',
+    subSectorTh: 'โรงแรมและรีสอร์ท',
+    sector: 'Property & Construction',
+    sectorTh: 'อสังหาริมทรัพย์และก่อสร้าง',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: 'P/E 12-18x',
+    roeRange: '8-12%',
+    keyMetrics: ['RevPAR', 'Occupancy rate'],
+    examples: ['Hotel and resort operators'],
+  },
+
+  'Industrial Property': {
+    subSector: 'Industrial Property',
+    subSectorTh: 'อสังหาริมทรัพย์อุตสาหกรรม',
+    sector: 'Property & Construction',
+    sectorTh: 'อสังหาริมทรัพย์และก่อสร้าง',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: 'P/NAV 0.8-1.2x',
+    roeRange: 'N/A',
+    keyMetrics: ['Occupancy >85%', 'WALE'],
+    examples: ['Industrial estate, Warehouse'],
+  },
+
+  'Other Property': {
+    subSector: 'Other Property',
+    subSectorTh: 'อสังหาริมทรัพย์อื่นๆ',
+    sector: 'Property & Construction',
+    sectorTh: 'อสังหาริมทรัพย์และก่อสร้าง',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: 'P/E 10-15x',
+    roeRange: '8-12%',
+    keyMetrics: ['Specialization', 'Market position'],
+    examples: ['Niche property companies'],
+  },
+}
+
+// ============================================================================
+// 7. AGRICULTURE & FOOD (18 sub-sectors | 84 companies)
+// ============================================================================
+
+const agricultureFood = {
+  'Agriculture Business': {
+    subSector: 'Agriculture Business',
+    subSectorTh: 'เกษตรอุตสาหกรรม',
+    sector: 'Agriculture & Food',
+    sectorTh: 'เกษตรและอุตสาหกรรมอาหาร',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '10-18x',
+    roeRange: '8-15%',
+    keyMetrics: ['Vertical integration', 'Volume growth >8%'],
+    examples: ['CPF', 'GFPT', 'TFG'],
+  },
+
+  'Processed Food': {
+    subSector: 'Processed Food',
+    subSectorTh: 'อาหารแปรรูป',
+    sector: 'Agriculture & Food',
+    sectorTh: 'เกษตรและอุตสาหกรรมอาหาร',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '12-20x',
+    roeRange: '12-20%',
+    keyMetrics: ['Gross margin >25%', 'Brand strength'],
+    examples: ['Processed food companies'],
+  },
+
+  Snacks: {
+    subSector: 'Snacks',
+    subSectorTh: 'ขนมขบเคี้ยว',
+    sector: 'Agriculture & Food',
+    sectorTh: 'เกษตรและอุตสาหกรรมอาหาร',
+    mustPass: [
+      { name: 'ROE >20%', nameTh: 'ผลตอบแทนต่อผู้ถือหุ้น >20%', benchmark: '>20%' },
+      { name: 'Gross margin >40%', nameTh: 'กำไรขั้นต้น >40%', benchmark: '>40%' },
+      { name: 'Revenue growth >10% YoY', nameTh: 'การเติบโตของรายได้ >10% ต่อปี', benchmark: '>10%' },
+      { name: 'Brand recognition top 3', nameTh: 'การรับรู้แบรนด์ 3 อันดับแรก', benchmark: 'top 3' },
+      { name: 'Distribution coverage >75%', nameTh: 'ความครอบคลุมการกระจายสินค้า >75%', benchmark: '>75%' },
+      { name: 'Product portfolio balanced', nameTh: 'พอร์ตผลิตภัณฑ์สมดุล', benchmark: 'balanced' },
+    ],
+    bonusPoints: [
+      { name: 'Healthy snacks segment', nameTh: 'กลุ่มขนมเพื่อสุขภาพ' },
+      { name: 'Export markets', nameTh: 'ตลาดส่งออก' },
+      { name: 'Flavor innovation', nameTh: 'นวัตกรรมรสชาติ' },
+      { name: 'Limited editions', nameTh: 'พิเศษจำนวนจำกัด' },
+      { name: 'E-commerce subscription', nameTh: 'การสมัครสมาชิกอีคอมเมิร์ซ' },
+      { name: 'Sustainable packaging', nameTh: 'บรรจุภัณฑ์ยั่งยืน' },
+      { name: 'Co-branding collaborations', nameTh: 'ความร่วมมือแบรนด์คู่' },
+      { name: 'Manufacturing flexibility', nameTh: 'ความยืดหยุ่นในการผลิต' },
+    ],
+    redFlags: [
+      { name: 'Market share declining', nameTh: 'ส่วนแบ่งตลาดลดลง' },
+      { name: 'Gross margin <35%', nameTh: 'กำไรขั้นต้น <35%' },
+    ],
+    peRange: '15-25x',
+    roeRange: '18-28%',
+    keyMetrics: ['Gross margin >40%', 'Innovation pipeline'],
+    examples: ['CBG', 'ICHI', 'KTIS'],
+  },
+
+  Beverages: {
+    subSector: 'Beverages',
+    subSectorTh: 'เครื่องดื่ม',
+    sector: 'Agriculture & Food',
+    sectorTh: 'เกษตรและอุตสาหกรรมอาหาร',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '18-28x',
+    roeRange: '18-30%',
+    keyMetrics: ['Gross margin >45%', 'Distribution'],
+    examples: ['OISHI', 'SAPPE', 'ICHI'],
+  },
+
+  Restaurants: {
+    subSector: 'Restaurants',
+    subSectorTh: 'ร้านอาหาร',
+    sector: 'Agriculture & Food',
+    sectorTh: 'เกษตรและอุตสาหกรรมอาหาร',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '15-25x',
+    roeRange: '18-30%',
+    keyMetrics: ['SSS >3%', 'EBITDA margin >15%', 'Franchise %'],
+    examples: ['Restaurant chains'],
+  },
+
+  // Additional Agriculture & Food sub-sectors (12 more to reach 18 total)
+  Livestock: {
+    subSector: 'Livestock',
+    subSectorTh: 'ปศุสัตว์',
+    sector: 'Agriculture & Food',
+    sectorTh: 'เกษตรและอุตสาหกรรมอาหาร',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '10-15x',
+    roeRange: '8-12%',
+    keyMetrics: ['Vertical integration', 'Feed conversion ratio'],
+    examples: ['Livestock farming'],
+  },
+
+  'Wholesale & Distribution': {
+    subSector: 'Wholesale & Distribution',
+    subSectorTh: 'ค้าส่งและจัดจำหน่าย',
+    sector: 'Agriculture & Food',
+    sectorTh: 'เกษตรและอุตสาหกรรมอาหาร',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '10-15x',
+    roeRange: '8-12%',
+    keyMetrics: ['Inventory turnover >12x', 'Customer retention'],
+    examples: ['Food distributors'],
+  },
+
+  'Agricultural Products': {
+    subSector: 'Agricultural Products',
+    subSectorTh: 'ผลิตภัณฑ์เกษตร',
+    sector: 'Agriculture & Food',
+    sectorTh: 'เกษตรและอุตสาหกรรมอาหาร',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '10-18x',
+    roeRange: '8-12%',
+    keyMetrics: ['Yield improvement', 'Cost control'],
+    examples: ['Crop producers'],
+  },
+
+  Fishery: {
+    subSector: 'Fishery',
+    subSectorTh: 'ประมง',
+    sector: 'Agriculture & Food',
+    sectorTh: 'เกษตรและอุตสาหกรรมอาหาร',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '10-15x',
+    roeRange: '8-12%',
+    keyMetrics: ['Sustainable practices', 'Yield per area'],
+    examples: ['Fishery, Aquaculture'],
+  },
+
+  'Agricultural Services': {
+    subSector: 'Agricultural Services',
+    subSectorTh: 'บริการเกษตร',
+    sector: 'Agriculture & Food',
+    sectorTh: 'เกษตรและอุตสาหกรรมอาหาร',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '10-15x',
+    roeRange: '10-15%',
+    keyMetrics: ['Recurring revenue', 'Market share'],
+    examples: ['Agri-services companies'],
+  },
+
+  'Food Ingredients': {
+    subSector: 'Food Ingredients',
+    subSectorTh: 'วัตถุดิบอาหาร',
+    sector: 'Agriculture & Food',
+    sectorTh: 'เกษตรและอุตสาหกรรมอาหาร',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '12-18x',
+    roeRange: '10-15%',
+    keyMetrics: ['Product quality', 'Supply chain'],
+    examples: ['Food ingredient suppliers'],
+  },
+
+  'Dairy Products': {
+    subSector: 'Dairy Products',
+    subSectorTh: 'ผลิตภัณฑ์นม',
+    sector: 'Agriculture & Food',
+    sectorTh: 'เกษตรและอุตสาหกรรมอาหาร',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '15-25x',
+    roeRange: '12-18%',
+    keyMetrics: ['Brand strength', 'Distribution coverage'],
+    examples: ['Dairy companies'],
+  },
+
+  'Food Processing Equipment': {
+    subSector: 'Food Processing Equipment',
+    subSectorTh: 'เครื่องจักรอาหาร',
+    sector: 'Agriculture & Food',
+    sectorTh: 'เกษตรและอุตสาหกรรมอาหาร',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '10-15x',
+    roeRange: '10-15%',
+    keyMetrics: ['Technology leadership', 'After-sales service'],
+    examples: ['Food machinery manufacturers'],
+  },
+
+  'Food Retail': {
+    subSector: 'Food Retail',
+    subSectorTh: 'ค้าปลีกอาหาร',
+    sector: 'Agriculture & Food',
+    sectorTh: 'เกษตรและอุตสาหกรรมอาหาร',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '15-25x',
+    roeRange: '10-15%',
+    keyMetrics: ['Same-store sales', 'Market share'],
+    examples: ['Supermarkets, Food retailers'],
+  },
+
+  'Seafood Processing': {
+    subSector: 'Seafood Processing',
+    subSectorTh: 'อาหารทะเลแปรรูป',
+    sector: 'Agriculture & Food',
+    sectorTh: 'เกษตรและอุตสาหกรรมอาหาร',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '12-18x',
+    roeRange: '10-15%',
+    keyMetrics: ['Export markets', 'Product quality'],
+    examples: ['Seafood processors'],
+  },
+
+  'Sugar & Sweeteners': {
+    subSector: 'Sugar & Sweeteners',
+    subSectorTh: 'น้ำตาลและวัตถุให้ความหวาน',
+    sector: 'Agriculture & Food',
+    sectorTh: 'เกษตรและอุตสาหกรรมอาหาร',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '10-15x',
+    roeRange: '8-12%',
+    keyMetrics: ['Sugar price exposure', 'Production efficiency'],
+    examples: ['Sugar producers'],
+  },
+
+  'Other Agriculture': {
+    subSector: 'Other Agriculture',
+    subSectorTh: 'เกษตรกรรมอื่นๆ',
+    sector: 'Agriculture & Food',
+    sectorTh: 'เกษตรและอุตสาหกรรมอาหาร',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '10-15x',
+    roeRange: '8-12%',
+    keyMetrics: ['Niche focus', 'Sustainability'],
+    examples: ['Specialized agri-companies'],
+  },
+}
+
+// ============================================================================
+// 8. TECHNOLOGY (4 sub-sectors | 71 companies)
 // ============================================================================
 
 const technology = {
+  'Information & Communication Technology': {
+    subSector: 'Information & Communication Technology',
+    subSectorTh: 'เทคโนโลยีสารสนเทศและการสื่อสาร',
+    sector: 'Technology',
+    sectorTh: 'เทคโนโลยี',
+    mustPass: [
+      { name: 'ARPU growth positive', nameTh: 'ARPU เติบโตเป็นบวก', benchmark: '>0%' },
+      { name: 'EBITDA margin >40%', nameTh: 'กำไร EBITDA >40%', benchmark: '>40%' },
+      { name: 'Subscriber base growing/stable', nameTh: 'ฐานผู้ใช้บริการเติบโต/คงที่', benchmark: 'stable+' },
+      { name: 'Churn rate <2% per month', nameTh: 'อัตราการเลิกใช้ <2% ต่อเดือน', benchmark: '<2%' },
+      { name: 'Network quality (rankings)', nameTh: 'คุณภาพเครือข่าย', benchmark: 'top tier' },
+      { name: 'Spectrum holdings adequate', nameTh: 'คลื่นความถี่เพียงพอ', benchmark: 'adequate' },
+    ],
+    bonusPoints: [
+      { name: '5G rollout leadership', nameTh: 'ผู้นำการเปิดตัว 5G' },
+      { name: 'Fiber broadband integration', nameTh: 'การผนวกกิจการไฟเบอร์บรอดแบนด์' },
+      { name: 'Digital services revenue >15%', nameTh: 'รายได้บริการดิจิทัล >15%' },
+      { name: 'Postpaid mix >50%', nameTh: 'สัดส่วนผู้ใช้แบบจ่ายล่วงหน้า >50%' },
+      { name: 'Tower monetization', nameTh: 'การทำประโยชน์จากเสาไฟฟ้า' },
+      { name: 'Cloud/data center business', nameTh: 'ธุรกิจคลาวด์/ศูนย์ข้อมูล' },
+      { name: 'IoT/enterprise solutions', nameTh: 'โซลูชัน IoT/องค์กร' },
+      { name: 'Content partnerships', nameTh: 'ความร่วมมือด้านเนื้อหา' },
+    ],
+    redFlags: [
+      { name: 'ARPU declining', nameTh: 'ARPU ลดลง' },
+      { name: 'Churn rate >3%', nameTh: 'อัตราการเลิกใช้ >3%' },
+      { name: 'Market share declining', nameTh: 'ส่วนแบ่งตลาดลดลง' },
+    ],
+    peRange: '15-25x',
+    roeRange: '12-20%',
+    keyMetrics: ['ARPU growth', 'Churn <2%', 'EBITDA margin 35-50%'],
+    examples: ['ADVANC', 'TRUE', 'DTAC', 'AIT'],
+  },
+
   Technology: {
     subSector: 'Technology',
     subSectorTh: 'เทคโนโลยี',
@@ -56,239 +1585,33 @@ const technology = {
     keyMetrics: ['Capacity util. >85%', 'R&D >4%', 'Gross margin >20%'],
     examples: ['DELTA', 'HANA', 'KCE', 'SVI'],
   },
-  'Information & Communication Technology': {
-    subSector: 'Information & Communication Technology',
-    subSectorTh: 'เทคโนโลยีสารสนเทศและการสื่อสาร',
+
+  'Electronic Components': {
+    subSector: 'Electronic Components',
+    subSectorTh: 'อิเล็กทรอนิกส์',
     sector: 'Technology',
     sectorTh: 'เทคโนโลยี',
-    mustPass: [
-      { name: 'ARPU growth positive', nameTh: 'ARPU เติบโตเป็นบวก', benchmark: '>0%' },
-      { name: 'EBITDA margin >40%', nameTh: 'กำไร EBITDA >40%', benchmark: '>40%' },
-      { name: 'Subscriber base growing/stable', nameTh: 'ฐานผู้ใช้บริการเติบโต/คงที่', benchmark: 'stable+' },
-      { name: 'Churn rate <2% per month', nameTh: 'อัตราการเลิกใช้ <2% ต่อเดือน', benchmark: '<2%' },
-      { name: 'Network quality (rankings)', nameTh: 'คุณภาพเครือข่าย', benchmark: 'top tier' },
-    ],
-    bonusPoints: [
-      { name: '5G rollout leadership', nameTh: 'ผู้นำการเปิดตัว 5G' },
-      { name: 'Fiber broadband integration', nameTh: 'การผนวกกิจการไฟเบอร์บรอดแบนด์' },
-      { name: 'Digital services revenue >15%', nameTh: 'รายได้บริการดิจิทัล >15%' },
-      { name: 'Postpaid mix >50%', nameTh: 'สัดส่วนผู้ใช้แบบจ่ายล่วงหน้า >50%' },
-      { name: 'Tower monetization', nameTh: 'การทำประโยชน์จากเสาไฟฟ้า' },
-    ],
-    redFlags: [
-      { name: 'ARPU declining', nameTh: 'ARPU ลดลง' },
-      { name: 'Churn rate >3%', nameTh: 'อัตราการเลิกใช้ >3%' },
-      { name: 'Market share declining', nameTh: 'ส่วนแบ่งตลาดลดลง' },
-    ],
-    peRange: '15-25x',
-    roeRange: '12-20%',
-    keyMetrics: ['ARPU growth', 'Churn <2%', 'EBITDA margin 35-50%'],
-    examples: ['ADVANC', 'TRUE', 'DTAC', 'AIT'],
-  },
-}
-
-// ============================================================================
-// 1. Financial Services (6 sub-sectors)
-// ============================================================================
-
-const financialServices = {
-  Banking: {
-    subSector: 'Banking',
-    subSectorTh: 'ธนาคาร',
-    sector: 'Financial Services',
-    sectorTh: 'ธุรกิจการเงิน',
-    mustPass: [
-      { name: 'NPL Ratio < 3.5%', nameTh: 'สัดส่วนหนี้สงสัย < 3.5%', benchmark: '<3.5%' },
-      { name: 'ROE > 10%', nameTh: 'ผลตอบแทนต่อผู้ถือหุ้น > 10%', benchmark: '>10%' },
-      { name: 'NIM > 3.0%', nameTh: 'กำไรจากดอกเบี้ยสุทธิ > 3.0%', benchmark: '>3.0%' },
-      { name: 'Loan Growth 5-8% YoY', nameTh: 'การเติบโตของสินเชื่อ 5-8% ต่อปี', benchmark: '5-8%' },
-      { name: 'CET1 Ratio > 14%', nameTh: 'อัตราทุนชั้นที่ 1 > 14%', benchmark: '>14%' },
-      { name: 'Provision Coverage > 120%', nameTh: 'อัตราการสำรองหนี้ > 120%', benchmark: '>120%' },
-    ],
-    bonusPoints: [
-      { name: 'Digital banking penetration > 80%', nameTh: 'การรับบริการธนาคารดิจิทัล > 80%' },
-      { name: 'Fee income > 30% of total income', nameTh: 'รายได้ค่าธรรมเนียม > 30% ของรายได้ทั้งหมด' },
-      { name: 'SME/Retail loan mix > 50%', nameTh: 'สัดส่วนสินเชื่อ SME/Retail > 50%' },
-      { name: 'Cost/Income ratio improving', nameTh: 'อัตราต้นทุนต่อรายได้ดีขึ้น' },
-      { name: 'Dividend payout 40-60%', nameTh: 'การจ่ายเงินปันผล 40-60%' },
-    ],
-    redFlags: [
-      { name: 'NPL > 4% or rising trend (2 quarters)', nameTh: 'NPL > 4% หรือมีแนวโน้มเพิ่มขึ้น (2 ไตรมาส)' },
-      { name: 'ROE declining 2 consecutive years', nameTh: 'ROE ลดลง 2 ปีติดต่อกัน' },
-      { name: 'CET1 < 12%', nameTh: 'CET1 < 12%' },
-      { name: 'NIM compressing < 2.8%', nameTh: 'NIM ลดลง < 2.8%' },
-    ],
-    peRange: '8-12x',
-    roeRange: '8-12%',
-    keyMetrics: ['NPL <3.5%', 'NIM >3%', 'CET1 >14%'],
-    examples: ['BBL', 'KBANK', 'SCB', 'KTB', 'BAY'],
-  },
-  'Capital Markets': {
-    subSector: 'Capital Markets',
-    subSectorTh: 'ตลาดทุน',
-    sector: 'Financial Services',
-    sectorTh: 'ธุรกิจการเงิน',
-    mustPass: [
-      { name: 'ROE > 15%', nameTh: 'ผลตอบแทนต่อผู้ถือหุ้น > 15%', benchmark: '>15%' },
-      { name: 'NPL < 4%', nameTh: 'สัดส่วนหนี้สงสัย < 4%', benchmark: '<4%' },
-      { name: 'Net Profit Margin > 18%', nameTh: 'กำไรสุทธิ > 18%', benchmark: '>18%' },
-      { name: 'D/E Ratio 3-5x', nameTh: 'อัตราหนี้สินต่อทุน 3-5 เท่า', benchmark: '3-5x' },
-      { name: 'Revenue Growth > 10% YoY', nameTh: 'การเติบโตของรายได้ > 10% ต่อปี', benchmark: '>10%' },
-    ],
-    bonusPoints: [
-      { name: 'Diversified income (brokerage + advisory + lending)', nameTh: 'รายได้หลากหลาย (brokerage + advisory + lending)' },
-      { name: 'SET Index correlation < 0.7', nameTh: 'ความสัมพันธ์กับดัชนี SET < 0.7' },
-      { name: 'Digital platform adoption > 60%', nameTh: 'การนำแพลตฟอร์มดิจิทัลไปใช้ > 60%' },
-      { name: 'AUM market share growing', nameTh: 'ส่วนแบ่ง AUM เติบโต' },
-    ],
-    redFlags: [
-      { name: 'ROE < 12%', nameTh: 'ROE < 12%' },
-      { name: 'NPL > 5%', nameTh: 'NPL > 5%' },
-      { name: 'Revenue concentration (single source >70%)', nameTh: 'ความเสี่ยงจากแหล่งรายได้เดียว >70%' },
-    ],
-    peRange: '10-15x',
-    roeRange: '15-20%',
-    keyMetrics: ['NPL <4%', 'NIM 8-15%', 'D/E 3-5x'],
-    examples: ['KKP', 'ASAP', 'ASP', 'ASK', 'AMANAH'],
-  },
-}
-
-// ============================================================================
-// 3. Services - Healthcare (27 companies)
-// ============================================================================
-
-const healthcare = {
-  Healthcare: {
-    subSector: 'Healthcare',
-    subSectorTh: 'การแพทย์',
-    sector: 'Services',
-    sectorTh: 'บริการ',
-    mustPass: [
-      { name: 'ROE > 18%', nameTh: 'ผลตอบแทนต่อผู้ถือหุ้น > 18%', benchmark: '>18%' },
-      { name: 'EBITDA margin > 20%', nameTh: 'กำไร EBITDA > 20%', benchmark: '>20%' },
-      { name: 'Revenue growth > 10% YoY', nameTh: 'การเติบโตของรายได้ > 10% ต่อปี', benchmark: '>10%' },
-      { name: 'Bed occupancy 70-80%', nameTh: 'อัตราการเข้าพักเตียง 70-80%', benchmark: '70-80%' },
-      { name: 'D/E < 1x', nameTh: 'อัตราหนี้สินต่อทุน < 1 เท่า', benchmark: '<1x' },
-    ],
-    bonusPoints: [
-      { name: 'Network expansion (new hospitals)', nameTh: 'การขยายเครือข่าย (โรงพยาบาลใหม่)' },
-      { name: 'Specialty centers (cardio, ortho, cancer)', nameTh: 'ศูนย์เฉพาะทาง (หัวใจ, กระดูก, มะเร็ง)' },
-      { name: 'JCI accreditation', nameTh: 'การรับรอง JCI' },
-      { name: 'Medical tourism partnerships', nameTh: 'ความร่วมมือการแพทย์เที่ยว' },
-      { name: 'Digital health platform', nameTh: 'แพลตฟอร์มสุขภาพดิจิทัล' },
-      { name: 'Insurance contracts with major providers', nameTh: 'สัญญาประกันกับผู้ให้บริการหลัก' },
-    ],
-    redFlags: [
-      { name: 'Bed occupancy < 65%', nameTh: 'อัตราการเข้าพักเตียง < 65%' },
-      { name: 'EBITDA margin declining', nameTh: 'กำไร EBITDA ลดลง' },
-      { name: 'Doctor retention issues', nameTh: 'ปัญหาการรักษาแพทย์' },
-    ],
-    peRange: '18-30x',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '10-20x',
     roeRange: '15-25%',
-    keyMetrics: ['Bed occupancy 70-85%', 'EBITDA margin >20%'],
-    examples: ['BH', 'BDMS', 'BCH', 'CHG', 'BPH'],
+    keyMetrics: ['Capacity util. >85%', 'Gross margin >22%'],
+    examples: ['Electronic component manufacturers'],
   },
-}
 
-// ============================================================================
-// 6. Property & Construction - REITs (35 companies)
-// ============================================================================
-
-const propertyREITs = {
-  'REITs & Property Trusts': {
-    subSector: 'REITs & Property Trusts',
-    subSectorTh: 'กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์',
-    sector: 'Property & Construction',
-    sectorTh: 'อสังหาริมทรัพย์และก่อสร้าง',
-    mustPass: [
-      { name: 'Distribution yield >6%', nameTh: 'ผลตอบแทนการจ่ายเงินปันผล >6%', benchmark: '>6%' },
-      { name: 'P/NAV <1.1x', nameTh: 'ราคาต่อมูลค่าสุทธิ <1.1 เท่า', benchmark: '<1.1x' },
-      { name: 'Occupancy >88%', nameTh: 'อัตราการเข้าพัก >88%', benchmark: '>88%' },
-      { name: 'WALE >5 years', nameTh: 'อายุสัญญาเฉลี่ยถ่วงน้ำหนัก >5 ปี', benchmark: '>5y' },
-      { name: 'Gearing <40%', nameTh: 'อัตราหนี้สินต่อทรัพย์สิน <40%', benchmark: '<40%' },
-    ],
-    bonusPoints: [
-      { name: 'Diversified tenant base (no single >15%)', nameTh: 'ฐานผู้เช่าหลากหลาย (ไม่มีรายเดียว >15%)' },
-      { name: 'Green building certifications', nameTh: 'การรับรองอาคารสีเขียว' },
-      { name: 'Long-term leases with escalations (3-5%)', nameTh: 'สัญญาเช่าระยะยาวพร้อมการปรับขึ้น (3-5%)' },
-      { name: 'Right of first refusal (pipeline)', nameTh: 'สิทธิ์ในการปฏิเสธก่อน (pipeline)' },
-    ],
-    redFlags: [
-      { name: 'Yield <4%', nameTh: 'ผลตอบแทน <4%' },
-      { name: 'Occupancy <80%', nameTh: 'อัตราการเข้าพัก <80%' },
-      { name: 'Gearing >50%', nameTh: 'อัตราหนี้สินต่อทรัพย์สิน >50%' },
-    ],
-    peRange: 'P/NAV 0.9-1.2x',
+  Telecommunications: {
+    subSector: 'Telecommunications',
+    subSectorTh: 'โทรคมนาคม',
+    sector: 'Technology',
+    sectorTh: 'เทคโนโลยี',
+    mustPass: [],
+    bonusPoints: [],
+    redFlags: [],
+    peRange: '18-25x',
     roeRange: 'N/A',
-    keyMetrics: ['Yield >6%', 'Occupancy >88%', 'WALE >5 years'],
-    examples: ['CPNREIT', 'WHAIT', 'AMATAR'],
-  },
-}
-
-// ============================================================================
-// 2. Resources & Energy - Oil & Gas (9 companies)
-// ============================================================================
-
-const oilGas = {
-  'Oil & Gas': {
-    subSector: 'Oil & Gas',
-    subSectorTh: 'น้ำมันและก๊าซธรรมชาติ',
-    sector: 'Resources & Energy',
-    sectorTh: 'ทรัพยากรและพลังงาน',
-    mustPass: [
-      { name: 'ROE > 12% (through-cycle)', nameTh: 'ผลตอบแทนต่อผู้ถือหุ้น > 12% (ทั่ววงจร)', benchmark: '>12%' },
-      { name: 'D/E < 1.2x', nameTh: 'อัตราหนี้สินต่อทุน < 1.2 เท่า', benchmark: '<1.2x' },
-      { name: 'EBITDA margin > 12%', nameTh: 'กำไร EBITDA > 12%', benchmark: '>12%' },
-      { name: 'Capacity utilization > 85%', nameTh: 'อัตราการใช้กำลังการผลิต > 85%', benchmark: '>85%' },
-      { name: 'Free cash flow positive', nameTh: 'กระแสเงินสดจากกิจการเป็นบวก', benchmark: '>0' },
-    ],
-    bonusPoints: [
-      { name: 'Upstream exposure (oil price leverage)', nameTh: 'การสัมผัสราคาน้ำมัน (upstream)' },
-      { name: 'Petrochemical integration', nameTh: 'การผนวกกิจการปิโตรเคมี' },
-      { name: 'Retail network (demand stability)', nameTh: 'เครือข่ายค้าปลีก (เสถียรภาพความต้องการ)' },
-    ],
-    redFlags: [
-      { name: 'Negative FCF 2+ years', nameTh: 'กระแสเงินสดจากกิจการเป็นลบ 2+ ปี' },
-      { name: 'D/E > 2x', nameTh: 'อัตราหนี้สินต่อทุน > 2 เท่า' },
-    ],
-    peRange: '8-15x',
-    roeRange: '10-18%',
-    keyMetrics: ['Crack spread', 'Capacity >85%'],
-    examples: ['PTT', 'TOP', 'PTTGC', 'BCP', 'OR'],
-  },
-}
-
-// ============================================================================
-// 7. Agriculture & Food - Snacks (10 companies)
-// ============================================================================
-
-const snacks = {
-  Snacks: {
-    subSector: 'Snacks',
-    subSectorTh: 'ขนมขบเคี้ยว',
-    sector: 'Agriculture & Food',
-    sectorTh: 'เกษตรและอุตสาหกรรมอาหาร',
-    mustPass: [
-      { name: 'ROE >20%', nameTh: 'ผลตอบแทนต่อผู้ถือหุ้น >20%', benchmark: '>20%' },
-      { name: 'Gross margin >40%', nameTh: 'กำไรขั้นต้น >40%', benchmark: '>40%' },
-      { name: 'Revenue growth >10% YoY', nameTh: 'การเติบโตของรายได้ >10% ต่อปี', benchmark: '>10%' },
-      { name: 'Brand recognition top 3', nameTh: 'การรับรู้แบรนด์ 3 อันดับแรก', benchmark: 'top 3' },
-      { name: 'Distribution coverage >75%', nameTh: 'ความครอบคลุมการกระจายสินค้า >75%', benchmark: '>75%' },
-    ],
-    bonusPoints: [
-      { name: 'Healthy snacks segment', nameTh: 'กลุ่มขนมเพื่อสุขภาพ' },
-      { name: 'Export markets', nameTh: 'ตลาดส่งออก' },
-      { name: 'Flavor innovation', nameTh: 'นวัตกรรมรสชาติ' },
-      { name: 'E-commerce subscription', nameTh: 'การสมัครสมาชิกอีคอมเมิร์ซ' },
-    ],
-    redFlags: [
-      { name: 'Market share declining', nameTh: 'ส่วนแบ่งตลาดลดลง' },
-      { name: 'Gross margin <35%', nameTh: 'กำไรขั้นต้น <35%' },
-    ],
-    peRange: '15-25x',
-    roeRange: '18-28%',
-    keyMetrics: ['Gross margin >40%', 'Innovation pipeline'],
-    examples: ['CBG', 'ICHI', 'KTIS'],
+    keyMetrics: ['Tenant ratio >2.0x', 'EBITDA margin >65%'],
+    examples: ['Tower companies'],
   },
 }
 
@@ -298,12 +1621,14 @@ const snacks = {
 
 // Add all sectors to database
 const allSectors = {
-  ...technology,
   ...financialServices,
-  ...healthcare,
-  ...propertyREITs,
-  ...oilGas,
-  ...snacks,
+  ...resourcesEnergy,
+  ...services,
+  ...industrials,
+  ...consumerProducts,
+  ...propertyConstruction,
+  ...agricultureFood,
+  ...technology,
 }
 
 // Build bySubSector index

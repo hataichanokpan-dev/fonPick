@@ -673,10 +673,12 @@ export function StockPageClient({ symbol, children }: StockPageClientProps) {
         <ValuationMetricsCard symbol={symbol} />
 
         {/* Dividend Analysis Card */}
+        {/*
         <DividendAnalysisCard
           symbol={symbol}
           currentPrice={overview?.price ?? 100}
         />
+        */}
 
         <div className="mb-4"></div>
       </div>

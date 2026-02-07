@@ -118,14 +118,16 @@ function DividendTooltip({ active, payload }: DividendTooltipProps) {
         </div>
 
         {/* Yield */}
-        <div className="flex items-center justify-between gap-2">
-          <span className="text-[10px] sm:text-xs text-text-2 shrink-0">
-            {locale === "th" ? "อัตราผลตอบ" : "Yield"}:
-          </span>
-          <span className="text-xs sm:text-sm font-semibold tabular-nums text-up-primary">
-            {data.yield.toFixed(2)}%
-          </span>
-        </div>
+        {typeof data.yield === 'number' && (
+          <div className="flex items-center justify-between gap-2">
+            <span className="text-[10px] sm:text-xs text-text-2 shrink-0">
+              {locale === "th" ? "อัตราผลตอบ" : "Yield"}:
+            </span>
+            <span className="text-xs sm:text-sm font-semibold tabular-nums text-up-primary">
+              {data.yield.toFixed(2)}%
+            </span>
+          </div>
+        )}
 
         {/* Payout Ratio */}
         <div className="flex items-center justify-between gap-2">
@@ -157,26 +159,27 @@ function DividendTooltip({ active, payload }: DividendTooltipProps) {
 export function DividendTimelineChart({
   history,
   forecasts,
-  currentPrice,
+  currentPrice: _currentPrice, // Kept for future use, yield now calculated in parent
   height = 220,
   className,
 }: DividendTimelineChartProps) {
   const locale = useLocale() as "en" | "th";
 
   // Transform data for chart
+  // Note: history and forecasts now come with pre-calculated yields from currentPrice
   const chartData = useMemo(() => {
-    // History data
+    // History data - use yield from props (calculated in parent component)
     const historyData: DividendChartDataPoint[] = history.map((p) => ({
       ...p,
       timestamp: new Date(`${p.year}-12-31`).getTime(),
       isForecast: false,
     }));
 
-    // Forecast data
+    // Forecast data - use estimatedYield from props (calculated in parent component)
     const forecastData: DividendChartDataPoint[] = forecasts.map((f) => ({
       year: f.year,
       dps: f.estimatedDps,
-      yield: (f.estimatedDps / currentPrice) * 100,
+      yield: f.estimatedYield, // Use pre-calculated yield from parent
       payoutRatio: 0, // Unknown for forecast
       exDate: `${f.year}-12-15`,
       timestamp: new Date(`${f.year}-12-31`).getTime(),
@@ -187,7 +190,7 @@ export function DividendTimelineChart({
     return [...historyData, ...forecastData].sort(
       (a, b) => a.timestamp - b.timestamp
     );
-  }, [history, forecasts, currentPrice]);
+  }, [history, forecasts]);
 
   // Calculate Y-axis domain
   const yDomain = useMemo(() => {

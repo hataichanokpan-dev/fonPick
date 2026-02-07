@@ -11,14 +11,17 @@
 
 /**
  * Single dividend payment data point
+ *
+ * Note: yield is optional and should be calculated at presentation layer
+ * using the formula: (dps / currentPrice) * 100
  */
 export interface DividendPayment {
   /** Year of payment */
   year: number;
   /** Dividend per share (DPS) in THB */
   dps: number;
-  /** Dividend yield at year-end (%) */
-  yield: number;
+  /** Dividend yield at year-end (%) - calculate at presentation layer */
+  yield?: number;
   /** Payout ratio (%) */
   payoutRatio: number;
   /** Ex-dividend date (ISO format) */

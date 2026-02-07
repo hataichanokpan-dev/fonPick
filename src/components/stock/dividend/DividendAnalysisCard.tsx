@@ -15,7 +15,7 @@
 
 "use client";
 
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { useLocale } from "next-intl";
 import { TrendingUp, TrendingDown } from "lucide-react";
 import { useDividendAnalysis } from "@/hooks/useDividendAnalysis";
@@ -23,6 +23,7 @@ import { DividendTimelineChart } from "./DividendTimelineChart";
 import ConsistencyMeter from "./ConsistencyMeter";
 import { cn } from "@/lib/utils";
 import { DIVIDEND_STATUS_CONFIG } from "@/types/dividend";
+import type { DividendPayment, DividendForecast } from "@/types/dividend";
 
 // ============================================================================
 // TYPES
@@ -177,6 +178,46 @@ export function DividendAnalysisCard({
     refetch();
   }, [refetch]);
 
+  // ========================================================================
+  // CALCULATE YIELDS FROM REAL CURRENT PRICE
+  // ========================================================================
+
+  // Calculate current yield from real currentPrice: (DPS / Price) × 100
+  const currentYield = useMemo(() => {
+    if (!data || !currentPrice || currentPrice <= 0) return 0;
+    return (data.current.dps / currentPrice) * 100;
+  }, [data, currentPrice]);
+
+  // Calculate forecast yields using real currentPrice
+  const forecastsWithYield = useMemo((): DividendForecast[] => {
+    if (!data || !currentPrice || currentPrice <= 0) return [];
+    return data.forecasts.map(f => ({
+      ...f,
+      estimatedYield: (f.estimatedDps / currentPrice) * 100
+    }));
+  }, [data, currentPrice]);
+
+  // Calculate historical yields using currentPrice for consistency
+  const historyWithYield = useMemo((): DividendPayment[] => {
+    if (!data || !currentPrice || currentPrice <= 0) return [];
+    return data.history.map(h => ({
+      ...h,
+      yield: (h.dps / currentPrice) * 100
+    }));
+  }, [data, currentPrice]);
+
+  // Get dividend status from calculated yield
+  const yieldStatus = currentYield >= 4 ? "attractive" : currentYield >= 2 ? "normal" : "low";
+  const statusConfig = (DIVIDEND_STATUS_CONFIG as Record<string, typeof DIVIDEND_STATUS_CONFIG[keyof typeof DIVIDEND_STATUS_CONFIG]>)[
+    yieldStatus
+  ] || DIVIDEND_STATUS_CONFIG.normal;
+  const StatusIcon =
+    yieldStatus === "attractive"
+      ? TrendingUp
+      : yieldStatus === "normal"
+        ? TrendingUp
+        : TrendingDown;
+
   // Loading state
   if (isLoading) {
     return <DividendSkeleton className={className} />;
@@ -192,18 +233,6 @@ export function DividendAnalysisCard({
       />
     );
   }
-
-  // Get dividend status
-  const yieldStatus = data.current.yield >= 4 ? "attractive" : data.current.yield >= 2 ? "normal" : "low";
-  const statusConfig = (DIVIDEND_STATUS_CONFIG as Record<string, typeof DIVIDEND_STATUS_CONFIG[keyof typeof DIVIDEND_STATUS_CONFIG]>)[
-    yieldStatus
-  ] || DIVIDEND_STATUS_CONFIG.normal;
-  const StatusIcon =
-    yieldStatus === "attractive"
-      ? TrendingUp
-      : yieldStatus === "normal"
-        ? TrendingUp
-        : TrendingDown;
 
   // ============================================================================
   // RENDER
@@ -226,10 +255,12 @@ export function DividendAnalysisCard({
       {/* Top Metrics Row - STACKED on mobile, 3 columns on tablet+ */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-5 sm:mb-6">
         {/* Consistency Meter */}
-        <ConsistencyMeter consistency={data.consistency} />
+        <div className="dividend-fade-in dividend-stagger-1">
+          <ConsistencyMeter consistency={data.consistency} />
+        </div>
 
         {/* Current DPS */}
-        <div className="bg-surface-2 rounded-lg p-3 sm:p-4 border border-border-subtle/50">
+        <div className="metric-card dividend-fade-in dividend-stagger-2 bg-surface-2 rounded-lg p-3 sm:p-4 border border-border-subtle/50">
           <p className="text-[10px] uppercase tracking-wide text-text-tertiary mb-2">
             {t.currentDPS}
           </p>
@@ -247,19 +278,20 @@ export function DividendAnalysisCard({
           </p>
         </div>
 
-        {/* Dividend Yield */}
+        {/* Dividend Yield - with glow effect for attractive yields */}
         <div
           className={cn(
-            "rounded-lg p-3 sm:p-4 border",
+            "metric-card dividend-fade-in dividend-stagger-3 rounded-lg p-3 sm:p-4 border",
             statusConfig.bg,
-            statusConfig.border
+            statusConfig.border,
+            yieldStatus === "attractive" && "yield-attractive"
           )}
         >
           <p className="text-[10px] uppercase tracking-wide text-text-tertiary mb-2">
             {t.yield}
           </p>
           <p className={cn("text-xl sm:text-2xl font-semibold tabular-nums", statusConfig.text)}>
-            {data.current.yield.toFixed(1)}%
+            {currentYield.toFixed(1)}%
           </p>
           <p className={cn("text-xs sm:text-sm font-medium flex items-center gap-1 mt-1", statusConfig.text)}>
             <StatusIcon className="w-3 h-3 sm:w-4 sm:h-4" />
@@ -275,18 +307,18 @@ export function DividendAnalysisCard({
       {/* Dividend Timeline Chart */}
       <div className="mb-4 sm:mb-5">
         <DividendTimelineChart
-          history={data.history}
-          forecasts={data.forecasts}
+          history={historyWithYield}
+          forecasts={forecastsWithYield}
           currentPrice={currentPrice}
           // Responsive height: smaller on mobile
           height={typeof window !== 'undefined' && window.innerWidth < 640 ? 200 : 250}
         />
       </div>
 
-      {/* Bottom Metrics Strip - better mobile layout */}
-      <div className="flex flex-col sm:flex-row sm:flex-wrap gap-2 sm:gap-3 pt-4 border-t border-border-subtle/50">
+      {/* Bottom Metrics Strip - better mobile layout with hover effects */}
+      <div className="dividend-fade-in dividend-stagger-4 flex flex-col sm:flex-row sm:flex-wrap gap-2 sm:gap-3 pt-4 border-t border-border-subtle/50">
         {/* Payout Ratio */}
-        <div className="flex items-center justify-between sm:justify-start gap-2 px-3 py-2 bg-surface-2 rounded-lg min-h-[44px]">
+        <div className="metric-card flex items-center justify-between sm:justify-start gap-2 px-3 py-2 bg-surface-2 rounded-lg min-h-[44px]">
           <span className="text-xs text-text-tertiary">{t.payoutLabel}:</span>
           <span className="text-sm font-semibold text-text-primary tabular-nums">
             {data.current.payoutRatio.toFixed(0)}%
@@ -295,7 +327,7 @@ export function DividendAnalysisCard({
 
         {/* FCF Coverage */}
         {data.metrics.fcfCoverage > 0 && (
-          <div className="flex items-center justify-between sm:justify-start gap-2 px-3 py-2 bg-surface-2 rounded-lg min-h-[44px]">
+          <div className="metric-card flex items-center justify-between sm:justify-start gap-2 px-3 py-2 bg-surface-2 rounded-lg min-h-[44px]">
             <span className="text-xs text-text-tertiary">{t.coverageLabel}:</span>
             <span className="text-sm font-semibold text-up-primary tabular-nums">
               {data.metrics.fcfCoverage.toFixed(1)}x
@@ -304,7 +336,7 @@ export function DividendAnalysisCard({
         )}
 
         {/* Growth (5Y CAGR) */}
-        <div className="flex items-center justify-between sm:justify-start gap-2 px-3 py-2 bg-surface-2 rounded-lg min-h-[44px]">
+        <div className="metric-card flex items-center justify-between sm:justify-start gap-2 px-3 py-2 bg-surface-2 rounded-lg min-h-[44px]">
           <span className="text-xs text-text-tertiary">
             {t.growthLabel} ({t.cagrLabel}):
           </span>

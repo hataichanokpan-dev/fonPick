@@ -294,9 +294,8 @@ export function generateMockDividendHistory(
       baseDPS * Math.pow(1 + growthRate, yearOffset) * randomFactor
     );
 
-    // Calculate yield (assuming price growth of 5% per year)
-    const price = 100 * Math.pow(1.05, yearOffset);
-    const yieldValue = (dps / price) * 100;
+    // NOTE: Yield is now calculated at presentation layer using real currentPrice
+    // This prevents incorrect yield calculations from assumed historical prices
 
     // Calculate payout ratio (fluctuate around base)
     const payoutRatio = basePayout + (Math.random() - 0.5) * 10;
@@ -304,7 +303,7 @@ export function generateMockDividendHistory(
     history.push({
       year,
       dps: Math.round(dps * 100) / 100,
-      yield: Math.round(yieldValue * 100) / 100,
+      yield: 0, // Will be calculated at presentation layer: (dps / currentPrice) * 100
       payoutRatio: Math.round(payoutRatio),
       exDate: `${year}-12-15`, // Approximate ex-dividend date
       paymentType: i % 2 === 0 ? 'interim' : 'final',
@@ -332,7 +331,7 @@ export function generateMockDividendAnalysis(symbol: string) {
     symbol,
     current: {
       dps: current.dps,
-      yield: current.yield,
+      yield: 0, // Will be calculated at presentation layer using real currentPrice
       payoutRatio: current.payoutRatio,
       dpsChange: previous ? ((current.dps - previous.dps) / previous.dps) * 100 : 0,
     },

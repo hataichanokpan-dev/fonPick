@@ -44,6 +44,45 @@
     --highlight-warning: #FB7185;
     --highlight-info: #60A5FA;
 
+    /* ==================================================================
+       DIVIDEND-SPECIFIC COLORS (Semantic color system for dividend cards)
+       ================================================================== */
+
+    /* Dividend Status Colors */
+    --dividend-attractive-bg: rgba(34, 197, 94, 0.12);
+    --dividend-attractive-border: rgba(34, 197, 94, 0.3);
+    --dividend-attractive-text: #4ADE80;
+
+    --dividend-normal-bg: rgba(148, 163, 184, 0.1);
+    --dividend-normal-border: rgba(148, 163, 184, 0.2);
+    --dividend-normal-text: #94A3B8;
+
+    --dividend-low-bg: rgba(239, 68, 68, 0.12);
+    --dividend-low-border: rgba(239, 68, 68, 0.3);
+    --dividend-low-text: #F87171;
+
+    /* Consistency Rating Colors */
+    --consistency-king: #FBBF24;          /* Amber - highest tier */
+    --consistency-aristocrat: #A78BFA;   /* Purple - premium */
+    --consistency-champion: #60A5FA;     /* Blue - strong */
+    --consistency-consistent: #34D399;   /* Green - reliable */
+    --consistency-growing: #2DD4BF;      /* Teal - improving */
+    --consistency-stable: #94A3B8;       /* Gray - steady */
+    --consistency-irregular: #6B7280;    /* Muted - poor */
+
+    /* Chart Colors */
+    --chart-bar: #22C55E;
+    --chart-bar-gradient-start: rgba(34, 197, 94, 0.8);
+    --chart-bar-gradient-end: rgba(34, 197, 94, 0.2);
+    --chart-forecast: #F59E0B;
+    --chart-grid: rgba(148, 163, 184, 0.08);
+    --chart-axis: #6B7280;
+
+    /* Card Surfaces - Create depth hierarchy */
+    --card-surface-base: var(--base-surface-alt);
+    --card-surface-elevated: rgba(31, 41, 55, 0.8);
+    --card-surface-highlight: rgba(34, 197, 94, 0.08);
+
     /* Glassmorphism variables */
     --glass-bg: rgba(17, 24, 39, 0.7);
     --glass-border: rgba(255, 255, 255, 0.08);
@@ -811,3 +850,94 @@
 .hover-scale:hover {
   transform: scale(1.02);
 }
+
+/* ==================================================================
+   DIVIDEND CARD MICRO-INTERACTIONS & VISUAL ENHANCEMENTS
+   ================================================================== */
+
+/* Metric card hover effect with subtle elevation */
+.metric-card {
+  transition: all var(--transition-normal);
+}
+
+.metric-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  border-color: var(--dividend-attractive-border);
+}
+
+/* Value flash animation on data change */
+@keyframes value-flash {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.value-changed {
+  animation: value-flash 0.3s ease-out;
+}
+
+/* High yield glow effect for attractive dividend cards */
+@keyframes yield-glow {
+  0%, 100% {
+    box-shadow: 0 0 0 rgba(34, 197, 94, 0);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.15);
+  }
+}
+
+.yield-attractive {
+  animation: yield-glow 3s ease-in-out infinite;
+}
+
+/* Progress bar fill animation for dividend metrics */
+@keyframes dividend-bar-fill {
+  from {
+    width: 0;
+  }
+  to {
+    width: var(--target-width);
+  }
+}
+
+.dividend-bar-animate {
+  animation: dividend-bar-fill 0.8s ease-out forwards;
+}
+
+/* Star rating fill animation */
+@keyframes star-fill {
+  from {
+    fill-opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    fill-opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.star-animate {
+  animation: star-fill 0.4s ease-out forwards;
+}
+
+/* Smooth fade-in for dividend data */
+@keyframes dividend-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dividend-fade-in {
+  animation: dividend-fade-in 0.4s ease-out forwards;
+}
+
+/* Stagger delays for sequential animations */
+.dividend-stagger-1 { animation-delay: 0.05s; }
+.dividend-stagger-2 { animation-delay: 0.1s; }
+.dividend-stagger-3 { animation-delay: 0.15s; }
+.dividend-stagger-4 { animation-delay: 0.2s; }
