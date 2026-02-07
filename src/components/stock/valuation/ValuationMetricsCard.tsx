@@ -21,6 +21,7 @@ import { useValuationMetrics } from "@/hooks/useValuationMetrics";
 import { MetricBandChart } from "./MetricBandChart";
 import { MetricSelector } from "./MetricSelector";
 import { TimeRangeSelector } from "./TimeRangeSelector";
+import { ValuationInsightCard } from "./ValuationInsightCard";
 import { cn } from "@/lib/utils";
 import type { MetricType, TimeRange } from "@/types/valuation";
 
@@ -238,51 +239,16 @@ export function ValuationMetricsCard({
           band={currentBand}
           metric={selectedMetric}
           // Responsive height: smaller on mobile
-          height={typeof window !== 'undefined' && window.innerWidth < 640 ? 220 : 280}
+          height={typeof window !== 'undefined' && window.innerWidth < 640 ? 200 : 240}
         />
       </div>
 
-      {/* Current Value Badge */}
-      <div className="mt-4 sm:mt-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
-        <div className="flex items-center gap-2 sm:gap-3">
-          <span className="text-xs sm:text-sm text-text-2">
-            {locale === "th" ? "ค่าปัจจุบัน" : "Current Value"}:
-          </span>
-          <span className="text-base sm:text-lg font-semibold tabular-nums text-text-primary">
-            {selectedMetric === "PE" || selectedMetric === "PBV"
-              ? currentBand.currentValue.toFixed(2)
-              : currentBand.currentValue.toFixed(1)}
-            {selectedMetric === "ROE" ? "%" : "x"}
-          </span>
-        </div>
-
-        {/* Valuation Status Badge */}
-        <div
-          className={cn(
-            "px-3 py-1.5 sm:py-1 rounded-full text-xs sm:text-xs font-medium border inline-flex items-center justify-center min-h-[32px]",
-            {
-              "bg-up-soft text-up-primary border-up-primary/30":
-                currentBand.interpretation === "undervalued" ||
-                currentBand.interpretation === "deep_undervalued",
-              "bg-surface-2 text-text-secondary border-border-subtle/50":
-                currentBand.interpretation === "fair_value",
-              "bg-down-soft text-down-primary border-down-primary/30":
-                currentBand.interpretation === "overvalued" ||
-                currentBand.interpretation === "sell_zone",
-            }
-          )}
-        >
-          {currentBand.interpretation === "deep_undervalued" &&
-            (locale === "th" ? "ถูกมาก" : "Deep Undervalued")}
-          {currentBand.interpretation === "undervalued" &&
-            (locale === "th" ? "ถูก" : "Undervalued")}
-          {currentBand.interpretation === "fair_value" &&
-            (locale === "th" ? "ปกติ" : "Fair Value")}
-          {currentBand.interpretation === "overvalued" &&
-            (locale === "th" ? "แพง" : "Overvalued")}
-          {currentBand.interpretation === "sell_zone" &&
-            (locale === "th" ? "แพงมาก" : "Sell Zone")}
-        </div>
+      {/* Valuation Insight Card - Compact upside/downside display */}
+      <div className="mt-4 sm:mt-5">
+        <ValuationInsightCard
+          band={currentBand}
+          metric={selectedMetric}
+        />
       </div>
     </div>
   );

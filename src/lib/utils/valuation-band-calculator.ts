@@ -137,6 +137,10 @@ export function calculateValuationBand(
       currentValue,
       currentPercentile: 50,
       interpretation: 'fair_value',
+      upsideToMean: 0,
+      downsideToMean: 0,
+      upsideToPlus1SD: 0,
+      downsideToMinus1SD: 0,
     };
   }
 
@@ -159,6 +163,27 @@ export function calculateValuationBand(
     plus2SD,
   });
 
+  // Calculate upside/downside percentages
+  // When current value is below mean: upside potential
+  const upsideToMean = currentValue < mean && currentValue > 0
+    ? ((mean - currentValue) / currentValue) * 100
+    : 0;
+
+  // When current value is above mean: downside risk
+  const downsideToMean = currentValue > mean && currentValue > 0
+    ? ((currentValue - mean) / currentValue) * 100
+    : 0;
+
+  // Upside to +1SD (upper normal range)
+  const upsideToPlus1SD = currentValue < plus1SD && currentValue > 0
+    ? ((plus1SD - currentValue) / currentValue) * 100
+    : 0;
+
+  // Downside to -1SD (lower normal range)
+  const downsideToMinus1SD = currentValue > minus1SD && currentValue > 0
+    ? ((currentValue - minus1SD) / currentValue) * 100
+    : 0;
+
   return {
     metric,
     minus2SD: Math.max(0, minus2SD), // Ensure non-negative for most metrics
@@ -169,6 +194,10 @@ export function calculateValuationBand(
     currentValue,
     currentPercentile: percentile,
     interpretation,
+    upsideToMean,
+    downsideToMean,
+    upsideToPlus1SD,
+    downsideToMinus1SD,
   };
 }
 

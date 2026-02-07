@@ -53,6 +53,14 @@ export interface ValuationBand {
   currentPercentile?: number;
   /** Valuation interpretation */
   interpretation: ValuationInterpretation;
+  /** Upside to Mean (%) - positive when below mean, 0 otherwise */
+  upsideToMean?: number;
+  /** Downside to Mean (%) - positive when above mean, 0 otherwise */
+  downsideToMean?: number;
+  /** Upside to +1SD (%) - potential to upper normal range */
+  upsideToPlus1SD?: number;
+  /** Downside to -1SD (%) - risk to lower normal range */
+  downsideToMinus1SD?: number;
 }
 
 /**
