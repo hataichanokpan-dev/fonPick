@@ -605,7 +605,7 @@ export function StockPageClient({ symbol, children }: StockPageClientProps) {
                         dividendYield: statistics.dividendYield,
                         pfcfRatio: statistics.pfcfRatio,
                         marketCap: statistics.marketCap,
-                        epsGrowthYoY: epsCagr5Y ?? 0.05, // From yearly operations data
+                        epsGrowthYoY: epsCagr5Y ?? 0.00, // From yearly operations data
                         epsAcceleration: 0.02, // TODO: From quarterly data
                         epsCurrent: currentEps ?? statistics.eps, // From yearly operations data
                         eps5YearsAgo: undefined, // Calculated from CAGR in component

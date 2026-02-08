@@ -54,17 +54,17 @@ const LABELS = {
     peg: "PEG Ratio",
     pegThai: "อัตราส่วน PEG",
     npm: "Net Profit Margin",
-    npmThai: "NPM : อัตรากำไรสุทธิ",
+    npmThai: "NPM",
     roe: "Return on Equity",
     roeThai: "ROE",
     roicWacc: "ROIC / WACC",
     roicWaccThai: "ROIC / WACC",
     debtEquity: "Debt to Equity",
-    debtEquityThai: "D/E : หนี้สินต่อส่วนของผู้ถือหุ้น",
+    debtEquityThai: "D/E",
     fcfYield: "FCF Yield",
-    fcfYieldThai: "FCF Yield : อัตราผลตอบแทนเงินสด",
+    fcfYieldThai: "FCF Yield",
     ocfNi: "OCF / Net Income",
-    ocfNiThai: "OCF/NI : กระแสเงินสด / กำไรสุทธิ",
+    ocfNiThai: "OCF/NI",
     vsSector: "เทียบภาค",
     lessThan: "<",
     greaterThan: ">",
@@ -311,6 +311,8 @@ export function Layer2Quality({
           label={t.peg}
           thaiLabel={t.pegThai}
           value={formatRatio(scoreData.metrics.peg.currentValue)}
+          points={scoreData.metrics.peg.points}
+          maxPoints={scoreData.metrics.peg.maxPoints}
           locale={locale}
           compact={compact}
         />
@@ -321,6 +323,8 @@ export function Layer2Quality({
           label={t.npm}
           thaiLabel={t.npmThai}
           value={`${scoreData.metrics.npm.currentValue}% ${t.vsSector} ${formatPercentageFromDecimal(scoreData.metrics.npm.comparison!)}`}
+          points={scoreData.metrics.npm.points}
+          maxPoints={scoreData.metrics.npm.maxPoints}
           locale={locale}
           compact={compact}
         />
@@ -331,6 +335,8 @@ export function Layer2Quality({
           label={t.roe}
           thaiLabel={t.roeThai}
           value={`${scoreData.metrics.roe.currentValue}% ${t.vsSector} ${formatPercentageFromDecimal(scoreData.metrics.roe.comparison!)}`}
+          points={scoreData.metrics.roe.points}
+          maxPoints={scoreData.metrics.roe.maxPoints}
           locale={locale}
           compact={compact}
         />
@@ -341,6 +347,8 @@ export function Layer2Quality({
           label={t.roicWacc}
           thaiLabel={t.roicWaccThai}
           value={formatRatio(scoreData.metrics.roicWacc.currentValue)}
+          points={scoreData.metrics.roicWacc.points}
+          maxPoints={scoreData.metrics.roicWacc.maxPoints}
           locale={locale}
           compact={compact}
         />
@@ -351,6 +359,8 @@ export function Layer2Quality({
           label={t.debtEquity}
           thaiLabel={t.debtEquityThai}
           value={formatRatio(scoreData.metrics.debtEquity.currentValue)}
+          points={scoreData.metrics.debtEquity.points}
+          maxPoints={scoreData.metrics.debtEquity.maxPoints}
           locale={locale}
           compact={compact}
         />
@@ -361,6 +371,8 @@ export function Layer2Quality({
           label={t.fcfYield}
           thaiLabel={t.fcfYieldThai}
           value={scoreData.metrics.fcfYield.currentValue ? scoreData.metrics.fcfYield.currentValue + '%' : ''}
+          points={scoreData.metrics.fcfYield.points}
+          maxPoints={scoreData.metrics.fcfYield.maxPoints}
           locale={locale}
           compact={compact}
         />
@@ -371,6 +383,8 @@ export function Layer2Quality({
           label={t.ocfNi}
           thaiLabel={t.ocfNiThai}
           value={formatRatio(scoreData.metrics.ocfNi.currentValue)}
+          points={scoreData.metrics.ocfNi.points}
+          maxPoints={scoreData.metrics.ocfNi.maxPoints}
           locale={locale}
           compact={compact}
         />

@@ -279,7 +279,7 @@ export function calculateTechnicalScore(data: TechnicalInputData): TechnicalScor
       support: {
         name: LABELS.en.support,
         thaiName: LABELS.th.supportThai,
-        points: techResult.supportStatus === 'pass' ? TECHNICAL_POINTS.SUPPORT : 0,
+        points: techResult.supportStatus === 'pass' ? TECHNICAL_POINTS.SUPPORT : techResult.supportStatus === 'partial' ? 1 : 0,
         maxPoints: TECHNICAL_POINTS.SUPPORT,
         currentValue: data.supportLevel || 0,
         status: techResult.supportStatus,
@@ -352,6 +352,8 @@ export function Layer4Technical({
             label={t.priceVsMA50}
             thaiLabel={t.priceVsMA50Thai}
             value={scoreData.technicalMetrics.priceVsMA50.detail ?? '-'}
+            points={scoreData.technicalMetrics.priceVsMA50.points}
+            maxPoints={scoreData.technicalMetrics.priceVsMA50.maxPoints}
             locale={locale}
             compact={compact}
           />
@@ -361,6 +363,8 @@ export function Layer4Technical({
             label={t.rsi}
             thaiLabel={t.rsiThai}
             value={`${formatRatio(typeof scoreData.technicalMetrics.rsi.currentValue === 'number' ? scoreData.technicalMetrics.rsi.currentValue : 0)} - ${scoreData.technicalMetrics.rsi.detail}`}
+            points={scoreData.technicalMetrics.rsi.points}
+            maxPoints={scoreData.technicalMetrics.rsi.maxPoints}
             locale={locale}
             compact={compact}
           />
@@ -370,6 +374,8 @@ export function Layer4Technical({
             label={t.macd}
             thaiLabel={t.macdThai}
             value={scoreData.technicalMetrics.macd.detail ?? '-'}
+            points={scoreData.technicalMetrics.macd.points}
+            maxPoints={scoreData.technicalMetrics.macd.maxPoints}
             locale={locale}
             compact={compact}
           />
@@ -379,6 +385,8 @@ export function Layer4Technical({
             label={t.support}
             thaiLabel={t.supportThai}
             value={scoreData.technicalMetrics.support.detail ?? '-'}
+            points={scoreData.technicalMetrics.support.points}
+            maxPoints={scoreData.technicalMetrics.support.maxPoints}
             locale={locale}
             compact={compact}
           />

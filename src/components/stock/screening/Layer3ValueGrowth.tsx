@@ -339,6 +339,8 @@ export function Layer3ValueGrowth({
             label={t.peBand}
             thaiLabel={t.peBandThai}
             value={`${t.peBandThai} ${formatRatio(scoreData.valueMetrics.peBand.currentValue)} - ${scoreData.valueMetrics.peBand.interpretation}`}
+            points={scoreData.valueMetrics.peBand.points}
+            maxPoints={scoreData.valueMetrics.peBand.maxPoints}
             locale={locale}
             compact={compact}
           />
@@ -348,6 +350,8 @@ export function Layer3ValueGrowth({
             label={t.pbFair}
             thaiLabel={t.pbFairThai}
             value={`${formatRatio(scoreData.valueMetrics.pbFair.currentValue)} vs ${formatRatio(scoreData.valueMetrics.pbFair.targetValue!)} - ${scoreData.valueMetrics.pbFair.interpretation}`}
+            points={scoreData.valueMetrics.pbFair.points}
+            maxPoints={scoreData.valueMetrics.pbFair.maxPoints}
             locale={locale}
             compact={compact}
           />
@@ -357,6 +361,8 @@ export function Layer3ValueGrowth({
             label={t.divYield}
             thaiLabel={t.divYieldThai}
             value={`${(scoreData.valueMetrics.divYield.currentValue)} ${t.vsSector} ${formatPercentageFromDecimal(scoreData.valueMetrics.divYield.targetValue!)}`}
+            points={scoreData.valueMetrics.divYield.points}
+            maxPoints={scoreData.valueMetrics.divYield.maxPoints}
             locale={locale}
             compact={compact}
           />
@@ -366,6 +372,8 @@ export function Layer3ValueGrowth({
             label={t.pfcf}
             thaiLabel={t.pfcfThai}
             value={`${formatRatio(scoreData.valueMetrics.pfcf.currentValue)}x`}
+            points={scoreData.valueMetrics.pfcf.points}
+            maxPoints={scoreData.valueMetrics.pfcf.maxPoints}
             locale={locale}
             compact={compact}
           />
@@ -397,6 +405,8 @@ export function Layer3ValueGrowth({
             label={t.epsYoY}
             thaiLabel={t.epsYoYThai}
             value={`${formatPercentageFromDecimal(scoreData.growthMetrics.epsYoY.currentValue)} CAGR`}
+            points={scoreData.growthMetrics.epsYoY.points}
+            maxPoints={scoreData.growthMetrics.epsYoY.maxPoints}
             locale={locale}
             compact={compact}
           />
@@ -419,6 +429,8 @@ export function Layer3ValueGrowth({
             label={t.epsAccel}
             thaiLabel={t.epsAccelThai}
             value={getTrendLabel(scoreData.growthMetrics.epsAccel.trend, locale)}
+            points={scoreData.growthMetrics.epsAccel.points}
+            maxPoints={scoreData.growthMetrics.epsAccel.maxPoints}
             locale={locale}
             compact={compact}
           />
