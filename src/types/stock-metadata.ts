@@ -25,6 +25,14 @@ export interface StockMetadata {
 }
 
 /**
+ * ข้อมูลหุ้นแต่ละตัว พร้อมรายการหุ้นในกลุ่มเดียวกัน
+ */
+export interface StockMetadataWithPeers extends StockMetadata {
+  /** รายการหุ้นในกลุ่ม sub-sector เดียวกัน */
+  peers: string[]
+}
+
+/**
  * โครงสร้างข้อมูลหลักของ Stock Metadata
  */
 export interface StockMetadataDatabase {

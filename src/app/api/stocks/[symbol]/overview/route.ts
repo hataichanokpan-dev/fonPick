@@ -17,6 +17,7 @@ import {
   getClientIdentifier,
   checkRateLimit,
 } from '@/lib/api/stock-api-utils'
+import { getPeerSymbols } from '@/lib/stocks/metadata'
 
 // ============================================================================
 // TYPES
@@ -278,6 +279,9 @@ export async function GET(
     // Cache the result
     stockCache.set(uppercaseSymbol, externalData)
 
+    // Get peer symbols from local metadata
+    const peers = getPeerSymbols(uppercaseSymbol)
+
     // Build response with CORS headers
     const corsHeaders = getCorsHeaders(request)
     const response = cachedJson(
@@ -288,6 +292,7 @@ export async function GET(
           symbol: uppercaseSymbol,
           fetchedAt: Date.now(),
           cached: false,
+          peers,
         },
       },
       MARKET_DATA_CACHE

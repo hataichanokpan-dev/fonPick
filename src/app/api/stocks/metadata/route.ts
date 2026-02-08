@@ -35,8 +35,10 @@ import {
   getAllSectors,
   getAllSubSectors,
   getDatabaseSummary,
+  getPeerSymbols,
 } from '@/lib/stocks/metadata'
 import { cachedJson, NO_CACHE } from '@/lib/api-cache'
+import type { StockMetadataWithPeers } from '@/types/stock-metadata'
 
 // Enable static generation for better performance
 export const dynamic = 'force-dynamic'
@@ -108,10 +110,16 @@ export async function GET(request: NextRequest) {
         )
       }
 
+      const peers = getPeerSymbols(symbol)
+      const stockWithPeers: StockMetadataWithPeers = {
+        ...stock,
+        peers,
+      }
+
       return cachedJson(
         {
           success: true,
-          stock: stock,
+          stock: stockWithPeers,
         },
         NO_CACHE
       )

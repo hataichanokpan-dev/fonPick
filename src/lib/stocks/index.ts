@@ -15,4 +15,5 @@ export {
   isValidSymbol,
   getDatabaseSummary,
   findManyBySymbols,
+  getPeerSymbols,
 } from './metadata'

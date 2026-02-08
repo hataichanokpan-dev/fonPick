@@ -213,3 +213,19 @@ export function findManyBySymbols(symbols: string[]): Map<string, StockMetadata>
 
   return result
 }
+
+/**
+ * Get peer symbols in the same sub-sector
+ * @param symbol - Stock symbol to find peers for
+ * @returns Array of peer symbols (including the input symbol), or empty array if not found
+ */
+export function getPeerSymbols(symbol: string): string[] {
+  const stock = findBySymbol(symbol)
+  if (!stock || !stock.subSectorEn) {
+    return []
+  }
+
+  const db = loadDatabase()
+  const peers = db.bySubSector[stock.subSectorEn] || []
+  return [...peers].sort() // Return sorted array
+}

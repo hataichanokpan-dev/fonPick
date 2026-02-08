@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-07T02:52:18.226Z",
+  "lastUpdated": "2026-02-08T12:30:35.759Z",
   "totalStocks": 932,
   "stocks": [
     {
@@ -10,7 +10,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "เหล็ก และ ผลิตภัณฑ์โลหะ",
       "subSector": "เหล็กและโลหะ",
-      "subSectorEn": "Steel & Metals"
+      "subSectorEn": "Steel & Metal Trading"
     },
     {
       "symbol": "3BBIF",
@@ -19,7 +19,7 @@
       "industry": "เทคโนโลยี",
       "sector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
       "subSector": "เทคโนโลยี",
-      "subSectorEn": "Technology"
+      "subSectorEn": "Telecommunications - Infrastructure"
     },
     {
       "symbol": "88TH",
@@ -28,7 +28,7 @@
       "industry": "สินค้าอุปโภคบริโภค",
       "sector": "-",
       "subSector": "สินค้าอุปโภคบริโภค",
-      "subSectorEn": "Consumer Products"
+      "subSectorEn": "Personal Care & Cosmetics"
     },
     {
       "symbol": "A",
@@ -37,7 +37,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "พัฒนาที่อยู่อาศัย",
-      "subSectorEn": "Residential Development"
+      "subSectorEn": "Property Development - Mixed"
     },
     {
       "symbol": "A5",
@@ -46,7 +46,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "พัฒนาที่อยู่อาศัย",
-      "subSectorEn": "Residential Development"
+      "subSectorEn": "Property Development - Mixed"
     },
     {
       "symbol": "AAI",
@@ -55,7 +55,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "อาหารและเครื่องดื่ม",
       "subSector": "ขายส่งและจัดจำหน่าย",
-      "subSectorEn": "Wholesale & Distribution"
+      "subSectorEn": "Wholesale & Trading - Industrial"
     },
     {
       "symbol": "AAV",
@@ -64,7 +64,7 @@
       "industry": "บริการ",
       "sector": "ขนส่งและโลจิสติกส์",
       "subSector": "ขนส่งและโลจิสติกส์",
-      "subSectorEn": "Transportation & Logistics"
+      "subSectorEn": "Airlines"
     },
     {
       "symbol": "ABM",
@@ -73,7 +73,7 @@
       "industry": "ทรัพยากร",
       "sector": "-",
       "subSector": "ทรัพยากร",
-      "subSectorEn": "Resources"
+      "subSectorEn": "Mining - Industrial Minerals"
     },
     {
       "symbol": "ACAP",
@@ -82,7 +82,7 @@
       "industry": "ธุรกิจการเงิน",
       "sector": "-",
       "subSector": "ธุรกิจการเงิน",
-      "subSectorEn": "Financial Services"
+      "subSectorEn": "Securities & Investment Banking"
     },
     {
       "symbol": "ACC",
@@ -91,7 +91,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "พลังงานและสาธารณูปโภค",
-      "subSectorEn": "Energy & Utilities"
+      "subSectorEn": "Small Power Producers"
     },
     {
       "symbol": "ACE",
@@ -100,7 +100,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "พลังงานและสาธารณูปโภค",
-      "subSectorEn": "Energy & Utilities"
+      "subSectorEn": "Renewable Energy"
     },
     {
       "symbol": "ACG",
@@ -109,7 +109,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "ยานยนต์",
       "subSector": "ยานยนต์",
-      "subSectorEn": "Automotive"
+      "subSectorEn": "Automotive Parts - Tier 2 & Components"
     },
     {
       "symbol": "ADB",
@@ -118,7 +118,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "-",
       "subSector": "อุตสาหกรรมอื่นๆ",
-      "subSectorEn": "Other Industries"
+      "subSectorEn": "Other Manufacturing"
     },
     {
       "symbol": "ADD",
@@ -136,7 +136,7 @@
       "industry": "เทคโนโลยี",
       "sector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
       "subSector": "เทคโนโลยี",
-      "subSectorEn": "Technology"
+      "subSectorEn": "IT Services - Data Center & Cloud"
     },
     {
       "symbol": "ADVICE",
@@ -145,7 +145,7 @@
       "industry": "บริการ",
       "sector": "พาณิชย์",
       "subSector": "พาณิชย์",
-      "subSectorEn": "Commerce"
+      "subSectorEn": "Professional Services - Consulting"
     },
     {
       "symbol": "AE",
@@ -154,7 +154,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "พลังงานและสาธารณูปโภค",
-      "subSectorEn": "Energy & Utilities"
+      "subSectorEn": "Small Power Producers"
     },
     {
       "symbol": "AEONTS",
@@ -163,7 +163,7 @@
       "industry": "ธุรกิจการเงิน",
       "sector": "เงินทุนและหลักทรัพย์",
       "subSector": "บัตรเครดิต",
-      "subSectorEn": "Credit Cards"
+      "subSectorEn": "Fintech - Payment & Digital Banking"
     },
     {
       "symbol": "AF",
@@ -172,7 +172,7 @@
       "industry": "ธุรกิจการเงิน",
       "sector": "-",
       "subSector": "ธุรกิจการเงิน",
-      "subSectorEn": "Financial Services"
+      "subSectorEn": "Securities & Investment Banking"
     },
     {
       "symbol": "AFC",
@@ -181,7 +181,7 @@
       "industry": "สินค้าอุปโภคบริโภค",
       "sector": "แฟชั่น",
       "subSector": "แฟชั่น",
-      "subSectorEn": "Fashion"
+      "subSectorEn": "Apparel - Casual & Fashion"
     },
     {
       "symbol": "AGE",
@@ -190,7 +190,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "พลังงานและสาธารณูปโภค",
-      "subSectorEn": "Energy & Utilities"
+      "subSectorEn": "Renewable Energy"
     },
     {
       "symbol": "AH",
@@ -199,7 +199,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "ยานยนต์",
       "subSector": "ยานยนต์",
-      "subSectorEn": "Automotive"
+      "subSectorEn": "Automotive Assembly"
     },
     {
       "symbol": "AHC",
@@ -208,7 +208,7 @@
       "industry": "บริการ",
       "sector": "การแพทย์",
       "subSector": "การแพทย์",
-      "subSectorEn": "Healthcare"
+      "subSectorEn": "Dental & Specialty Clinics"
     },
     {
       "symbol": "AI",
@@ -217,7 +217,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "พลังงานและสาธารณูปโภค",
-      "subSectorEn": "Energy & Utilities"
+      "subSectorEn": "Small Power Producers"
     },
     {
       "symbol": "AIE",
@@ -226,7 +226,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "พลังงานและสาธารณูปโภค",
-      "subSectorEn": "Energy & Utilities"
+      "subSectorEn": "Small Power Producers"
     },
     {
       "symbol": "AIMCG",
@@ -235,7 +235,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
       "subSector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
-      "subSectorEn": "REITs & Property Trusts"
+      "subSectorEn": "Office Funds"
     },
     {
       "symbol": "AIMIRT",
@@ -253,7 +253,7 @@
       "industry": "ธุรกิจการเงิน",
       "sector": "-",
       "subSector": "ธุรกิจการเงิน",
-      "subSectorEn": "Financial Services"
+      "subSectorEn": "Asset Management"
     },
     {
       "symbol": "AIT",
@@ -262,7 +262,7 @@
       "industry": "เทคโนโลยี",
       "sector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
       "subSector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
-      "subSectorEn": "Information & Communication Technology"
+      "subSectorEn": "Business Process Outsourcing"
     },
     {
       "symbol": "AJ",
@@ -289,7 +289,7 @@
       "industry": "บริการ",
       "sector": "-",
       "subSector": "บริการอื่นๆ",
-      "subSectorEn": "Other Services"
+      "subSectorEn": "Plastics & Resins"
     },
     {
       "symbol": "AKR",
@@ -325,7 +325,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
       "subSector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
-      "subSectorEn": "REITs & Property Trusts"
+      "subSectorEn": "Property Funds"
     },
     {
       "symbol": "ALPHAX",
@@ -334,7 +334,7 @@
       "industry": "ทรัพยากร",
       "sector": "-",
       "subSector": "ทรัพยากร",
-      "subSectorEn": "Resources"
+      "subSectorEn": "Mining - Gold & Precious Metals"
     },
     {
       "symbol": "ALT",
@@ -343,7 +343,7 @@
       "industry": "เทคโนโลยี",
       "sector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
       "subSector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
-      "subSectorEn": "Information & Communication Technology"
+      "subSectorEn": "Telecommunications Equipment"
     },
     {
       "symbol": "ALUCON",
@@ -397,7 +397,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "พัฒนาที่อยู่อาศัย",
-      "subSectorEn": "Residential Development"
+      "subSectorEn": "Industrial Estate Developers"
     },
     {
       "symbol": "AMATAR",
@@ -406,7 +406,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
       "subSector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
-      "subSectorEn": "REITs & Property Trusts"
+      "subSectorEn": "Property Funds"
     },
     {
       "symbol": "AMATAV",
@@ -415,7 +415,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "พัฒนาที่อยู่อาศัย",
-      "subSectorEn": "Residential Development"
+      "subSectorEn": "Industrial Estate Developers"
     },
     {
       "symbol": "AMC",
@@ -433,7 +433,7 @@
       "industry": "เทคโนโลยี",
       "sector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
       "subSector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
-      "subSectorEn": "Information & Communication Technology"
+      "subSectorEn": "Telecommunications Equipment"
     },
     {
       "symbol": "ANAN",
@@ -451,7 +451,7 @@
       "industry": "บริการ",
       "sector": "ขนส่งและโลจิสติกส์",
       "subSector": "ขนส่งและโลจิสติกส์",
-      "subSectorEn": "Transportation & Logistics"
+      "subSectorEn": "Airlines"
     },
     {
       "symbol": "AOT",
@@ -460,7 +460,7 @@
       "industry": "บริการ",
       "sector": "ขนส่งและโลจิสติกส์",
       "subSector": "ขนส่งและโลจิสติกส์",
-      "subSectorEn": "Transportation & Logistics"
+      "subSectorEn": "Airports"
     },
     {
       "symbol": "AP",
@@ -469,7 +469,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "พัฒนาที่อยู่อาศัย",
-      "subSectorEn": "Residential Development"
+      "subSectorEn": "Property Development - Mass Market"
     },
     {
       "symbol": "APCO",
@@ -505,7 +505,7 @@
       "industry": "เทคโนโลยี",
       "sector": "-",
       "subSector": "เทคโนโลยี",
-      "subSectorEn": "Technology"
+      "subSectorEn": "Software as a Service (SaaS)"
     },
     {
       "symbol": "APURE",
@@ -514,7 +514,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "อาหารและเครื่องดื่ม",
       "subSector": "ขายส่งและจัดจำหน่าย",
-      "subSectorEn": "Wholesale & Distribution"
+      "subSectorEn": "Shrimp & Seafood"
     },
     {
       "symbol": "AQUA",
@@ -568,7 +568,7 @@
       "industry": "ธุรกิจการเงิน",
       "sector": "เงินทุนและหลักทรัพย์",
       "subSector": "เงินทุนและหลักทรัพย์",
-      "subSectorEn": "Capital Markets & Securities"
+      "subSectorEn": "Gaming & Digital Entertainment"
     },
     {
       "symbol": "ASEFA",
@@ -604,7 +604,7 @@
       "industry": "บริการ",
       "sector": "ขนส่งและโลจิสติกส์",
       "subSector": "ขนส่งและโลจิสติกส์",
-      "subSectorEn": "Transportation & Logistics"
+      "subSectorEn": "Ports & Terminals"
     },
     {
       "symbol": "ASK",
@@ -622,7 +622,7 @@
       "industry": "ธุรกิจการเงิน",
       "sector": "-",
       "subSector": "ธุรกิจการเงิน",
-      "subSectorEn": "Financial Services"
+      "subSectorEn": "Securities & Investment Banking"
     },
     {
       "symbol": "ASP",
@@ -649,7 +649,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "พลังงานและสาธารณูปโภค",
-      "subSectorEn": "Energy & Utilities"
+      "subSectorEn": "Renewable Energy"
     },
     {
       "symbol": "ATP30",
@@ -685,7 +685,7 @@
       "industry": "สินค้าอุปโภคบริโภค",
       "sector": "แฟชั่น",
       "subSector": "แฟชั่น",
-      "subSectorEn": "Fashion"
+      "subSectorEn": "Apparel - Casual & Fashion"
     },
     {
       "symbol": "AWC",
@@ -703,7 +703,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
       "subSector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
-      "subSectorEn": "REITs & Property Trusts"
+      "subSectorEn": "Property Funds"
     },
     {
       "symbol": "AYUD",
@@ -721,7 +721,7 @@
       "industry": "บริการ",
       "sector": "ขนส่งและโลจิสติกส์",
       "subSector": "ขนส่งและโลจิสติกส์",
-      "subSectorEn": "Transportation & Logistics"
+      "subSectorEn": "Logistics - Integrated"
     },
     {
       "symbol": "B52",
@@ -730,7 +730,7 @@
       "industry": "บริการ",
       "sector": "พาณิชย์",
       "subSector": "พาณิชย์",
-      "subSectorEn": "Commerce"
+      "subSectorEn": "Specialty Retail - Books & Media"
     },
     {
       "symbol": "BA",
@@ -739,7 +739,7 @@
       "industry": "บริการ",
       "sector": "ขนส่งและโลจิสติกส์",
       "subSector": "ขนส่งและโลจิสติกส์",
-      "subSectorEn": "Transportation & Logistics"
+      "subSectorEn": "Airlines"
     },
     {
       "symbol": "BAFS",
@@ -748,7 +748,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "พลังงานและสาธารณูปโภค",
-      "subSectorEn": "Energy & Utilities"
+      "subSectorEn": "Renewable Energy"
     },
     {
       "symbol": "BAM",
@@ -766,7 +766,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "ยานยนต์",
-      "subSectorEn": "Automotive"
+      "subSectorEn": "Coal & Natural Resources"
     },
     {
       "symbol": "BAREIT",
@@ -775,7 +775,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
       "subSector": "REIT",
-      "subSectorEn": "REIT"
+      "subSectorEn": "Retail REITs"
     },
     {
       "symbol": "BAY",
@@ -784,7 +784,7 @@
       "industry": "ธุรกิจการเงิน",
       "sector": "ธนาคาร",
       "subSector": "ธนาคาร",
-      "subSectorEn": "Banking"
+      "subSectorEn": "Commercial Banks"
     },
     {
       "symbol": "BBGI",
@@ -793,7 +793,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "พลังงานและสาธารณูปโภค",
-      "subSectorEn": "Energy & Utilities"
+      "subSectorEn": "Renewable Energy"
     },
     {
       "symbol": "BBIK",
@@ -802,7 +802,7 @@
       "industry": "เทคโนโลยี",
       "sector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
       "subSector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
-      "subSectorEn": "Information & Communication Technology"
+      "subSectorEn": "Telecommunications Equipment"
     },
     {
       "symbol": "BBL",
@@ -811,7 +811,7 @@
       "industry": "ธุรกิจการเงิน",
       "sector": "ธนาคาร",
       "subSector": "ธนาคาร",
-      "subSectorEn": "Banking"
+      "subSectorEn": "Commercial Banks"
     },
     {
       "symbol": "BC",
@@ -829,7 +829,7 @@
       "industry": "บริการ",
       "sector": "การแพทย์",
       "subSector": "การแพทย์",
-      "subSectorEn": "Healthcare"
+      "subSectorEn": "Hospitals - Stand-alone"
     },
     {
       "symbol": "BCP",
@@ -838,7 +838,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "น้ำมันและก๊าซ",
-      "subSectorEn": "Oil & Gas"
+      "subSectorEn": "Integrated Oil & Gas"
     },
     {
       "symbol": "BCPG",
@@ -847,7 +847,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "พลังงานและสาธารณูปโภค",
-      "subSectorEn": "Energy & Utilities"
+      "subSectorEn": "Renewable Energy"
     },
     {
       "symbol": "BCT",
@@ -856,7 +856,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "ปิโตรเคมีและเคมีภัณฑ์",
       "subSector": "ปิโตรเคมีและเคมีภัณฑ์",
-      "subSectorEn": "Petrochemicals & Chemicals"
+      "subSectorEn": "Specialty Chemicals"
     },
     {
       "symbol": "BDMS",
@@ -865,7 +865,7 @@
       "industry": "บริการ",
       "sector": "การแพทย์",
       "subSector": "โรงพยาบาล",
-      "subSectorEn": "Hospitals"
+      "subSectorEn": "Healthcare Services"
     },
     {
       "symbol": "BE8",
@@ -874,7 +874,7 @@
       "industry": "เทคโนโลยี",
       "sector": "-",
       "subSector": "เทคโนโลยี",
-      "subSectorEn": "Technology"
+      "subSectorEn": "IT Services - Software Development"
     },
     {
       "symbol": "BEAUTY",
@@ -883,7 +883,7 @@
       "industry": "บริการ",
       "sector": "พาณิชย์",
       "subSector": "พาณิชย์",
-      "subSectorEn": "Commerce"
+      "subSectorEn": "Personal Care & Cosmetics"
     },
     {
       "symbol": "BEC",
@@ -892,7 +892,7 @@
       "industry": "บริการ",
       "sector": "สื่อและสิ่งพิมพ์",
       "subSector": "สื่อและสิ่งพิมพ์",
-      "subSectorEn": "Media & Publishing"
+      "subSectorEn": "Broadcasting - TV & Radio"
     },
     {
       "symbol": "BEM",
@@ -901,7 +901,7 @@
       "industry": "บริการ",
       "sector": "ขนส่งและโลจิสติกส์",
       "subSector": "ขนส่งและโลจิสติกส์",
-      "subSectorEn": "Transportation & Logistics"
+      "subSectorEn": "Mass Transit"
     },
     {
       "symbol": "BEYOND",
@@ -928,7 +928,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "ไฟฟ้า",
-      "subSectorEn": "Electricity"
+      "subSectorEn": "Independent Power Producers"
     },
     {
       "symbol": "BGT",
@@ -937,7 +937,7 @@
       "industry": "สินค้าอุปโภคบริโภค",
       "sector": "-",
       "subSector": "สินค้าอุปโภคบริโภค",
-      "subSectorEn": "Consumer Products"
+      "subSectorEn": "Household & Consumer Products"
     },
     {
       "symbol": "BH",
@@ -946,7 +946,7 @@
       "industry": "บริการ",
       "sector": "การแพทย์",
       "subSector": "โรงพยาบาล",
-      "subSectorEn": "Hospitals"
+      "subSectorEn": "Hospitals - Network (General)"
     },
     {
       "symbol": "BIG",
@@ -955,7 +955,7 @@
       "industry": "บริการ",
       "sector": "พาณิชย์",
       "subSector": "พาณิชย์",
-      "subSectorEn": "Commerce"
+      "subSectorEn": "Specialty Retail - Others"
     },
     {
       "symbol": "BIOTEC",
@@ -964,7 +964,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "พลังงานและสาธารณูปโภค",
-      "subSectorEn": "Energy & Utilities"
+      "subSectorEn": "Renewable Energy"
     },
     {
       "symbol": "BIS",
@@ -982,7 +982,7 @@
       "industry": "สินค้าอุปโภคบริโภค",
       "sector": "ของใช้ส่วนตัวและเวชภัณฑ์",
       "subSector": "ค้าปลีกออนไลน์",
-      "subSectorEn": "Online Retail"
+      "subSectorEn": "E-Commerce Platform & Marketplace"
     },
     {
       "symbol": "BJC",
@@ -991,7 +991,7 @@
       "industry": "บริการ",
       "sector": "พาณิชย์",
       "subSector": "ร้านค้าปลีก",
-      "subSectorEn": "Retail Stores"
+      "subSectorEn": "Department Stores"
     },
     {
       "symbol": "BJCHI",
@@ -1027,7 +1027,7 @@
       "industry": "บริการ",
       "sector": "การแพทย์",
       "subSector": "การแพทย์",
-      "subSectorEn": "Healthcare"
+      "subSectorEn": "Hospitals - Stand-alone"
     },
     {
       "symbol": "BKIH",
@@ -1045,7 +1045,7 @@
       "industry": "ธุรกิจการเงิน",
       "sector": "ประกันภัยและประกันชีวิต",
       "subSector": "ประกันภัยและประกันชีวิต",
-      "subSectorEn": "Insurance & Life Insurance"
+      "subSectorEn": "Life Insurance"
     },
     {
       "symbol": "BLAND",
@@ -1054,7 +1054,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "ที่ดินและอาคารพาณิชย์",
-      "subSectorEn": "Land & Commercial Buildings"
+      "subSectorEn": "Property Development - Mixed"
     },
     {
       "symbol": "BLC",
@@ -1063,7 +1063,7 @@
       "industry": "สินค้าอุปโภคบริโภค",
       "sector": "ของใช้ส่วนตัวและเวชภัณฑ์",
       "subSector": "ของใช้ส่วนตัวและเวชภัณฑ์",
-      "subSectorEn": "Personal Care & Pharmaceuticals"
+      "subSectorEn": "Education - Vocational"
     },
     {
       "symbol": "BLESS",
@@ -1081,7 +1081,7 @@
       "industry": "เทคโนโลยี",
       "sector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
       "subSector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
-      "subSectorEn": "Information & Communication Technology"
+      "subSectorEn": "Telecommunications Equipment"
     },
     {
       "symbol": "BM",
@@ -1090,7 +1090,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "-",
       "subSector": "อุตสาหกรรมอื่นๆ",
-      "subSectorEn": "Other Industries"
+      "subSectorEn": "Other Manufacturing"
     },
     {
       "symbol": "BOFFICE",
@@ -1117,7 +1117,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "ไฟฟ้า",
-      "subSectorEn": "Electricity"
+      "subSectorEn": "Independent Power Producers"
     },
     {
       "symbol": "BPS",
@@ -1126,7 +1126,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "-",
       "subSector": "อุตสาหกรรมอื่นๆ",
-      "subSectorEn": "Other Industries"
+      "subSectorEn": "Other Manufacturing"
     },
     {
       "symbol": "BR",
@@ -1144,7 +1144,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "ที่ดินและอาคารพาณิชย์",
-      "subSectorEn": "Land & Commercial Buildings"
+      "subSectorEn": "Office Buildings"
     },
     {
       "symbol": "BROCK",
@@ -1161,8 +1161,8 @@
       "market": "SET",
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "อาหารและเครื่องดื่ม",
-      "subSector": "เครื่องดื่ม",
-      "subSectorEn": "Beverages"
+      "subSector": "น้ำตาล",
+      "subSectorEn": "Sugar"
     },
     {
       "symbol": "BRRGIF",
@@ -1171,7 +1171,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "พลังงานและสาธารณูปโภค",
-      "subSectorEn": "Energy & Utilities"
+      "subSectorEn": "Energy Infrastructure Funds"
     },
     {
       "symbol": "BSBM",
@@ -1189,7 +1189,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "-",
       "subSector": "อสังหาริมทรัพย์และก่อสร้าง",
-      "subSectorEn": "Property & Construction"
+      "subSectorEn": "Personal Care & Cosmetics"
     },
     {
       "symbol": "BTC",
@@ -1198,7 +1198,7 @@
       "industry": "ธุรกิจการเงิน",
       "sector": "-",
       "subSector": "ธุรกิจการเงิน",
-      "subSectorEn": "Financial Services"
+      "subSectorEn": "Securities & Investment Banking"
     },
     {
       "symbol": "BTG",
@@ -1207,7 +1207,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "อาหารและเครื่องดื่ม",
       "subSector": "อุปกรริมทรัพย์",
-      "subSectorEn": "Property Equipment"
+      "subSectorEn": "Furniture & Home Decor"
     },
     {
       "symbol": "BTNC",
@@ -1216,7 +1216,7 @@
       "industry": "สินค้าอุปโภคบริโภค",
       "sector": "แฟชั่น",
       "subSector": "แฟชั่น",
-      "subSectorEn": "Fashion"
+      "subSectorEn": "Textiles & Fabrics"
     },
     {
       "symbol": "BTS",
@@ -1225,7 +1225,7 @@
       "industry": "บริการ",
       "sector": "ขนส่งและโลจิสติกส์",
       "subSector": "ขนส่งและโลจิสติกส์",
-      "subSectorEn": "Transportation & Logistics"
+      "subSectorEn": "Mass Transit"
     },
     {
       "symbol": "BTSGIF",
@@ -1234,7 +1234,7 @@
       "industry": "บริการ",
       "sector": "ขนส่งและโลจิสติกส์",
       "subSector": "ขนส่งและโลจิสติกส์",
-      "subSectorEn": "Transportation & Logistics"
+      "subSectorEn": "Mass Transit"
     },
     {
       "symbol": "BTW",
@@ -1261,7 +1261,7 @@
       "industry": "เทคโนโลยี",
       "sector": "-",
       "subSector": "เทคโนโลยี",
-      "subSectorEn": "Technology"
+      "subSectorEn": "IT Services - Software Development"
     },
     {
       "symbol": "BWG",
@@ -1270,7 +1270,7 @@
       "industry": "บริการ",
       "sector": "บริการเฉพาะกิจ",
       "subSector": "บริการเฉพาะกิจ",
-      "subSectorEn": "Specialized Services"
+      "subSectorEn": "Facilities Management"
     },
     {
       "symbol": "B-WORK",
@@ -1306,7 +1306,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "อาหารและเครื่องดื่ม",
       "subSector": "เครื่องดื่ม",
-      "subSectorEn": "Beverages"
+      "subSectorEn": "Dairy Products"
     },
     {
       "symbol": "CCET",
@@ -1342,7 +1342,7 @@
       "industry": "บริการ",
       "sector": "การท่องเที่ยวและสันทนาการ",
       "subSector": "การท่องเที่ยวและสันทนาการ",
-      "subSectorEn": "Tourism & Leisure"
+      "subSectorEn": "Hotels - Midscale & Budget"
     },
     {
       "symbol": "CEYE",
@@ -1378,7 +1378,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "ที่ดินและอาคารพาณิชย์",
-      "subSectorEn": "Land & Commercial Buildings"
+      "subSectorEn": "Property Development - Mixed"
     },
     {
       "symbol": "CGH",
@@ -1405,7 +1405,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "อาหารและเครื่องดื่ม",
       "subSector": "อาหารและเครื่องดื่ม",
-      "subSectorEn": "Food & Beverage"
+      "subSectorEn": "Dairy Products"
     },
     {
       "symbol": "CHARAN",
@@ -1414,7 +1414,7 @@
       "industry": "ธุรกิจการเงิน",
       "sector": "ประกันภัยและประกันชีวิต",
       "subSector": "ประกันภัยและประกันชีวิต",
-      "subSectorEn": "Insurance & Life Insurance"
+      "subSectorEn": "Non-Life Insurance"
     },
     {
       "symbol": "CHASE",
@@ -1441,7 +1441,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "-",
       "subSector": "อสังหาริมทรัพย์และก่อสร้าง",
-      "subSectorEn": "Property & Construction"
+      "subSectorEn": "Highways & Toll Roads"
     },
     {
       "symbol": "CHG",
@@ -1450,7 +1450,7 @@
       "industry": "บริการ",
       "sector": "การแพทย์",
       "subSector": "การแพทย์",
-      "subSectorEn": "Healthcare"
+      "subSectorEn": "Hospitals - Network (General)"
     },
     {
       "symbol": "CHIC",
@@ -1468,7 +1468,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "-",
       "subSector": "อุตสาหกรรมอื่นๆ",
-      "subSectorEn": "Other Industries"
+      "subSectorEn": "Other Manufacturing"
     },
     {
       "symbol": "CHOTI",
@@ -1477,7 +1477,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "อาหารและเครื่องดื่ม",
       "subSector": "ห้องเย็นและลอจิสติกส์",
-      "subSectorEn": "Cold Storage & Logistics"
+      "subSectorEn": "Logistics - Cold Chain"
     },
     {
       "symbol": "CHOW",
@@ -1486,7 +1486,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "-",
       "subSector": "อุตสาหกรรมอื่นๆ",
-      "subSectorEn": "Other Industries"
+      "subSectorEn": "Other Manufacturing"
     },
     {
       "symbol": "CI",
@@ -1495,7 +1495,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "ที่ดินและอาคารพาณิชย์",
-      "subSectorEn": "Land & Commercial Buildings"
+      "subSectorEn": "Property Development - Mixed"
     },
     {
       "symbol": "CIG",
@@ -1504,7 +1504,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "-",
       "subSector": "อุตสาหกรรมอื่นๆ",
-      "subSectorEn": "Other Industries"
+      "subSectorEn": "Other Manufacturing"
     },
     {
       "symbol": "CIMBT",
@@ -1513,7 +1513,7 @@
       "industry": "ธุรกิจการเงิน",
       "sector": "ธนาคาร",
       "subSector": "ธนาคาร",
-      "subSectorEn": "Banking"
+      "subSectorEn": "Commercial Banks"
     },
     {
       "symbol": "CITY",
@@ -1540,7 +1540,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "บริการรับเหมาก่อสร้าง",
       "subSector": "รับเหมาก่อสร้าง",
-      "subSectorEn": "Construction Contractor"
+      "subSectorEn": "Construction Contractors"
     },
     {
       "symbol": "CKP",
@@ -1549,7 +1549,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "รับเหมาก่อสร้าง",
-      "subSectorEn": "Construction Contractor"
+      "subSectorEn": "Construction Contractors"
     },
     {
       "symbol": "CM",
@@ -1558,7 +1558,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "อาหารและเครื่องดื่ม",
       "subSector": "อาหารและภัตตาคาร",
-      "subSectorEn": "Food & Restaurant"
+      "subSectorEn": "Restaurants - Casual Dining"
     },
     {
       "symbol": "CMAN",
@@ -1567,7 +1567,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "ปิโตรเคมีและเคมีภัณฑ์",
       "subSector": "ปิโตรเคมีและเคมีภัณฑ์",
-      "subSectorEn": "Petrochemicals & Chemicals"
+      "subSectorEn": "Specialty Chemicals"
     },
     {
       "symbol": "CMC",
@@ -1576,7 +1576,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "ที่ดินและอาคารพาณิชย์",
-      "subSectorEn": "Land & Commercial Buildings"
+      "subSectorEn": "Property Development - Mixed"
     },
     {
       "symbol": "CMO",
@@ -1594,7 +1594,7 @@
       "industry": "บริการ",
       "sector": "การแพทย์",
       "subSector": "การแพทย์",
-      "subSectorEn": "Healthcare"
+      "subSectorEn": "Hospitals - Stand-alone"
     },
     {
       "symbol": "CNT",
@@ -1612,7 +1612,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "อาหารและเครื่องดื่ม",
       "subSector": "ผักและเกษตร",
-      "subSectorEn": "Vegetables & Agriculture"
+      "subSectorEn": "Agriculture & Plantation"
     },
     {
       "symbol": "COLOR",
@@ -1621,7 +1621,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "-",
       "subSector": "อุตสาหกรรมอื่นๆ",
-      "subSectorEn": "Other Industries"
+      "subSectorEn": "Other Manufacturing"
     },
     {
       "symbol": "COM7",
@@ -1630,7 +1630,7 @@
       "industry": "บริการ",
       "sector": "พาณิชย์",
       "subSector": "ค้าปลีกออนไลน์",
-      "subSectorEn": "Online Retail"
+      "subSectorEn": "E-Commerce Platform & Marketplace"
     },
     {
       "symbol": "COMAN",
@@ -1639,7 +1639,7 @@
       "industry": "เทคโนโลยี",
       "sector": "-",
       "subSector": "เทคโนโลยี",
-      "subSectorEn": "Technology"
+      "subSectorEn": "IT Services - Software Development"
     },
     {
       "symbol": "CPALL",
@@ -1648,7 +1648,7 @@
       "industry": "บริการ",
       "sector": "พาณิชย์",
       "subSector": "พาณิชย์",
-      "subSectorEn": "Commerce"
+      "subSectorEn": "Convenience Stores"
     },
     {
       "symbol": "CPANEL",
@@ -1666,7 +1666,7 @@
       "industry": "บริการ",
       "sector": "พาณิชย์",
       "subSector": "พาณิชย์",
-      "subSectorEn": "Commerce"
+      "subSectorEn": "Convenience Stores"
     },
     {
       "symbol": "CPF",
@@ -1675,7 +1675,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "อาหารและเครื่องดื่ม",
       "subSector": "อาหารแปรรูปและประกอบอาหาร",
-      "subSectorEn": "Processed Food & Food Preparation"
+      "subSectorEn": "Dairy Products"
     },
     {
       "symbol": "CPH",
@@ -1684,7 +1684,7 @@
       "industry": "สินค้าอุปโภคบริโภค",
       "sector": "แฟชั่น",
       "subSector": "แฟชั่น",
-      "subSectorEn": "Fashion"
+      "subSectorEn": "Apparel - Casual & Fashion"
     },
     {
       "symbol": "CPI",
@@ -1702,7 +1702,7 @@
       "industry": "สินค้าอุปโภคบริโภค",
       "sector": "แฟชั่น",
       "subSector": "แฟชั่น",
-      "subSectorEn": "Fashion"
+      "subSectorEn": "Apparel - Casual & Fashion"
     },
     {
       "symbol": "CPN",
@@ -1711,7 +1711,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "ร้านค้าปลีก",
-      "subSectorEn": "Retail Stores"
+      "subSectorEn": "Shopping Malls & Retail Property"
     },
     {
       "symbol": "CPNCG",
@@ -1729,7 +1729,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
       "subSector": "REIT",
-      "subSectorEn": "REIT"
+      "subSectorEn": "Retail REITs"
     },
     {
       "symbol": "CPR",
@@ -1738,7 +1738,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "-",
       "subSector": "อุตสาหกรรมอื่นๆ",
-      "subSectorEn": "Other Industries"
+      "subSectorEn": "Other Manufacturing"
     },
     {
       "symbol": "CPT",
@@ -1756,7 +1756,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
       "subSector": "REIT",
-      "subSectorEn": "REIT"
+      "subSectorEn": "Retail REITs"
     },
     {
       "symbol": "CPW",
@@ -1765,7 +1765,7 @@
       "industry": "บริการ",
       "sector": "พาณิชย์",
       "subSector": "พาณิชย์",
-      "subSectorEn": "Commerce"
+      "subSectorEn": "Convenience Stores"
     },
     {
       "symbol": "CRANE",
@@ -1783,7 +1783,7 @@
       "industry": "บริการ",
       "sector": "พาณิชย์",
       "subSector": "ร้านค้าปลีก",
-      "subSectorEn": "Retail Stores"
+      "subSectorEn": "Department Stores"
     },
     {
       "symbol": "CRD",
@@ -1801,7 +1801,7 @@
       "industry": "ธุรกิจการเงิน",
       "sector": "ธนาคาร",
       "subSector": "ธนาคาร",
-      "subSectorEn": "Banking"
+      "subSectorEn": "Asset Management"
     },
     {
       "symbol": "CSC",
@@ -1828,7 +1828,7 @@
       "industry": "บริการ",
       "sector": "การท่องเที่ยวและสันทนาการ",
       "subSector": "การท่องเที่ยวและสันทนาการ",
-      "subSectorEn": "Tourism & Leisure"
+      "subSectorEn": "Hotels - Midscale & Budget"
     },
     {
       "symbol": "CSS",
@@ -1837,7 +1837,7 @@
       "industry": "บริการ",
       "sector": "พาณิชย์",
       "subSector": "พาณิชย์",
-      "subSectorEn": "Commerce"
+      "subSectorEn": "Specialty Retail - Others"
     },
     {
       "symbol": "CTARAF",
@@ -1846,7 +1846,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
       "subSector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
-      "subSectorEn": "REITs & Property Trusts"
+      "subSectorEn": "Property Funds"
     },
     {
       "symbol": "CTW",
@@ -1864,7 +1864,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "พลังงานและสาธารณูปโภค",
-      "subSectorEn": "Energy & Utilities"
+      "subSectorEn": "Water & Waste Utilities"
     },
     {
       "symbol": "CWT",
@@ -1873,7 +1873,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "ยานยนต์",
       "subSector": "ยานยนต์",
-      "subSectorEn": "Automotive"
+      "subSectorEn": "Automotive Parts - Tier 2 & Components"
     },
     {
       "symbol": "D",
@@ -1918,7 +1918,7 @@
       "industry": "เทคโนโลยี",
       "sector": "ชิ้นส่วนอิเล็กทรอนิกส์",
       "subSector": "ชิ้นส่วนอิเล็กทรอนิกส์",
-      "subSectorEn": "Electronic Components"
+      "subSectorEn": "Electrical Equipment"
     },
     {
       "symbol": "DEMCO",
@@ -1927,7 +1927,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "บริการรับเหมาก่อสร้าง",
       "subSector": "บริการรับเหมาก่อสร้าง",
-      "subSectorEn": "Construction Services"
+      "subSectorEn": "Waste & Environmental Services"
     },
     {
       "symbol": "DEXON",
@@ -1936,7 +1936,7 @@
       "industry": "บริการ",
       "sector": "-",
       "subSector": "IT และเทคโนโลยี",
-      "subSectorEn": "IT & Technology"
+      "subSectorEn": "IT Services - Consulting"
     },
     {
       "symbol": "DHOUSE",
@@ -1954,7 +1954,7 @@
       "industry": "เทคโนโลยี",
       "sector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
       "subSector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
-      "subSectorEn": "Information & Communication Technology"
+      "subSectorEn": "Digital Infrastructure & Data Centers"
     },
     {
       "symbol": "DIMET",
@@ -1972,7 +1972,7 @@
       "industry": "เทคโนโลยี",
       "sector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
       "subSector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
-      "subSectorEn": "Information & Communication Technology"
+      "subSectorEn": "Telecommunications Equipment"
     },
     {
       "symbol": "DMT",
@@ -1981,7 +1981,7 @@
       "industry": "บริการ",
       "sector": "ขนส่งและโลจิสติกส์",
       "subSector": "ขนส่งและโลจิสติกส์",
-      "subSectorEn": "Transportation & Logistics"
+      "subSectorEn": "Mass Transit"
     },
     {
       "symbol": "DOD",
@@ -1990,7 +1990,7 @@
       "industry": "สินค้าอุปโภคบริโภค",
       "sector": "-",
       "subSector": "สินค้าอุปโภคบริโภค",
-      "subSectorEn": "Consumer Products"
+      "subSectorEn": "Household & Consumer Products"
     },
     {
       "symbol": "DOHOME",
@@ -1999,7 +1999,7 @@
       "industry": "บริการ",
       "sector": "พาณิชย์",
       "subSector": "พาณิชย์",
-      "subSectorEn": "Commerce"
+      "subSectorEn": "Home Improvement Retail"
     },
     {
       "symbol": "DPAINT",
@@ -2017,7 +2017,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
       "subSector": "REIT",
-      "subSectorEn": "REIT"
+      "subSectorEn": "Industrial & Logistics REITs"
     },
     {
       "symbol": "DRT",
@@ -2026,7 +2026,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "วัสดุก่อสร้าง",
       "subSector": "วัสดุก่อสร้าง",
-      "subSectorEn": "Construction Materials"
+      "subSectorEn": "Hotels - Luxury & Upscale"
     },
     {
       "symbol": "DTCENT",
@@ -2035,7 +2035,7 @@
       "industry": "เทคโนโลยี",
       "sector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
       "subSector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
-      "subSectorEn": "Information & Communication Technology"
+      "subSectorEn": "Digital Infrastructure & Data Centers"
     },
     {
       "symbol": "DTCI",
@@ -2044,7 +2044,7 @@
       "industry": "สินค้าอุปโภคบริโภค",
       "sector": "ของใช้ในครัวเรือนและสำนักงาน",
       "subSector": "ของใช้ในครัวเรือนและสำนักงาน",
-      "subSectorEn": "Household & Office Products"
+      "subSectorEn": "Direct Selling & MLM"
     },
     {
       "symbol": "DUSIT",
@@ -2062,7 +2062,7 @@
       "industry": "บริการ",
       "sector": "-",
       "subSector": "สื่อและโฆษณา",
-      "subSectorEn": "Media & Advertising"
+      "subSectorEn": "Entertainment & Events"
     },
     {
       "symbol": "EA",
@@ -2071,7 +2071,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "พลังงานทางเลือก",
-      "subSectorEn": "Alternative Energy"
+      "subSectorEn": "Renewable Energy"
     },
     {
       "symbol": "EASON",
@@ -2080,7 +2080,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "ยานยนต์",
       "subSector": "ยานยนต์",
-      "subSectorEn": "Automotive"
+      "subSectorEn": "Automotive Parts - Tier 2 & Components"
     },
     {
       "symbol": "EAST",
@@ -2098,7 +2098,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "พลังงานและสาธารณูปโภค",
-      "subSectorEn": "Energy & Utilities"
+      "subSectorEn": "Water & Waste Utilities"
     },
     {
       "symbol": "ECF",
@@ -2107,7 +2107,7 @@
       "industry": "สินค้าอุปโภคบริโภค",
       "sector": "-",
       "subSector": "สินค้าอุปโภคบริโภค",
-      "subSectorEn": "Consumer Products"
+      "subSectorEn": "Pet Products"
     },
     {
       "symbol": "EFORL",
@@ -2116,7 +2116,7 @@
       "industry": "สินค้าอุปโภคบริโภค",
       "sector": "-",
       "subSector": "สินค้าอุปโภคบริโภค",
-      "subSectorEn": "Consumer Products"
+      "subSectorEn": "Personal Care & Cosmetics"
     },
     {
       "symbol": "EGATIF",
@@ -2125,7 +2125,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "พลังงานและสาธารณูปโภค",
-      "subSectorEn": "Energy & Utilities"
+      "subSectorEn": "Energy Infrastructure Funds"
     },
     {
       "symbol": "EGCO",
@@ -2134,7 +2134,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "ไฟฟ้า",
-      "subSectorEn": "Electricity"
+      "subSectorEn": "Independent Power Producers"
     },
     {
       "symbol": "EKH",
@@ -2143,7 +2143,7 @@
       "industry": "บริการ",
       "sector": "การแพทย์",
       "subSector": "การแพทย์",
-      "subSectorEn": "Healthcare"
+      "subSectorEn": "Hospitals - Stand-alone"
     },
     {
       "symbol": "EMC",
@@ -2170,7 +2170,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "พลังงานและสาธารณูปโภค",
-      "subSectorEn": "Energy & Utilities"
+      "subSectorEn": "Renewable Energy"
     },
     {
       "symbol": "EPG",
@@ -2188,7 +2188,7 @@
       "industry": "บริการ",
       "sector": "การท่องเที่ยวและสันทนาการ",
       "subSector": "การท่องเที่ยวและสันทนาการ",
-      "subSectorEn": "Tourism & Leisure"
+      "subSectorEn": "Hotels - Luxury & Upscale"
     },
     {
       "symbol": "ESTAR",
@@ -2197,7 +2197,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "ที่ดินและอาคารพาณิชย์",
-      "subSectorEn": "Land & Commercial Buildings"
+      "subSectorEn": "Property Development - Mixed"
     },
     {
       "symbol": "ETC",
@@ -2206,7 +2206,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "พลังงานและสาธารณูปโภค",
-      "subSectorEn": "Energy & Utilities"
+      "subSectorEn": "Renewable Energy"
     },
     {
       "symbol": "ETE",
@@ -2215,7 +2215,7 @@
       "industry": "บริการ",
       "sector": "-",
       "subSector": "IT และเทคโนโลยี",
-      "subSectorEn": "IT & Technology"
+      "subSectorEn": "IT Services - Consulting"
     },
     {
       "symbol": "ETL",
@@ -2224,7 +2224,7 @@
       "industry": "บริการ",
       "sector": "ขนส่งและโลจิสติกส์",
       "subSector": "ขนส่งและโลจิสติกส์",
-      "subSectorEn": "Transportation & Logistics"
+      "subSectorEn": "Logistics - Freight Forwarding"
     },
     {
       "symbol": "EURO",
@@ -2233,7 +2233,7 @@
       "industry": "สินค้าอุปโภคบริโภค",
       "sector": "-",
       "subSector": "สินค้าอุปโภคบริโภค",
-      "subSectorEn": "Consumer Products"
+      "subSectorEn": "Personal Care & Cosmetics"
     },
     {
       "symbol": "EVER",
@@ -2251,7 +2251,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "อาหารและเครื่องดื่ม",
       "subSector": "ร้านอาหาร",
-      "subSectorEn": "Restaurants"
+      "subSectorEn": "Restaurants - Fast Food & QSR"
     },
     {
       "symbol": "FANCY",
@@ -2287,7 +2287,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "อาหารและเครื่องดื่ม",
       "subSector": "อาหารและเครื่องดื่ม",
-      "subSectorEn": "Food & Beverage"
+      "subSectorEn": "Seasoning & Sauces"
     },
     {
       "symbol": "FMT",
@@ -2305,7 +2305,7 @@
       "industry": "บริการ",
       "sector": "พาณิชย์",
       "subSector": "พาณิชย์",
-      "subSectorEn": "Commerce"
+      "subSectorEn": "Specialty Retail - Fashion & Beauty"
     },
     {
       "symbol": "FNS",
@@ -2323,7 +2323,7 @@
       "industry": "เทคโนโลยี",
       "sector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
       "subSector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
-      "subSectorEn": "Information & Communication Technology"
+      "subSectorEn": "IT Services - System Integration"
     },
     {
       "symbol": "FPI",
@@ -2332,7 +2332,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "-",
       "subSector": "อุตสาหกรรมอื่นๆ",
-      "subSectorEn": "Other Industries"
+      "subSectorEn": "Other Manufacturing"
     },
     {
       "symbol": "FPT",
@@ -2341,7 +2341,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "ที่ดินและอาคารพาณิชย์",
-      "subSectorEn": "Land & Commercial Buildings"
+      "subSectorEn": "Property Development - Mixed"
     },
     {
       "symbol": "FSMART",
@@ -2350,7 +2350,7 @@
       "industry": "บริการ",
       "sector": "-",
       "subSector": "IT และเทคโนโลยี",
-      "subSectorEn": "IT & Technology"
+      "subSectorEn": "Software as a Service (SaaS)"
     },
     {
       "symbol": "FSX",
@@ -2386,7 +2386,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
       "subSector": "REIT",
-      "subSectorEn": "REIT"
+      "subSectorEn": "Office REITs"
     },
     {
       "symbol": "FUTURERT",
@@ -2395,7 +2395,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
       "subSector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
-      "subSectorEn": "REITs & Property Trusts"
+      "subSectorEn": "Property Funds"
     },
     {
       "symbol": "FVC",
@@ -2404,7 +2404,7 @@
       "industry": "บริการ",
       "sector": "-",
       "subSector": "สื่อและโฆษณา",
-      "subSectorEn": "Media & Advertising"
+      "subSectorEn": "Entertainment & Events"
     },
     {
       "symbol": "GABLE",
@@ -2413,7 +2413,7 @@
       "industry": "เทคโนโลยี",
       "sector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
       "subSector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
-      "subSectorEn": "Information & Communication Technology"
+      "subSectorEn": "Telecommunications Equipment"
     },
     {
       "symbol": "GAHREIT",
@@ -2422,7 +2422,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
       "subSector": "REIT",
-      "subSectorEn": "REIT"
+      "subSectorEn": "Hotel REITs"
     },
     {
       "symbol": "GBX",
@@ -2440,7 +2440,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "ปิโตรเคมีและเคมีภัณฑ์",
       "subSector": "ปิโตรเคมีและเคมีภัณฑ์",
-      "subSectorEn": "Petrochemicals & Chemicals"
+      "subSectorEn": "Integrated Petrochemicals"
     },
     {
       "symbol": "GCAP",
@@ -2449,7 +2449,7 @@
       "industry": "ธุรกิจการเงิน",
       "sector": "-",
       "subSector": "ธุรกิจการเงิน",
-      "subSectorEn": "Financial Services"
+      "subSectorEn": "Securities & Investment Banking"
     },
     {
       "symbol": "GEL",
@@ -2458,7 +2458,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "วัสดุก่อสร้าง",
       "subSector": "วัสดุก่อสร้าง",
-      "subSectorEn": "Construction Materials"
+      "subSectorEn": "Glass & Ceramics"
     },
     {
       "symbol": "GENCO",
@@ -2467,7 +2467,7 @@
       "industry": "บริการ",
       "sector": "บริการเฉพาะกิจ",
       "subSector": "บริการเฉพาะกิจ",
-      "subSectorEn": "Specialized Services"
+      "subSectorEn": "Facilities Management"
     },
     {
       "symbol": "GFC",
@@ -2476,7 +2476,7 @@
       "industry": "บริการ",
       "sector": "-",
       "subSector": "สื่อและโฆษณา",
-      "subSectorEn": "Media & Advertising"
+      "subSectorEn": "Advertising Production"
     },
     {
       "symbol": "GFPT",
@@ -2485,7 +2485,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "ธุรกิจการเกษตร",
       "subSector": "ธุรกิจการเกษตร",
-      "subSectorEn": "Agriculture Business"
+      "subSectorEn": "Processed Food - Ready to Eat"
     },
     {
       "symbol": "GGC",
@@ -2494,7 +2494,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "ปิโตรเคมีและเคมีภัณฑ์",
       "subSector": "ปิโตรเคมีและเคมีภัณฑ์",
-      "subSectorEn": "Petrochemicals & Chemicals"
+      "subSectorEn": "Olefins & Aromatics"
     },
     {
       "symbol": "GJS",
@@ -2512,7 +2512,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "ที่ดินและอาคารพาณิชย์",
-      "subSectorEn": "Land & Commercial Buildings"
+      "subSectorEn": "Office Buildings"
     },
     {
       "symbol": "GLOBAL",
@@ -2521,7 +2521,7 @@
       "industry": "บริการ",
       "sector": "พาณิชย์",
       "subSector": "พาณิชย์",
-      "subSectorEn": "Commerce"
+      "subSectorEn": "Home Improvement Retail"
     },
     {
       "symbol": "GLORY",
@@ -2530,7 +2530,7 @@
       "industry": "บริการ",
       "sector": "-",
       "subSector": "ขนส่ง",
-      "subSectorEn": "Transportation"
+      "subSectorEn": "Logistics - Integrated"
     },
     {
       "symbol": "GPI",
@@ -2548,7 +2548,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "ก๊าซธรรมชาติและปิโตรเลียม",
-      "subSectorEn": "Natural Gas & Petroleum"
+      "subSectorEn": "Natural Gas Distribution"
     },
     {
       "symbol": "GRAMMY",
@@ -2557,7 +2557,7 @@
       "industry": "บริการ",
       "sector": "สื่อและสิ่งพิมพ์",
       "subSector": "สื่อและสิ่งพิมพ์",
-      "subSectorEn": "Media & Publishing"
+      "subSectorEn": "Entertainment & Events"
     },
     {
       "symbol": "GRAND",
@@ -2566,7 +2566,7 @@
       "industry": "บริการ",
       "sector": "การท่องเที่ยวและสันทนาการ",
       "subSector": "การท่องเที่ยวและสันทนาการ",
-      "subSectorEn": "Tourism & Leisure"
+      "subSectorEn": "Hotels - Luxury & Upscale"
     },
     {
       "symbol": "GREEN",
@@ -2575,7 +2575,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "พลังงานและสาธารณูปโภค",
-      "subSectorEn": "Energy & Utilities"
+      "subSectorEn": "Renewable Energy"
     },
     {
       "symbol": "GROREIT",
@@ -2584,7 +2584,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
       "subSector": "REIT",
-      "subSectorEn": "REIT"
+      "subSectorEn": "Industrial & Logistics REITs"
     },
     {
       "symbol": "GSTEEL",
@@ -2593,7 +2593,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "เหล็ก และ ผลิตภัณฑ์โลหะ",
       "subSector": "เหล็กและโลหะ",
-      "subSectorEn": "Steel & Metals"
+      "subSectorEn": "Steel & Metal Trading"
     },
     {
       "symbol": "GTB",
@@ -2611,7 +2611,7 @@
       "industry": "ทรัพยากร",
       "sector": "-",
       "subSector": "ทรัพยากร",
-      "subSectorEn": "Resources"
+      "subSectorEn": "Mining - Gold & Precious Metals"
     },
     {
       "symbol": "GULF",
@@ -2620,7 +2620,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "พลังงานทางเลือก",
-      "subSectorEn": "Alternative Energy"
+      "subSectorEn": "Digital Infrastructure & Data Centers"
     },
     {
       "symbol": "GUNKUL",
@@ -2629,7 +2629,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "พลังงานและสาธารณูปโภค",
-      "subSectorEn": "Energy & Utilities"
+      "subSectorEn": "Renewable Energy"
     },
     {
       "symbol": "GVREIT",
@@ -2638,7 +2638,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
       "subSector": "REIT",
-      "subSectorEn": "REIT"
+      "subSectorEn": "Office REITs"
     },
     {
       "symbol": "GYT",
@@ -2647,7 +2647,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "ยานยนต์",
       "subSector": "ยานยนต์",
-      "subSectorEn": "Automotive"
+      "subSectorEn": "Automotive Parts - Tier 2 & Components"
     },
     {
       "symbol": "HANA",
@@ -2656,7 +2656,7 @@
       "industry": "เทคโนโลยี",
       "sector": "ชิ้นส่วนอิเล็กทรอนิกส์",
       "subSector": "ชิ้นส่วนอิเล็กทรอนิกส์",
-      "subSectorEn": "Electronic Components"
+      "subSectorEn": "Semiconductors"
     },
     {
       "symbol": "HANN",
@@ -2665,7 +2665,7 @@
       "industry": "บริการ",
       "sector": "-",
       "subSector": "โรงพยาบาล",
-      "subSectorEn": "Hospitals"
+      "subSectorEn": "Hospitals - Stand-alone"
     },
     {
       "symbol": "HARN",
@@ -2683,7 +2683,7 @@
       "industry": "บริการ",
       "sector": "-",
       "subSector": "โรงพยาบาล",
-      "subSectorEn": "Hospitals"
+      "subSectorEn": "Hospitals - Stand-alone"
     },
     {
       "symbol": "HENG",
@@ -2701,7 +2701,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "ยานยนต์",
       "subSector": "ยานยนต์",
-      "subSectorEn": "Automotive"
+      "subSectorEn": "Automotive Parts - Tier 2 & Components"
     },
     {
       "symbol": "HL",
@@ -2710,7 +2710,7 @@
       "industry": "บริการ",
       "sector": "-",
       "subSector": "โรงพยาบาล",
-      "subSectorEn": "Hospitals"
+      "subSectorEn": "Hospitals - Stand-alone"
     },
     {
       "symbol": "HMPRO",
@@ -2719,7 +2719,7 @@
       "industry": "บริการ",
       "sector": "พาณิชย์",
       "subSector": "อุปกรริมทรัพย์",
-      "subSectorEn": "Property Equipment"
+      "subSectorEn": "Furniture & Home Decor"
     },
     {
       "symbol": "HPF",
@@ -2728,7 +2728,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
       "subSector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
-      "subSectorEn": "REITs & Property Trusts"
+      "subSectorEn": "Property Funds"
     },
     {
       "symbol": "HPT",
@@ -2737,7 +2737,7 @@
       "industry": "สินค้าอุปโภคบริโภค",
       "sector": "-",
       "subSector": "สินค้าอุปโภคบริโภค",
-      "subSectorEn": "Consumer Products"
+      "subSectorEn": "Personal Care & Cosmetics"
     },
     {
       "symbol": "HTC",
@@ -2746,7 +2746,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "อาหารและเครื่องดื่ม",
       "subSector": "ขายส่งและจัดจำหน่าย",
-      "subSectorEn": "Wholesale & Distribution"
+      "subSectorEn": "Wholesale & Trading - Industrial"
     },
     {
       "symbol": "HTECH",
@@ -2764,7 +2764,7 @@
       "industry": "เทคโนโลยี",
       "sector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
       "subSector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
-      "subSectorEn": "Information & Communication Technology"
+      "subSectorEn": "IT Services - System Integration"
     },
     {
       "symbol": "HYDRO",
@@ -2791,7 +2791,7 @@
       "industry": "เทคโนโลยี",
       "sector": "-",
       "subSector": "เทคโนโลยี",
-      "subSectorEn": "Technology"
+      "subSectorEn": "IT Services - Software Development"
     },
     {
       "symbol": "ICC",
@@ -2800,7 +2800,7 @@
       "industry": "บริการ",
       "sector": "พาณิชย์",
       "subSector": "พาณิชย์",
-      "subSectorEn": "Commerce"
+      "subSectorEn": "Specialty Retail - Fashion & Beauty"
     },
     {
       "symbol": "ICHI",
@@ -2809,7 +2809,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "อาหารและเครื่องดื่ม",
       "subSector": "อาหารแปรรูปและประกอบอาหาร",
-      "subSectorEn": "Processed Food & Food Preparation"
+      "subSectorEn": "Processed Food - Ready to Eat"
     },
     {
       "symbol": "ICN",
@@ -2818,7 +2818,7 @@
       "industry": "เทคโนโลยี",
       "sector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
       "subSector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
-      "subSectorEn": "Information & Communication Technology"
+      "subSectorEn": "Telecommunications Equipment"
     },
     {
       "symbol": "IDG",
@@ -2827,7 +2827,7 @@
       "industry": "เทคโนโลยี",
       "sector": "-",
       "subSector": "เทคโนโลยี",
-      "subSectorEn": "Technology"
+      "subSectorEn": "IT Services - Software Development"
     },
     {
       "symbol": "IFS",
@@ -2845,7 +2845,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "ยานยนต์",
       "subSector": "ยานยนต์",
-      "subSectorEn": "Automotive"
+      "subSectorEn": "Automotive Parts - Tier 2 & Components"
     },
     {
       "symbol": "IIG",
@@ -2854,7 +2854,7 @@
       "industry": "เทคโนโลยี",
       "sector": "-",
       "subSector": "เทคโนโลยี",
-      "subSectorEn": "Technology"
+      "subSectorEn": "Industrial Estate Developers"
     },
     {
       "symbol": "III",
@@ -2863,7 +2863,7 @@
       "industry": "บริการ",
       "sector": "ขนส่งและโลจิสติกส์",
       "subSector": "ขนส่งและโลจิสติกส์",
-      "subSectorEn": "Transportation & Logistics"
+      "subSectorEn": "Logistics - Integrated"
     },
     {
       "symbol": "ILINK",
@@ -2872,7 +2872,7 @@
       "industry": "เทคโนโลยี",
       "sector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
       "subSector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
-      "subSectorEn": "Information & Communication Technology"
+      "subSectorEn": "Telecommunications Equipment"
     },
     {
       "symbol": "ILM",
@@ -2881,7 +2881,7 @@
       "industry": "บริการ",
       "sector": "พาณิชย์",
       "subSector": "พาณิชย์",
-      "subSectorEn": "Commerce"
+      "subSectorEn": "Personal Care & Cosmetics"
     },
     {
       "symbol": "IMH",
@@ -2890,7 +2890,7 @@
       "industry": "บริการ",
       "sector": "-",
       "subSector": "โรงพยาบาล",
-      "subSectorEn": "Hospitals"
+      "subSectorEn": "Hospitals - Stand-alone"
     },
     {
       "symbol": "IMPACT",
@@ -2917,7 +2917,7 @@
       "industry": "เทคโนโลยี",
       "sector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
       "subSector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
-      "subSectorEn": "Information & Communication Technology"
+      "subSectorEn": "Telecommunications Equipment"
     },
     {
       "symbol": "INETREIT",
@@ -2926,7 +2926,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
       "subSector": "REIT",
-      "subSectorEn": "REIT"
+      "subSectorEn": "Digital Infrastructure & Data Centers"
     },
     {
       "symbol": "INGRS",
@@ -2935,7 +2935,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "ยานยนต์",
       "subSector": "ยานยนต์",
-      "subSectorEn": "Automotive"
+      "subSectorEn": "Automotive Parts - Tier 2 & Components"
     },
     {
       "symbol": "INOX",
@@ -2953,7 +2953,7 @@
       "industry": "เทคโนโลยี",
       "sector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
       "subSector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
-      "subSectorEn": "Information & Communication Technology"
+      "subSectorEn": "Telecommunications Equipment"
     },
     {
       "symbol": "INSURE",
@@ -2980,7 +2980,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "ยานยนต์",
       "subSector": "ยานยนต์",
-      "subSectorEn": "Automotive"
+      "subSectorEn": "Textiles & Fabrics"
     },
     {
       "symbol": "IRCP",
@@ -2989,7 +2989,7 @@
       "industry": "เทคโนโลยี",
       "sector": "-",
       "subSector": "เทคโนโลยี",
-      "subSectorEn": "Technology"
+      "subSectorEn": "IT Services - Software Development"
     },
     {
       "symbol": "IROYAL",
@@ -3007,7 +3007,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "โรงไฟฟ้า",
-      "subSectorEn": "Power Plants"
+      "subSectorEn": "Oil Refining"
     },
     {
       "symbol": "ISSARA",
@@ -3016,7 +3016,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
       "subSector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
-      "subSectorEn": "REITs & Property Trusts"
+      "subSectorEn": "Property Funds"
     },
     {
       "symbol": "IT",
@@ -3025,7 +3025,7 @@
       "industry": "บริการ",
       "sector": "พาณิชย์",
       "subSector": "พาณิชย์",
-      "subSectorEn": "Commerce"
+      "subSectorEn": "Specialty Retail - Electronics & IT"
     },
     {
       "symbol": "ITC",
@@ -3043,7 +3043,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "บริการรับเหมาก่อสร้าง",
       "subSector": "รับเหมาก่อสร้าง",
-      "subSectorEn": "Construction Contractor"
+      "subSectorEn": "Construction Contractors"
     },
     {
       "symbol": "ITEL",
@@ -3052,7 +3052,7 @@
       "industry": "เทคโนโลยี",
       "sector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
       "subSector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
-      "subSectorEn": "Information & Communication Technology"
+      "subSectorEn": "Telecommunications Equipment"
     },
     {
       "symbol": "ITNS",
@@ -3061,7 +3061,7 @@
       "industry": "เทคโนโลยี",
       "sector": "-",
       "subSector": "เทคโนโลยี",
-      "subSectorEn": "Technology"
+      "subSectorEn": "IT Services - Software Development"
     },
     {
       "symbol": "ITTHI",
@@ -3070,7 +3070,7 @@
       "industry": "สินค้าอุปโภคบริโภค",
       "sector": "-",
       "subSector": "สินค้าอุปโภคบริโภค",
-      "subSectorEn": "Consumer Products"
+      "subSectorEn": "Personal Care & Cosmetics"
     },
     {
       "symbol": "IVF",
@@ -3079,7 +3079,7 @@
       "industry": "บริการ",
       "sector": "-",
       "subSector": "ธุรกิจการแพทย์",
-      "subSectorEn": "Healthcare Business"
+      "subSectorEn": "Healthcare Services"
     },
     {
       "symbol": "IVL",
@@ -3088,7 +3088,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "ปิโตรเคมีและเคมีภัณฑ์",
       "subSector": "เคมีภัณฑ์",
-      "subSectorEn": "Chemicals"
+      "subSectorEn": "Integrated Petrochemicals"
     },
     {
       "symbol": "J",
@@ -3097,7 +3097,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "ที่ดินและอาคารพาณิชย์",
-      "subSectorEn": "Land & Commercial Buildings"
+      "subSectorEn": "Office Buildings"
     },
     {
       "symbol": "JAK",
@@ -3115,7 +3115,7 @@
       "industry": "เทคโนโลยี",
       "sector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
       "subSector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
-      "subSectorEn": "Information & Communication Technology"
+      "subSectorEn": "Telecommunications - Fixed Line"
     },
     {
       "symbol": "JCK",
@@ -3124,7 +3124,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "ที่ดินและอาคารพาณิชย์",
-      "subSectorEn": "Land & Commercial Buildings"
+      "subSectorEn": "Property Development - Mixed"
     },
     {
       "symbol": "JCT",
@@ -3142,7 +3142,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "อาหารและเครื่องดื่ม",
       "subSector": "ขนมขบเคี้ยว",
-      "subSectorEn": "Snacks"
+      "subSectorEn": "Snack Food"
     },
     {
       "symbol": "JMART",
@@ -3151,7 +3151,7 @@
       "industry": "เทคโนโลยี",
       "sector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
       "subSector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
-      "subSectorEn": "Information & Communication Technology"
+      "subSectorEn": "Software as a Service (SaaS)"
     },
     {
       "symbol": "JMT",
@@ -3160,7 +3160,7 @@
       "industry": "ธุรกิจการเงิน",
       "sector": "เงินทุนและหลักทรัพย์",
       "subSector": "เงินทุนและหลักทรัพย์",
-      "subSectorEn": "Capital Markets & Securities"
+      "subSectorEn": "Specialty Retail - Electronics & IT"
     },
     {
       "symbol": "JPARK",
@@ -3187,7 +3187,7 @@
       "industry": "สินค้าอุปโภคบริโภค",
       "sector": "-",
       "subSector": "สินค้าอุปโภคบริโภค",
-      "subSectorEn": "Consumer Products"
+      "subSectorEn": "Personal Care & Cosmetics"
     },
     {
       "symbol": "JTS",
@@ -3196,7 +3196,7 @@
       "industry": "เทคโนโลยี",
       "sector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
       "subSector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
-      "subSectorEn": "Information & Communication Technology"
+      "subSectorEn": "Telecommunications Equipment"
     },
     {
       "symbol": "JUBILE",
@@ -3205,7 +3205,7 @@
       "industry": "สินค้าอุปโภคบริโภค",
       "sector": "-",
       "subSector": "สินค้าอุปโภคบริโภค",
-      "subSectorEn": "Consumer Products"
+      "subSectorEn": "Jewelry & Accessories"
     },
     {
       "symbol": "K",
@@ -3223,7 +3223,7 @@
       "industry": "บริการ",
       "sector": "พาณิชย์",
       "subSector": "พาณิชย์",
-      "subSectorEn": "Commerce"
+      "subSectorEn": "Personal Care & Cosmetics"
     },
     {
       "symbol": "KASET",
@@ -3241,7 +3241,7 @@
       "industry": "ธุรกิจการเงิน",
       "sector": "ธนาคาร",
       "subSector": "ธนาคาร",
-      "subSectorEn": "Banking"
+      "subSectorEn": "Commercial Banks"
     },
     {
       "symbol": "KBS",
@@ -3249,8 +3249,8 @@
       "market": "SET",
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "อาหารและเครื่องดื่ม",
-      "subSector": "เครื่องดื่ม",
-      "subSectorEn": "Beverages"
+      "subSector": "น้ำตาล",
+      "subSectorEn": "Sugar"
     },
     {
       "symbol": "KBSPIF",
@@ -3259,7 +3259,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "พลังงานและสาธารณูปโภค",
-      "subSectorEn": "Energy & Utilities"
+      "subSectorEn": "Energy Infrastructure Funds"
     },
     {
       "symbol": "KC",
@@ -3268,7 +3268,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "ที่ดินและอาคารพาณิชย์",
-      "subSectorEn": "Land & Commercial Buildings"
+      "subSectorEn": "Property Development - Mixed"
     },
     {
       "symbol": "KCAR",
@@ -3286,7 +3286,7 @@
       "industry": "ธุรกิจการเงิน",
       "sector": "-",
       "subSector": "ธุรกิจการเงิน",
-      "subSectorEn": "Financial Services"
+      "subSectorEn": "Securities & Investment Banking"
     },
     {
       "symbol": "KCE",
@@ -3295,7 +3295,7 @@
       "industry": "เทคโนโลยี",
       "sector": "ชิ้นส่วนอิเล็กทรอนิกส์",
       "subSector": "ชิ้นส่วนอิเล็กทรอนิกส์",
-      "subSectorEn": "Electronic Components"
+      "subSectorEn": "Semiconductors"
     },
     {
       "symbol": "KCG",
@@ -3313,7 +3313,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "-",
       "subSector": "อุตสาหกรรมอื่นๆ",
-      "subSectorEn": "Other Industries"
+      "subSectorEn": "Other Manufacturing"
     },
     {
       "symbol": "KDH",
@@ -3322,7 +3322,7 @@
       "industry": "บริการ",
       "sector": "การแพทย์",
       "subSector": "การแพทย์",
-      "subSectorEn": "Healthcare"
+      "subSectorEn": "Hospitals - Stand-alone"
     },
     {
       "symbol": "KGEN",
@@ -3331,7 +3331,7 @@
       "industry": "บริการ",
       "sector": "-",
       "subSector": "ธุรกิจการแพทย์",
-      "subSectorEn": "Healthcare Business"
+      "subSectorEn": "Healthcare Services"
     },
     {
       "symbol": "KGI",
@@ -3349,7 +3349,7 @@
       "industry": "บริการ",
       "sector": "ขนส่งและโลจิสติกส์",
       "subSector": "ขนส่งและโลจิสติกส์",
-      "subSectorEn": "Transportation & Logistics"
+      "subSectorEn": "Ports & Terminals"
     },
     {
       "symbol": "KISS",
@@ -3394,7 +3394,7 @@
       "industry": "ธุรกิจการเงิน",
       "sector": "ธนาคาร",
       "subSector": "ธนาคาร",
-      "subSectorEn": "Banking"
+      "subSectorEn": "Commercial Banks"
     },
     {
       "symbol": "KLINIQ",
@@ -3403,7 +3403,7 @@
       "industry": "บริการ",
       "sector": "การแพทย์",
       "subSector": "การแพทย์",
-      "subSectorEn": "Healthcare"
+      "subSectorEn": "Dental & Specialty Clinics"
     },
     {
       "symbol": "KOOL",
@@ -3421,7 +3421,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
       "subSector": "REIT",
-      "subSectorEn": "REIT"
+      "subSectorEn": "Office REITs"
     },
     {
       "symbol": "KSL",
@@ -3430,7 +3430,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "อาหารและเครื่องดื่ม",
       "subSector": "เครื่องดื่ม",
-      "subSectorEn": "Beverages"
+      "subSectorEn": "Sugar"
     },
     {
       "symbol": "KTB",
@@ -3439,7 +3439,7 @@
       "industry": "ธุรกิจการเงิน",
       "sector": "ธนาคาร",
       "subSector": "ธนาคาร",
-      "subSectorEn": "Banking"
+      "subSectorEn": "Commercial Banks"
     },
     {
       "symbol": "KTBSTMR",
@@ -3448,7 +3448,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
       "subSector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
-      "subSectorEn": "REITs & Property Trusts"
+      "subSectorEn": "Property Funds"
     },
     {
       "symbol": "KTC",
@@ -3457,7 +3457,7 @@
       "industry": "ธุรกิจการเงิน",
       "sector": "เงินทุนและหลักทรัพย์",
       "subSector": "บัตรเครดิต",
-      "subSectorEn": "Credit Cards"
+      "subSectorEn": "Fintech - Payment & Digital Banking"
     },
     {
       "symbol": "KTIS",
@@ -3466,7 +3466,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "อาหารและเครื่องดื่ม",
       "subSector": "ปาล์มและเกษตร",
-      "subSectorEn": "Palm & Agriculture"
+      "subSectorEn": "Palm Oil"
     },
     {
       "symbol": "KTMS",
@@ -3475,7 +3475,7 @@
       "industry": "บริการ",
       "sector": "-",
       "subSector": "ขนส่ง",
-      "subSectorEn": "Transportation"
+      "subSectorEn": "Logistics - Integrated"
     },
     {
       "symbol": "KUMWEL",
@@ -3493,7 +3493,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "ที่ดินและอาคารพาณิชย์",
-      "subSectorEn": "Land & Commercial Buildings"
+      "subSectorEn": "Property Development - Mixed"
     },
     {
       "symbol": "KWC",
@@ -3502,7 +3502,7 @@
       "industry": "บริการ",
       "sector": "ขนส่งและโลจิสติกส์",
       "subSector": "ขนส่งและโลจิสติกส์",
-      "subSectorEn": "Transportation & Logistics"
+      "subSectorEn": "Logistics - Freight Forwarding"
     },
     {
       "symbol": "KWI",
@@ -3511,7 +3511,7 @@
       "industry": "ธุรกิจการเงิน",
       "sector": "ประกันภัยและประกันชีวิต",
       "subSector": "ประกันภัยและประกันชีวิต",
-      "subSectorEn": "Insurance & Life Insurance"
+      "subSectorEn": "Life Insurance"
     },
     {
       "symbol": "KWM",
@@ -3538,7 +3538,7 @@
       "industry": "สินค้าอุปโภคบริโภค",
       "sector": "ของใช้ในครัวเรือนและสำนักงาน",
       "subSector": "ของใช้ในครัวเรือนและสำนักงาน",
-      "subSectorEn": "Household & Office Products"
+      "subSectorEn": "Textiles & Fabrics"
     },
     {
       "symbol": "LALIN",
@@ -3547,7 +3547,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "ที่ดินและอาคารพาณิชย์",
-      "subSectorEn": "Land & Commercial Buildings"
+      "subSectorEn": "Property Development - Mixed"
     },
     {
       "symbol": "LANNA",
@@ -3565,7 +3565,7 @@
       "industry": "บริการ",
       "sector": "-",
       "subSector": "ลอจิสติกส์",
-      "subSectorEn": "Logistics"
+      "subSectorEn": "Logistics - Warehousing"
     },
     {
       "symbol": "LEE",
@@ -3574,7 +3574,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "ธุรกิจการเกษตร",
       "subSector": "ธุรกิจการเกษตร",
-      "subSectorEn": "Agriculture Business"
+      "subSectorEn": "Agriculture & Plantation"
     },
     {
       "symbol": "LEO",
@@ -3583,7 +3583,7 @@
       "industry": "บริการ",
       "sector": "-",
       "subSector": "ลอจิสติกส์",
-      "subSectorEn": "Logistics"
+      "subSectorEn": "Logistics - Integrated"
     },
     {
       "symbol": "LH",
@@ -3592,7 +3592,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "พัฒนาที่อยู่อาศัย",
-      "subSectorEn": "Residential Development"
+      "subSectorEn": "Property Development - Mixed"
     },
     {
       "symbol": "LHFG",
@@ -3601,7 +3601,7 @@
       "industry": "ธุรกิจการเงิน",
       "sector": "ธนาคาร",
       "subSector": "ธนาคาร",
-      "subSectorEn": "Banking"
+      "subSectorEn": "Commercial Banks"
     },
     {
       "symbol": "LHHOTEL",
@@ -3610,7 +3610,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
       "subSector": "กองทุนโรงแรม",
-      "subSectorEn": "Hotel Funds"
+      "subSectorEn": "Hotel REITs"
     },
     {
       "symbol": "LHK",
@@ -3628,7 +3628,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
       "subSector": "REIT",
-      "subSectorEn": "REIT"
+      "subSectorEn": "Industrial & Logistics REITs"
     },
     {
       "symbol": "LHSC",
@@ -3646,7 +3646,7 @@
       "industry": "ธุรกิจการเงิน",
       "sector": "-",
       "subSector": "ธุรกิจการเงิน",
-      "subSectorEn": "Financial Services"
+      "subSectorEn": "Securities & Investment Banking"
     },
     {
       "symbol": "LOXLEY",
@@ -3655,7 +3655,7 @@
       "industry": "บริการ",
       "sector": "พาณิชย์",
       "subSector": "พาณิชย์",
-      "subSectorEn": "Commerce"
+      "subSectorEn": "Wholesale & Trading - Industrial"
     },
     {
       "symbol": "LPH",
@@ -3664,7 +3664,7 @@
       "industry": "บริการ",
       "sector": "การแพทย์",
       "subSector": "การแพทย์",
-      "subSectorEn": "Healthcare"
+      "subSectorEn": "Hospitals - Stand-alone"
     },
     {
       "symbol": "LPN",
@@ -3673,7 +3673,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "พัฒนาที่อยู่อาศัย",
-      "subSectorEn": "Residential Development"
+      "subSectorEn": "Property Development - Mass Market"
     },
     {
       "symbol": "LRH",
@@ -3709,7 +3709,7 @@
       "industry": "สินค้าอุปโภคบริโภค",
       "sector": "-",
       "subSector": "สินค้าอุปโภคบริโภค",
-      "subSectorEn": "Consumer Products"
+      "subSectorEn": "Personal Care & Cosmetics"
     },
     {
       "symbol": "LUXF",
@@ -3718,7 +3718,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
       "subSector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
-      "subSectorEn": "REITs & Property Trusts"
+      "subSectorEn": "Property Funds"
     },
     {
       "symbol": "M",
@@ -3727,7 +3727,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "อาหารและเครื่องดื่ม",
       "subSector": "ขนมขบเคี้ยว",
-      "subSectorEn": "Snacks"
+      "subSectorEn": "Snack Food"
     },
     {
       "symbol": "MADAME",
@@ -3736,7 +3736,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "อาหารและเครื่องดื่ม",
       "subSector": "ขนมขบเคี้ยว",
-      "subSectorEn": "Snacks"
+      "subSectorEn": "Snack Food"
     },
     {
       "symbol": "MAGURO",
@@ -3763,7 +3763,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "อาหารและเครื่องดื่ม",
       "subSector": "ขนมขบเคี้ยว",
-      "subSectorEn": "Snacks"
+      "subSectorEn": "Snack Food"
     },
     {
       "symbol": "MANRIN",
@@ -3772,7 +3772,7 @@
       "industry": "บริการ",
       "sector": "การท่องเที่ยวและสันทนาการ",
       "subSector": "การท่องเที่ยวและสันทนาการ",
-      "subSectorEn": "Tourism & Leisure"
+      "subSectorEn": "Hotels - Luxury & Upscale"
     },
     {
       "symbol": "MASTEC",
@@ -3790,7 +3790,7 @@
       "industry": "บริการ",
       "sector": "การแพทย์",
       "subSector": "การแพทย์",
-      "subSectorEn": "Healthcare"
+      "subSectorEn": "Dental & Specialty Clinics"
     },
     {
       "symbol": "MATCH",
@@ -3799,7 +3799,7 @@
       "industry": "บริการ",
       "sector": "สื่อและสิ่งพิมพ์",
       "subSector": "สื่อและสิ่งพิมพ์",
-      "subSectorEn": "Media & Publishing"
+      "subSectorEn": "Digital Advertising & Marketing"
     },
     {
       "symbol": "MATI",
@@ -3817,7 +3817,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "-",
       "subSector": "อุตสาหกรรมอื่นๆ",
-      "subSectorEn": "Other Industries"
+      "subSectorEn": "Other Manufacturing"
     },
     {
       "symbol": "MBK",
@@ -3826,7 +3826,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "ที่ดินและอาคารพาณิชย์",
-      "subSectorEn": "Land & Commercial Buildings"
+      "subSectorEn": "Property Development - Mixed"
     },
     {
       "symbol": "MC",
@@ -3835,7 +3835,7 @@
       "industry": "บริการ",
       "sector": "พาณิชย์",
       "subSector": "พาณิชย์",
-      "subSectorEn": "Commerce"
+      "subSectorEn": "Specialty Retail - Fashion & Beauty"
     },
     {
       "symbol": "MCA",
@@ -3844,7 +3844,7 @@
       "industry": "บริการ",
       "sector": "-",
       "subSector": "อสังหาริมทรัพย์",
-      "subSectorEn": "Real Estate"
+      "subSectorEn": "Property Development - Mixed"
     },
     {
       "symbol": "M-CHAI",
@@ -3853,7 +3853,7 @@
       "industry": "บริการ",
       "sector": "การแพทย์",
       "subSector": "การแพทย์",
-      "subSectorEn": "Healthcare"
+      "subSectorEn": "Hospitals - Stand-alone"
     },
     {
       "symbol": "MCOT",
@@ -3880,7 +3880,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "ไฟฟ้า",
-      "subSectorEn": "Electricity"
+      "subSectorEn": "Independent Power Producers"
     },
     {
       "symbol": "MEB",
@@ -3898,7 +3898,7 @@
       "industry": "บริการ",
       "sector": "การแพทย์",
       "subSector": "การแพทย์",
-      "subSectorEn": "Healthcare"
+      "subSectorEn": "Dental & Specialty Clinics"
     },
     {
       "symbol": "MEGA",
@@ -3907,7 +3907,7 @@
       "industry": "บริการ",
       "sector": "พาณิชย์",
       "subSector": "พาณิชย์",
-      "subSectorEn": "Commerce"
+      "subSectorEn": "Home Improvement Retail"
     },
     {
       "symbol": "MENA",
@@ -3916,7 +3916,7 @@
       "industry": "บริการ",
       "sector": "ขนส่งและโลจิสติกส์",
       "subSector": "ขนส่งและโลจิสติกส์",
-      "subSectorEn": "Transportation & Logistics"
+      "subSectorEn": "Ports & Terminals"
     },
     {
       "symbol": "META",
@@ -3943,7 +3943,7 @@
       "industry": "ธุรกิจการเงิน",
       "sector": "เงินทุนและหลักทรัพย์",
       "subSector": "กองทุน",
-      "subSectorEn": "Funds"
+      "subSectorEn": "Asset Management"
     },
     {
       "symbol": "MFEC",
@@ -3952,7 +3952,7 @@
       "industry": "เทคโนโลยี",
       "sector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
       "subSector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
-      "subSectorEn": "Information & Communication Technology"
+      "subSectorEn": "Telecommunications Equipment"
     },
     {
       "symbol": "MGC",
@@ -3961,7 +3961,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "ยานยนต์",
       "subSector": "ยานยนต์",
-      "subSectorEn": "Automotive"
+      "subSectorEn": "Automotive Parts - Tier 2 & Components"
     },
     {
       "symbol": "MGI",
@@ -3970,7 +3970,7 @@
       "industry": "สินค้าอุปโภคบริโภค",
       "sector": "-",
       "subSector": "สินค้าอุปโภคบริโภค",
-      "subSectorEn": "Consumer Products"
+      "subSectorEn": "Personal Care & Cosmetics"
     },
     {
       "symbol": "MGT",
@@ -3979,7 +3979,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "-",
       "subSector": "อุตสาหกรรมอื่นๆ",
-      "subSectorEn": "Other Industries"
+      "subSectorEn": "Other Manufacturing"
     },
     {
       "symbol": "MICRO",
@@ -3997,7 +3997,7 @@
       "industry": "บริการ",
       "sector": "พาณิชย์",
       "subSector": "พาณิชย์",
-      "subSectorEn": "Commerce"
+      "subSectorEn": "Specialty Retail - Others"
     },
     {
       "symbol": "MII",
@@ -4006,7 +4006,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
       "subSector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
-      "subSectorEn": "REITs & Property Trusts"
+      "subSectorEn": "Property Funds"
     },
     {
       "symbol": "MILL",
@@ -4015,7 +4015,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "เหล็ก และ ผลิตภัณฑ์โลหะ",
       "subSector": "เหล็ก และ ผลิตภัณฑ์โลหะ",
-      "subSectorEn": "Steel & Metal Products"
+      "subSectorEn": "Steel Producers"
     },
     {
       "symbol": "MINT",
@@ -4024,7 +4024,7 @@
       "industry": "บริการ",
       "sector": "การท่องเที่ยวและสันทนาการ",
       "subSector": "การท่องเที่ยวและสันทนาการ",
-      "subSectorEn": "Tourism & Leisure"
+      "subSectorEn": "Hotels - Luxury & Upscale"
     },
     {
       "symbol": "MIPF",
@@ -4033,7 +4033,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
       "subSector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
-      "subSectorEn": "REITs & Property Trusts"
+      "subSectorEn": "Property Funds"
     },
     {
       "symbol": "MITSIB",
@@ -4042,7 +4042,7 @@
       "industry": "ธุรกิจการเงิน",
       "sector": "-",
       "subSector": "ธุรกิจการเงิน",
-      "subSectorEn": "Financial Services"
+      "subSectorEn": "Consumer Finance & Credit Cards"
     },
     {
       "symbol": "MJD",
@@ -4051,7 +4051,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "คอนโด",
-      "subSectorEn": "Condominium"
+      "subSectorEn": "Property Development - Luxury"
     },
     {
       "symbol": "MJLF",
@@ -4060,7 +4060,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
       "subSector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
-      "subSectorEn": "REITs & Property Trusts"
+      "subSectorEn": "Property Funds"
     },
     {
       "symbol": "MK",
@@ -4069,7 +4069,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "ร้านค้าปลีก",
-      "subSectorEn": "Retail Stores"
+      "subSectorEn": "Restaurants - Fast Food & QSR"
     },
     {
       "symbol": "ML",
@@ -4096,7 +4096,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
       "subSector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
-      "subSectorEn": "REITs & Property Trusts"
+      "subSectorEn": "Property Funds"
     },
     {
       "symbol": "MNIT2",
@@ -4105,7 +4105,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
       "subSector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
-      "subSectorEn": "REITs & Property Trusts"
+      "subSectorEn": "Property Funds"
     },
     {
       "symbol": "MNRF",
@@ -4114,7 +4114,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
       "subSector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
-      "subSectorEn": "REITs & Property Trusts"
+      "subSectorEn": "Property Funds"
     },
     {
       "symbol": "MODERN",
@@ -4132,7 +4132,7 @@
       "industry": "บริการ",
       "sector": "สื่อและสิ่งพิมพ์",
       "subSector": "สื่อและสิ่งพิมพ์",
-      "subSectorEn": "Media & Publishing"
+      "subSectorEn": "Broadcasting - TV & Radio"
     },
     {
       "symbol": "MOONG",
@@ -4141,7 +4141,7 @@
       "industry": "สินค้าอุปโภคบริโภค",
       "sector": "-",
       "subSector": "สินค้าอุปโภคบริโภค",
-      "subSectorEn": "Consumer Products"
+      "subSectorEn": "Furniture & Home Decor"
     },
     {
       "symbol": "MORE",
@@ -4150,7 +4150,7 @@
       "industry": "บริการ",
       "sector": "-",
       "subSector": "สื่อและโฆษณา",
-      "subSectorEn": "Media & Advertising"
+      "subSectorEn": "Publishing"
     },
     {
       "symbol": "MOSHI",
@@ -4159,7 +4159,7 @@
       "industry": "บริการ",
       "sector": "พาณิชย์",
       "subSector": "พาณิชย์",
-      "subSectorEn": "Commerce"
+      "subSectorEn": "Specialty Retail - Others"
     },
     {
       "symbol": "MOTHER",
@@ -4177,7 +4177,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
       "subSector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
-      "subSectorEn": "REITs & Property Trusts"
+      "subSectorEn": "Property Funds"
     },
     {
       "symbol": "MPJ",
@@ -4186,7 +4186,7 @@
       "industry": "บริการ",
       "sector": "-",
       "subSector": "ลอจิสติกส์",
-      "subSectorEn": "Logistics"
+      "subSectorEn": "Logistics - Integrated"
     },
     {
       "symbol": "MRDIYT",
@@ -4195,7 +4195,7 @@
       "industry": "บริการ",
       "sector": "พาณิชย์",
       "subSector": "พาณิชย์",
-      "subSectorEn": "Commerce"
+      "subSectorEn": "Specialty Retail - Others"
     },
     {
       "symbol": "MSC",
@@ -4204,7 +4204,7 @@
       "industry": "เทคโนโลยี",
       "sector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
       "subSector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
-      "subSectorEn": "Information & Communication Technology"
+      "subSectorEn": "Telecommunications Equipment"
     },
     {
       "symbol": "MST",
@@ -4222,7 +4222,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
       "subSector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
-      "subSectorEn": "REITs & Property Trusts"
+      "subSectorEn": "Property Funds"
     },
     {
       "symbol": "MTC",
@@ -4231,7 +4231,7 @@
       "industry": "ธุรกิจการเงิน",
       "sector": "เงินทุนและหลักทรัพย์",
       "subSector": "ค้าปลีกออนไลน์",
-      "subSectorEn": "Online Retail"
+      "subSectorEn": "E-Commerce & Online Retail"
     },
     {
       "symbol": "MTI",
@@ -4240,7 +4240,7 @@
       "industry": "ธุรกิจการเงิน",
       "sector": "ประกันภัยและประกันชีวิต",
       "subSector": "ประกันภัยและประกันชีวิต",
-      "subSectorEn": "Insurance & Life Insurance"
+      "subSectorEn": "Life Insurance"
     },
     {
       "symbol": "MTW",
@@ -4249,7 +4249,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "-",
       "subSector": "อุตสาหกรรมอื่นๆ",
-      "subSectorEn": "Other Industries"
+      "subSectorEn": "Other Manufacturing"
     },
     {
       "symbol": "MUD",
@@ -4267,7 +4267,7 @@
       "industry": "บริการ",
       "sector": "-",
       "subSector": "IT และเทคโนโลยี",
-      "subSectorEn": "IT & Technology"
+      "subSectorEn": "Fintech - Payment & Digital Banking"
     },
     {
       "symbol": "NAM",
@@ -4285,7 +4285,7 @@
       "industry": "เทคโนโลยี",
       "sector": "-",
       "subSector": "เทคโนโลยี",
-      "subSectorEn": "Technology"
+      "subSectorEn": "Telecommunications - Infrastructure"
     },
     {
       "symbol": "NATION",
@@ -4294,7 +4294,7 @@
       "industry": "บริการ",
       "sector": "สื่อและสิ่งพิมพ์",
       "subSector": "สื่อและสิ่งพิมพ์",
-      "subSectorEn": "Media & Publishing"
+      "subSectorEn": "Publishing"
     },
     {
       "symbol": "NC",
@@ -4303,7 +4303,7 @@
       "industry": "สินค้าอุปโภคบริโภค",
       "sector": "แฟชั่น",
       "subSector": "แฟชั่น",
-      "subSectorEn": "Fashion"
+      "subSectorEn": "Apparel - Casual & Fashion"
     },
     {
       "symbol": "NCAP",
@@ -4321,7 +4321,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "ที่ดินและอาคารพาณิชย์",
-      "subSectorEn": "Land & Commercial Buildings"
+      "subSectorEn": "Property Development - Mixed"
     },
     {
       "symbol": "NCL",
@@ -4330,7 +4330,7 @@
       "industry": "บริการ",
       "sector": "-",
       "subSector": "ลอจิสติกส์",
-      "subSectorEn": "Logistics"
+      "subSectorEn": "Logistics - Integrated"
     },
     {
       "symbol": "NCP",
@@ -4348,7 +4348,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "-",
       "subSector": "อุตสาหกรรมอื่นๆ",
-      "subSectorEn": "Other Industries"
+      "subSectorEn": "Other Manufacturing"
     },
     {
       "symbol": "NEO",
@@ -4375,7 +4375,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "ธุรกิจการเกษตร",
       "subSector": "ธุรกิจการเกษตร",
-      "subSectorEn": "Agriculture Business"
+      "subSectorEn": "Agriculture & Plantation"
     },
     {
       "symbol": "NETBAY",
@@ -4384,7 +4384,7 @@
       "industry": "เทคโนโลยี",
       "sector": "-",
       "subSector": "เทคโนโลยี",
-      "subSectorEn": "Technology"
+      "subSectorEn": "IT Services - Software Development"
     },
     {
       "symbol": "NEW",
@@ -4393,7 +4393,7 @@
       "industry": "บริการ",
       "sector": "การแพทย์",
       "subSector": "การแพทย์",
-      "subSectorEn": "Healthcare"
+      "subSectorEn": "Hospitals - Stand-alone"
     },
     {
       "symbol": "NEX",
@@ -4402,7 +4402,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "ยานยนต์",
       "subSector": "ยานยนต์",
-      "subSectorEn": "Automotive"
+      "subSectorEn": "Automotive Dealers & Services"
     },
     {
       "symbol": "NFC",
@@ -4411,7 +4411,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "ปิโตรเคมีและเคมีภัณฑ์",
       "subSector": "ปิโตรเคมีและเคมีภัณฑ์",
-      "subSectorEn": "Petrochemicals & Chemicals"
+      "subSectorEn": "Specialty Chemicals"
     },
     {
       "symbol": "NKI",
@@ -4420,7 +4420,7 @@
       "industry": "ธุรกิจการเงิน",
       "sector": "ประกันภัยและประกันชีวิต",
       "subSector": "ประกันภัยและประกันชีวิต",
-      "subSectorEn": "Insurance & Life Insurance"
+      "subSectorEn": "Non-Life Insurance"
     },
     {
       "symbol": "NKT",
@@ -4429,7 +4429,7 @@
       "industry": "บริการ",
       "sector": "การแพทย์",
       "subSector": "การแพทย์",
-      "subSectorEn": "Healthcare"
+      "subSectorEn": "Hospitals - Stand-alone"
     },
     {
       "symbol": "NL",
@@ -4447,7 +4447,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "ที่ดินและอาคารพาณิชย์",
-      "subSectorEn": "Land & Commercial Buildings"
+      "subSectorEn": "Office Buildings"
     },
     {
       "symbol": "NOBLE",
@@ -4456,7 +4456,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "ที่ดินและอาคารพาณิชย์",
-      "subSectorEn": "Land & Commercial Buildings"
+      "subSectorEn": "Property Development - Mid-High End"
     },
     {
       "symbol": "NOVA",
@@ -4465,7 +4465,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "พลังงานและสาธารณูปโภค",
-      "subSectorEn": "Energy & Utilities"
+      "subSectorEn": "Renewable Energy"
     },
     {
       "symbol": "NPK",
@@ -4474,7 +4474,7 @@
       "industry": "สินค้าอุปโภคบริโภค",
       "sector": "-",
       "subSector": "สินค้าอุปโภคบริโภค",
-      "subSectorEn": "Consumer Products"
+      "subSectorEn": "Medical Supplies & Devices"
     },
     {
       "symbol": "NRF",
@@ -4483,7 +4483,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "อาหารและเครื่องดื่ม",
       "subSector": "อาหารและเครื่องดื่ม",
-      "subSectorEn": "Food & Beverage"
+      "subSectorEn": "Seasoning & Sauces"
     },
     {
       "symbol": "NSL",
@@ -4492,7 +4492,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "อาหารและเครื่องดื่ม",
       "subSector": "ขนมขบเคี้ยว",
-      "subSectorEn": "Snacks"
+      "subSectorEn": "Snack Food"
     },
     {
       "symbol": "NTF",
@@ -4519,7 +4519,7 @@
       "industry": "บริการ",
       "sector": "การแพทย์",
       "subSector": "การแพทย์",
-      "subSectorEn": "Healthcare"
+      "subSectorEn": "Printing & Publishing Services"
     },
     {
       "symbol": "NUT",
@@ -4528,7 +4528,7 @@
       "industry": "สินค้าอุปโภคบริโภค",
       "sector": "-",
       "subSector": "สินค้าอุปโภคบริโภค",
-      "subSectorEn": "Consumer Products"
+      "subSectorEn": "Household & Consumer Products"
     },
     {
       "symbol": "NV",
@@ -4546,7 +4546,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "ที่ดินและอาคารพาณิชย์",
-      "subSectorEn": "Land & Commercial Buildings"
+      "subSectorEn": "Property Development - Mixed"
     },
     {
       "symbol": "NWR",
@@ -4555,7 +4555,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "บริการรับเหมาก่อสร้าง",
       "subSector": "บริการรับเหมาก่อสร้าง",
-      "subSectorEn": "Construction Services"
+      "subSectorEn": "Telecommunications Equipment"
     },
     {
       "symbol": "NYT",
@@ -4564,7 +4564,7 @@
       "industry": "บริการ",
       "sector": "ขนส่งและโลจิสติกส์",
       "subSector": "ขนส่งและโลจิสติกส์",
-      "subSectorEn": "Transportation & Logistics"
+      "subSectorEn": "Logistics - Integrated"
     },
     {
       "symbol": "OCC",
@@ -4600,7 +4600,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "อาหารและเครื่องดื่ม",
       "subSector": "ผักและเกษตร",
-      "subSectorEn": "Vegetables & Agriculture"
+      "subSectorEn": "Agriculture & Plantation"
     },
     {
       "symbol": "ONEE",
@@ -4627,7 +4627,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "พลังงาน",
-      "subSectorEn": "Energy"
+      "subSectorEn": "Gas Stations & Distribution"
     },
     {
       "symbol": "ORI",
@@ -4636,7 +4636,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "พัฒนาที่อยู่อาศัย",
-      "subSectorEn": "Residential Development"
+      "subSectorEn": "Property Development - Mixed"
     },
     {
       "symbol": "ORN",
@@ -4645,7 +4645,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "พัฒนาอสังหาริมทรัพย์",
-      "subSectorEn": "Property Development"
+      "subSectorEn": "Property Development - Mixed"
     },
     {
       "symbol": "OSP",
@@ -4654,7 +4654,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "อาหารและเครื่องดื่ม",
       "subSector": "เครื่องดื่ม",
-      "subSectorEn": "Beverages"
+      "subSectorEn": "Beverages - Carbonated"
     },
     {
       "symbol": "PACO",
@@ -4663,7 +4663,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "-",
       "subSector": "พลาสติกและแพ็คเกจ",
-      "subSectorEn": "Plastics & Packaging"
+      "subSectorEn": "Packaging - Plastic"
     },
     {
       "symbol": "PAF",
@@ -4672,7 +4672,7 @@
       "industry": "สินค้าอุปโภคบริโภค",
       "sector": "แฟชั่น",
       "subSector": "แฟชั่น",
-      "subSectorEn": "Fashion"
+      "subSectorEn": "Apparel - Casual & Fashion"
     },
     {
       "symbol": "PANEL",
@@ -4699,7 +4699,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "ปิโตรเคมีและเคมีภัณฑ์",
       "subSector": "ปิโตรเคมีและเคมีภัณฑ์",
-      "subSectorEn": "Petrochemicals & Chemicals"
+      "subSectorEn": "Plastics & Resins"
     },
     {
       "symbol": "PB",
@@ -4708,7 +4708,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "อาหารและเครื่องดื่ม",
       "subSector": "อาหารแปรรูปและประกอบอาหาร",
-      "subSectorEn": "Processed Food & Food Preparation"
+      "subSectorEn": "Processed Food - Frozen"
     },
     {
       "symbol": "PCC",
@@ -4726,7 +4726,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "ธุรกิจการเกษตร",
       "subSector": "ธุรกิจการเกษตร",
-      "subSectorEn": "Agriculture Business"
+      "subSectorEn": "Agriculture & Plantation"
     },
     {
       "symbol": "PCSGH",
@@ -4735,7 +4735,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "ยานยนต์",
       "subSector": "ยานยนต์",
-      "subSectorEn": "Automotive"
+      "subSectorEn": "Automotive Assembly"
     },
     {
       "symbol": "PDG",
@@ -4744,7 +4744,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "-",
       "subSector": "อุตสาหกรรมอื่นๆ",
-      "subSectorEn": "Other Industries"
+      "subSectorEn": "Other Manufacturing"
     },
     {
       "symbol": "PDJ",
@@ -4753,7 +4753,7 @@
       "industry": "สินค้าอุปโภคบริโภค",
       "sector": "แฟชั่น",
       "subSector": "แฟชั่น",
-      "subSectorEn": "Fashion"
+      "subSectorEn": "Apparel - Casual & Fashion"
     },
     {
       "symbol": "PEACE",
@@ -4762,7 +4762,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "ที่ดินและอาคารพาณิชย์",
-      "subSectorEn": "Land & Commercial Buildings"
+      "subSectorEn": "Property Development - Mid-High End"
     },
     {
       "symbol": "PEER",
@@ -4771,7 +4771,7 @@
       "industry": "บริการ",
       "sector": "-",
       "subSector": "ธุรกิจการแพทย์",
-      "subSectorEn": "Healthcare Business"
+      "subSectorEn": "Healthcare Services"
     },
     {
       "symbol": "PERM",
@@ -4789,7 +4789,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "คอนโด",
-      "subSectorEn": "Condominium"
+      "subSectorEn": "Property Development - Luxury"
     },
     {
       "symbol": "PG",
@@ -4798,7 +4798,7 @@
       "industry": "สินค้าอุปโภคบริโภค",
       "sector": "แฟชั่น",
       "subSector": "แฟชั่น",
-      "subSectorEn": "Fashion"
+      "subSectorEn": "Apparel - Casual & Fashion"
     },
     {
       "symbol": "PHG",
@@ -4807,7 +4807,7 @@
       "industry": "บริการ",
       "sector": "การแพทย์",
       "subSector": "การแพทย์",
-      "subSectorEn": "Healthcare"
+      "subSectorEn": "Hospitals - Stand-alone"
     },
     {
       "symbol": "PHOL",
@@ -4816,7 +4816,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "-",
       "subSector": "อุตสาหกรรมอื่นๆ",
-      "subSectorEn": "Other Industries"
+      "subSectorEn": "Other Manufacturing"
     },
     {
       "symbol": "PICO",
@@ -4834,7 +4834,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "-",
       "subSector": "พลาสติกและแพ็คเกจ",
-      "subSectorEn": "Plastics & Packaging"
+      "subSectorEn": "Packaging - Plastic"
     },
     {
       "symbol": "PIN",
@@ -4843,7 +4843,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "ที่ดินและอาคารพาณิชย์",
-      "subSectorEn": "Land & Commercial Buildings"
+      "subSectorEn": "Industrial Estate Developers"
     },
     {
       "symbol": "PIS",
@@ -4852,7 +4852,7 @@
       "industry": "เทคโนโลยี",
       "sector": "-",
       "subSector": "เทคโนโลยี",
-      "subSectorEn": "Technology"
+      "subSectorEn": "IT Services - Software Development"
     },
     {
       "symbol": "PJW",
@@ -4888,7 +4888,7 @@
       "industry": "บริการ",
       "sector": "สื่อและสิ่งพิมพ์",
       "subSector": "สื่อและสิ่งพิมพ์",
-      "subSectorEn": "Media & Publishing"
+      "subSectorEn": "Digital Advertising & Marketing"
     },
     {
       "symbol": "PLANET",
@@ -4897,7 +4897,7 @@
       "industry": "เทคโนโลยี",
       "sector": "-",
       "subSector": "เทคโนโลยี",
-      "subSectorEn": "Technology"
+      "subSectorEn": "IT Services - Software Development"
     },
     {
       "symbol": "PLAT",
@@ -4906,7 +4906,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "ที่ดินและอาคารพาณิชย์",
-      "subSectorEn": "Land & Commercial Buildings"
+      "subSectorEn": "Property Development - Mixed"
     },
     {
       "symbol": "PLE",
@@ -4933,7 +4933,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "อาหารและเครื่องดื่ม",
       "subSector": "ขายส่งและจัดจำหน่าย",
-      "subSectorEn": "Wholesale & Distribution"
+      "subSectorEn": "Wholesale & Trading - Industrial"
     },
     {
       "symbol": "PM",
@@ -4942,7 +4942,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "อาหารและเครื่องดื่ม",
       "subSector": "ขายส่งและจัดจำหน่าย",
-      "subSectorEn": "Wholesale & Distribution"
+      "subSectorEn": "Wholesale & Trading - Industrial"
     },
     {
       "symbol": "PMC",
@@ -4951,7 +4951,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "-",
       "subSector": "อุตสาหกรรมอื่นๆ",
-      "subSectorEn": "Other Industries"
+      "subSectorEn": "Other Manufacturing"
     },
     {
       "symbol": "PMTA",
@@ -4960,7 +4960,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "ปิโตรเคมีและเคมีภัณฑ์",
       "subSector": "ปิโตรเคมีและเคมีภัณฑ์",
-      "subSectorEn": "Petrochemicals & Chemicals"
+      "subSectorEn": "Specialty Chemicals"
     },
     {
       "symbol": "POLY",
@@ -4969,7 +4969,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "ยานยนต์",
       "subSector": "ยานยนต์",
-      "subSectorEn": "Automotive"
+      "subSectorEn": "Automotive Parts - Tier 2 & Components"
     },
     {
       "symbol": "POPF",
@@ -4978,7 +4978,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
       "subSector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
-      "subSectorEn": "REITs & Property Trusts"
+      "subSectorEn": "Property Funds"
     },
     {
       "symbol": "PORT",
@@ -4987,7 +4987,7 @@
       "industry": "บริการ",
       "sector": "ขนส่งและโลจิสติกส์",
       "subSector": "ขนส่งและโลจิสติกส์",
-      "subSectorEn": "Transportation & Logistics"
+      "subSectorEn": "Ports & Terminals"
     },
     {
       "symbol": "PPM",
@@ -4996,7 +4996,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "-",
       "subSector": "อุตสาหกรรมอื่นๆ",
-      "subSectorEn": "Other Industries"
+      "subSectorEn": "Other Manufacturing"
     },
     {
       "symbol": "PPP",
@@ -5014,7 +5014,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "ธุรกิจการเกษตร",
       "subSector": "ธุรกิจการเกษตร",
-      "subSectorEn": "Agriculture Business"
+      "subSectorEn": "Agriculture & Plantation"
     },
     {
       "symbol": "PPS",
@@ -5032,7 +5032,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "อาหารและเครื่องดื่ม",
       "subSector": "ขายส่งและจัดจำหน่าย",
-      "subSectorEn": "Wholesale & Distribution"
+      "subSectorEn": "Wholesale & Trading - Industrial"
     },
     {
       "symbol": "PR9",
@@ -5041,7 +5041,7 @@
       "industry": "บริการ",
       "sector": "การแพทย์",
       "subSector": "การแพทย์",
-      "subSectorEn": "Healthcare"
+      "subSectorEn": "Hospitals - Stand-alone"
     },
     {
       "symbol": "PRAKIT",
@@ -5059,7 +5059,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "-",
       "subSector": "อุตสาหกรรมอื่นๆ",
-      "subSectorEn": "Other Industries"
+      "subSectorEn": "Other Manufacturing"
     },
     {
       "symbol": "PREB",
@@ -5077,7 +5077,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "ที่ดินและอาคารพาณิชย์",
-      "subSectorEn": "Land & Commercial Buildings"
+      "subSectorEn": "Property Development - Mixed"
     },
     {
       "symbol": "PRG",
@@ -5086,7 +5086,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "อาหารและเครื่องดื่ม",
       "subSector": "ขนมขบเคี้ยว",
-      "subSectorEn": "Snacks"
+      "subSectorEn": "Snack Food"
     },
     {
       "symbol": "PRI",
@@ -5104,7 +5104,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "พลังงานและสาธารณูปโภค",
-      "subSectorEn": "Energy & Utilities"
+      "subSectorEn": "Renewable Energy"
     },
     {
       "symbol": "PRIN",
@@ -5113,7 +5113,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "กองทุน",
-      "subSectorEn": "Funds"
+      "subSectorEn": "Asset Management"
     },
     {
       "symbol": "PRINC",
@@ -5122,7 +5122,7 @@
       "industry": "บริการ",
       "sector": "การแพทย์",
       "subSector": "การแพทย์",
-      "subSectorEn": "Healthcare"
+      "subSectorEn": "Hospitals - Stand-alone"
     },
     {
       "symbol": "PRM",
@@ -5131,7 +5131,7 @@
       "industry": "บริการ",
       "sector": "ขนส่งและโลจิสติกส์",
       "subSector": "ขนส่งและโลจิสติกส์",
-      "subSectorEn": "Transportation & Logistics"
+      "subSectorEn": "Ports & Terminals"
     },
     {
       "symbol": "PROEN",
@@ -5140,7 +5140,7 @@
       "industry": "เทคโนโลยี",
       "sector": "-",
       "subSector": "เทคโนโลยี",
-      "subSectorEn": "Technology"
+      "subSectorEn": "IT Services - Software Development"
     },
     {
       "symbol": "PROS",
@@ -5158,7 +5158,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
       "subSector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
-      "subSectorEn": "REITs & Property Trusts"
+      "subSectorEn": "Property Funds"
     },
     {
       "symbol": "PROUD",
@@ -5167,7 +5167,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "ที่ดินและอาคารพาณิชย์",
-      "subSectorEn": "Land & Commercial Buildings"
+      "subSectorEn": "Property Development - Mixed"
     },
     {
       "symbol": "PRTR",
@@ -5176,7 +5176,7 @@
       "industry": "บริการ",
       "sector": "บริการเฉพาะกิจ",
       "subSector": "บริการเฉพาะกิจ",
-      "subSectorEn": "Specialized Services"
+      "subSectorEn": "Other Services"
     },
     {
       "symbol": "PSGC",
@@ -5194,7 +5194,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "คอนโด",
-      "subSectorEn": "Condominium"
+      "subSectorEn": "Property Development - Mid-High End"
     },
     {
       "symbol": "PSL",
@@ -5221,7 +5221,7 @@
       "industry": "ทรัพยากร",
       "sector": "-",
       "subSector": "ทรัพยากร",
-      "subSectorEn": "Resources"
+      "subSectorEn": "Mining - Industrial Minerals"
     },
     {
       "symbol": "PT",
@@ -5239,7 +5239,7 @@
       "industry": "ทรัพยากร",
       "sector": "-",
       "subSector": "ทรัพยากร",
-      "subSectorEn": "Resources"
+      "subSectorEn": "Mining - Industrial Minerals"
     },
     {
       "symbol": "PTECH",
@@ -5257,7 +5257,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "พลังงานและสาธารณูปโภค",
-      "subSectorEn": "Energy & Utilities"
+      "subSectorEn": "Gas Stations & Distribution"
     },
     {
       "symbol": "PTL",
@@ -5275,7 +5275,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "น้ำมันและก๊าซ",
-      "subSectorEn": "Oil & Gas"
+      "subSectorEn": "Integrated Oil & Gas"
     },
     {
       "symbol": "PTTEP",
@@ -5284,7 +5284,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "น้ำมันและก๊าซ",
-      "subSectorEn": "Oil & Gas"
+      "subSectorEn": "Oil & Gas Exploration"
     },
     {
       "symbol": "PTTGC",
@@ -5293,7 +5293,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "ปิโตรเคมีและเคมีภัณฑ์",
       "subSector": "ก๊าซธรรมชาติและปิโตรเคมี",
-      "subSectorEn": "Natural Gas & Petrochemicals"
+      "subSectorEn": "Integrated Petrochemicals"
     },
     {
       "symbol": "PYLON",
@@ -5329,7 +5329,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "พัฒนาที่อยู่อาศัย",
-      "subSectorEn": "Residential Development"
+      "subSectorEn": "Property Development - Mass Market"
     },
     {
       "symbol": "QHBREIT",
@@ -5338,7 +5338,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
       "subSector": "REIT",
-      "subSectorEn": "REIT"
+      "subSectorEn": "Hotel REITs"
     },
     {
       "symbol": "QHHRREIT",
@@ -5347,7 +5347,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
       "subSector": "REIT",
-      "subSectorEn": "REIT"
+      "subSectorEn": "Hotel REITs"
     },
     {
       "symbol": "QHOP",
@@ -5356,7 +5356,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
       "subSector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
-      "subSectorEn": "REITs & Property Trusts"
+      "subSectorEn": "Property Funds"
     },
     {
       "symbol": "QLT",
@@ -5365,7 +5365,7 @@
       "industry": "บริการ",
       "sector": "-",
       "subSector": "สื่อและโฆษณา",
-      "subSectorEn": "Media & Advertising"
+      "subSectorEn": "Entertainment & Events"
     },
     {
       "symbol": "QTC",
@@ -5392,7 +5392,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "ที่ดินและอาคารพาณิชย์",
-      "subSectorEn": "Land & Commercial Buildings"
+      "subSectorEn": "Office Buildings"
     },
     {
       "symbol": "RAM",
@@ -5401,7 +5401,7 @@
       "industry": "บริการ",
       "sector": "การแพทย์",
       "subSector": "การแพทย์",
-      "subSectorEn": "Healthcare"
+      "subSectorEn": "Hospitals - Stand-alone"
     },
     {
       "symbol": "RATCH",
@@ -5410,7 +5410,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "ไฟฟ้า",
-      "subSectorEn": "Electricity"
+      "subSectorEn": "Independent Power Producers"
     },
     {
       "symbol": "RBF",
@@ -5419,7 +5419,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "อาหารและเครื่องดื่ม",
       "subSector": "อาหารแปรรูปและประกอบอาหาร",
-      "subSectorEn": "Processed Food & Food Preparation"
+      "subSectorEn": "Processed Food - Ready to Eat"
     },
     {
       "symbol": "RCL",
@@ -5428,7 +5428,7 @@
       "industry": "บริการ",
       "sector": "ขนส่งและโลจิสติกส์",
       "subSector": "ขนส่งและโลจิสติกส์",
-      "subSectorEn": "Transportation & Logistics"
+      "subSectorEn": "Shipping"
     },
     {
       "symbol": "READY",
@@ -5437,7 +5437,7 @@
       "industry": "เทคโนโลยี",
       "sector": "-",
       "subSector": "เทคโนโลยี",
-      "subSectorEn": "Technology"
+      "subSectorEn": "IT Services - Software Development"
     },
     {
       "symbol": "RICHY",
@@ -5446,7 +5446,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "ที่ดินและอาคารพาณิชย์",
-      "subSectorEn": "Land & Commercial Buildings"
+      "subSectorEn": "Property Development - Luxury"
     },
     {
       "symbol": "RJH",
@@ -5455,7 +5455,7 @@
       "industry": "บริการ",
       "sector": "การแพทย์",
       "subSector": "การแพทย์",
-      "subSectorEn": "Healthcare"
+      "subSectorEn": "Hospitals - Stand-alone"
     },
     {
       "symbol": "RML",
@@ -5464,7 +5464,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "ที่ดินและอาคารพาณิชย์",
-      "subSectorEn": "Land & Commercial Buildings"
+      "subSectorEn": "Property Development - Mixed"
     },
     {
       "symbol": "ROCK",
@@ -5500,7 +5500,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "ที่ดินและอาคารพาณิชย์",
-      "subSectorEn": "Land & Commercial Buildings"
+      "subSectorEn": "Property Development - Luxury"
     },
     {
       "symbol": "RP",
@@ -5509,7 +5509,7 @@
       "industry": "บริการ",
       "sector": "-",
       "subSector": "ขนส่ง",
-      "subSectorEn": "Transportation"
+      "subSectorEn": "Logistics - Integrated"
     },
     {
       "symbol": "RPC",
@@ -5518,7 +5518,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "เคมีภัณฑ์",
-      "subSectorEn": "Chemicals"
+      "subSectorEn": "Olefins & Aromatics"
     },
     {
       "symbol": "RPH",
@@ -5527,7 +5527,7 @@
       "industry": "บริการ",
       "sector": "การแพทย์",
       "subSector": "การแพทย์",
-      "subSectorEn": "Healthcare"
+      "subSectorEn": "Hospitals - Stand-alone"
     },
     {
       "symbol": "RS",
@@ -5536,7 +5536,7 @@
       "industry": "บริการ",
       "sector": "พาณิชย์",
       "subSector": "พาณิชย์",
-      "subSectorEn": "Commerce"
+      "subSectorEn": "Entertainment & Events"
     },
     {
       "symbol": "RSP",
@@ -5545,7 +5545,7 @@
       "industry": "บริการ",
       "sector": "พาณิชย์",
       "subSector": "พาณิชย์",
-      "subSectorEn": "Commerce"
+      "subSectorEn": "Specialty Retail - Fashion & Beauty"
     },
     {
       "symbol": "RT",
@@ -5563,7 +5563,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "-",
       "subSector": "ยานยนต์และชิ้นส่วน",
-      "subSectorEn": "Automotive & Parts"
+      "subSectorEn": "Automotive Dealers & Services"
     },
     {
       "symbol": "S",
@@ -5572,7 +5572,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "ที่ดินและอาคารพาณิชย์",
-      "subSectorEn": "Land & Commercial Buildings"
+      "subSectorEn": "Property Development - Mixed"
     },
     {
       "symbol": "S&J",
@@ -5599,7 +5599,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "ที่ดินและอาคารพาณิชย์",
-      "subSectorEn": "Land & Commercial Buildings"
+      "subSectorEn": "Property Development - Mixed"
     },
     {
       "symbol": "SAAM",
@@ -5608,7 +5608,7 @@
       "industry": "ทรัพยากร",
       "sector": "-",
       "subSector": "ทรัพยากร",
-      "subSectorEn": "Resources"
+      "subSectorEn": "Mining - Industrial Minerals"
     },
     {
       "symbol": "SABINA",
@@ -5617,7 +5617,7 @@
       "industry": "สินค้าอุปโภคบริโภค",
       "sector": "แฟชั่น",
       "subSector": "แฟชั่น",
-      "subSectorEn": "Fashion"
+      "subSectorEn": "Apparel - Intimate Wear"
     },
     {
       "symbol": "SAF",
@@ -5626,7 +5626,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "-",
       "subSector": "สิ่งทอและเครื่องใช้",
-      "subSectorEn": "Textiles & Furnishings"
+      "subSectorEn": "Textiles & Fabrics"
     },
     {
       "symbol": "SAFE",
@@ -5635,7 +5635,7 @@
       "industry": "บริการ",
       "sector": "การแพทย์",
       "subSector": "การแพทย์",
-      "subSectorEn": "Healthcare"
+      "subSectorEn": "Hospitals - Stand-alone"
     },
     {
       "symbol": "SAK",
@@ -5653,7 +5653,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "-",
       "subSector": "สินค้าอุตสาหกรรม",
-      "subSectorEn": "Industrials"
+      "subSectorEn": "Industrial Machinery & Equipment"
     },
     {
       "symbol": "SAM",
@@ -5671,7 +5671,7 @@
       "industry": "เทคโนโลยี",
       "sector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
       "subSector": "โทรคมนาคม",
-      "subSectorEn": "Telecommunications"
+      "subSectorEn": "Telecommunications Equipment"
     },
     {
       "symbol": "SAMCO",
@@ -5680,7 +5680,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "ที่ดินและอาคารพาณิชย์",
-      "subSectorEn": "Land & Commercial Buildings"
+      "subSectorEn": "Property Development - Mixed"
     },
     {
       "symbol": "SAMTEL",
@@ -5698,7 +5698,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "-",
       "subSector": "อุตสาหกรรมอื่นๆ",
-      "subSectorEn": "Other Industries"
+      "subSectorEn": "Other Manufacturing"
     },
     {
       "symbol": "SAPPE",
@@ -5707,7 +5707,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "อาหารและเครื่องดื่ม",
       "subSector": "เครื่องดื่ม",
-      "subSectorEn": "Beverages"
+      "subSectorEn": "Beverages - Non-Carbonated"
     },
     {
       "symbol": "SAT",
@@ -5716,7 +5716,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "ยานยนต์",
       "subSector": "ยานยนต์",
-      "subSectorEn": "Automotive"
+      "subSectorEn": "Automotive Assembly"
     },
     {
       "symbol": "SAUCE",
@@ -5725,7 +5725,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "อาหารและเครื่องดื่ม",
       "subSector": "อาหารแปรรูปและประกอบอาหาร",
-      "subSectorEn": "Processed Food & Food Preparation"
+      "subSectorEn": "Seasoning & Sauces"
     },
     {
       "symbol": "SAV",
@@ -5734,7 +5734,7 @@
       "industry": "บริการ",
       "sector": "ขนส่งและโลจิสติกส์",
       "subSector": "ขนส่งและโลจิสติกส์",
-      "subSectorEn": "Transportation & Logistics"
+      "subSectorEn": "Ports & Terminals"
     },
     {
       "symbol": "SAWAD",
@@ -5752,7 +5752,7 @@
       "industry": "สินค้าอุปโภคบริโภค",
       "sector": "แฟชั่น",
       "subSector": "ยานยนต์",
-      "subSectorEn": "Automotive"
+      "subSectorEn": "Automotive Parts - Tier 2 & Components"
     },
     {
       "symbol": "SC",
@@ -5761,7 +5761,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "ที่ดินและอาคารพาณิชย์",
-      "subSectorEn": "Land & Commercial Buildings"
+      "subSectorEn": "Property Development - Mid-High End"
     },
     {
       "symbol": "SCAP",
@@ -5779,7 +5779,7 @@
       "industry": "ธุรกิจการเงิน",
       "sector": "ธนาคาร",
       "subSector": "ธนาคาร",
-      "subSectorEn": "Banking"
+      "subSectorEn": "Commercial Banks"
     },
     {
       "symbol": "SCC",
@@ -5788,7 +5788,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "วัสดุก่อสร้าง",
       "subSector": "วัสดุก่อสร้าง",
-      "subSectorEn": "Construction Materials"
+      "subSectorEn": "Cement"
     },
     {
       "symbol": "SCCC",
@@ -5797,7 +5797,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "วัสดุก่อสร้าง",
       "subSector": "วัสดุก่อสร้าง",
-      "subSectorEn": "Construction Materials"
+      "subSectorEn": "Cement"
     },
     {
       "symbol": "SCG",
@@ -5806,7 +5806,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "เคมีภัณฑ์",
-      "subSectorEn": "Chemicals"
+      "subSectorEn": "Integrated Petrochemicals"
     },
     {
       "symbol": "SCGD",
@@ -5833,7 +5833,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "วัสดุอุตสาหกรรมและเครื่องจักร",
       "subSector": "วัสดุอุตสาหกรรมและเครื่องจักร",
-      "subSectorEn": "Industrial Materials & Machinery"
+      "subSectorEn": "Telecommunications Equipment"
     },
     {
       "symbol": "SCL",
@@ -5851,7 +5851,7 @@
       "industry": "บริการ",
       "sector": "พาณิชย์",
       "subSector": "พาณิชย์",
-      "subSectorEn": "Commerce"
+      "subSectorEn": "Specialty Retail - Others"
     },
     {
       "symbol": "SCN",
@@ -5860,7 +5860,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "พลังงานและสาธารณูปโภค",
-      "subSectorEn": "Energy & Utilities"
+      "subSectorEn": "Renewable Energy"
     },
     {
       "symbol": "SCP",
@@ -5869,7 +5869,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "วัสดุก่อสร้าง",
       "subSector": "วัสดุก่อสร้าง",
-      "subSectorEn": "Construction Materials"
+      "subSectorEn": "Packaging - Paper Based"
     },
     {
       "symbol": "SDC",
@@ -5896,7 +5896,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "บริการรับเหมาก่อสร้าง",
       "subSector": "บริการรับเหมาก่อสร้าง",
-      "subSectorEn": "Construction Services"
+      "subSectorEn": "Shrimp & Seafood"
     },
     {
       "symbol": "SEAOIL",
@@ -5905,7 +5905,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "น้ำมันและก๊าซ",
-      "subSectorEn": "Oil & Gas"
+      "subSectorEn": "Gas Stations & Distribution"
     },
     {
       "symbol": "SECURE",
@@ -5914,7 +5914,7 @@
       "industry": "เทคโนโลยี",
       "sector": "-",
       "subSector": "เทคโนโลยี",
-      "subSectorEn": "Technology"
+      "subSectorEn": "Security Services"
     },
     {
       "symbol": "SE-ED",
@@ -5923,7 +5923,7 @@
       "industry": "บริการ",
       "sector": "สื่อและสิ่งพิมพ์",
       "subSector": "สื่อและสิ่งพิมพ์",
-      "subSectorEn": "Media & Publishing"
+      "subSectorEn": "Printing & Publishing Services"
     },
     {
       "symbol": "SEI",
@@ -5932,7 +5932,7 @@
       "industry": "สินค้าอุปโภคบริโภค",
       "sector": "-",
       "subSector": "สินค้าอุปโภคบริโภค",
-      "subSectorEn": "Consumer Products"
+      "subSectorEn": "Personal Care & Cosmetics"
     },
     {
       "symbol": "SELIC",
@@ -5950,7 +5950,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "ที่ดินและอาคารพาณิชย์",
-      "subSectorEn": "Land & Commercial Buildings"
+      "subSectorEn": "Property Development - Mid-High End"
     },
     {
       "symbol": "SENX",
@@ -5977,7 +5977,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "-",
       "subSector": "อุตสาหกรรมอื่นๆ",
-      "subSectorEn": "Other Industries"
+      "subSectorEn": "Other Manufacturing"
     },
     {
       "symbol": "SGC",
@@ -5995,7 +5995,7 @@
       "industry": "ธุรกิจการเงิน",
       "sector": "-",
       "subSector": "ธุรกิจการเงิน",
-      "subSectorEn": "Financial Services"
+      "subSectorEn": "Securities & Investment Banking"
     },
     {
       "symbol": "SGP",
@@ -6004,7 +6004,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "เคมีภัณฑ์",
-      "subSectorEn": "Chemicals"
+      "subSectorEn": "Specialty Chemicals"
     },
     {
       "symbol": "SHANG",
@@ -6013,7 +6013,7 @@
       "industry": "บริการ",
       "sector": "การท่องเที่ยวและสันทนาการ",
       "subSector": "การท่องเที่ยวและสันทนาการ",
-      "subSectorEn": "Tourism & Leisure"
+      "subSectorEn": "Hotels - Resort"
     },
     {
       "symbol": "SHR",
@@ -6031,7 +6031,7 @@
       "industry": "สินค้าอุปโภคบริโภค",
       "sector": "ของใช้ในครัวเรือนและสำนักงาน",
       "subSector": "ของใช้ในครัวเรือนและสำนักงาน",
-      "subSectorEn": "Household & Office Products"
+      "subSectorEn": "Wholesale - Food & Beverage"
     },
     {
       "symbol": "SICT",
@@ -6040,7 +6040,7 @@
       "industry": "เทคโนโลยี",
       "sector": "-",
       "subSector": "เทคโนโลยี",
-      "subSectorEn": "Technology"
+      "subSectorEn": "IT Services - Software Development"
     },
     {
       "symbol": "SIMAT",
@@ -6049,7 +6049,7 @@
       "industry": "เทคโนโลยี",
       "sector": "-",
       "subSector": "เทคโนโลยี",
-      "subSectorEn": "Technology"
+      "subSectorEn": "Electrical Equipment"
     },
     {
       "symbol": "SINGER",
@@ -6058,7 +6058,7 @@
       "industry": "บริการ",
       "sector": "พาณิชย์",
       "subSector": "สิ่งทอและเครื่องใช้",
-      "subSectorEn": "Textiles & Furnishings"
+      "subSectorEn": "Textiles & Fabrics"
     },
     {
       "symbol": "SINO",
@@ -6067,7 +6067,7 @@
       "industry": "บริการ",
       "sector": "ขนส่งและโลจิสติกส์",
       "subSector": "ขนส่งและโลจิสติกส์",
-      "subSectorEn": "Transportation & Logistics"
+      "subSectorEn": "Logistics - Freight Forwarding"
     },
     {
       "symbol": "SIRI",
@@ -6076,7 +6076,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "พัฒนาที่อยู่อาศัย",
-      "subSectorEn": "Residential Development"
+      "subSectorEn": "Property Development - Mass Market"
     },
     {
       "symbol": "SIRIPRT",
@@ -6085,7 +6085,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
       "subSector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
-      "subSectorEn": "REITs & Property Trusts"
+      "subSectorEn": "Property Funds"
     },
     {
       "symbol": "SIS",
@@ -6103,7 +6103,7 @@
       "industry": "บริการ",
       "sector": "บริการเฉพาะกิจ",
       "subSector": "บริการเฉพาะกิจ",
-      "subSectorEn": "Specialized Services"
+      "subSectorEn": "Education - K-12"
     },
     {
       "symbol": "SITHAI",
@@ -6121,7 +6121,7 @@
       "industry": "บริการ",
       "sector": "ขนส่งและโลจิสติกส์",
       "subSector": "ขนส่งและโลจิสติกส์",
-      "subSectorEn": "Transportation & Logistics"
+      "subSectorEn": "Ports & Terminals"
     },
     {
       "symbol": "SK",
@@ -6139,7 +6139,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "พลังงานและสาธารณูปโภค",
-      "subSectorEn": "Energy & Utilities"
+      "subSectorEn": "Renewable Energy"
     },
     {
       "symbol": "SKIN",
@@ -6148,7 +6148,7 @@
       "industry": "สินค้าอุปโภคบริโภค",
       "sector": "-",
       "subSector": "สินค้าอุปโภคบริโภค",
-      "subSectorEn": "Consumer Products"
+      "subSectorEn": "Personal Care & Cosmetics"
     },
     {
       "symbol": "SKN",
@@ -6166,7 +6166,7 @@
       "industry": "บริการ",
       "sector": "การแพทย์",
       "subSector": "การแพทย์",
-      "subSectorEn": "Healthcare"
+      "subSectorEn": "Hospitals - Stand-alone"
     },
     {
       "symbol": "SKY",
@@ -6175,7 +6175,7 @@
       "industry": "เทคโนโลยี",
       "sector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
       "subSector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
-      "subSectorEn": "Information & Communication Technology"
+      "subSectorEn": "Telecommunications Equipment"
     },
     {
       "symbol": "SLP",
@@ -6202,7 +6202,7 @@
       "industry": "สินค้าอุปโภคบริโภค",
       "sector": "-",
       "subSector": "สินค้าอุปโภคบริโภค",
-      "subSectorEn": "Consumer Products"
+      "subSectorEn": "Household & Consumer Products"
     },
     {
       "symbol": "SMIT",
@@ -6220,7 +6220,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "ธุรกิจการเกษตร",
       "subSector": "ธุรกิจการเกษตร",
-      "subSectorEn": "Agriculture Business"
+      "subSectorEn": "Agriculture & Plantation"
     },
     {
       "symbol": "SMPC",
@@ -6229,7 +6229,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "บรรจุภัณฑ์",
       "subSector": "บรรจุภัณฑ์",
-      "subSectorEn": "Packaging"
+      "subSectorEn": "Steel Producers"
     },
     {
       "symbol": "SMT",
@@ -6247,7 +6247,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "วัสดุอุตสาหกรรมและเครื่องจักร",
       "subSector": "รับเหมาก่อสร้าง",
-      "subSectorEn": "Construction Contractor"
+      "subSectorEn": "Construction Contractors"
     },
     {
       "symbol": "SNNP",
@@ -6256,7 +6256,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "อาหารและเครื่องดื่ม",
       "subSector": "ขนมขบเคี้ยว",
-      "subSectorEn": "Snacks"
+      "subSectorEn": "Snack Food"
     },
     {
       "symbol": "SNP",
@@ -6265,7 +6265,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "อาหารและเครื่องดื่ม",
       "subSector": "อาหารแปรรูปและประกอบอาหาร",
-      "subSectorEn": "Processed Food & Food Preparation"
+      "subSectorEn": "Processed Food - Ready to Eat"
     },
     {
       "symbol": "SNPS",
@@ -6283,7 +6283,7 @@
       "industry": "บริการ",
       "sector": "บริการเฉพาะกิจ",
       "subSector": "บริการเฉพาะกิจ",
-      "subSectorEn": "Specialized Services"
+      "subSectorEn": "Other Services"
     },
     {
       "symbol": "SOLAR",
@@ -6292,7 +6292,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "บริการรับเหมาก่อสร้าง",
       "subSector": "บริการรับเหมาก่อสร้าง",
-      "subSectorEn": "Construction Services"
+      "subSectorEn": "Solar Equipment"
     },
     {
       "symbol": "SONIC",
@@ -6310,7 +6310,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "อาหารและเครื่องดื่ม",
       "subSector": "ขนมขบเคี้ยว",
-      "subSectorEn": "Snacks"
+      "subSectorEn": "Snack Food"
     },
     {
       "symbol": "SPA",
@@ -6337,7 +6337,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "พัฒนาที่อยู่อาศัย",
-      "subSectorEn": "Residential Development"
+      "subSectorEn": "Property Development - Mass Market"
     },
     {
       "symbol": "SPC",
@@ -6346,7 +6346,7 @@
       "industry": "บริการ",
       "sector": "พาณิชย์",
       "subSector": "พาณิชย์",
-      "subSectorEn": "Commerce"
+      "subSectorEn": "Home Improvement Retail"
     },
     {
       "symbol": "SPCG",
@@ -6355,7 +6355,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "พลังงานและสาธารณูปโภค",
-      "subSectorEn": "Energy & Utilities"
+      "subSectorEn": "Solar Equipment"
     },
     {
       "symbol": "SPG",
@@ -6364,7 +6364,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "ยานยนต์",
       "subSector": "ยานยนต์",
-      "subSectorEn": "Automotive"
+      "subSectorEn": "Automotive Parts - Tier 1"
     },
     {
       "symbol": "SPI",
@@ -6373,7 +6373,7 @@
       "industry": "บริการ",
       "sector": "พาณิชย์",
       "subSector": "พาณิชย์",
-      "subSectorEn": "Commerce"
+      "subSectorEn": "Specialty Retail - Others"
     },
     {
       "symbol": "SPRC",
@@ -6382,7 +6382,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "ก๊าซธรรมชาติและปิโตรเลียม",
-      "subSectorEn": "Natural Gas & Petroleum"
+      "subSectorEn": "Oil Refining"
     },
     {
       "symbol": "SPREME",
@@ -6400,7 +6400,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
       "subSector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
-      "subSectorEn": "REITs & Property Trusts"
+      "subSectorEn": "Property Funds"
     },
     {
       "symbol": "SPTX",
@@ -6409,7 +6409,7 @@
       "industry": "บริการ",
       "sector": "-",
       "subSector": "สื่อและโฆษณา",
-      "subSectorEn": "Media & Advertising"
+      "subSectorEn": "Advertising Production"
     },
     {
       "symbol": "SPVI",
@@ -6418,7 +6418,7 @@
       "industry": "เทคโนโลยี",
       "sector": "-",
       "subSector": "เทคโนโลยี",
-      "subSectorEn": "Technology"
+      "subSectorEn": "IT Services - Software Development"
     },
     {
       "symbol": "SQ",
@@ -6436,7 +6436,7 @@
       "industry": "ทรัพยากร",
       "sector": "-",
       "subSector": "ทรัพยากร",
-      "subSectorEn": "Resources"
+      "subSectorEn": "Mining - Industrial Minerals"
     },
     {
       "symbol": "SRICHA",
@@ -6445,7 +6445,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "บริการรับเหมาก่อสร้าง",
       "subSector": "บริการรับเหมาก่อสร้าง",
-      "subSectorEn": "Construction Services"
+      "subSectorEn": "Telecommunications - Infrastructure"
     },
     {
       "symbol": "SRIPANWA",
@@ -6454,7 +6454,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
       "subSector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
-      "subSectorEn": "REITs & Property Trusts"
+      "subSectorEn": "Property Funds"
     },
     {
       "symbol": "SRS",
@@ -6463,7 +6463,7 @@
       "industry": "เทคโนโลยี",
       "sector": "-",
       "subSector": "เทคโนโลยี",
-      "subSectorEn": "Technology"
+      "subSectorEn": "IT Services - Software Development"
     },
     {
       "symbol": "SSF",
@@ -6472,7 +6472,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "อาหารและเครื่องดื่ม",
       "subSector": "ขนมขบเคี้ยว",
-      "subSectorEn": "Snacks"
+      "subSectorEn": "Snack Food"
     },
     {
       "symbol": "SSP",
@@ -6481,7 +6481,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "เคมีภัณฑ์",
-      "subSectorEn": "Chemicals"
+      "subSectorEn": "Specialty Chemicals"
     },
     {
       "symbol": "SSPF",
@@ -6490,7 +6490,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
       "subSector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
-      "subSectorEn": "REITs & Property Trusts"
+      "subSectorEn": "Property Funds"
     },
     {
       "symbol": "SSSC",
@@ -6508,7 +6508,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "อาหารและเครื่องดื่ม",
       "subSector": "อาหารแปรรูปและประกอบอาหาร",
-      "subSectorEn": "Processed Food & Food Preparation"
+      "subSectorEn": "Processed Food - Frozen"
     },
     {
       "symbol": "SSTRT",
@@ -6517,7 +6517,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
       "subSector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
-      "subSectorEn": "REITs & Property Trusts"
+      "subSectorEn": "Property Funds"
     },
     {
       "symbol": "STA",
@@ -6526,7 +6526,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "ธุรกิจการเกษตร",
       "subSector": "ธุรกิจการเกษตร",
-      "subSectorEn": "Agriculture Business"
+      "subSectorEn": "Agriculture & Plantation"
     },
     {
       "symbol": "STANLY",
@@ -6535,7 +6535,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "ยานยนต์",
       "subSector": "ยานยนต์",
-      "subSectorEn": "Automotive"
+      "subSectorEn": "Tools, Dies & Molds"
     },
     {
       "symbol": "STARM",
@@ -6580,7 +6580,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "ที่ดินและอาคารพาณิชย์",
-      "subSectorEn": "Land & Commercial Buildings"
+      "subSectorEn": "Property Development - Mixed"
     },
     {
       "symbol": "STGT",
@@ -6607,7 +6607,7 @@
       "industry": "ทรัพยากร",
       "sector": "-",
       "subSector": "ทรัพยากร",
-      "subSectorEn": "Resources"
+      "subSectorEn": "Mining - Industrial Minerals"
     },
     {
       "symbol": "STP",
@@ -6643,7 +6643,7 @@
       "industry": "สินค้าอุปโภคบริโภค",
       "sector": "แฟชั่น",
       "subSector": "แฟชั่น",
-      "subSectorEn": "Fashion"
+      "subSectorEn": "Apparel - Casual & Fashion"
     },
     {
       "symbol": "SUN",
@@ -6661,7 +6661,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "พลังงานทางเลือก",
-      "subSectorEn": "Alternative Energy"
+      "subSectorEn": "Renewable Energy"
     },
     {
       "symbol": "SUPEREIF",
@@ -6670,7 +6670,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "พลังงานและสาธารณูปโภค",
-      "subSectorEn": "Energy & Utilities"
+      "subSectorEn": "Energy Infrastructure Funds"
     },
     {
       "symbol": "SUSCO",
@@ -6679,7 +6679,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "น้ำมันและก๊าซ",
-      "subSectorEn": "Oil & Gas"
+      "subSectorEn": "Gas Stations & Distribution"
     },
     {
       "symbol": "SUTHA",
@@ -6688,7 +6688,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "ปิโตรเคมีและเคมีภัณฑ์",
       "subSector": "ปิโตรเคมีและเคมีภัณฑ์",
-      "subSectorEn": "Petrochemicals & Chemicals"
+      "subSectorEn": "Specialty Chemicals"
     },
     {
       "symbol": "SVI",
@@ -6697,7 +6697,7 @@
       "industry": "เทคโนโลยี",
       "sector": "ชิ้นส่วนอิเล็กทรอนิกส์",
       "subSector": "ชิ้นส่วนอิเล็กทรอนิกส์",
-      "subSectorEn": "Electronic Components"
+      "subSectorEn": "IT Services - System Integration"
     },
     {
       "symbol": "SVOA",
@@ -6706,7 +6706,7 @@
       "industry": "เทคโนโลยี",
       "sector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
       "subSector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
-      "subSectorEn": "Information & Communication Technology"
+      "subSectorEn": "Telecommunications Equipment"
     },
     {
       "symbol": "SVR",
@@ -6724,7 +6724,7 @@
       "industry": "บริการ",
       "sector": "พาณิชย์",
       "subSector": "พาณิชย์",
-      "subSectorEn": "Commerce"
+      "subSectorEn": "Specialty Retail - Fashion & Beauty"
     },
     {
       "symbol": "SWC",
@@ -6751,7 +6751,7 @@
       "industry": "เทคโนโลยี",
       "sector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
       "subSector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
-      "subSectorEn": "Information & Communication Technology"
+      "subSectorEn": "Telecommunications Equipment"
     },
     {
       "symbol": "SYNTEC",
@@ -6760,7 +6760,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "บริการรับเหมาก่อสร้าง",
       "subSector": "บริการรับเหมาก่อสร้าง",
-      "subSectorEn": "Construction Services"
+      "subSectorEn": "Construction Contractors"
     },
     {
       "symbol": "TACC",
@@ -6778,7 +6778,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "น้ำมันและก๊าซ",
-      "subSectorEn": "Oil & Gas"
+      "subSectorEn": "Gas Stations & Distribution"
     },
     {
       "symbol": "TAKUNI",
@@ -6787,7 +6787,7 @@
       "industry": "ทรัพยากร",
       "sector": "-",
       "subSector": "ทรัพยากร",
-      "subSectorEn": "Resources"
+      "subSectorEn": "Mining - Industrial Minerals"
     },
     {
       "symbol": "TAN",
@@ -6796,7 +6796,7 @@
       "industry": "บริการ",
       "sector": "พาณิชย์",
       "subSector": "พาณิชย์",
-      "subSectorEn": "Commerce"
+      "subSectorEn": "Specialty Retail - Others"
     },
     {
       "symbol": "TAPAC",
@@ -6823,7 +6823,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "-",
       "subSector": "อุตสาหกรรมอื่นๆ",
-      "subSectorEn": "Other Industries"
+      "subSectorEn": "Other Manufacturing"
     },
     {
       "symbol": "TBN",
@@ -6832,7 +6832,7 @@
       "industry": "เทคโนโลยี",
       "sector": "-",
       "subSector": "เทคโนโลยี",
-      "subSectorEn": "Technology"
+      "subSectorEn": "IT Services - Software Development"
     },
     {
       "symbol": "TC",
@@ -6850,7 +6850,7 @@
       "industry": "ธุรกิจการเงิน",
       "sector": "ธนาคาร",
       "subSector": "ธุรกิจการเงิน",
-      "subSectorEn": "Financial Services"
+      "subSectorEn": "Securities & Investment Banking"
     },
     {
       "symbol": "TCC",
@@ -6859,7 +6859,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "ก๊าซธรรมชาติและปิโตรเลียม",
-      "subSectorEn": "Natural Gas & Petroleum"
+      "subSectorEn": "Natural Gas Distribution"
     },
     {
       "symbol": "TCJ",
@@ -6895,7 +6895,7 @@
       "industry": "เทคโนโลยี",
       "sector": "ชิ้นส่วนอิเล็กทรอนิกส์",
       "subSector": "ชิ้นส่วนอิเล็กทรอนิกส์",
-      "subSectorEn": "Electronic Components"
+      "subSectorEn": "Hard Disk Drive Components"
     },
     {
       "symbol": "TEAMG",
@@ -6904,7 +6904,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "บริการรับเหมาก่อสร้าง",
       "subSector": "บริการรับเหมาก่อสร้าง",
-      "subSectorEn": "Construction Services"
+      "subSectorEn": "Professional Services - HR & Recruitment"
     },
     {
       "symbol": "TEGH",
@@ -6913,7 +6913,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "ธุรกิจการเกษตร",
       "subSector": "ธุรกิจการเกษตร",
-      "subSectorEn": "Agriculture Business"
+      "subSectorEn": "Agriculture & Plantation"
     },
     {
       "symbol": "TEKA",
@@ -6931,7 +6931,7 @@
       "industry": "เทคโนโลยี",
       "sector": "-",
       "subSector": "เทคโนโลยี",
-      "subSectorEn": "Technology"
+      "subSectorEn": "IT Services - Software Development"
     },
     {
       "symbol": "TFFIF",
@@ -6940,7 +6940,7 @@
       "industry": "บริการ",
       "sector": "ขนส่งและโลจิสติกส์",
       "subSector": "ขนส่งและโลจิสติกส์",
-      "subSectorEn": "Transportation & Logistics"
+      "subSectorEn": "Energy Infrastructure Funds"
     },
     {
       "symbol": "TFG",
@@ -6949,7 +6949,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "อาหารและเครื่องดื่ม",
       "subSector": "กองทุน",
-      "subSectorEn": "Funds"
+      "subSectorEn": "Asset Management"
     },
     {
       "symbol": "TFI",
@@ -6967,7 +6967,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "ธุรกิจการเกษตร",
       "subSector": "ธุรกิจการเกษตร",
-      "subSectorEn": "Agriculture Business"
+      "subSectorEn": "Integrated Poultry"
     },
     {
       "symbol": "TFMAMA",
@@ -6976,7 +6976,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "อาหารและเครื่องดื่ม",
       "subSector": "อาหารแปรรูปและประกอบอาหาร",
-      "subSectorEn": "Processed Food & Food Preparation"
+      "subSectorEn": "Instant Noodles"
     },
     {
       "symbol": "TGE",
@@ -6985,7 +6985,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "พลังงานและสาธารณูปโภค",
-      "subSectorEn": "Energy & Utilities"
+      "subSectorEn": "Renewable Energy"
     },
     {
       "symbol": "TGH",
@@ -6994,7 +6994,7 @@
       "industry": "ธุรกิจการเงิน",
       "sector": "ประกันภัยและประกันชีวิต",
       "subSector": "ประกันภัยและประกันชีวิต",
-      "subSectorEn": "Insurance & Life Insurance"
+      "subSectorEn": "Non-Life Insurance"
     },
     {
       "symbol": "TGPRO",
@@ -7021,7 +7021,7 @@
       "industry": "บริการ",
       "sector": "ขนส่งและโลจิสติกส์",
       "subSector": "ขนส่งและโลจิสติกส์",
-      "subSectorEn": "Transportation & Logistics"
+      "subSectorEn": "Cables & Wires"
     },
     {
       "symbol": "THANA",
@@ -7039,7 +7039,7 @@
       "industry": "ธุรกิจการเงิน",
       "sector": "เงินทุนและหลักทรัพย์",
       "subSector": "เงินทุนและหลักทรัพย์",
-      "subSectorEn": "Capital Markets & Securities"
+      "subSectorEn": "Non-Life Insurance"
     },
     {
       "symbol": "THCOM",
@@ -7048,7 +7048,7 @@
       "industry": "เทคโนโลยี",
       "sector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
       "subSector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
-      "subSectorEn": "Information & Communication Technology"
+      "subSectorEn": "Telecommunications Equipment"
     },
     {
       "symbol": "THE",
@@ -7066,7 +7066,7 @@
       "industry": "บริการ",
       "sector": "การแพทย์",
       "subSector": "การแพทย์",
-      "subSectorEn": "Healthcare"
+      "subSectorEn": "Hospitals - Stand-alone"
     },
     {
       "symbol": "THIP",
@@ -7084,7 +7084,7 @@
       "industry": "บริการ",
       "sector": "-",
       "subSector": "IT และเทคโนโลยี",
-      "subSectorEn": "IT & Technology"
+      "subSectorEn": "Software as a Service (SaaS)"
     },
     {
       "symbol": "THRE",
@@ -7102,7 +7102,7 @@
       "industry": "ธุรกิจการเงิน",
       "sector": "ประกันภัยและประกันชีวิต",
       "subSector": "ประกันภัยและประกันชีวิต",
-      "subSectorEn": "Insurance & Life Insurance"
+      "subSectorEn": "Life Insurance"
     },
     {
       "symbol": "TIDLOR",
@@ -7111,7 +7111,7 @@
       "industry": "ธุรกิจการเงิน",
       "sector": "เงินทุนและหลักทรัพย์",
       "subSector": "เงินทุนและหลักทรัพย์",
-      "subSectorEn": "Capital Markets & Securities"
+      "subSectorEn": "Fintech - Payment & Digital Banking"
     },
     {
       "symbol": "TIF1",
@@ -7120,7 +7120,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
       "subSector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
-      "subSectorEn": "REITs & Property Trusts"
+      "subSectorEn": "Property Funds"
     },
     {
       "symbol": "TIGER",
@@ -7138,7 +7138,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "อาหารและเครื่องดื่ม",
       "subSector": "อาหารแปรรูปและประกอบอาหาร",
-      "subSectorEn": "Processed Food & Food Preparation"
+      "subSectorEn": "Beverages - Non-Carbonated"
     },
     {
       "symbol": "TIPH",
@@ -7156,7 +7156,7 @@
       "industry": "ธุรกิจการเงิน",
       "sector": "ธนาคาร",
       "subSector": "บัตรเครดิต",
-      "subSectorEn": "Credit Cards"
+      "subSectorEn": "Steel Producers"
     },
     {
       "symbol": "TITLE",
@@ -7165,7 +7165,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "ที่ดินและอาคารพาณิชย์",
-      "subSectorEn": "Land & Commercial Buildings"
+      "subSectorEn": "Property Development - Mixed"
     },
     {
       "symbol": "TK",
@@ -7192,7 +7192,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "อาหารและเครื่องดื่ม",
       "subSector": "ขนมขบเคี้ยว",
-      "subSectorEn": "Snacks"
+      "subSectorEn": "Snack Food"
     },
     {
       "symbol": "TKS",
@@ -7201,7 +7201,7 @@
       "industry": "บริการ",
       "sector": "สื่อและสิ่งพิมพ์",
       "subSector": "สื่อและสิ่งพิมพ์",
-      "subSectorEn": "Media & Publishing"
+      "subSectorEn": "Telecommunications Equipment"
     },
     {
       "symbol": "TKT",
@@ -7210,7 +7210,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "ยานยนต์",
       "subSector": "ยานยนต์",
-      "subSectorEn": "Automotive"
+      "subSectorEn": "Automotive Parts - Tier 1"
     },
     {
       "symbol": "TL",
@@ -7219,7 +7219,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "ธุรกิจการเกษตร",
       "subSector": "ธุรกิจการเกษตร",
-      "subSectorEn": "Agriculture Business"
+      "subSectorEn": "Agriculture & Plantation"
     },
     {
       "symbol": "TLHPF",
@@ -7228,7 +7228,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
       "subSector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
-      "subSectorEn": "REITs & Property Trusts"
+      "subSectorEn": "Property Funds"
     },
     {
       "symbol": "TLI",
@@ -7237,7 +7237,7 @@
       "industry": "ธุรกิจการเงิน",
       "sector": "ประกันภัยและประกันชีวิต",
       "subSector": "ประกันภัยและประกันชีวิต",
-      "subSectorEn": "Insurance & Life Insurance"
+      "subSectorEn": "Life Insurance"
     },
     {
       "symbol": "TM",
@@ -7246,7 +7246,7 @@
       "industry": "สินค้าอุปโภคบริโภค",
       "sector": "-",
       "subSector": "สินค้าอุปโภคบริโภค",
-      "subSectorEn": "Consumer Products"
+      "subSectorEn": "Household & Consumer Products"
     },
     {
       "symbol": "TMAN",
@@ -7264,7 +7264,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "-",
       "subSector": "สินค้าอุตสาหกรรม",
-      "subSectorEn": "Industrials"
+      "subSectorEn": "Industrial Machinery & Equipment"
     },
     {
       "symbol": "TMD",
@@ -7282,7 +7282,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "-",
       "subSector": "สินค้าอุตสาหกรรม",
-      "subSectorEn": "Industrials"
+      "subSectorEn": "Industrial Machinery & Equipment"
     },
     {
       "symbol": "TMILL",
@@ -7300,7 +7300,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "เหล็ก และ ผลิตภัณฑ์โลหะ",
       "subSector": "ยานยนต์",
-      "subSectorEn": "Automotive"
+      "subSectorEn": "Automotive Assembly"
     },
     {
       "symbol": "TMW",
@@ -7309,7 +7309,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "-",
       "subSector": "อุตสาหกรรมอื่นๆ",
-      "subSectorEn": "Other Industries"
+      "subSectorEn": "Other Manufacturing"
     },
     {
       "symbol": "TNDT",
@@ -7318,7 +7318,7 @@
       "industry": "บริการ",
       "sector": "-",
       "subSector": "อสังหาริมทรัพย์",
-      "subSectorEn": "Real Estate"
+      "subSectorEn": "Property Development - Mixed"
     },
     {
       "symbol": "TNH",
@@ -7327,7 +7327,7 @@
       "industry": "บริการ",
       "sector": "-",
       "subSector": "โรงพยาบาล",
-      "subSectorEn": "Hospitals"
+      "subSectorEn": "Hospitals - Stand-alone"
     },
     {
       "symbol": "TNITY",
@@ -7345,7 +7345,7 @@
       "industry": "ธุรกิจการเงิน",
       "sector": "เงินทุนและหลักทรัพย์",
       "subSector": "เงินทุนและหลักทรัพย์",
-      "subSectorEn": "Capital Markets & Securities"
+      "subSectorEn": "Telecommunications Equipment"
     },
     {
       "symbol": "TNP",
@@ -7363,7 +7363,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "ยานยนต์",
       "subSector": "ยานยนต์",
-      "subSectorEn": "Automotive"
+      "subSectorEn": "Automotive Parts - Tier 2 & Components"
     },
     {
       "symbol": "TNPF",
@@ -7372,7 +7372,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
       "subSector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
-      "subSectorEn": "REITs & Property Trusts"
+      "subSectorEn": "Property Funds"
     },
     {
       "symbol": "TNR",
@@ -7408,7 +7408,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "น้ำมันและก๊าซ",
-      "subSectorEn": "Oil & Gas"
+      "subSectorEn": "Integrated Oil & Gas"
     },
     {
       "symbol": "TOPP",
@@ -7426,7 +7426,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "ปิโตรเคมีและเคมีภัณฑ์",
       "subSector": "ปิโตรเคมีและเคมีภัณฑ์",
-      "subSectorEn": "Petrochemicals & Chemicals"
+      "subSectorEn": "Olefins & Aromatics"
     },
     {
       "symbol": "TPAC",
@@ -7435,7 +7435,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "บรรจุภัณฑ์",
       "subSector": "บรรจุภัณฑ์",
-      "subSectorEn": "Packaging"
+      "subSectorEn": "Packaging - Flexible"
     },
     {
       "symbol": "TPBI",
@@ -7444,7 +7444,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "บรรจุภัณฑ์",
       "subSector": "บรรจุภัณฑ์",
-      "subSectorEn": "Packaging"
+      "subSectorEn": "Packaging - Plastic"
     },
     {
       "symbol": "TPCH",
@@ -7453,7 +7453,7 @@
       "industry": "ทรัพยากร",
       "sector": "-",
       "subSector": "ทรัพยากร",
-      "subSectorEn": "Resources"
+      "subSectorEn": "Mining - Industrial Minerals"
     },
     {
       "symbol": "TPCS",
@@ -7471,7 +7471,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "วัสดุก่อสร้าง",
       "subSector": "วัสดุก่อสร้าง",
-      "subSectorEn": "Construction Materials"
+      "subSectorEn": "Cement"
     },
     {
       "symbol": "TPIPP",
@@ -7480,7 +7480,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "ไฟฟ้า",
-      "subSectorEn": "Electricity"
+      "subSectorEn": "Independent Power Producers"
     },
     {
       "symbol": "TPL",
@@ -7489,7 +7489,7 @@
       "industry": "บริการ",
       "sector": "-",
       "subSector": "อสังหาริมทรัพย์",
-      "subSectorEn": "Real Estate"
+      "subSectorEn": "Property Development - Mixed"
     },
     {
       "symbol": "TPLAS",
@@ -7498,7 +7498,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "-",
       "subSector": "อุตสาหกรรมอื่นๆ",
-      "subSectorEn": "Other Industries"
+      "subSectorEn": "Other Manufacturing"
     },
     {
       "symbol": "TPOLY",
@@ -7507,7 +7507,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "บริการรับเหมาก่อสร้าง",
       "subSector": "บริการรับเหมาก่อสร้าง",
-      "subSectorEn": "Construction Services"
+      "subSectorEn": "Telecommunications Equipment"
     },
     {
       "symbol": "TPP",
@@ -7525,7 +7525,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
       "subSector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
-      "subSectorEn": "REITs & Property Trusts"
+      "subSectorEn": "Property Funds"
     },
     {
       "symbol": "TPS",
@@ -7534,7 +7534,7 @@
       "industry": "เทคโนโลยี",
       "sector": "-",
       "subSector": "เทคโนโลยี",
-      "subSectorEn": "Technology"
+      "subSectorEn": "IT Services - Software Development"
     },
     {
       "symbol": "TQM",
@@ -7543,7 +7543,7 @@
       "industry": "ธุรกิจการเงิน",
       "sector": "ประกันภัยและประกันชีวิต",
       "subSector": "ประกันภัยและประกันชีวิต",
-      "subSectorEn": "Insurance & Life Insurance"
+      "subSectorEn": "Non-Life Insurance"
     },
     {
       "symbol": "TQR",
@@ -7552,7 +7552,7 @@
       "industry": "ธุรกิจการเงิน",
       "sector": "-",
       "subSector": "ธุรกิจการเงิน",
-      "subSectorEn": "Financial Services"
+      "subSectorEn": "Securities & Investment Banking"
     },
     {
       "symbol": "TR",
@@ -7561,7 +7561,7 @@
       "industry": "สินค้าอุปโภคบริโภค",
       "sector": "แฟชั่น",
       "subSector": "แฟชั่น",
-      "subSectorEn": "Fashion"
+      "subSectorEn": "Apparel - Casual & Fashion"
     },
     {
       "symbol": "TRC",
@@ -7588,7 +7588,7 @@
       "industry": "บริการ",
       "sector": "-",
       "subSector": "ลอจิสติกส์",
-      "subSectorEn": "Logistics"
+      "subSectorEn": "Logistics - Integrated"
     },
     {
       "symbol": "TRT",
@@ -7597,7 +7597,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "-",
       "subSector": "อุตสาหกรรมอื่นๆ",
-      "subSectorEn": "Other Industries"
+      "subSectorEn": "Other Manufacturing"
     },
     {
       "symbol": "TRU",
@@ -7606,7 +7606,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "ยานยนต์",
       "subSector": "ยานยนต์",
-      "subSectorEn": "Automotive"
+      "subSectorEn": "Automotive Parts - Tier 2 & Components"
     },
     {
       "symbol": "TRUBB",
@@ -7615,7 +7615,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "ธุรกิจการเกษตร",
       "subSector": "ธุรกิจการเกษตร",
-      "subSectorEn": "Agriculture Business"
+      "subSectorEn": "Agriculture & Plantation"
     },
     {
       "symbol": "TRUE",
@@ -7624,7 +7624,7 @@
       "industry": "เทคโนโลยี",
       "sector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
       "subSector": "เทคโนโลยี",
-      "subSectorEn": "Technology"
+      "subSectorEn": "Telecommunications - Fixed Line"
     },
     {
       "symbol": "TRV",
@@ -7633,7 +7633,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "-",
       "subSector": "อุตสาหกรรมอื่นๆ",
-      "subSectorEn": "Other Industries"
+      "subSectorEn": "Other Manufacturing"
     },
     {
       "symbol": "TSC",
@@ -7642,7 +7642,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "ยานยนต์",
       "subSector": "ยานยนต์",
-      "subSectorEn": "Automotive"
+      "subSectorEn": "Automotive Parts - Tier 1"
     },
     {
       "symbol": "TSE",
@@ -7660,7 +7660,7 @@
       "industry": "ธุรกิจการเงิน",
       "sector": "ประกันภัยและประกันชีวิต",
       "subSector": "ประกันภัยและประกันชีวิต",
-      "subSectorEn": "Insurance & Life Insurance"
+      "subSectorEn": "Non-Life Insurance"
     },
     {
       "symbol": "TSR",
@@ -7669,7 +7669,7 @@
       "industry": "สินค้าอุปโภคบริโภค",
       "sector": "ของใช้ในครัวเรือนและสำนักงาน",
       "subSector": "ของใช้ในครัวเรือนและสำนักงาน",
-      "subSectorEn": "Household & Office Products"
+      "subSectorEn": "Telecommunications Equipment"
     },
     {
       "symbol": "TSTE",
@@ -7678,7 +7678,7 @@
       "industry": "บริการ",
       "sector": "ขนส่งและโลจิสติกส์",
       "subSector": "ขนส่งและโลจิสติกส์",
-      "subSectorEn": "Transportation & Logistics"
+      "subSectorEn": "IT Services - Software Development"
     },
     {
       "symbol": "TSTH",
@@ -7687,7 +7687,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "เหล็ก และ ผลิตภัณฑ์โลหะ",
       "subSector": "เหล็กและโลหะ",
-      "subSectorEn": "Steel & Metals"
+      "subSectorEn": "Steel & Metal Trading"
     },
     {
       "symbol": "TTA",
@@ -7705,7 +7705,7 @@
       "industry": "ธุรกิจการเงิน",
       "sector": "ธนาคาร",
       "subSector": "ธนาคาร",
-      "subSectorEn": "Banking"
+      "subSectorEn": "Commercial Banks"
     },
     {
       "symbol": "TTCL",
@@ -7723,7 +7723,7 @@
       "industry": "สินค้าอุปโภคบริโภค",
       "sector": "แฟชั่น",
       "subSector": "แฟชั่น",
-      "subSectorEn": "Fashion"
+      "subSectorEn": "Apparel - Intimate Wear"
     },
     {
       "symbol": "TTLPF",
@@ -7732,7 +7732,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
       "subSector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
-      "subSectorEn": "REITs & Property Trusts"
+      "subSectorEn": "Property Funds"
     },
     {
       "symbol": "TTT",
@@ -7741,7 +7741,7 @@
       "industry": "สินค้าอุปโภคบริโภค",
       "sector": "แฟชั่น",
       "subSector": "แฟชั่น",
-      "subSectorEn": "Fashion"
+      "subSectorEn": "Apparel - Intimate Wear"
     },
     {
       "symbol": "TTW",
@@ -7750,7 +7750,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "น้ำมันและก๊าซ",
-      "subSectorEn": "Oil & Gas"
+      "subSectorEn": "Water & Waste Utilities"
     },
     {
       "symbol": "TU",
@@ -7759,7 +7759,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "อาหารและเครื่องดื่ม",
       "subSector": "อาหารแปรรูปและประกอบอาหาร",
-      "subSectorEn": "Processed Food & Food Preparation"
+      "subSectorEn": "Processed Food - Ready to Eat"
     },
     {
       "symbol": "TU-PF",
@@ -7768,7 +7768,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
       "subSector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
-      "subSectorEn": "REITs & Property Trusts"
+      "subSectorEn": "Property Funds"
     },
     {
       "symbol": "TURBO",
@@ -7786,7 +7786,7 @@
       "industry": "บริการ",
       "sector": "-",
       "subSector": "ลอจิสติกส์",
-      "subSectorEn": "Logistics"
+      "subSectorEn": "Logistics - Warehousing"
     },
     {
       "symbol": "TVDH",
@@ -7795,7 +7795,7 @@
       "industry": "บริการ",
       "sector": "-",
       "subSector": "สื่อและโฆษณา",
-      "subSectorEn": "Media & Advertising"
+      "subSectorEn": "Broadcasting - TV & Radio"
     },
     {
       "symbol": "TVH",
@@ -7822,7 +7822,7 @@
       "industry": "บริการ",
       "sector": "-",
       "subSector": "สื่อและโฆษณา",
-      "subSectorEn": "Media & Advertising"
+      "subSectorEn": "Broadcasting - TV & Radio"
     },
     {
       "symbol": "TWP",
@@ -7840,7 +7840,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "อาหารและเครื่องดื่ม",
       "subSector": "พัฒนาอสังหาริมทรัพย์",
-      "subSectorEn": "Property Development"
+      "subSectorEn": "Property Development - Mixed"
     },
     {
       "symbol": "TWZ",
@@ -7849,7 +7849,7 @@
       "industry": "เทคโนโลยี",
       "sector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
       "subSector": "เทคโนโลยีสารสนเทศและการสื่อสาร",
-      "subSectorEn": "Information & Communication Technology"
+      "subSectorEn": "Telecommunications Equipment"
     },
     {
       "symbol": "TYCN",
@@ -7867,7 +7867,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "ปิโตรเคมีและเคมีภัณฑ์",
       "subSector": "ปิโตรเคมีและเคมีภัณฑ์",
-      "subSectorEn": "Petrochemicals & Chemicals"
+      "subSectorEn": "Specialty Chemicals"
     },
     {
       "symbol": "UBA",
@@ -7885,7 +7885,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "พลังงานและสาธารณูปโภค",
-      "subSectorEn": "Energy & Utilities"
+      "subSectorEn": "Renewable Energy"
     },
     {
       "symbol": "UBIS",
@@ -7894,7 +7894,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "-",
       "subSector": "อุตสาหกรรมอื่นๆ",
-      "subSectorEn": "Other Industries"
+      "subSectorEn": "Other Manufacturing"
     },
     {
       "symbol": "UEC",
@@ -7903,7 +7903,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "-",
       "subSector": "อุตสาหกรรมอื่นๆ",
-      "subSectorEn": "Other Industries"
+      "subSectorEn": "Other Manufacturing"
     },
     {
       "symbol": "UKEM",
@@ -7912,7 +7912,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "-",
       "subSector": "อุตสาหกรรมอื่นๆ",
-      "subSectorEn": "Other Industries"
+      "subSectorEn": "Other Manufacturing"
     },
     {
       "symbol": "UMI",
@@ -7930,7 +7930,7 @@
       "industry": "ทรัพยากร",
       "sector": "-",
       "subSector": "ทรัพยากร",
-      "subSectorEn": "Resources"
+      "subSectorEn": "Mining - Industrial Minerals"
     },
     {
       "symbol": "UNIQ",
@@ -7939,7 +7939,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "บริการรับเหมาก่อสร้าง",
       "subSector": "บริการรับเหมาก่อสร้าง",
-      "subSectorEn": "Construction Services"
+      "subSectorEn": "Construction Contractors"
     },
     {
       "symbol": "UOBKH",
@@ -7957,7 +7957,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "ปิโตรเคมีและเคมีภัณฑ์",
       "subSector": "ปิโตรเคมีและเคมีภัณฑ์",
-      "subSectorEn": "Petrochemicals & Chemicals"
+      "subSectorEn": "Olefins & Aromatics"
     },
     {
       "symbol": "UPF",
@@ -7966,7 +7966,7 @@
       "industry": "สินค้าอุปโภคบริโภค",
       "sector": "แฟชั่น",
       "subSector": "แฟชั่น",
-      "subSectorEn": "Fashion"
+      "subSectorEn": "Apparel - Intimate Wear"
     },
     {
       "symbol": "UPOIC",
@@ -7975,7 +7975,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "ธุรกิจการเกษตร",
       "subSector": "ธุรกิจการเกษตร",
-      "subSectorEn": "Agriculture Business"
+      "subSectorEn": "Agriculture & Plantation"
     },
     {
       "symbol": "UREKA",
@@ -7984,7 +7984,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "-",
       "subSector": "อุตสาหกรรมอื่นๆ",
-      "subSectorEn": "Other Industries"
+      "subSectorEn": "Other Manufacturing"
     },
     {
       "symbol": "UTP",
@@ -7993,7 +7993,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "กระดาษและวัสดุการพิมพ์",
       "subSector": "กระดาษและวัสดุการพิมพ์",
-      "subSectorEn": "Paper & Printing Materials"
+      "subSectorEn": "Paper & Pulp"
     },
     {
       "symbol": "UV",
@@ -8002,7 +8002,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "ที่ดินและอาคารพาณิชย์",
-      "subSectorEn": "Land & Commercial Buildings"
+      "subSectorEn": "Property Development - Mixed"
     },
     {
       "symbol": "UVAN",
@@ -8011,7 +8011,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "ธุรกิจการเกษตร",
       "subSector": "ธุรกิจการเกษตร",
-      "subSectorEn": "Agriculture Business"
+      "subSectorEn": "Agriculture & Plantation"
     },
     {
       "symbol": "VARO",
@@ -8029,7 +8029,7 @@
       "industry": "เทคโนโลยี",
       "sector": "-",
       "subSector": "เทคโนโลยี",
-      "subSectorEn": "Technology"
+      "subSectorEn": "IT Services - Software Development"
     },
     {
       "symbol": "VGI",
@@ -8038,7 +8038,7 @@
       "industry": "บริการ",
       "sector": "สื่อและสิ่งพิมพ์",
       "subSector": "สื่อและโฆษณา",
-      "subSectorEn": "Media & Advertising"
+      "subSectorEn": "Out-of-Home Advertising"
     },
     {
       "symbol": "VIBHA",
@@ -8047,7 +8047,7 @@
       "industry": "บริการ",
       "sector": "การแพทย์",
       "subSector": "การแพทย์",
-      "subSectorEn": "Healthcare"
+      "subSectorEn": "Hospitals - Network (General)"
     },
     {
       "symbol": "VIH",
@@ -8056,7 +8056,7 @@
       "industry": "บริการ",
       "sector": "การแพทย์",
       "subSector": "การแพทย์",
-      "subSectorEn": "Healthcare"
+      "subSectorEn": "Hospitals - Network (General)"
     },
     {
       "symbol": "VL",
@@ -8083,7 +8083,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "ธุรกิจการเกษตร",
       "subSector": "ธุรกิจการเกษตร",
-      "subSectorEn": "Agriculture Business"
+      "subSectorEn": "Agriculture & Plantation"
     },
     {
       "symbol": "VRANDA",
@@ -8092,7 +8092,7 @@
       "industry": "บริการ",
       "sector": "การท่องเที่ยวและสันทนาการ",
       "subSector": "การท่องเที่ยวและสันทนาการ",
-      "subSectorEn": "Tourism & Leisure"
+      "subSectorEn": "Hotels - Midscale & Budget"
     },
     {
       "symbol": "VS",
@@ -8110,7 +8110,7 @@
       "industry": "สินค้าอุปโภคบริโภค",
       "sector": "แฟชั่น",
       "subSector": "แฟชั่น",
-      "subSectorEn": "Fashion"
+      "subSectorEn": "Apparel - Intimate Wear"
     },
     {
       "symbol": "WARRIX",
@@ -8119,7 +8119,7 @@
       "industry": "สินค้าอุปโภคบริโภค",
       "sector": "-",
       "subSector": "สินค้าอุปโภคบริโภค",
-      "subSectorEn": "Consumer Products"
+      "subSectorEn": "Apparel - Sportswear"
     },
     {
       "symbol": "WASH",
@@ -8128,7 +8128,7 @@
       "industry": "บริการ",
       "sector": "-",
       "subSector": "ลอจิสติกส์",
-      "subSectorEn": "Logistics"
+      "subSectorEn": "Logistics - Warehousing"
     },
     {
       "symbol": "WAVE",
@@ -8137,7 +8137,7 @@
       "industry": "บริการ",
       "sector": "บริการเฉพาะกิจ",
       "subSector": "บริการเฉพาะกิจ",
-      "subSectorEn": "Specialized Services"
+      "subSectorEn": "Other Services"
     },
     {
       "symbol": "WELL",
@@ -8155,7 +8155,7 @@
       "industry": "สินค้าอุปโภคบริโภค",
       "sector": "แฟชั่น",
       "subSector": "แฟชั่น",
-      "subSectorEn": "Fashion"
+      "subSectorEn": "Apparel - Casual & Fashion"
     },
     {
       "symbol": "WGE",
@@ -8173,7 +8173,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "พัฒนาอสังหาริมทรัพย์",
       "subSector": "โครงการผสม",
-      "subSectorEn": "Mixed-Use Development"
+      "subSectorEn": "Waste & Environmental Services"
     },
     {
       "symbol": "WHABT",
@@ -8182,7 +8182,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
       "subSector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
-      "subSectorEn": "REITs & Property Trusts"
+      "subSectorEn": "Property Funds"
     },
     {
       "symbol": "WHAIR",
@@ -8191,7 +8191,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
       "subSector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
-      "subSectorEn": "REITs & Property Trusts"
+      "subSectorEn": "Industrial & Logistics REITs"
     },
     {
       "symbol": "WHART",
@@ -8200,7 +8200,7 @@
       "industry": "อสังหาริมทรัพย์และก่อสร้าง",
       "sector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
       "subSector": "กองทุนรวมอสังหาริมทรัพย์และกองทรัสต์เพื่อการลงทุนในอสังหาริมทรัพย์",
-      "subSectorEn": "REITs & Property Trusts"
+      "subSectorEn": "Industrial & Logistics REITs"
     },
     {
       "symbol": "WHAUP",
@@ -8209,7 +8209,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "พลังงานและสาธารณูปโภค",
-      "subSectorEn": "Energy & Utilities"
+      "subSectorEn": "Small Power Producers"
     },
     {
       "symbol": "WICE",
@@ -8218,7 +8218,7 @@
       "industry": "บริการ",
       "sector": "ขนส่งและโลจิสติกส์",
       "subSector": "ขนส่งและโลจิสติกส์",
-      "subSectorEn": "Transportation & Logistics"
+      "subSectorEn": "Logistics - Integrated"
     },
     {
       "symbol": "WIIK",
@@ -8254,7 +8254,7 @@
       "industry": "สินค้าอุปโภคบริโภค",
       "sector": "-",
       "subSector": "สินค้าอุปโภคบริโภค",
-      "subSectorEn": "Consumer Products"
+      "subSectorEn": "Medical Supplies & Devices"
     },
     {
       "symbol": "WINNER",
@@ -8263,7 +8263,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "-",
       "subSector": "เกษตรและอุตสาหกรรมอาหาร",
-      "subSectorEn": "Agriculture & Food Industry"
+      "subSectorEn": "Furniture Manufacturing"
     },
     {
       "symbol": "WORK",
@@ -8272,7 +8272,7 @@
       "industry": "บริการ",
       "sector": "สื่อและสิ่งพิมพ์",
       "subSector": "สื่อและสิ่งพิมพ์",
-      "subSectorEn": "Media & Publishing"
+      "subSectorEn": "Digital Media & Content"
     },
     {
       "symbol": "WP",
@@ -8281,7 +8281,7 @@
       "industry": "ทรัพยากร",
       "sector": "พลังงานและสาธารณูปโภค",
       "subSector": "พลังงานและสาธารณูปโภค",
-      "subSectorEn": "Energy & Utilities"
+      "subSectorEn": "Water & Waste Utilities"
     },
     {
       "symbol": "WPH",
@@ -8290,7 +8290,7 @@
       "industry": "บริการ",
       "sector": "การแพทย์",
       "subSector": "การแพทย์",
-      "subSectorEn": "Healthcare"
+      "subSectorEn": "Hospitals - Stand-alone"
     },
     {
       "symbol": "WSOL",
@@ -8299,7 +8299,7 @@
       "industry": "บริการ",
       "sector": "พาณิชย์",
       "subSector": "พาณิชย์",
-      "subSectorEn": "Commerce"
+      "subSectorEn": "Specialty Retail - Others"
     },
     {
       "symbol": "XBIO",
@@ -8362,7 +8362,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "-",
       "subSector": "อุตสาหกรรมอื่นๆ",
-      "subSectorEn": "Other Industries"
+      "subSectorEn": "Other Manufacturing"
     },
     {
       "symbol": "ZAA",
@@ -8380,7 +8380,7 @@
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "อาหารและเครื่องดื่ม",
       "subSector": "ร้านอาหาร",
-      "subSectorEn": "Restaurants"
+      "subSectorEn": "Restaurants - Casual Dining"
     },
     {
       "symbol": "ZIGA",
@@ -8389,7 +8389,7 @@
       "industry": "สินค้าอุตสาหกรรม",
       "sector": "-",
       "subSector": "อุตสาหกรรมอื่นๆ",
-      "subSectorEn": "Other Industries"
+      "subSectorEn": "Other Manufacturing"
     }
   ],
   "bySymbol": {
@@ -11819,8 +11819,8 @@
       "market": "SET",
       "industry": "เกษตรและอุตสาหกรรมอาหาร",
       "sector": "อาหารและเครื่องดื่ม",
-      "subSector": "เครื่องดื่ม",
-      "subSectorEn": "Beverages"
+      "subSector": "น้ำตาล",
+      "subSectorEn": "Sugar"
     },
     "KTB": {
       "symbol": "KTB",
@@ -17638,12 +17638,14 @@
       "CPNCG"
     ],
     "Beverages": [
-      "BRR",
       "CBG",
-      "KBS",
-      "KSL",
       "OSP",
       "SAPPE"
+    ],
+    "Sugar": [
+      "BRR",
+      "KBS",
+      "KSL"
     ],
     "Property Equipment": [
       "BTG",

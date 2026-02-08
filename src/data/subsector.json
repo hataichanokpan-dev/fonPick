@@ -1,0 +1,1226 @@
+{
+    "bySubSector": {
+        "Commercial Banks": [
+            "BAY",
+            "BBL",
+            "KBANK",
+            "KTB",
+            "SCB",
+            "TTB",
+            "CIMBT",
+            "KKP",
+            "LHFG"
+        ],
+        "Consumer Finance & Credit Cards": [
+            "AEONTS",
+            "KTC",
+            "TISCO",
+            "MITSIB"
+        ],
+        "Securities & Investment Banking": [
+            "ACAP",
+            "AF",
+            "ASN",
+            "BTC",
+            "GCAP",
+            "KCC",
+            "LIT",
+            "SGF",
+            "TCAP",
+            "TQR"
+        ],
+        "Asset Management": [
+            "AIRA",
+            "CREDIT",
+            "MFC",
+            "PRIN",
+            "TFG"
+        ],
+        "Life Insurance": [
+            "BLA",
+            "KWI",
+            "MTI",
+            "THREL",
+            "TLI"
+        ],
+        "Non-Life Insurance": [
+            "BKI",
+            "CHARAN",
+            "NKI",
+            "SMK",
+            "TGH",
+            "THANI",
+            "TIP",
+            "TQM",
+            "TSI"
+        ],
+        "Integrated Oil & Gas": [
+            "PTT",
+            "BCP",
+            "TOP"
+        ],
+        "Oil & Gas Exploration": [
+            "PTTEP",
+            "BANPU"
+        ],
+        "Oil Refining": [
+            "SPRC",
+            "IRPC"
+        ],
+        "Gas Stations & Distribution": [
+            "PTG",
+            "SUSCO",
+            "OR",
+            "SEAOIL",
+            "TAE"
+        ],
+        "Coal & Natural Resources": [
+            "BANPU"
+        ],
+        "Integrated Petrochemicals": [
+            "PTTGC",
+            "GC",
+            "IVL",
+            "SCG"
+        ],
+        "Olefins & Aromatics": [
+            "GGC",
+            "RPC",
+            "TPA",
+            "UP"
+        ],
+        "Specialty Chemicals": [
+            "BCT",
+            "CMAN",
+            "NFC",
+            "PATO",
+            "PMTA",
+            "SGP",
+            "SSP",
+            "SUTHA",
+            "UAC"
+        ],
+        "Independent Power Producers": [
+            "BGRIM",
+            "GULF",
+            "RATCH",
+            "EGCO",
+            "BPP",
+            "GPSC",
+            "TPIPP",
+            "MDX"
+        ],
+        "Renewable Energy": [
+            "EA",
+            "SUPER",
+            "BCPG",
+            "GUNKUL",
+            "SPCG",
+            "ACE",
+            "AGE",
+            "GREEN",
+            "ATLAS",
+            "BAFS",
+            "BBGI",
+            "BIOTEC",
+            "EP",
+            "ETC",
+            "NOVA",
+            "PRIME",
+            "SCN",
+            "SKE",
+            "TGE",
+            "UBE"
+        ],
+        "Small Power Producers": [
+            "ACC",
+            "AE",
+            "AI",
+            "AIE",
+            "CKP",
+            "CV",
+            "WHAUP",
+            "WP"
+        ],
+        "Energy Infrastructure Funds": [
+            "BRRGIF",
+            "EGATIF",
+            "KBSPIF",
+            "SUPEREIF",
+            "TFFIF"
+        ],
+        "Water & Waste Utilities": [
+            "EASTW",
+            "TTW",
+            "WP",
+            "CV"
+        ],
+        "Natural Gas Distribution": [
+            "GPSC",
+            "TCC"
+        ],
+        "Cement": [
+            "SCC",
+            "SCCC",
+            "TPIPL"
+        ],
+        "Construction Materials": [
+            "CCP",
+            "DCC",
+            "DCON",
+            "DRT",
+            "EPG",
+            "GEL",
+            "PPP",
+            "Q-CON",
+            "SCP",
+            "SCGD",
+            "SKN",
+            "STECH",
+            "TASCO",
+            "TOA",
+            "UMI",
+            "VNG",
+            "WIIK",
+            "WINDOW"
+        ],
+        "Steel Producers": [
+            "TISCO",
+            "MILL",
+            "SMPC"
+        ],
+        "Steel & Metal Trading": [
+            "2S",
+            "GSTEEL",
+            "TSTH"
+        ],
+        "Construction Contractors": [
+            "CK",
+            "CKP",
+            "ITD",
+            "SRICHA",
+            "SNC",
+            "STEC",
+            "SYNTEC",
+            "UNIQ"
+        ],
+        "Property Development - Mass Market": [
+            "AP",
+            "LPN",
+            "QH",
+            "SIRI",
+            "SPALI"
+        ],
+        "Property Development - Mid-High End": [
+            "ANANDA",
+            "NOBLE",
+            "ORIGIN",
+            "PEACE",
+            "PRUKSA",
+            "PS",
+            "PSH",
+            "SC",
+            "SENA"
+        ],
+        "Property Development - Luxury": [
+            "GRAND",
+            "MJD",
+            "PACE",
+            "PF",
+            "RICHY",
+            "ROJNA"
+        ],
+        "Property Development - Mixed": [
+            "A",
+            "A5",
+            "AMATAV",
+            "BLAND",
+            "BRI",
+            "CGD",
+            "CI",
+            "CMC",
+            "ESTAR",
+            "FPT",
+            "JCK",
+            "KC",
+            "KUN",
+            "LALIN",
+            "LH",
+            "MBK",
+            "MCA",
+            "NCH",
+            "NVD",
+            "ORI",
+            "PIN",
+            "PLAT",
+            "PRECHA",
+            "PROUD",
+            "RML",
+            "S",
+            "SA",
+            "SAMCO",
+            "STELLA",
+            "TITLE",
+            "TNDT",
+            "TPL",
+            "TWPC",
+            "UV",
+            "ORN"
+        ],
+        "Industrial Estate Developers": [
+            "AMATA",
+            "AMATAV",
+            "HEMARAJ",
+            "IIG",
+            "PIN",
+            "WHA"
+        ],
+        "Office Buildings": [
+            "ALL",
+            "BRI",
+            "GLAND",
+            "J",
+            "NNCL",
+            "RABBIT"
+        ],
+        "Shopping Malls & Retail Property": [
+            "CPN",
+            "CENTRAL",
+            "ROBINSON"
+        ],
+        "Retail REITs": [
+            "CPNREIT",
+            "CPTREIT",
+            "MJLF",
+            "TLHPF",
+            "BAREIT"
+        ],
+        "Office REITs": [
+            "FTREIT",
+            "GVREIT",
+            "KPNREIT",
+            "INETREIT"
+        ],
+        "Industrial & Logistics REITs": [
+            "DREIT",
+            "GROREIT",
+            "LHRREIT",
+            "WHAIR",
+            "WHART"
+        ],
+        "Hotel REITs": [
+            "GAHREIT",
+            "LHHOTEL",
+            "QHBREIT",
+            "QHHRREIT"
+        ],
+        "Property Funds": [
+            "ALLY",
+            "AMATAR",
+            "AXTRART",
+            "CTARAF",
+            "FUTURERT",
+            "HPF",
+            "ISSARA",
+            "KTBSTMR",
+            "LUXF",
+            "M-PAT",
+            "M-STOR",
+            "MII",
+            "MIPF",
+            "MJLF",
+            "MNIT",
+            "MNIT2",
+            "MNRF",
+            "POPF",
+            "PROSPECT",
+            "QHOP",
+            "SIRIPRT",
+            "SPRIME",
+            "SRIPANWA",
+            "SSPF",
+            "SSTRT",
+            "TIF1",
+            "TLHPF",
+            "TNPF",
+            "TPRIME",
+            "TTLPF",
+            "TU-PF",
+            "WHABT"
+        ],
+        "Office Funds": [
+            "AIMCG",
+            "BOFFICE",
+            "B-WORK",
+            "CPNCG"
+        ],
+        "Infrastructure Funds": [
+            "AIMIRT",
+            "HYDROGEN",
+            "IMPACT"
+        ],
+        "Residential Funds": [
+            "LHSC"
+        ],
+        "Automotive Assembly": [
+            "AH",
+            "HMC",
+            "PCSGH",
+            "SAT",
+            "TMT"
+        ],
+        "Automotive Parts - Tier 1": [
+            "IRC",
+            "SPG",
+            "STANLY",
+            "TKT",
+            "TSC"
+        ],
+        "Automotive Parts - Tier 2 & Components": [
+            "ACG",
+            "CWT",
+            "EASON",
+            "GYT",
+            "HFT",
+            "IHL",
+            "INGRS",
+            "MGC",
+            "NEX",
+            "POLY",
+            "SAWANG",
+            "TNPC",
+            "TRU"
+        ],
+        "Automotive Dealers & Services": [
+            "DITTO",
+            "NEX",
+            "RWI"
+        ],
+        "Tires & Rubber Products": [
+            "TRUBB",
+            "STA"
+        ],
+        "Electronic Components": [
+            "CCET",
+            "DELTA",
+            "HANA",
+            "KCE",
+            "METCO",
+            "SMT",
+            "SVI",
+            "TEAM"
+        ],
+        "Electronics Manufacturing Services": [
+            "DELTA",
+            "KCE",
+            "SVI"
+        ],
+        "Semiconductors": [
+            "HANA",
+            "KCE"
+        ],
+        "Hard Disk Drive Components": [
+            "SVI",
+            "TEAM"
+        ],
+        "Integrated Poultry": [
+            "CPF",
+            "GFPT",
+            "TFM"
+        ],
+        "Shrimp & Seafood": [
+            "APURE",
+            "CPF",
+            "SEAFCO",
+            "TU"
+        ],
+        "Animal Feed": [
+            "CPF",
+            "GFPT",
+            "NER",
+            "PPPM",
+            "TEGH",
+            "UPOIC"
+        ],
+        "Palm Oil": [
+            "LST",
+            "TC",
+            "UVAN",
+            "KTIS"
+        ],
+        "Vegetable Oil": [
+            "CFRESH",
+            "CPI",
+            "TVO"
+        ],
+        "Sugar": [
+            "BRR",
+            "KBS",
+            "KSL"
+        ],
+        "Rubber": [
+            "LEE",
+            "PCE",
+            "SMO",
+            "TL",
+            "VPO"
+        ],
+        "Agriculture & Plantation": [
+            "COCOCO",
+            "GFPT",
+            "LEE",
+            "NER",
+            "OKJ",
+            "PCE",
+            "PPPM",
+            "SMO",
+            "STA",
+            "TEGH",
+            "TL",
+            "TRUBB",
+            "UPOIC",
+            "UVAN",
+            "VPO"
+        ],
+        "Processed Food - Ready to Eat": [
+            "CPF",
+            "GFPT",
+            "ICHI",
+            "RBF",
+            "SNP",
+            "TU"
+        ],
+        "Processed Food - Frozen": [
+            "PB",
+            "SAUCE",
+            "SST"
+        ],
+        "Seasoning & Sauces": [
+            "CHAO",
+            "FM",
+            "NRF",
+            "SAUCE",
+            "UFC"
+        ],
+        "Instant Noodles": [
+            "TFMAMA"
+        ],
+        "Snack Food": [
+            "JDF",
+            "M",
+            "MADAME",
+            "MALEE",
+            "NSL",
+            "PRG",
+            "SNNP",
+            "SORKON",
+            "SSF",
+            "TKN"
+        ],
+        "Bakery Products": [
+            "CM",
+            "F&D"
+        ],
+        "Beverages - Carbonated": [
+            "CBG",
+            "OSP"
+        ],
+        "Beverages - Non-Carbonated": [
+            "SAPPE",
+            "TIPCO"
+        ],
+        "Dairy Products": [
+            "CBG",
+            "CPF",
+            "CHAO"
+        ],
+        "Hypermarkets": [
+            "MAKRO"
+        ],
+        "Supermarkets": [
+            "BJC",
+            "CPALL"
+        ],
+        "Convenience Stores": [
+            "CPALL",
+            "CPAXT",
+            "CPW"
+        ],
+        "Home Improvement Retail": [
+            "DOHOME",
+            "HMPRO",
+            "GLOBAL",
+            "SPC",
+            "MEGA"
+        ],
+        "Department Stores": [
+            "BJC",
+            "CENTRAL",
+            "CRC",
+            "ROBINSON",
+            "MK"
+        ],
+        "Specialty Retail - Fashion & Beauty": [
+            "BEAUTY",
+            "FN",
+            "ICC",
+            "JASPAL",
+            "KAMART",
+            "MC",
+            "RS",
+            "RSP",
+            "SVT"
+        ],
+        "Specialty Retail - Electronics & IT": [
+            "COM7",
+            "IT",
+            "JMT",
+            "POWER"
+        ],
+        "Specialty Retail - Books & Media": [
+            "B52",
+            "SE-ED"
+        ],
+        "Specialty Retail - Others": [
+            "ADVICE",
+            "BIG",
+            "CSS",
+            "ILM",
+            "LOXLEY",
+            "MIDA",
+            "MOSHI",
+            "MRDIYT",
+            "SCM",
+            "SPI",
+            "TAN",
+            "WSOL"
+        ],
+        "E-Commerce & Online Retail": [
+            "BIZ",
+            "COM7",
+            "JD",
+            "MTC"
+        ],
+        "Direct Selling & MLM": [
+            "DTCI",
+            "JMART",
+            "UNIF"
+        ],
+        "Wholesale - Food & Beverage": [
+            "MAKRO",
+            "SIAM"
+        ],
+        "Wholesale & Trading - Industrial": [
+            "AAI",
+            "HTC",
+            "LOXLEY",
+            "PLUS",
+            "PM",
+            "PQS"
+        ],
+        "Apparel - Intimate Wear": [
+            "SABINA",
+            "WACOAL",
+            "LANDA",
+            "TTI",
+            "TTT",
+            "UPF"
+        ],
+        "Apparel - Sportswear": [
+            "WARRIX",
+            "BGT"
+        ],
+        "Apparel - Casual & Fashion": [
+            "AFC",
+            "AURA",
+            "BTNC",
+            "CPH",
+            "CPL",
+            "NC",
+            "PAF",
+            "PDJ",
+            "PG",
+            "SUC",
+            "TR",
+            "WFX"
+        ],
+        "Footwear": [
+            "JASPAL"
+        ],
+        "Jewelry & Accessories": [
+            "JUBILE"
+        ],
+        "Personal Care & Cosmetics": [
+            "88TH",
+            "BEAUTY",
+            "BSM",
+            "EFORL",
+            "EURO",
+            "FVC",
+            "HPT",
+            "ILM",
+            "ITTHI",
+            "JSP",
+            "KAMART",
+            "LTS",
+            "MGI",
+            "SKIN",
+            "SEI",
+            "WINMED"
+        ],
+        "Household & Consumer Products": [
+            "BGT",
+            "DOD",
+            "ECF",
+            "MOONG",
+            "NUT",
+            "SMD100",
+            "TM"
+        ],
+        "Furniture & Home Decor": [
+            "BTG",
+            "HMPRO",
+            "INDEX",
+            "MODERNFORM",
+            "MOONG",
+            "WINNER"
+        ],
+        "Pet Products": [
+            "ECF",
+            "PERFECT"
+        ],
+        "Hospitals - Network (General)": [
+            "BDMS",
+            "BH",
+            "CHG",
+            "VIBHA",
+            "VIH"
+        ],
+        "Hospitals - Stand-alone": [
+            "AHC",
+            "BCH",
+            "BKGI",
+            "CMR",
+            "EKH",
+            "HANN",
+            "HEALTH",
+            "HL",
+            "IMH",
+            "KDH",
+            "LPH",
+            "M-CHAI",
+            "NEW",
+            "NKT",
+            "NTV",
+            "PHG",
+            "PR9",
+            "PRINC",
+            "RAM",
+            "RJH",
+            "RPH",
+            "SAFE",
+            "SKR",
+            "THG",
+            "TNH",
+            "WPH"
+        ],
+        "Dental & Specialty Clinics": [
+            "AHC",
+            "KLINIQ",
+            "MASTER",
+            "MEDEZE"
+        ],
+        "Healthcare Services": [
+            "BDMS",
+            "IVF",
+            "KGEN",
+            "PEER"
+        ],
+        "Pharmaceuticals": [
+            "2C",
+            "GPO",
+            "OPG",
+            "SYNEX",
+            "TPBI"
+        ],
+        "Medical Supplies & Devices": [
+            "LP",
+            "NPK",
+            "WINMED"
+        ],
+        "Hotels - Luxury & Upscale": [
+            "CENTEL",
+            "DH",
+            "DRT",
+            "ERW",
+            "GRAND",
+            "MANRIN",
+            "MINT"
+        ],
+        "Hotels - Midscale & Budget": [
+            "CENTEL",
+            "CSR",
+            "HOTPOT",
+            "VRANDA"
+        ],
+        "Hotels - Resort": [
+            "LAGUNA",
+            "PHUKET",
+            "SHANG"
+        ],
+        "Restaurants - Fast Food & QSR": [
+            "CHOW",
+            "F&D",
+            "MK"
+        ],
+        "Restaurants - Casual Dining": [
+            "CM",
+            "MINOR",
+            "ZEN"
+        ],
+        "Coffee Shops": [
+            "COFFEE",
+            "GENIUS"
+        ],
+        "Airlines": [
+            "AAV",
+            "ANI",
+            "BA",
+            "NOK",
+            "THAI"
+        ],
+        "Airports": [
+            "AOT",
+            "U-CITY"
+        ],
+        "Highways & Toll Roads": [
+            "BEM",
+            "CHEWA"
+        ],
+        "Mass Transit": [
+            "BEM",
+            "BTS",
+            "BTSGIF",
+            "DMT"
+        ],
+        "Ports & Terminals": [
+            "ASIMAR",
+            "KIAT",
+            "MENA",
+            "PORT",
+            "PSL",
+            "PRM",
+            "SAV",
+            "SJWD"
+        ],
+        "Logistics - Integrated": [
+            "B",
+            "III",
+            "KERRY",
+            "KWG",
+            "LEO",
+            "GLORY",
+            "KTMS",
+            "MPJ",
+            "NCL",
+            "NYT",
+            "RP",
+            "RCL",
+            "SINO",
+            "TPCH",
+            "TRP",
+            "TURTLE",
+            "WICE"
+        ],
+        "Logistics - Freight Forwarding": [
+            "ETL",
+            "KWC",
+            "SINO",
+            "TTA"
+        ],
+        "Logistics - Warehousing": [
+            "CHOTI",
+            "LDC",
+            "TURTLE",
+            "WASH"
+        ],
+        "Logistics - Cold Chain": [
+            "CHOTI"
+        ],
+        "Logistics - Courier & Express": [
+            "KERRY",
+            "TPCH"
+        ],
+        "Shipping": [
+            "PSL",
+            "RCL",
+            "TSTE",
+            "TTA"
+        ],
+        "Telecommunications - Mobile": [
+            "ADVANC",
+            "TRUE"
+        ],
+        "Telecommunications - Fixed Line": [
+            "JAS",
+            "TRUE"
+        ],
+        "Telecommunications - Infrastructure": [
+            "3BBIF",
+            "JASIF",
+            "NAT",
+            "SRICHA"
+        ],
+        "Digital Infrastructure & Data Centers": [
+            "AIT",
+            "DIF",
+            "DTCENT",
+            "GULF",
+            "INETREIT"
+        ],
+        "Satellite": [
+            "THCOM"
+        ],
+        "Broadcasting - TV & Radio": [
+            "BEC",
+            "GRAMMY",
+            "MONO",
+            "NATION",
+            "RS",
+            "TVDH",
+            "TVT"
+        ],
+        "Publishing": [
+            "MORE",
+            "NATION",
+            "POST",
+            "SE-ED"
+        ],
+        "Digital Media & Content": [
+            "PLANB",
+            "VGI",
+            "WORK"
+        ],
+        "Out-of-Home Advertising": [
+            "MACO",
+            "PLANB",
+            "VGI"
+        ],
+        "Digital Advertising & Marketing": [
+            "ADVANC",
+            "MATCH",
+            "PLANB",
+            "READY"
+        ],
+        "Advertising Production": [
+            "DV8",
+            "FVC",
+            "GFC",
+            "GRAMMY",
+            "QLT",
+            "SPTX"
+        ],
+        "Entertainment & Events": [
+            "DV8",
+            "FVC",
+            "GRAMMY",
+            "QLT",
+            "RS"
+        ],
+        "IT Services - System Integration": [
+            "AIT",
+            "FORTH",
+            "HUMAN",
+            "INET",
+            "SAMART",
+            "SINGER",
+            "SVI",
+            "SYNEX"
+        ],
+        "IT Services - Software Development": [
+            "ADVICE",
+            "APP",
+            "BE8",
+            "BVG",
+            "COMAN",
+            "I2",
+            "IDG",
+            "INSET",
+            "IRCP",
+            "ITNS",
+            "JMART",
+            "MSC",
+            "NETBAY",
+            "PIS",
+            "PLANET",
+            "PLATINUM",
+            "PROEN",
+            "READY",
+            "SCI",
+            "SECURE",
+            "SICT",
+            "SIMAT",
+            "SKY",
+            "SPVI",
+            "SRS",
+            "SVOA",
+            "SYNEX",
+            "TBN",
+            "TERA",
+            "THCOM",
+            "TPS",
+            "TSTE",
+            "VCOM",
+            "WAVE"
+        ],
+        "IT Services - Consulting": [
+            "DEXON",
+            "ETE",
+            "ITEL",
+            "SAMART"
+        ],
+        "IT Services - Data Center & Cloud": [
+            "ADVANC",
+            "AIT",
+            "ITEL"
+        ],
+        "Fintech - Payment & Digital Banking": [
+            "AEONTS",
+            "FETCO",
+            "FSMART",
+            "KTC",
+            "MVP",
+            "TIDLOR",
+            "THMUI"
+        ],
+        "E-Commerce Platform & Marketplace": [
+            "BIZ",
+            "COM7",
+            "JMART"
+        ],
+        "Software as a Service (SaaS)": [
+            "APP",
+            "FSMART",
+            "JMART",
+            "THMUI"
+        ],
+        "Gaming & Digital Entertainment": [
+            "ASAP"
+        ],
+        "Cyber Security": [
+            "SECURE"
+        ],
+        "Business Process Outsourcing": [
+            "AIT",
+            "SAMART",
+            "TEAMG"
+        ],
+        "Telecommunications Equipment": [
+            "ALT",
+            "AMR",
+            "BBIK",
+            "BLISS",
+            "DITTO",
+            "GABLE",
+            "ICN",
+            "ILINK",
+            "INET",
+            "INSET",
+            "ITEL",
+            "JTS",
+            "MFEC",
+            "MSC",
+            "NWR",
+            "SAMART",
+            "SCI",
+            "SINGER",
+            "SKY",
+            "SVOA",
+            "SYNEX",
+            "TEAMG",
+            "THCOM",
+            "THREE",
+            "TKS",
+            "TMN",
+            "TNL",
+            "TPOLY",
+            "TSR",
+            "TWZ",
+            "VI"
+        ],
+        "Education - Higher Education": [
+            "INTUCH",
+            "SE-ED"
+        ],
+        "Education - K-12": [
+            "SE-ED",
+            "SISB"
+        ],
+        "Education - Vocational": [
+            "BLC"
+        ],
+        "Education - Online": [
+            "SE-ED"
+        ],
+        "Professional Services - HR & Recruitment": [
+            "MANPOWER",
+            "TEAMG"
+        ],
+        "Professional Services - Consulting": [
+            "ADVICE"
+        ],
+        "Security Services": [
+            "ALL",
+            "SECURE"
+        ],
+        "Facilities Management": [
+            "ALL",
+            "BWG",
+            "GENCO"
+        ],
+        "Waste & Environmental Services": [
+            "DEMCO",
+            "WHA"
+        ],
+        "Other Services": [
+            "ADD",
+            "AKP",
+            "AMARC",
+            "ARIP",
+            "ATP30",
+            "BIS",
+            "BOL",
+            "KK",
+            "KOOL",
+            "MEB",
+            "MOTHER",
+            "PRTR",
+            "SO",
+            "TNP",
+            "UBA",
+            "WAVE"
+        ],
+        "Paper & Pulp": [
+            "TPAC",
+            "UTP"
+        ],
+        "Packaging - Paper Based": [
+            "SCP",
+            "TPAC"
+        ],
+        "Packaging - Plastic": [
+            "PACO",
+            "PIMO",
+            "TPBI"
+        ],
+        "Packaging - Flexible": [
+            "TPAC"
+        ],
+        "Printing & Publishing Services": [
+            "NTV",
+            "SE-ED"
+        ],
+        "Textiles & Fabrics": [
+            "BTNC",
+            "FAIRY",
+            "IRC",
+            "L&E",
+            "SAF",
+            "SINGER"
+        ],
+        "Furniture Manufacturing": [
+            "INDEX",
+            "MODERNFORM",
+            "WINNER"
+        ],
+        "Plastics & Resins": [
+            "AKP",
+            "PATO",
+            "TPLAS"
+        ],
+        "Glass & Ceramics": [
+            "GEL"
+        ],
+        "Industrial Machinery & Equipment": [
+            "SALEE",
+            "TMC",
+            "TMI"
+        ],
+        "Tools, Dies & Molds": [
+            "STANLY"
+        ],
+        "Electrical Equipment": [
+            "DELTA",
+            "SIMAT"
+        ],
+        "Cables & Wires": [
+            "CABLE",
+            "THAI"
+        ],
+        "Batteries & Energy Storage": [
+            "3K-BAT",
+            "GBS",
+            "YUASA"
+        ],
+        "Solar Equipment": [
+            "SPCG",
+            "SOLAR"
+        ],
+        "HVAC Equipment": [
+            "DAIKIN",
+            "SAIJO"
+        ],
+        "Elevators & Escalators": [
+            "MITCON"
+        ],
+        "Mining - Gold & Precious Metals": [
+            "ALPHAX",
+            "GTV"
+        ],
+        "Mining - Industrial Minerals": [
+            "ABM",
+            "PSTC",
+            "PTC",
+            "SAAM",
+            "SR",
+            "STOWER",
+            "TAKUNI",
+            "TPCH",
+            "UMS"
+        ],
+        "Other Manufacturing": [
+            "ADB",
+            "BM",
+            "BPS",
+            "CHO",
+            "CHOW",
+            "CIG",
+            "COLOR",
+            "CPR",
+            "FPI",
+            "KCM",
+            "MBAX",
+            "MGT",
+            "MTW",
+            "NDR",
+            "PDG",
+            "PHOL",
+            "PMC",
+            "PPM",
+            "PRAPAT",
+            "SANKO",
+            "SFT",
+            "TATG",
+            "TMW",
+            "TPLAS",
+            "TRT",
+            "TRV",
+            "UBIS",
+            "UEC",
+            "UKEM",
+            "UREKA",
+            "YUASA",
+            "ZIGA"
+        ]
+    }
+}
