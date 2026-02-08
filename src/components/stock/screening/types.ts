@@ -234,23 +234,46 @@ export interface MetricResult<T = number | string> {
 // ============================================================================
 
 /**
- * Entry plan for trading
+ * Signal alignment status
+ */
+export type SignalAlignmentStatus = 'strong' | 'partial' | 'conflict' | 'neutral'
+
+/**
+ * Signal alignment data
+ */
+export interface SignalAlignment {
+  technicalScore: number
+  technicalMaxScore: number
+  valueScore: number
+  valueMaxScore: number
+  status: SignalAlignmentStatus
+  recommendation: string
+}
+
+/**
+ * Entry plan for trading (enhanced with dual-perspective)
  */
 export interface EntryPlan {
   buyAt: {
     price: number
     discountFromCurrent?: number
     rationale: string
+    technicalRationale?: string
+    valueRationale?: string
   }
   stopLoss: {
     price: number
     percentageFromBuy: number
     rationale: string
+    technicalSL?: number
+    valueSL?: number
   }
   target: {
     price: number
     percentageFromBuy: number
     rationale: string
+    technicalTarget?: number
+    valueTarget?: number
   }
   positionSize: {
     percentage: number
@@ -258,9 +281,24 @@ export interface EntryPlan {
   }
   riskReward: {
     ratio: string  // e.g., "1:3"
-    calculation: string
+    calculation?: string
+    riskAmount?: number
+    rewardAmount?: number
   }
   timeHorizon: string
+  signalAlignment?: SignalAlignment
+}
+
+/**
+ * Valuation targets from Alpha API
+ */
+export interface ValuationTargets {
+  intrinsicValue: number  // มูลค่าตามหลักการณ์
+  lowForecast: number     // คาดการณ์ต่ำสุด
+  avgForecast: number     // คาดการณ์เฉลี่ย - PRIMARY
+  highForecast: number    // คาดการณ์สูงสุด
+  dcfValue: number        // มูลค่า DCF
+  relativeValue?: number
 }
 
 // ============================================================================
@@ -382,9 +420,17 @@ export interface DecisionBadgeProps {
  * Entry plan card component props
  */
 export interface EntryPlanCardProps {
-  entryPlan: EntryPlan
-  currentPrice: number
+  entryPlan: EntryPlan | null
+  currentPrice: number | null
   locale?: 'en' | 'th'
+  valuationTargets?: ValuationTargets
+  technicalData?: {
+    support1?: number | null
+    resistance1?: number | null
+    rsi?: number | null
+  }
+  technicalScoreData?: TechnicalScoreData
+  valueScoreData?: ValueGrowthScoreData
   className?: string
 }
 

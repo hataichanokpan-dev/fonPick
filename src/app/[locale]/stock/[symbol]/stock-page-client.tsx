@@ -34,12 +34,14 @@ import {
   Layer3ValueGrowth,
   Layer4Technical,
   EntryPlanCard,
-  calculateEntryPlan,
 } from "@/components/stock/screening";
 import {
   calculateScreeningScore,
   type ScreeningInputData,
 } from "@/components/stock/screening/utils/score-calculator";
+import {
+  calculateEntryPlan,
+} from "@/lib/entry-plan-calculator";
 import { AIInsightsCard } from "@/components/stock/screening/AIInsightsCard";
 import { QualityScreenDialog } from "@/components/stock/screening/QualityScreenDialog";
 import {
@@ -386,6 +388,35 @@ export function StockPageClient({ symbol, children }: StockPageClientProps) {
     setExpandedLayers({ 1: false, 2: false, 3: false, 4: false });
   };
 
+  // Calculate entry plan with hybrid technical + value approach
+  // MUST be before early returns to follow Rules of Hooks
+  const entryPlan = useMemo(() => {
+    if (!data || !data.screening || !data.overview || !data.statistics) return null;
+
+    const screening = screeningWithAI || data.screening;
+    const { overview, statistics, alpha } = data;
+
+    // Get RSI from statistics
+    const rsi = statistics.rsi ?? undefined;
+
+    return calculateEntryPlan({
+      currentPrice: overview.price || null,
+      support1: srLevels?.support ?? undefined,
+      support2: undefined,
+      resistance1: srLevels?.resistance ?? undefined,
+      resistance2: undefined,
+      rsi,
+      atr: undefined,
+      screeningScore: screening.totalScore,
+      valuationTargets: alpha ? {
+        intrinsicValue: alpha.IntrinsicValue,
+        avgForecast: alpha.AvgForecast,
+        highForecast: alpha.HighForecast,
+        dcfValue: alpha.DCFValue,
+      } : undefined,
+    });
+  }, [data, screeningWithAI, srLevels]);
+
   // Loading state
   if (isLoading) {
     return <StockPageSkeleton />;
@@ -424,20 +455,7 @@ export function StockPageClient({ symbol, children }: StockPageClientProps) {
   }
 
   const { overview, statistics, alpha } = data;
-
-  // Use screening with AI score (or fallback to original screening)
   const screening = screeningWithAI || data.screening;
-
-  // Calculate entry plan with support/resistance from 3-Year History
-  const entryPlan =
-    screening && overview && statistics && srLevels
-      ? calculateEntryPlan(
-          overview.price,
-          srLevels.support ?? overview.price * 0.95, // Use calculated support from 3-Year History
-          srLevels.resistance ?? alpha?.AvgForecast ?? overview.price * 1.15, // Use calculated resistance from 3-Year History
-          screening.decision,
-        )
-      : null;
 
   return (
     <>
@@ -652,12 +670,26 @@ export function StockPageClient({ symbol, children }: StockPageClientProps) {
                 />
 
                 {/* Entry Plan */}
-                {entryPlan && overview && screening.decision !== "PASS" && (
-                  <EntryPlanCard
-                    entryPlan={entryPlan}
-                    currentPrice={overview.price}
-                  />
-                )}
+                <EntryPlanCard
+                  entryPlan={entryPlan}
+                  currentPrice={overview?.price ?? null}
+                  locale={locale}
+                  valuationTargets={alpha ? {
+                    intrinsicValue: alpha.IntrinsicValue,
+                    lowForecast: alpha.LowForecast,
+                    avgForecast: alpha.AvgForecast,
+                    highForecast: alpha.HighForecast,
+                    dcfValue: alpha.DCFValue,
+                    relativeValue: alpha.RelativeValue,
+                  } : undefined}
+                  technicalData={{
+                    support1: srLevels?.support ?? undefined,
+                    resistance1: srLevels?.resistance ?? undefined,
+                    rsi: statistics?.rsi ?? undefined,
+                  }}
+                  technicalScoreData={screening?.layers.technical}
+                  valueScoreData={screening?.layers.valueGrowth}
+                />
               </div>
             </div>
           </div>

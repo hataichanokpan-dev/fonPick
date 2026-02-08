@@ -163,7 +163,6 @@ export {
 
 export {
   EntryPlanCard,
-  calculateEntryPlan,
 } from './EntryPlanCard'
 
 // ============================================================================
