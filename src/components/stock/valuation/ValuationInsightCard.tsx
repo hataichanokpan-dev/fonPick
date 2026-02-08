@@ -162,7 +162,7 @@ export function ValuationInsightCard({ band, metric, className }: ValuationInsig
 
       {/* SECONDARY: Context row - 3 columns grid */}
       {showSecondary && (
-        <div className="grid grid-cols-3 gap-2">
+        <div className="grid lg:grid-cols-3 gap-2">
           {/* Max Upside / Max Downside */}
           {((isUndervalued && upsideToPlus1SD > 0) || (isOvervalued && downsideToMinus1SD > 0)) && (
             <div className="text-center p-2 sm:p-3 rounded-lg bg-surface-3/50">
@@ -172,7 +172,7 @@ export function ValuationInsightCard({ band, metric, className }: ValuationInsig
                   : (isUndervalued ? 'Max Upside' : 'Max Downside')
                 }
               </div>
-              <div className="font-semibold tabular-nums text-sm sm:text-base">
+              <div className="font-semibold tabular-nums text-sm sm:text-xs text-text-primary">
                 {isUndervalued
                   ? `+${upsideToPlus1SD.toFixed(1)}%`
                   : `-${downsideToMinus1SD.toFixed(1)}%`
@@ -187,7 +187,7 @@ export function ValuationInsightCard({ band, metric, className }: ValuationInsig
               <div className="text-xs text-text-3 mb-1 text-text-secondary  ">
                 {isThai ? 'ระดับ' : 'Percentile'}
               </div>
-              <div className="font-semibold tabular-nums text-sm sm:text-base text-text-primary">
+              <div className="font-semibold tabular-nums text-sm sm:text-xs text-text-primary">
                 {currentPercentile.toFixed(0)}{isThai ? 'th' : 'th'}
               </div>
             </div>
