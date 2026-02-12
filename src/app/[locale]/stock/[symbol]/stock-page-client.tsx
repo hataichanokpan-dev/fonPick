@@ -33,15 +33,13 @@ import {
   Layer2Quality,
   Layer3ValueGrowth,
   Layer4Technical,
-  EntryPlanCard,
+  EntryPlanCardCompact, // New v2 with data quality
 } from "@/components/stock/screening";
 import {
   calculateScreeningScore,
   type ScreeningInputData,
 } from "@/components/stock/screening/utils/score-calculator";
-import {
-  calculateEntryPlan,
-} from "@/lib/entry-plan-calculator";
+import { calculateEntryPlan } from "@/lib/entry-plan-calculator";
 import { AIInsightsCard } from "@/components/stock/screening/AIInsightsCard";
 import { QualityScreenDialog } from "@/components/stock/screening/QualityScreenDialog";
 import {
@@ -391,7 +389,8 @@ export function StockPageClient({ symbol, children }: StockPageClientProps) {
   // Calculate entry plan with hybrid technical + value approach
   // MUST be before early returns to follow Rules of Hooks
   const entryPlan = useMemo(() => {
-    if (!data || !data.screening || !data.overview || !data.statistics) return null;
+    if (!data || !data.screening || !data.overview || !data.statistics)
+      return null;
 
     const screening = screeningWithAI || data.screening;
     const { overview, statistics, alpha } = data;
@@ -408,12 +407,14 @@ export function StockPageClient({ symbol, children }: StockPageClientProps) {
       rsi,
       atr: undefined,
       screeningScore: screening.totalScore,
-      valuationTargets: alpha ? {
-        intrinsicValue: alpha.IntrinsicValue,
-        avgForecast: alpha.AvgForecast,
-        highForecast: alpha.HighForecast,
-        dcfValue: alpha.DCFValue,
-      } : undefined,
+      valuationTargets: alpha
+        ? {
+            intrinsicValue: alpha.IntrinsicValue,
+            avgForecast: alpha.AvgForecast,
+            highForecast: alpha.HighForecast,
+            dcfValue: alpha.DCFValue,
+          }
+        : undefined,
     });
   }, [data, screeningWithAI, srLevels]);
 
@@ -623,7 +624,7 @@ export function StockPageClient({ symbol, children }: StockPageClientProps) {
                         dividendYield: statistics.dividendYield,
                         pfcfRatio: statistics.pfcfRatio,
                         marketCap: statistics.marketCap,
-                        epsGrowthYoY: epsCagr5Y ?? 0.00, // From yearly operations data
+                        epsGrowthYoY: epsCagr5Y ?? 0.0, // From yearly operations data
                         epsAcceleration: 0.02, // TODO: From quarterly data
                         epsCurrent: currentEps ?? statistics.eps, // From yearly operations data
                         eps5YearsAgo: undefined, // Calculated from CAGR in component
@@ -670,18 +671,22 @@ export function StockPageClient({ symbol, children }: StockPageClientProps) {
                 />
 
                 {/* Entry Plan */}
-                <EntryPlanCard
+                <EntryPlanCardCompact
                   entryPlan={entryPlan}
                   currentPrice={overview?.price ?? null}
                   locale={locale}
-                  valuationTargets={alpha ? {
-                    intrinsicValue: alpha.IntrinsicValue,
-                    lowForecast: alpha.LowForecast,
-                    avgForecast: alpha.AvgForecast,
-                    highForecast: alpha.HighForecast,
-                    dcfValue: alpha.DCFValue,
-                    relativeValue: alpha.RelativeValue,
-                  } : undefined}
+                  valuationTargets={
+                    alpha
+                      ? {
+                          intrinsicValue: alpha.IntrinsicValue,
+                          lowForecast: alpha.LowForecast,
+                          avgForecast: alpha.AvgForecast,
+                          highForecast: alpha.HighForecast,
+                          dcfValue: alpha.DCFValue,
+                          relativeValue: alpha.RelativeValue,
+                        }
+                      : undefined
+                  }
                   technicalData={{
                     support1: srLevels?.support ?? undefined,
                     resistance1: srLevels?.resistance ?? undefined,

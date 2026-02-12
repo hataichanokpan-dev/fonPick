@@ -51,6 +51,22 @@ export type {
 } from './types'
 
 // ============================================================================
+// VALUATION TYPES (v2)
+// ============================================================================
+
+// Re-export new valuation types with quality metadata
+export type {
+  QualityValue,
+  ValuationTargetsV2,
+  ValuationQualityLevel,
+} from '@/lib/entry-plan/valuation/transformer'
+
+// Valuation targets (v1 - Legacy, marked deprecated)
+export type {
+  ValuationTargets,
+} from './types'
+
+// ============================================================================
 // CONSTANTS
 // ============================================================================
 
@@ -164,6 +180,22 @@ export {
 export {
   EntryPlanCard,
 } from './EntryPlanCard'
+
+// New in v2: Compact entry plan with data quality
+export {
+  EntryPlanCardCompact,
+} from './EntryPlanCardCompact'
+
+// Data quality components
+export {
+  DataQualityBadge,
+  ConfidencePercent,
+  DataQualityBanner,
+  PriceVisualizer,
+  SimplePriceBar,
+  PriceDiff,
+  calculateDataQuality,
+} from './data-quality'
 
 // ============================================================================
 // UTILITIES

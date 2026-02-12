@@ -289,8 +289,13 @@ export interface EntryPlan {
   signalAlignment?: SignalAlignment
 }
 
+// ============================================================================
+// VALUATION TARGETS TYPES
+// ============================================================================
+
 /**
- * Valuation targets from Alpha API
+ * Valuation targets from Alpha API (v1 - Legacy)
+ * @deprecated Use ValuationTargetsV2 instead
  */
 export interface ValuationTargets {
   intrinsicValue: number  // มูลค่าตามหลักการณ์
@@ -301,6 +306,51 @@ export interface ValuationTargets {
   relativeValue?: number
 }
 
+/**
+ * Quality value wrapper for enhanced type safety
+ * @template T
+ */
+export interface QualityValue<T> {
+  value: T | null
+  source: 'api' | 'calculated' | 'estimated' | 'missing'
+  confidence?: number // 0-1
+  reliability?: 'high' | 'medium' | 'low'
+}
+
+/**
+ * Valuation targets with quality metadata (v2 - Enhanced)
+ */
+export interface ValuationTargetsV2 {
+  intrinsicValue: QualityValue<number>
+  lowForecast: QualityValue<number>
+  avgForecast: QualityValue<number>  // PRIMARY - required for entry plan
+  highForecast: QualityValue<number>
+  dcfValue: QualityValue<number>
+  relativeValue?: QualityValue<number>
+
+  // Derived values (calculated when source data is missing)
+  derivedValues?: {
+    intrinsicValueEst?: number  // from DCF if IV missing
+    avgForecastEst?: number     // from DCF or IV if Avg missing
+  }
+
+  // Overall quality assessment
+  quality: {
+    level: 'complete' | 'partial' | 'limited' | 'insufficient'
+    score: number // 0-100
+    missingFields: string[]
+  }
+}
+
+/**
+ * Quality level for valuation data
+ */
+export type ValuationQualityLevel =
+  | 'complete'    // All 6 metrics available
+  | 'partial'     // 4-5 metrics available
+  | 'limited'     // 2-3 metrics available
+  | 'insufficient' // 0-1 metrics available (only avgForecast)
+
 // ============================================================================
 // API RESPONSE TYPES
 // ============================================================================
@@ -310,7 +360,7 @@ export interface ValuationTargets {
  */
 export interface AlphaAPIResponse {
   success: boolean
-  data: {
+  data?: {
     IntrinsicValue: number
     LowForecast: number
     AvgForecast: number
@@ -453,6 +503,71 @@ export interface ScoreColorClasses {
   progress: string
 }
 
+// ============================================================================
+// DATA QUALITY TYPES (New in v2)
+// ============================================================================
+
+/**
+ * Data quality level based on completeness
+ */
+export type DataQualityLevel = 'complete' | 'partial' | 'limited' | 'insufficient'
+
+/**
+ * Data field status for individual metrics
+ */
+export type DataFieldStatus = 'available' | 'estimated' | 'missing'
+
+/**
+ * Quality assessment result with actionable info
+ */
+export interface DataQualityAssessment {
+  level: DataQualityLevel
+  score: number // 0-100
+  missingRequired: string[]
+  missingOptional: string[]
+  estimatedFields: string[]
+  canShowEntryPlan: boolean
+  confidence: number // 0-1
+}
+
+/**
+ * Data field with quality metadata
+ */
+export interface QualityDataField<T> {
+  status: DataFieldStatus
+  value: T | null
+  estimated?: boolean
+  reason?: string
+  fallbackUsed?: boolean
+}
+
+/**
+ * Input data for quality assessment
+ */
+export interface DataQualityInput {
+  currentPrice?: number | null
+  technical?: {
+    support1?: number | null
+    support2?: number | null
+    resistance1?: number | null
+    resistance2?: number | null
+    rsi?: number | null
+    atr?: number | null
+  }
+  valuation?: {
+    avgForecast?: number | null
+    intrinsicValue?: number | null
+    dcfValue?: number | null
+    highForecast?: number | null
+    lowForecast?: number | null
+    relativeValue?: number | null
+  }
+}
+
+// ============================================================================
+// TRANSLATION KEYS
+// ============================================================================
+
 /**
  * Translation keys
  */
@@ -472,3 +587,8 @@ export type TranslationKey =
   | 'target'
   | 'positionSize'
   | 'riskReward'
+  | 'dataQuality'
+  | 'dataQualityLevel'
+  | 'dataQualityScore'
+  | 'dataQualityMissing'
+  | 'dataQualityEstimated'
