@@ -89,9 +89,9 @@ export interface CacheConfig {
  */
 export function getCacheHeaders(config: CacheConfig = {}): HeadersInit {
   const {
-    maxAge = CACHE_DURATION.SHORT,
-    staleWhileRevalidate = maxAge * 2,
-    strategy = 'stale-while-revalidate',
+    maxAge = CACHE_DURATION.NONE,
+    staleWhileRevalidate = 0,
+    strategy = 'no-store',
     varyUserAgent = false,
   } = config
 
@@ -192,48 +192,38 @@ export function cachedJson<T>(
 // ============================================================================
 
 /**
- * Cache preset for market data (fast-changing)
+ * Cache preset for market data — disabled
  */
 export const MARKET_DATA_CACHE: CacheConfig = {
-  maxAge: CACHE_DURATION.SHORT, // 60 seconds
-  staleWhileRevalidate: 120, // 2 minutes
-  strategy: 'stale-while-revalidate',
+  strategy: 'no-store',
 }
 
 /**
- * Cache preset for insights (medium-changing)
+ * Cache preset for insights — disabled
  */
 export const INSIGHTS_CACHE: CacheConfig = {
-  maxAge: CACHE_DURATION.MEDIUM, // 5 minutes
-  staleWhileRevalidate: 300, // 5 minutes
-  strategy: 'stale-while-revalidate',
+  strategy: 'no-store',
 }
 
 /**
- * Cache preset for sector analysis (slower-changing)
+ * Cache preset for sector analysis — disabled
  */
 export const SECTOR_ANALYSIS_CACHE: CacheConfig = {
-  maxAge: CACHE_DURATION.MEDIUM, // 5 minutes
-  staleWhileRevalidate: 600, // 10 minutes
-  strategy: 'stale-while-revalidate',
+  strategy: 'no-store',
 }
 
 /**
- * Cache preset for smart money (fast-changing)
+ * Cache preset for smart money — disabled
  */
 export const SMART_MONEY_CACHE: CacheConfig = {
-  maxAge: CACHE_DURATION.SHORT, // 60 seconds
-  staleWhileRevalidate: 120, // 2 minutes
-  strategy: 'stale-while-revalidate',
+  strategy: 'no-store',
 }
 
 /**
- * Cache preset for historical data (slow-changing)
+ * Cache preset for historical data — disabled
  */
 export const HISTORICAL_DATA_CACHE: CacheConfig = {
-  maxAge: CACHE_DURATION.LONG, // 15 minutes
-  staleWhileRevalidate: 1800, // 30 minutes
-  strategy: 'stale-while-revalidate',
+  strategy: 'no-store',
 }
 
 /**
@@ -298,7 +288,7 @@ export function conditionalCache(
       status: 304,
       headers: {
         ETag: currentETag,
-        'Cache-Control': 'public, max-age=60',
+        'Cache-Control': 'no-store, no-cache, must-revalidate',
       },
     })
   }

@@ -278,11 +278,7 @@ export function getSmartCacheTTL(): number {
  * @returns Cache-Control header string
  */
 export function getTrendCacheControl(): string {
-  // Use CDN caching with stale-while-revalidate
-  // s-maxage: CDN cache time (5 min)
-  // stale-while-revalidate: Serve stale while revalidating (15 min)
-  // max-age: Browser cache time (2 min - allow refresh to get fresh)
-  return 'public, s-maxage=300, stale-while-revalidate=900, max-age=120'
+  return 'no-store, no-cache, must-revalidate'
 }
 
 /**

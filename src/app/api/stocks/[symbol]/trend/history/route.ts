@@ -105,7 +105,7 @@ export async function GET(
       {
         status: 200,
         headers: {
-          'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=1800', // 1 hour cache
+          'Cache-Control': 'no-store, no-cache, must-revalidate',
         },
       }
     )

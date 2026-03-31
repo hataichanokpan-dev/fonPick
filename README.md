@@ -209,7 +209,7 @@ pnpm start              # Production server
 |---|---|
 | **Single Data Source** | Context-based fetching — no server/client duplication (50–100% memory reduction) |
 | **Parallel Processing** | Concurrent service execution via Integration Service |
-| **Strategic Caching** | Multi-tier: API cache (60s), data cache (300s), stale-while-revalidate |
+| **Strategic Caching** | Disabled — all API responses return `no-store` for fresh data on every request |
 | **Memory Safety** | Firebase singleton, cleanup timers, Rules of Hooks compliance |
 | **Immutability** | All services return new objects — zero mutation |
 
@@ -281,17 +281,17 @@ fonPick/
 
 Base URL: `https://fonpick.vercel.app/api`
 
-| Endpoint | Method | Description | Cache TTL |
-|---|---|---|---|
-| `/api/analysis` | `GET` | Full market analysis (all services) | 60s |
-| `/api/analysis?type=snapshot` | `GET` | Quick summary snapshot | 60s |
-| `/api/insights` | `GET` | Actionable investment insights | 60s |
-| `/api/market-breadth` | `GET` | Advance/Decline, volatility, trend | 60s |
-| `/api/sector-rotation` | `GET` | Sector rotation signals | 60s |
-| `/api/smart-money` | `GET` | Foreign & institutional flows | 60s |
-| `/api/correlations` | `GET` | Rankings vs sector correlation | 60s |
-| `/api/health` | `GET` | System health & data status | — |
-| `/api/export?format=json` | `GET` | Export (json / csv / markdown / txt) | 300s |
+| Endpoint | Method | Description |
+|---|---|---|
+| `/api/analysis` | `GET` | Full market analysis (all services) |
+| `/api/analysis?type=snapshot` | `GET` | Quick summary snapshot |
+| `/api/insights` | `GET` | Actionable investment insights |
+| `/api/market-breadth` | `GET` | Advance/Decline, volatility, trend |
+| `/api/sector-rotation` | `GET` | Sector rotation signals |
+| `/api/smart-money` | `GET` | Foreign & institutional flows |
+| `/api/correlations` | `GET` | Rankings vs sector correlation |
+| `/api/health` | `GET` | System health & data status |
+| `/api/export?format=json` | `GET` | Export (json / csv / markdown / txt) |
 
 ### Response Format
 

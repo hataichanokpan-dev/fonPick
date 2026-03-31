@@ -143,7 +143,7 @@ export async function GET(request: NextRequest) {
       status: 200,
       headers: {
         'Content-Type': exportResult.mimeType,
-        'Cache-Control': 'public, max-age=300, stale-while-revalidate=600',
+        'Cache-Control': 'no-store, no-cache, must-revalidate',
         ...(shouldDownload && {
           'Content-Disposition': `attachment; filename="${exportResult.filename}.${exportResult.extension}"`,
         }),

@@ -321,13 +321,13 @@ describe('GET /api/stocks/[symbol]/trend/history', () => {
   // ============================================================================
 
   describe('Cache headers', () => {
-    it('should include Cache-Control header with 1 hour cache', async () => {
+    it('should include Cache-Control header with no-store', async () => {
       const request = new NextRequest('http://localhost:3000/api/stocks/PTT/trend/history')
       const params = Promise.resolve({ symbol: 'PTT' })
       const response = await GET(request, { params })
 
       const cacheControl = response.headers.get('Cache-Control')
-      expect(cacheControl).toBe('public, s-maxage=3600, stale-while-revalidate=1800')
+      expect(cacheControl).toBe('no-store, no-cache, must-revalidate')
     })
 
     it('should include same cache headers for all days parameters', async () => {
@@ -341,7 +341,7 @@ describe('GET /api/stocks/[symbol]/trend/history', () => {
         const response = await GET(request, { params })
 
         const cacheControl = response.headers.get('Cache-Control')
-        expect(cacheControl).toBe('public, s-maxage=3600, stale-while-revalidate=1800')
+        expect(cacheControl).toBe('no-store, no-cache, must-revalidate')
       }
     })
   })

@@ -13,8 +13,7 @@
  * - includeHistorical: Include historical data for trend analysis (default: false)
  *
  * Caching:
- * - Cache-Control: public, s-maxage=30, stale-while-revalidate=60
- * - CDN/Edge caches for 30 seconds, serves stale for 60 seconds during revalidation
+ * - Cache-Control: no-store (fresh data on every request)
  *
  * Error Handling:
  * - Always returns 200 status with valid structure
@@ -54,8 +53,7 @@ interface QueryParams {
 // ============================================================================
 
 const CACHE_HEADERS = {
-  'Cache-Control': 'public, s-maxage=30, stale-while-revalidate=60',
-  'CDN-Cache-Control': 'public, s-maxage=30',
+  'Cache-Control': 'no-store, no-cache, must-revalidate',
   'Vary': 'Accept-Encoding',
 }
 

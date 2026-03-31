@@ -392,7 +392,7 @@ describe('GET /api/swing/[symbol]/verdict', () => {
       const response = await GET(request, { params })
 
       const cacheControl = response.headers.get('Cache-Control')
-      expect(cacheControl).toBe('public, s-maxage=1800, stale-while-revalidate=900')
+      expect(cacheControl).toBe('no-store, no-cache, must-revalidate')
     })
 
     it('should include same cache headers for all horizon parameters', async () => {
@@ -406,7 +406,7 @@ describe('GET /api/swing/[symbol]/verdict', () => {
         const response = await GET(request, { params })
 
         const cacheControl = response.headers.get('Cache-Control')
-        expect(cacheControl).toBe('public, s-maxage=1800, stale-while-revalidate=900')
+        expect(cacheControl).toBe('no-store, no-cache, must-revalidate')
       }
     })
   })

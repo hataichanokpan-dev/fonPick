@@ -8,7 +8,7 @@
  * - None required
  *
  * Caching:
- * - Cache-Control: public, s-maxage=60, stale-while-revalidate=120
+ * - Cache-Control: no-store (fresh data on every request)
  *
  * Error Handling:
  * - Always returns 200 status with valid structure
@@ -56,8 +56,7 @@ interface DataInsightResponse {
 // ============================================================================
 
 const CACHE_HEADERS = {
-  'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=120',
-  'CDN-Cache-Control': 'public, s-maxage=60',
+  'Cache-Control': 'no-store, no-cache, must-revalidate',
   'Vary': 'Accept-Encoding',
 }
 
