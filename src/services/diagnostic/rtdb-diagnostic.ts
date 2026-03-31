@@ -10,10 +10,10 @@
  * 4. Report detailed diagnostic information
  */
 
-import { initializeApp, getApps, FirebaseApp } from 'firebase/app'
-import { getDatabase, ref, get, DatabaseReference, DataSnapshot } from 'firebase/database'
+import { ref, get, DatabaseReference, DataSnapshot } from 'firebase/database'
 import { firebaseConfig } from '@/lib/firebase/config'
 import { RTDB_PATHS, getTodayDate, getDateDaysAgo } from '@/lib/rtdb/paths'
+import { getDatabaseInstance } from '@/lib/rtdb/client'
 
 // ============================================================================
 // DIAGNOSTIC RESULT TYPES
@@ -71,17 +71,8 @@ function checkFirebaseConfig(): DiagnosticResult {
  */
 async function checkRTDBConnection(): Promise<DiagnosticResult> {
   try {
-    // Initialize Firebase app
-    let app: FirebaseApp
-    const existingApps = getApps()
-    if (existingApps.length > 0) {
-      app = existingApps[0]
-    } else {
-      app = initializeApp(firebaseConfig)
-    }
-
-    // Get database instance
-    const db = getDatabase(app)
+    // Use singleton database instance
+    const db = getDatabaseInstance()
 
     // Try to read root node (this tests connection without assuming data structure)
     const dbRef: DatabaseReference = ref(db, '/')
@@ -112,16 +103,8 @@ async function checkDataAtPath(
   pathName: string
 ): Promise<DiagnosticResult> {
   try {
-    // Initialize Firebase app
-    let app: FirebaseApp
-    const existingApps = getApps()
-    if (existingApps.length > 0) {
-      app = existingApps[0]
-    } else {
-      app = initializeApp(firebaseConfig)
-    }
-
-    const db = getDatabase(app)
+    // Use singleton database instance
+    const db = getDatabaseInstance()
     const dbRef: DatabaseReference = ref(db, path)
     const snapshot: DataSnapshot = await get(dbRef)
 
@@ -163,15 +146,8 @@ async function checkDataAtPath(
  */
 async function checkRTDBRootStructure(): Promise<DiagnosticResult> {
   try {
-    let app: FirebaseApp
-    const existingApps = getApps()
-    if (existingApps.length > 0) {
-      app = existingApps[0]
-    } else {
-      app = initializeApp(firebaseConfig)
-    }
-
-    const db = getDatabase(app)
+    // Use singleton database instance
+    const db = getDatabaseInstance()
     const dbRef: DatabaseReference = ref(db, '/')
     const snapshot: DataSnapshot = await get(dbRef)
 

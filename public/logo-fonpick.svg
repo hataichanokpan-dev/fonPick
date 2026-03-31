@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <linearGradient id="grad-main" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#22c55e"/>
+      <stop offset="50%" style="stop-color:#3b82f6"/>
+      <stop offset="100%" style="stop-color:#6366f1"/>
+    </linearGradient>
+    <linearGradient id="grad-glow" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#22c55e;stop-opacity:0.25"/>
+      <stop offset="100%" style="stop-color:#6366f1;stop-opacity:0"/>
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="4" stdDeviation="12" flood-color="#22c55e" flood-opacity="0.3"/>
+    </filter>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <clipPath id="roundRect">
+      <rect width="512" height="512" rx="112"/>
+    </clipPath>
+  </defs>
+
+  <!-- Background -->
+  <g clip-path="url(#roundRect)">
+    <rect width="512" height="512" rx="112" fill="#0a0e17"/>
+    <!-- Subtle grid pattern -->
+    <g opacity="0.04" stroke="#94a3b8" stroke-width="0.5">
+      <line x1="0" y1="128" x2="512" y2="128"/>
+      <line x1="0" y1="256" x2="512" y2="256"/>
+      <line x1="0" y1="384" x2="512" y2="384"/>
+      <line x1="128" y1="0" x2="128" y2="512"/>
+      <line x1="256" y1="0" x2="256" y2="512"/>
+      <line x1="384" y1="0" x2="384" y2="512"/>
+    </g>
+  </g>
+
+  <!-- Glow area under chart -->
+  <path d="M 72 380 L 72 380 L 120 340 L 180 310 L 230 330 L 290 250 L 340 200 L 400 145 L 440 120 L 440 420 L 72 420 Z" fill="url(#grad-glow)" clip-path="url(#roundRect)"/>
+
+  <!-- Main chart line -->
+  <path d="M 72 380 L 120 340 L 180 310 L 230 330 L 290 250 L 340 200 L 400 145 L 440 120" stroke="url(#grad-main)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none" filter="url(#glow)"/>
+
+  <!-- Candlestick bars (stylized) -->
+  <g opacity="0.15">
+    <rect x="108" y="310" width="8" height="60" rx="2" fill="#22c55e"/>
+    <rect x="168" y="280" width="8" height="50" rx="2" fill="#22c55e"/>
+    <rect x="218" y="300" width="8" height="55" rx="2" fill="#ef4444"/>
+    <rect x="278" y="230" width="8" height="45" rx="2" fill="#22c55e"/>
+    <rect x="328" y="180" width="8" height="40" rx="2" fill="#22c55e"/>
+    <rect x="388" y="130" width="8" height="35" rx="2" fill="#22c55e"/>
+  </g>
+
+  <!-- Pick target circle at peak -->
+  <g transform="translate(440,120)">
+    <circle r="28" fill="none" stroke="#22c55e" stroke-width="2.5" opacity="0.3"/>
+    <circle r="18" fill="none" stroke="#22c55e" stroke-width="2" opacity="0.5"/>
+    <circle r="10" fill="#22c55e" opacity="0.9"/>
+    <circle r="4" fill="#ffffff"/>
+    <!-- Crosshair lines -->
+    <line x1="-34" y1="0" x2="-22" y2="0" stroke="#22c55e" stroke-width="1.5" opacity="0.5"/>
+    <line x1="22" y1="0" x2="34" y2="0" stroke="#22c55e" stroke-width="1.5" opacity="0.5"/>
+    <line x1="0" y1="-34" x2="0" y2="-22" stroke="#22c55e" stroke-width="1.5" opacity="0.5"/>
+    <line x1="0" y1="22" x2="0" y2="34" stroke="#22c55e" stroke-width="1.5" opacity="0.5"/>
+  </g>
+
+  <!-- "fP" monogram -->
+  <g filter="url(#shadow)">
+    <!-- f letter -->
+    <text x="100" y="460" font-family="system-ui,-apple-system,sans-serif" font-size="72" font-weight="800" fill="#e5e7eb" letter-spacing="-2">f</text>
+    <!-- P letter -->
+    <text x="142" y="460" font-family="system-ui,-apple-system,sans-serif" font-size="72" font-weight="800" fill="url(#grad-main)" letter-spacing="-2">P</text>
+  </g>
+</svg>

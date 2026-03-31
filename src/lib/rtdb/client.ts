@@ -18,7 +18,7 @@ import { findLatestDateWithData } from './latest-finder'
 let app: ReturnType<typeof initializeApp> | null = null
 let db: ReturnType<typeof getDatabase> | null = null
 
-function getDatabaseInstance(): ReturnType<typeof getDatabase> {
+export function getDatabaseInstance(): ReturnType<typeof getDatabase> {
   // Check BOTH app and db to ensure true singleton
   if (!app || !db) {
     // Only initialize if BOTH are null/undefined

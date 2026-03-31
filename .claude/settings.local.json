@@ -61,7 +61,10 @@
       "Bash(Remove-Item:*)",
       "Bash(npm run test)",
       "Bash(npx prettier:*)",
-      "Bash(git checkout:*)"
+      "Bash(git checkout:*)",
+      "Bash(npm pkg get:*)",
+      "Bash(npm run test:*)",
+      "Bash(\"src/components/swing-trading/SwingVerdictCard.tsx\":*)"
     ]
   }
 }
